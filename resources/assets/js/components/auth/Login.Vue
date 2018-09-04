@@ -1,0 +1,84 @@
+<template>
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="/img/logo.png" style="width: 75px;">
+            <p><b>SIMA - </b>SP2D</p>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+            <p class="login-box-msg">Login Administrator</p>
+            <form method="post" @submit.prevent="authenticate">
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Email" v-model="form.email">
+                    <div class="input-group-append">
+                        <span class="fa fa-envelope input-group-text"></span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Password" v-model="form.password">
+                    <div class="input-group-append">
+                        <span class="fa fa-lock input-group-text"></span>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+                </div>
+            </form>
+            </div>
+            <div>
+                {{ authError }}
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+        <p class="text-center" style="font-style: italic;">Badan Pengelola Keuangan<br>
+            dan Aset Daerah (BPKAD) Provinsi Bali<br>
+            {{ year }}
+        </p>
+    </div>
+    <!-- /.login-box -->
+</template>
+
+<script>
+    import {login} from '../../helpers/auth';
+    export default {
+        name: 'login',
+        data() {
+            return {
+                form: {
+                    email: '',
+                    password: ''
+                },
+                loginError: null,
+                year: currentYear
+            }
+        },
+
+        methods: {
+            authenticate() {
+                this.$store.dispatch('login');
+
+                login(this.$data.form)
+                    .then((response) => {
+                        this.$store.commit('loginSuccess', response)
+                        this.$Progress.start()
+                        this.$router.push({ name: 'Dashboard' })
+                        toast({
+                            type: 'success',
+                            title: 'Selamat Datang '+this.$store.state.currentUser.name
+                        })
+                        this.$Progress.finish()
+                    })
+                    .catch((error) => {
+                        this.$store.commit('loginFailed', {error});
+                });
+            }
+        },
+
+        computed: {
+            authError() {
+                return this.$store.getters.authError;
+            },
+        }
+    }
+</script>
