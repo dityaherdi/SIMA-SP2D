@@ -44055,7 +44055,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_init__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_filter__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__helpers_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_progressbar__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_progressbar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert2__ = __webpack_require__(222);
@@ -74327,7 +74326,7 @@ exports = module.exports = __webpack_require__(226)(false);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n  -webkit-transition-duration: 0.3s;\n          transition-duration: 0.3s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  -webkit-transition-timing-function: ease;\n          transition-timing-function: ease;\n}\n.fade-enter[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n  opacity: 0\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n\t-webkit-transition-duration: 0.3s;\n\t        transition-duration: 0.3s;\n\t-webkit-transition-property: opacity;\n\ttransition-property: opacity;\n\t-webkit-transition-timing-function: ease;\n\t        transition-timing-function: ease;\n}\n.fade-enter[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n\topacity: 0\n}\n", ""]);
 
 // exports
 
@@ -75151,12 +75150,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "menu-vue",
-    computed: {
-        currentUser: function currentUser() {
-            return this.$store.getters.currentUser;
-        }
+  name: "menu-vue",
+  data: function data() {
+    return {
+      menuOpen: false
+    };
+  },
+
+  computed: {
+    currentUser: function currentUser() {
+      return this.$store.getters.currentUser;
     }
+  }
 });
 
 /***/ }),
@@ -75216,143 +75221,177 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("li", { staticClass: "nav-item has-treeview" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "nav nav-treeview" }, [
+                _c(
+                  "li",
+                  {
+                    staticClass: "nav-item has-treeview",
+                    class: { "menu-open": _vm.menuOpen }
+                  },
+                  [
                     _c(
-                      "li",
-                      { staticClass: "nav-item" },
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: function($event) {
+                            _vm.menuOpen = !_vm.menuOpen
+                          }
+                        }
+                      },
                       [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/skpd" } },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-address-card nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("SKPD")])
-                          ]
-                        )
-                      ],
-                      1
+                        _c("i", { staticClass: "nav-icon fas fa-database" }),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/gedung" } },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-building nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Gedung")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/rak" } },
-                          [
-                            _c("i", { staticClass: "fas fa-archive nav-icon" }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Rak")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/box" } },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-box-open nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Box")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { to: "/jenis-surat" }
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-table nav-icon" }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Jenis Surat")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/surat" } },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-envelope nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Surat")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/arsip" } },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-file-archive nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Arsip")])
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ])
+                    _c("ul", { staticClass: "nav nav-treeview" }, [
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            { staticClass: "nav-link", attrs: { to: "/skpd" } },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-address-card nav-icon"
+                              }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("SKPD")])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/gedung" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-building nav-icon"
+                              }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Gedung")])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            { staticClass: "nav-link", attrs: { to: "/rak" } },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-archive nav-icon"
+                              }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Rak")])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            { staticClass: "nav-link", attrs: { to: "/box" } },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-box-open nav-icon"
+                              }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Box")])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/jenis-surat" }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-table nav-icon" }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Jenis Surat")])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/surat" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-envelope nav-icon"
+                              }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Surat")])
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/arsip" }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-file-archive nav-icon"
+                              }),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Arsip")])
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                )
               ]
             )
           ])
@@ -75397,13 +75436,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "nav-icon fas fa-database" }),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v("\r\n                  Master Data\r\n                  "),
-        _c("i", { staticClass: "right fas fa-angle-down" })
-      ])
+    return _c("p", [
+      _vm._v("\r\n                  Master Data\r\n                  "),
+      _c("i", { staticClass: "right fas fa-angle-down" })
     ])
   }
 ]
@@ -75682,7 +75717,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { class: { "content-wrapper": _vm.isActive } },
+        {
+          class: { "content-wrapper": _vm.isActive },
+          staticStyle: { height: "100vh" }
+        },
         [
           !_vm.$route.meta.plainLayouts ? _c("breadcrumb-vue") : _vm._e(),
           _vm._v(" "),

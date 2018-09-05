@@ -1,6 +1,6 @@
 <template>
 <div>
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
         <img src="/img/logo.png" alt="SIMA - SP2D Logo" class="brand-image img-circle elevation-3"
@@ -31,8 +31,8 @@
                 <p>Dashboard</p>
               </router-link>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview" :class="{'menu-open' : menuOpen}">
+              <a href="javascript:void(0)" @click="menuOpen = !menuOpen" class="nav-link">
                 <i class="nav-icon fas fa-database"></i>
                 <p>
                   Master Data
@@ -90,13 +90,18 @@
       </div>
       <!-- /.sidebar -->
   </aside>
-  </div>
+</div>
 </template>
 
 <script>
 
     export default {
       name: "menu-vue",
+      data() {
+        return {
+          menuOpen: false
+        }
+      },
       computed: {
           currentUser() {
               return this.$store.getters.currentUser;
