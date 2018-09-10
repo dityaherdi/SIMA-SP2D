@@ -31,7 +31,7 @@
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="fas fa-cogs mr-2"></i> Pengaturan 
+            <i class="fas fa-cogs mr-2"></i> Pengaturan Pengguna
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
@@ -39,10 +39,10 @@
             </a>
             <div class="dropdown-divider"></div>
             <template v-if="currentUser">
-                <a href="" class="dropdown-item dropdown-footer" @click="logout">Logout</a>
-            </template>
-            <template v-else>
-                <a href="" class="dropdown-item dropdown-footer">Tidak Login</a>
+                <a href="" class="dropdown-item dropdown-footer" @click="logout">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Logout
+                </a>
             </template>
             </div>
         </li>
@@ -56,8 +56,8 @@
         name: "navbar-vue",
         methods: {
             logout() {
-                this.$store.commit('logout');
                 this.$Progress.start()
+                this.$store.commit('logout');
                 this.$router.push({name: 'Login'})
                 this.$Progress.finish()
             }

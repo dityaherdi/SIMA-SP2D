@@ -3,10 +3,10 @@
 		<navbar-vue v-if="!$route.meta.plainLayouts"></navbar-vue>
 		<menu-vue v-if="!$route.meta.plainLayouts"></menu-vue>
 		<!-- Content Wrapper. Contains page content -->
-		<div :class="{'content-wrapper': isActive}" style="height: 100vh">
+		<div :class="{'content-wrapper': isActive}">
 			<breadcrumb-vue v-if="!$route.meta.plainLayouts"></breadcrumb-vue>
 			<!-- Main content -->
-			<div class="content">
+			<div class="content" style="height: 100vh">
 				<div class="container-fluid">
 
 					<transition name="fade" mode="out-in">

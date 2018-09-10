@@ -25,7 +25,9 @@ Route::group(['middleware' => 'api'], function ($router) {
 });
 
 Route::group(['middleware' => 'auth:api'], function (){
-    Route::get('dashboard', function(){
-        return response()->json(['data' => 'Test data']);
-    });
+    
+    Route::apiResources([
+        'skpd' => 'API\SkpdController'
+    ]);
+
 });

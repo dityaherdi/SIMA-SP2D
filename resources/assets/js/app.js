@@ -8,8 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-window.EventBus = new Vue();
+window.Signal = new Vue();
 
+import { Form, HasError, AlertError } from 'vform';
 import VueRouter from 'vue-router';
 import router from './routes.js';
 import store from './store';
@@ -18,6 +19,10 @@ import './helpers/filter';
 import VueProgressBar from 'vue-progressbar';
 import swal from 'sweetalert2';
 import moment from 'moment';
+
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 const currentYear = moment().format('YYYY');
 window.currentYear = currentYear;

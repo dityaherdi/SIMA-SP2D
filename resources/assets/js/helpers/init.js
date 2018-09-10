@@ -3,6 +3,8 @@ export function initialize(store, router) {
     router.beforeEach((to, from, next) => {
         if(to.matched.some(route => route.meta.requiresAuth) && !store.state.currentUser){
             next({name: 'Login'});
+        }else if(to.path == '/login' && !store.state.currentUser){
+            next({name: 'Login'});
         }else if(to.path == '/login' && store.state.currentUser){
             next({name: 'Dashboard'});
         }else{

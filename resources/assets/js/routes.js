@@ -7,6 +7,7 @@ import BoxIndex from './components/master/box/BoxIndex.vue';
 import JenisSuratIndex from './components/master/jenis_surat/JenisSuratIndex.vue';
 import SuratIndex from './components/master/surat/SuratIndex.vue';
 import ArsipIndex from './components/master/arsip/ArsipIndex.vue';
+import UserIndex from './components/master/user/UserIndex.vue';
 import Login from './components/auth/Login.vue';
 
 // register routes
@@ -63,6 +64,12 @@ let routes = [
 		path: '/arsip',
 		component: ArsipIndex,
 		name: 'ArsipIndex',
+		meta: { requiresAuth: true }
+	},
+	{
+		path: '/user',
+		component: UserIndex,
+		name: 'UserIndex',
 		meta: { requiresAuth: true }
 	}
 ]
