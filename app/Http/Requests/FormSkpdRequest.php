@@ -22,8 +22,8 @@ class FormSkpdRequest extends FormRequest
 
     protected $rules = [
         'kode_skpd' => [''],
-        'nama_skpd' => 'required',
-        'alias_skpd' => 'required'
+        'nama_skpd' => 'required|max:191',
+        'alias_skpd' => 'required|max:191'
     ];
 
     /**
@@ -48,7 +48,9 @@ class FormSkpdRequest extends FormRequest
             'kode_skpd.max' => 'Kode SKPD maksimal 8 karakter',
             'kode_skpd.unique' => 'Kode SKPD sudah digunakan',
             'nama_skpd.required' => 'Nama SKPD harus diisi',
-            'alias_skpd.required' => 'Nama alias SKPD harus diisi'
+            'nama_skpd.max' => 'Nama SKPD melebihi batas karakter',
+            'alias_skpd.required' => 'Nama alias SKPD harus diisi',
+            'alias_skpd.max' => 'Nama alias SKPD melebihi batas karakter',
         ];
     }
 }

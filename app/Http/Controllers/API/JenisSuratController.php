@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormSkpdRequest;
-use App\Skpd;
+use App\Http\Requests\FormJenisRequest;
+use App\JenisSurat;
 
-class SkpdController extends Controller
+class JenisSuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class SkpdController extends Controller
      */
     public function index()
     {
-        return Skpd::latest()->paginate(3);
+        return JenisSurat::latest()->paginate(3);
     }
 
     /**
@@ -25,13 +25,12 @@ class SkpdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FormSkpdRequest $request)
+    public function store(FormJenisRequest $request)
     {
-        $skpd = Skpd::Create($request->all());
-        
+        $jenis = JenisSurat::Create($request->all());
         return response()->json([
-            'data' => $skpd,
-            'message' => 'SKPD dengan kode: '.$request->kode_skpd.' ditambahkan'
+            'data' => $jenis,
+            'message' => 'Jenis SP2D '.$request->kode_jenis_sp2d.' ditambahkan'
         ]);
     }
 
@@ -53,13 +52,14 @@ class SkpdController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FormSkpdRequest $request, $id)
+    public function update(FormJenisRequest $request, $id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->update($request->all());
+        $jenis = JenisSurat::findOrFail($id);
+        $jenis->update($request->all());
 
         return response()->json([
-            'message'  => 'SKPD dengan kode:'.$skpd->kode_skpd.' telah diperbarui'
+            'data' => $jenis,
+            'message' => 'Jenis SP2D '.$jenis->kode_jenis_sp2d.' telah diperbarui'
         ]);
     }
 
@@ -71,11 +71,12 @@ class SkpdController extends Controller
      */
     public function destroy($id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->delete();
+        $jenis = JenisSurat::findOrFail($id);
+        $jenis->delete();
 
         return response()->json([
-            'message' => 'SKPD dengan kode: '.$skpd->kode_skpd.' telah dihapus'
+            'data' => $jenis,
+            'message' => 'Jenis SP2D '.$jenis->nama_jenis_sp2d.'telah dihapus'
         ]);
     }
 }

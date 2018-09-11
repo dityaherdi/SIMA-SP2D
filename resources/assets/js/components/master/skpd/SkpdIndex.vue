@@ -6,15 +6,15 @@
               <div class="card-header">
                 <h3 class="card-title">SKPD</h3>
                 <div class="card-tools">
-                  <button type="button" class="btn btn-primary" @click="showCreatingModal" 
-                    title="Tambah Data SKPD">
-                    <i class="fas fa-plus-square"></i>
-                </button>
+                    <button type="button" class="btn btn-primary" @click="showCreatingModal" 
+                        title="Tambah Data SKPD">
+                        <i class="fas fa-plus-square"></i>
+                    </button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover table-bordered">
                     <tbody>
                         <tr>
                             <th>Kode SKPD</th>
@@ -97,7 +97,7 @@
             },
             deleteSkpd(id) {
                 swal({
-                    title: 'Hapus Data ini?',
+                    title: 'Hapus Data SKPD ini?',
                     text: "Data yang dihapus tidak dapat dikembalikan!",
                     type: 'warning',
                     showCancelButton: true,

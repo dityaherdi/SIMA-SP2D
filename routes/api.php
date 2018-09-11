@@ -27,7 +27,8 @@ Route::group(['middleware' => 'api'], function ($router) {
 Route::group(['middleware' => 'auth:api'], function (){
     
     Route::apiResources([
-        'skpd' => 'API\SkpdController'
+        'skpd' => 'API\SkpdController',
+        'jenis' => 'API\JenisSuratController'
     ]);
 
 });
