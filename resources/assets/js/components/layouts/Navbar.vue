@@ -31,11 +31,11 @@
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="fas fa-cogs mr-2"></i> Pengaturan Pengguna
+            <i class="fas fa-cogs mr-2"></i> Pengaturan
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
-                <i class="fa fa-file mr-2"></i> {{ currentUser.created_at | userCreatedDate }}
+                <i class="fa fa-user-circle mr-2"></i> Profil
             </a>
             <div class="dropdown-divider"></div>
             <template v-if="currentUser">

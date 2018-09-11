@@ -11,3 +11,7 @@ Vue.filter('userCreatedDate', function(created) {
 Vue.filter('breadcrumbActive', function(text) {
     return text.charAt(1).toUpperCase() + text.slice(2);
 })
+
+Vue.filter('uppercase', function(text) {
+    return text.toUpperCase();
+})

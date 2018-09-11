@@ -72685,6 +72685,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('breadcrumbActive', function 
     return text.charAt(1).toUpperCase() + text.slice(2);
 });
 
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('uppercase', function (text) {
+    return text.toUpperCase();
+});
+
 /***/ }),
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -77172,16 +77176,7 @@ var render = function() {
               staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right"
             },
             [
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-file mr-2" }),
-                _vm._v(
-                  " " +
-                    _vm._s(
-                      _vm._f("userCreatedDate")(_vm.currentUser.created_at)
-                    ) +
-                    "\n        "
-                )
-              ]),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "dropdown-divider" }),
               _vm._v(" "),
@@ -77276,9 +77271,18 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "fas fa-cogs mr-2" }),
-        _vm._v(" Pengaturan Pengguna\n        ")
+        _vm._v(" Pengaturan\n        ")
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-user-circle mr-2" }),
+      _vm._v(" Profil\n        ")
+    ])
   }
 ]
 render._withStripped = true
@@ -77869,11 +77873,19 @@ var render = function() {
   return _c("div", { staticClass: "content-header" }, [
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row mb-2" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "col-sm-6" }, [
+          _c("h1", { staticClass: "m-0 text-dark" }, [
+            _vm._v(
+              _vm._s(
+                _vm._f("uppercase")(_vm._f("breadcrumbActive")(_vm.activePage))
+              )
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-6" }, [
           _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c("li", { staticClass: "breadcrumb-item active" }, [
               _vm._v(_vm._s(_vm._f("breadcrumbActive")(_vm.activePage)))
@@ -77885,14 +77897,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
-      _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Dashboard")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
