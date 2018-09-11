@@ -98,14 +98,14 @@
             deleteSkpd(id) {
                 swal({
                     title: 'Hapus Data ini?',
-                    text: "Data yang dihapus tidak bisa dikembalikan!",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Hapus Data',
                     cancelButtonText: 'Batal'
-                    }).then((result) => {
+                }).then((result) => {
                     if (result.value) {
                         this.$Progress.start()
                         axios.delete('api/skpd/'+id)

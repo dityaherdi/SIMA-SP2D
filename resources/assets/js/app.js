@@ -16,25 +16,12 @@ import router from './routes.js';
 import store from './store';
 import { initialize } from './helpers/init';
 import './helpers/filter';
+import './helpers/alert';
 import VueProgressBar from 'vue-progressbar';
-import swal from 'sweetalert2';
-import moment from 'moment';
 
 window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
-
-const currentYear = moment().format('YYYY');
-window.currentYear = currentYear;
-
-window.swal = swal;
-const toast = swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000
-});
-window.toast = toast;
 
 Vue.use(VueRouter);
 Vue.use(VueProgressBar, {
