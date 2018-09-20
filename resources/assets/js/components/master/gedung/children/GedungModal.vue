@@ -1,45 +1,46 @@
 <template>
-    <div class="modal fade" id="jenisModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <!-- Modal -->
+    <div class="modal fade" id="gedungModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle" v-if="!editing">Tambah Data Jenis SP2D</h5>
-                <h5 class="modal-title" id="exampleModalLongTitle" v-else>Edit Data Jenis SP2D</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle" v-if="!editing">Tambah Data Gedung</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle" v-else>Edit Data Gedung</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" @submit.prevent="editing ? updateJenis() : createJenis()">
+                <form role="form" @submit.prevent="editing ? updateGedung() : createGedung()">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="kodejenis">Kode Jenis</label>
+                        <label for="kodegedung">Kode Gedung</label>
                         <input type="text" class="form-control" 
-                            :class="{ 'is-invalid': jenis.errors.has('kode_jenis_sp2d') }" 
-                            id="kodejenis" v-model="jenis.kode_jenis_sp2d" placeholder="UP/GU/TU/LS"
+                            :class="{ 'is-invalid': gedung.errors.has('kode_gedung') }" 
+                            id="kodegedung" v-model="gedung.kode_gedung" placeholder=""
                             @change="clearError">
-                        <has-error :form="jenis" field="kode_jenis_sp2d"></has-error>
+                        <has-error :form="gedung" field="kode_gedung"></has-error>
                     </div>
                     <div class="form-group">
-                        <label for="namajenis">Nama Jenis SP2D</label>
+                        <label for="namagedung">Nama Gedung</label>
                         <input type="text" class="form-control" 
-                            :class="{ 'is-invalid': jenis.errors.has('nama_jenis_sp2d') }" 
-                            id="namajenis" v-model="jenis.nama_jenis_sp2d" placeholder="Jenis"
+                            :class="{ 'is-invalid': gedung.errors.has('nama_gedung') }" 
+                            id="namagedung" v-model="gedung.nama_gedung" placeholder=""
                             @change="clearError">
-                        <has-error :form="jenis" field="nama_jenis_sp2d"></has-error>
+                        <has-error :form="gedung" field="nama_gedung"></has-error>
                     </div>
                     <div class="form-group">
-                        <label for="ketjenis">Keterangan</label>
+                        <label for="ketgedung">Keterangan</label>
                         <textarea class="form-control" rows="3" placeholder="..." 
-                            :class="{ 'is-invalid': jenis.errors.has('keterangan') }"
-                            id="ketjenis" v-model="jenis.keterangan" @change="clearError"></textarea>
-                        <has-error :form="jenis" field="keterangan"></has-error>
+                            :class="{ 'is-invalid': gedung.errors.has('keterangan') }"
+                            id="ketgedung" v-model="gedung.keterangan" @change="clearError"></textarea>
+                        <has-error :form="gedung" field="keterangan"></has-error>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
                         <input class="form-check-input" type="checkbox" 
-                                id="statusjenis" v-model="jenis.status">
-                        <label class="form-check-label" for="statusjenis">Status Aktif</label>
+                                id="statusgedung" v-model="gedung.status">
+                        <label class="form-check-label" for="statusgedung">Status Aktif</label>
                         </div>
                     </div>
                 </div>
@@ -64,76 +65,74 @@
     export default {
         data() {
             return {
-                editing: true,
-                jenis: new Form({
-                    id_jenis_sp2d: '',
-                    kode_jenis_sp2d: '',
-                    nama_jenis_sp2d: '',
+                editing: false,
+                gedung: new Form({
+                    id_gedung: '',
+                    kode_gedung: '',
+                    nama_gedung: '',
                     keterangan: '',
                     status: true
                 })
             }
         },
-        
         created() {
-            Signal.$on('show_creating_jenis_modal', () => {
+            Signal.$on('show_creating_gedung_modal', () => {
                 this.editing = false
-                this.jenis.reset()
-                this.jenis.clear()
-                $('#jenisModal').modal('show')
+                this.gedung.reset()
+                this.gedung.clear()
+                $('#gedungModal').modal('show')
             }),
-            Signal.$on('show_editing_jenis_modal', (jen) => {
+            Signal.$on('show_editing_gedung_modal', (ged) => {
                 this.editing = true
-                this.jenis.reset()
-                this.jenis.clear()
-                $('#jenisModal').modal('show')
-                this.jenis.fill(jen)
-                this.jenis.status = jen.status
+                this.gedung.reset()
+                this.gedung.clear()
+                $('#gedungModal').modal('show')
+                this.gedung.fill(ged)
+                this.gedung.status = ged.status
             })
         },
-
         methods: {
+            createGedung() {
+                this.$Progress.start()
+                this.gedung.post('api/gedung')
+                .then((response) => {
+                    if (response.status == 200) {
+                        $('#gedungModal').modal('hide')
+                        Signal.$emit('load_gedung')
+                        toast({
+                            type: 'success',
+                            title: response.data.message
+                        })
+                        this.$Progress.finish()
+                    }
+                })
+                .catch((error) => {
+                    this.$Progress.fail()
+                    console.log(error);
+                })
+            },
+            updateGedung() {
+                this.gedung.put('api/gedung/'+this.gedung.id_gedung)
+                .then((response) => {
+                    if (response.status == 200) {
+                        $('#gedungModal').modal('hide')
+                        Signal.$emit('load_gedung')
+                        toast({
+                            type: 'success',
+                            title: response.data.message
+                        })
+                        this.$Progress.finish()
+                    }
+                })
+                .catch((error) => {
+                    this.$Progress.fail()
+                    console.log(error)
+                })
+            },
             clearError() {
-                this.jenis.clear()
+                this.gedung.clear()
             },
-            createJenis() {
-                this.$Progress.start()
-                this.jenis.post('api/jenis')
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#jenisModal').modal('hide')
-                        Signal.$emit('load_jenis')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
-            },
-            updateJenis() {
-                this.$Progress.start()
-                this.jenis.put('api/jenis/'+this.jenis.id_jenis_sp2d)
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#jenisModal').modal('hide')
-                        Signal.$emit('load_jenis')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
-            }
+
         }
     }
 </script>

@@ -37,7 +37,7 @@ class FormSkpdRequest extends FormRequest
         if ($this->isMethod('POST')) {
             $rules['kode_skpd'] = ['required', 'max:8', 'unique:skpds', new KodeSkpdRule()];
         }else if ($this->isMethod('PUT')) {
-            $rules['kode_skpd'] = ['required', 'max:8', 'unique:skpds,kode_skpd,'.$this->get('id'), new KodeSkpdRule()];
+            $rules['kode_skpd'] = ['required', 'max:8', 'unique:skpds,kode_skpd,'.$this->get('id_skpd').',id_skpd', new KodeSkpdRule()];
         }
         return $rules;
     }

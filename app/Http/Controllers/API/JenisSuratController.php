@@ -28,6 +28,7 @@ class JenisSuratController extends Controller
     public function store(FormJenisRequest $request)
     {
         $jenis = JenisSurat::Create($request->all());
+
         return response()->json([
             'data' => $jenis,
             'message' => 'Jenis SP2D '.$request->kode_jenis_sp2d.' ditambahkan'
@@ -76,7 +77,7 @@ class JenisSuratController extends Controller
 
         return response()->json([
             'data' => $jenis,
-            'message' => 'Jenis SP2D '.$jenis->nama_jenis_sp2d.'telah dihapus'
+            'message' => 'Jenis SP2D '.$jenis->nama_jenis_sp2d.' telah dihapus'
         ]);
     }
 }

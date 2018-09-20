@@ -16,7 +16,7 @@
             <img src="/img/profile.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="javascript:void(0)" class="d-block"> {{ currentUser.name }} </a>
+            <a href="javascript:void(0)" class="d-block"> {{ currentUser }} </a>
           </div>
         </div>
   
@@ -50,6 +50,12 @@
                   <router-link to="/gedung" class="nav-link">
                     <i class="fas fa-building nav-icon"></i>
                     <p>Gedung</p>
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link to="/ruangan" class="nav-link">
+                    <i class="fas fa-door-open nav-icon"></i>
+                    <p>Ruangan</p>
                   </router-link>
                 </li>
                 <li class="nav-item">
@@ -110,7 +116,7 @@
       },
       computed: {
           currentUser() {
-              return this.$store.getters.currentUser;
+              return this.$store.getters.currentUser.nama;
           }
       }
     }

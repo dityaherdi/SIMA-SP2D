@@ -1,16 +1,10 @@
 <template>
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <nav class="main-header navbar navbar-expand bg-dark navbar-dark border-bottom">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+            <a class="nav-link" data-widget="pushmenu" href="javascript:void(0)"><i class="fa fa-bars"></i></a>
         </li>
         </ul>
 
@@ -33,13 +27,13 @@
             <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="fas fa-cogs mr-2"></i> Pengaturan
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right bg-dark">
+            <a href="#" class="dropdown-item bg-dark">
                 <i class="fa fa-user-circle mr-2"></i> Profil
             </a>
             <div class="dropdown-divider"></div>
             <template v-if="currentUser">
-                <a href="" class="dropdown-item dropdown-footer" @click="logout">
+                <a href="" class="dropdown-item dropdown-footer bg-dark" @click="logout">
                     <i class="fas fa-sign-out-alt mr-2"></i>
                     Logout
                 </a>

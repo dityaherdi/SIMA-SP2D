@@ -1,25 +1,19 @@
 <template>
-	<div>
+	<div class="content">
 		<navbar-vue v-if="!$route.meta.plainLayouts"></navbar-vue>
 		<menu-vue v-if="!$route.meta.plainLayouts"></menu-vue>
-		<!-- Content Wrapper. Contains page content -->
 		<div :class="{'content-wrapper': isActive}">
 			<breadcrumb-vue v-if="!$route.meta.plainLayouts"></breadcrumb-vue>
-			<!-- Main content -->
-			<div class="content" style="height: 100vh">
+			<div class="content">
 				<div class="container-fluid">
-
 					<transition name="fade" mode="out-in">
-						<router-view></router-view>
+						<router-view class="mb-auto"></router-view>
 					</transition>
 					<vue-progress-bar></vue-progress-bar>
-
-				</div><!-- /.container-fluid -->
+				</div>
 			</div>
-			<!-- /.content -->
 		</div>
-		<!-- /.content-wrapper -->
-		<footer-vue v-if="!$route.meta.plainLayouts"></footer-vue>
+		<footer-vue v-if="!$route.meta.plainLayouts" class="mt-auto"></footer-vue>
 	</div>
 </template>
 <script>

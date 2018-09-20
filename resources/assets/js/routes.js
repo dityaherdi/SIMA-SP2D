@@ -1,8 +1,9 @@
 import VueRouter from 'vue-router';
 import Dashboard from './components/Dashboard.vue';
 import SkpdIndex from './components/master/skpd/SkpdIndex.vue';
-import GedungIndex from './components/master/gedung/GedungIndex.vue';
 import RakIndex from './components/master/rak/RakIndex.vue';
+import GedungIndex from './components/master/gedung/GedungIndex.vue';
+import RuanganIndex from './components/master/ruangan/RuanganIndex.vue';
 import BoxIndex from './components/master/box/BoxIndex.vue';
 import JenisSuratIndex from './components/master/jenis_surat/JenisSuratIndex.vue';
 import SuratIndex from './components/master/surat/SuratIndex.vue';
@@ -34,6 +35,12 @@ let routes = [
 		path: '/gedung',
 		component: GedungIndex,
 		name: 'GedungIndex',
+		meta: { requiresAuth: true }
+	},
+	{
+		path: '/ruangan',
+		component: RuanganIndex,
+		name: 'RuanganIndex',
 		meta: { requiresAuth: true }
 	},
 	{

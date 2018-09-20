@@ -2,13 +2,13 @@
     <div>
         <div class="row">
           <div class="col-12">
-            <div class="card card-warning card-outline">
+            <div class="card card-danger card-outline">
               <div class="card-header">
-                <h3 class="card-title">Jenis SP2D</h3>
+                <h3 class="card-title">Ruangan Arsip</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal"
-                        title="Tambah Data Jenis SP2D">
+                        title="Tambah Ruangan">
                         <i class="fas fa-plus-square"></i>
                     </button>
                 </div>
@@ -17,29 +17,29 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                   <tr>
-                    <th>Kode Jenis SP2D</th>
-                    <th>Nama Jenis SP2D</th>
+                    <th>Gedung</th>
+                    <th>Kode Ruangan</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="jen in jenis" :key="jen.id_jenis_sp2d">
-                    <td>{{ jen.kode_jenis_sp2d | uppercase}}</td>
-                    <td>{{ jen.nama_jenis_sp2d }}</td>
+                  <tr v-for="rua in ruangan" :key="rua.id_ruangan">
+                    <td>{{ rua.gedung.nama_gedung }}</td>
+                    <td>{{ rua.kode_ruangan | uppercase}}</td>
                     <td>
                         <a href="javascript:void(0)" class="btn btn-dark btn-sm" 
-                            title="Lihat Detail Jenis SP2D"
-                            @click="showDetailJenisModal(jen)">
+                            title="Lihat Detail Ruangan"
+                            @click="showDetailRuanganModal(rua)">
                             <i class="fas fa-eye "></i>
                         </a>
                         |
                         <a href="javascript:void(0)" class="btn btn-success btn-sm" 
-                            title="Edit Data Jenis SP2D"
-                            @click="showEditingModal(jen)">
+                            title="Edit Data Ruangan"
+                            @click="showEditingModal(rua)">
                             <i class="fas fa-edit"></i>
                         </a>
                         |
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
-                            title="Hapus Data Jenis SP2D"
-                            @click="deleteJenis(jen.id_jenis_sp2d)">
+                            title="Hapus Data Ruangan"
+                            @click="deleteRuangan(rua.id_ruangan)">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -51,8 +51,8 @@
             <!-- /.card -->
           </div>
         </div><!-- /.row -->
-        <modal-jenis></modal-jenis>
-        <detail-jenis></detail-jenis>
+        <modal-ruangan></modal-ruangan>
+        <detail-ruangan></detail-ruangan>
     </div>
 </template>
 
@@ -60,48 +60,48 @@
     export default {
         data() {
             return {
-                jenis: {}
+                ruangan: {}
             }
         },
 
         created() {
-            this.loadJenis()
-            Signal.$on('load_jenis', () => {
-                this.loadJenis();
+            this.loadRuangan()
+            Signal.$on('load_ruangan', () => {
+                this.loadRuangan();
             })
         },
 
         components: {
-          "modal-jenis": require('./children/JenisSuratModal.vue'),
-          "detail-jenis": require('./children/DetailJenisSuratModal.vue')
+          "modal-ruangan": require('./children/RuanganModal.vue'),
+          "detail-ruangan": require('./children/DetailRuanganModal.vue')
         },
         
         methods: {
             showCreatingModal() {
-                Signal.$emit('show_creating_jenis_modal')
+                Signal.$emit('show_creating_ruangan_modal')
             },
 
-            showEditingModal(jen) {
-                Signal.$emit('show_editing_jenis_modal', jen)
+            showEditingModal(rua) {
+                Signal.$emit('show_editing_ruangan_modal', rua)
             },
 
-            showDetailJenisModal(jen) {
-                Signal.$emit('show_detail_jenis_modal', jen)
+            showDetailRuanganModal(rua) {
+                Signal.$emit('show_detail_ruangan_modal', rua)
             },
 
-            loadJenis() {
-                axios.get('api/jenis')
+            loadRuangan() {
+                axios.get('api/ruangan')
                 .then((response) => {
-                    this.jenis = response.data.data
+                    this.ruangan = response.data.data
                 })
                 .catch((error) => {
                     console.log(error)
                 })
             },
 
-            deleteJenis(id) {
+            deleteRuangan(id) {
                 swal({
-                    title: 'Hapus Data Jenis SP2D ini?',
+                    title: 'Hapus Data Ruangan ini?',
                     text: "Data yang dihapus tidak dapat dikembalikan!",
                     type: 'warning',
                     showCancelButton: true,
@@ -112,10 +112,10 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$Progress.start()
-                        axios.delete('api/jenis/'+id)
+                        axios.delete('api/ruangan/'+id)
                         .then((response) => {
                             if (response.status == 200) {
-                                Signal.$emit('load_jenis')
+                                Signal.$emit('load_ruangan')
                                 toast({
                                     type: 'success',
                                     title: response.data.message

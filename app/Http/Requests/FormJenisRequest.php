@@ -35,9 +35,9 @@ class FormJenisRequest extends FormRequest
     public function messages()
     {
         return [
-            'kode_jenis_sp2d.required' => 'Kode Jenis SP2D masih kosong',
+            'kode_jenis_sp2d.required' => 'Kode Jenis SP2D harus diisi',
             'kode_jenis_sp2d.size' => 'Kode Jenis SP2D hanya dua huruf',
-            'nama_jenis_sp2d.required' => 'Nama Jenis SP2D masih kosong',
+            'nama_jenis_sp2d.required' => 'Nama Jenis SP2D harus diisi',
             'nama_jenis_sp2d.max' => 'Nama Jenis SP2D melebihi batas karakter',
         ];
     }

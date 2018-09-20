@@ -10,7 +10,7 @@
             <p class="login-box-msg">Login Administrator</p>
             <form method="post" @submit.prevent="authenticate">
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email" v-model="form.email">
+                    <input type="text" class="form-control" placeholder="Username" v-model="form.username">
                     <div class="input-group-append">
                         <span class="fas fa-user-tie input-group-text"></span>
                     </div>
@@ -42,7 +42,7 @@
         data() {
             return {
                 form: {
-                    email: '',
+                    username: '',
                     password: ''
                 },
                 loginError: null,
@@ -57,13 +57,12 @@
                 login(this.$data.form)
                     .then((response) => {
                         this.$store.commit('loginSuccess', response)
-                        
                         this.$router.push({ name: 'Dashboard' })
                         toast({
                             type: 'success',
-                            title: 'Selamat Datang '+this.$store.state.currentUser.name
+                            title: 'Selamat Datang '+this.$store.state.currentUser.nama
                         })
-                        
+                        this.$Progress.finish()
                     })
                     .catch((error) => {
                         this.$store.commit('loginFailed', {error});

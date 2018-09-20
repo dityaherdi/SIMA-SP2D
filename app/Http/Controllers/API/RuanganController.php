@@ -4,10 +4,9 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormSkpdRequest;
-use App\Skpd;
+use App\Ruangan;
 
-class SkpdController extends Controller
+class RuanganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,11 @@ class SkpdController extends Controller
      */
     public function index()
     {
-        return Skpd::latest()->paginate(10);
+        $ruangans = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get();
+
+        return response()->json([
+            'data' => $ruangans
+        ]);
     }
 
     /**
@@ -25,13 +28,13 @@ class SkpdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FormSkpdRequest $request)
+    public function store(Request $request)
     {
-        $skpd = Skpd::Create($request->all());
-        
+        $ruangan = Ruangan::Create($request->all());
+
         return response()->json([
-            'data' => $skpd,
-            'message' => 'SKPD dengan kode: '.$request->kode_skpd.' ditambahkan'
+            'data' => $ruangan,
+            'message' => 'Ruangan dengan kode: '.$request->kode_ruangan.' ditambahkan'
         ]);
     }
 
@@ -53,13 +56,14 @@ class SkpdController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FormSkpdRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->update($request->all());
+        $ruangan = Ruangan::findOrFail($id);
+        $ruangan->update($request->all());
 
         return response()->json([
-            'message'  => 'SKPD dengan kode:'.$skpd->kode_skpd.' telah diperbarui'
+            'data' => $ruangan,
+            'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.'telah diperbarui'
         ]);
     }
 
@@ -71,11 +75,12 @@ class SkpdController extends Controller
      */
     public function destroy($id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->delete();
+        $ruangan = Ruangan::findOrFail($id);
+        $ruangan->delete();
 
         return response()->json([
-            'message' => 'SKPD dengan kode: '.$skpd->kode_skpd.' telah dihapus'
+            'data' => $ruangan,
+            'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah dihapus'
         ]);
     }
 }

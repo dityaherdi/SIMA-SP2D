@@ -10,6 +10,7 @@
   <title>SIMA - SP2D | BPKAD Provinsi Bali</title>
 
     <link rel="stylesheet" href="/css/app.css">
+    
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -19,7 +20,8 @@
 
 </div>
 
+</body>
+
 <script src="/js/app.js"></script>
 
-</body>
 </html>

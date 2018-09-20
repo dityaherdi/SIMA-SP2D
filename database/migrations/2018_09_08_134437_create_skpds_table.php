@@ -14,14 +14,13 @@ class CreateSkpdsTable extends Migration
     public function up()
     {
         Schema::create('skpds', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_skpd');
             $table->string('kode_skpd')->unique();
             $table->text('nama_skpd');
             $table->string('alias_skpd');
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
-            // $table->softDeletes();
         });
     }
 

@@ -14,10 +14,10 @@ class CreateJenisSuratsTable extends Migration
     public function up()
     {
         Schema::create('jenis_surats', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_jenis_sp2d');
             $table->string('kode_jenis_sp2d');
             $table->string('nama_jenis_sp2d');
-            $table->string('keterangan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->boolean('status')->default('1');
             $table->timestamps();
         });

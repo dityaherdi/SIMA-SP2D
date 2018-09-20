@@ -2,9 +2,9 @@
     <div>
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary card-outline">
+            <div class="card card-info card-outline">
               <div class="card-header">
-                <h3 class="card-title">SKPD</h3>
+                <h3 class="card-title">Satuan Kerja Perangkat Daerah</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal" 
                         title="Tambah Data SKPD">
@@ -14,14 +14,14 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover table-bordered">
+                <table class="table table-hover table-bordered table-sm">
                     <tbody>
                         <tr>
                             <th>Kode SKPD</th>
                             <th>SKPD</th>
                             <th>Aksi</th>
                         </tr>
-                        <tr v-for="skpd in skpds" :key="skpd.id">
+                        <tr v-for="skpd in skpds" :key="skpd.id_skpd">
                             <td>{{ skpd.kode_skpd }}</td>
                             <td>{{ skpd.alias_skpd }}</td>
                             <td>
@@ -39,7 +39,7 @@
                                 |
                                 <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                                     title="Hapus Data SKPD"
-                                    @click="deleteSkpd(skpd.id)">
+                                    @click="deleteSkpd(skpd.id_skpd)">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

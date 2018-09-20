@@ -84,7 +84,7 @@
             return {
                 editing: true,
                 skpd: new Form({
-                    id:'',
+                    id_skpd:'',
                     kode_skpd: '',
                     nama_skpd: '',
                     alias_skpd: '',
@@ -134,7 +134,7 @@
             
             updateSkpd() {
                 this.$Progress.start();
-                this.skpd.put('/api/skpd/' +this.skpd.id)
+                this.skpd.put('/api/skpd/'+this.skpd.id_skpd)
                 .then((response) => {
                     if (response.status == 200) {
                         $('#skpdModal').modal('hide')

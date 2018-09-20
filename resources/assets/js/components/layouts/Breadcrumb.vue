@@ -1,21 +1,14 @@
 <template>
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">{{ activePage | breadcrumbActive | uppercase}}</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">{{ activePage | breadcrumbActive}}</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <div class="content">
+        <div class="container-fluid mt-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page">HOME</li>
+                    <li class="breadcrumb-item" aria-current="page">{{ activePage | breadcrumbActive | uppercase}}</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-    <!-- /.content-header -->
 </template>
 <script>
     export default {

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormSkpdRequest;
-use App\Skpd;
+use App\Http\Requests\FormGedungRequest;
+use App\Gedung;
 
-class SkpdController extends Controller
+class GedungController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class SkpdController extends Controller
      */
     public function index()
     {
-        return Skpd::latest()->paginate(10);
+        return Gedung::latest()->paginate(3);
     }
 
     /**
@@ -25,13 +25,13 @@ class SkpdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FormSkpdRequest $request)
+    public function store(FormGedungRequest $request)
     {
-        $skpd = Skpd::Create($request->all());
-        
+        $gedung = Gedung::Create($request->all());
+
         return response()->json([
-            'data' => $skpd,
-            'message' => 'SKPD dengan kode: '.$request->kode_skpd.' ditambahkan'
+            'data' => $gedung,
+            'message' => 'Gedung dengan kode: '.$request->kode_gedung.' ditambahkan'
         ]);
     }
 
@@ -53,13 +53,14 @@ class SkpdController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FormSkpdRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->update($request->all());
+        $gedung = Gedung::findOrFail($id);
+        $gedung->update($request->all());
 
         return response()->json([
-            'message'  => 'SKPD dengan kode:'.$skpd->kode_skpd.' telah diperbarui'
+            'data' => $gedung,
+            'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah diperbarui'
         ]);
     }
 
@@ -71,11 +72,21 @@ class SkpdController extends Controller
      */
     public function destroy($id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->delete();
+        $gedung = Gedung::findOrFail($id);
+        $gedung->delete();
 
         return response()->json([
-            'message' => 'SKPD dengan kode: '.$skpd->kode_skpd.' telah dihapus'
+            'data' => $gedung,
+            'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah dihapus'
+        ]);
+    }
+
+    public function getGedung()
+    {
+        $gedung = Gedung::select('id_gedung', 'kode_gedung', 'nama_gedung')->where('status', 1)->get();
+
+        return response()->json([
+            'data' => $gedung
         ]);
     }
 }

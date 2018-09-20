@@ -12,7 +12,7 @@ export default new Vuex.Store({
         isLoggedIn: !!user,
         loading: false,
         auth_error: null,
-        activePage: '/'
+        activePage: ''
     },
     getters: {
         isLoggedIn(state) {

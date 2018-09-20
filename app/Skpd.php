@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Skpd extends Model
 {
+    protected $primaryKey = 'id_skpd';
+
     protected $fillable = [
         'kode_skpd', 'nama_skpd', 'alias_skpd', 'keterangan', 'status'
     ];
-    
-    // use SoftDeletes;
-    // protected $dates = ['deleted_at'];
 }
