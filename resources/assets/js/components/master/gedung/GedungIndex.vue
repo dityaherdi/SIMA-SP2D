@@ -90,50 +90,14 @@
             },
 
             loadGedung() {
-                axios.get('api/gedung')
-                .then((response) => {
-                    this.gedung = response.data.data
-                })
-                .catch((error) => {
-                    console.log(error)
+                this.readData('api/gedung')
+                .then((gedung) => {
+                    this.gedung = gedung
                 })
             },
 
             deleteGedung(id) {
-                swal({
-                    title: 'Hapus Data Gedung ini?',
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Hapus Data',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.value) {
-                        this.$Progress.start()
-                        axios.delete('api/gedung/'+id)
-                        .then((response) => {
-                            if (response.status == 200) {
-                                Signal.$emit('load_gedung')
-                                toast({
-                                    type: 'success',
-                                    title: response.data.message
-                                })
-                                this.$Progress.finish()
-                            }
-                        })
-                        .catch((error) => {
-                            this.$Progress.fail()
-                            swal({
-                                title: 'Gagal Menghapus Data!',
-                                text: 'Gedung ini masih menyimpan arsip, pindahkan arsip sebelum menghapus gedung!',
-                                type: 'error'
-                            })
-                            console.log(error)
-                        })
-                    }
-                })
+                this.deleteData('api/gedung/'+id, 'gedung')
             }
         }
     }

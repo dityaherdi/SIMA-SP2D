@@ -90,45 +90,14 @@
             },
 
             loadJenis() {
-                axios.get('api/jenis')
-                .then((response) => {
-                    this.jenis = response.data.data
-                })
-                .catch((error) => {
-                    console.log(error)
+                this.readData('api/jenis')
+                .then((jenis) => {
+                    this.jenis = jenis
                 })
             },
 
             deleteJenis(id) {
-                swal({
-                    title: 'Hapus Data Jenis SP2D ini?',
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Hapus Data',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.value) {
-                        this.$Progress.start()
-                        axios.delete('api/jenis/'+id)
-                        .then((response) => {
-                            if (response.status == 200) {
-                                Signal.$emit('load_jenis')
-                                toast({
-                                    type: 'success',
-                                    title: response.data.message
-                                })
-                                this.$Progress.finish()
-                            }
-                        })
-                        .catch((error) => {
-                            this.$Progress.fail()
-                            console.log(error)
-                        })
-                    }
-                })
+                this.deleteData('api/jenis/'+id, 'jenis')
             }
         }
     }

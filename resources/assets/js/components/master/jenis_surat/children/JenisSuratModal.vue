@@ -97,42 +97,10 @@
                 this.jenis.clear()
             },
             createJenis() {
-                this.$Progress.start()
-                this.jenis.post('api/jenis')
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#jenisModal').modal('hide')
-                        Signal.$emit('load_jenis')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
+                this.createData(this.jenis, 'api/jenis', 'jenis')
             },
             updateJenis() {
-                this.$Progress.start()
-                this.jenis.put('api/jenis/'+this.jenis.id_jenis_sp2d)
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#jenisModal').modal('hide')
-                        Signal.$emit('load_jenis')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
+                this.updateData(this.jenis, 'api/jenis/'+this.jenis.id_jenis_sp2d, 'jenis')
             }
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FormRuanganRequest;
 use App\Ruangan;
 
 class RuanganController extends Controller
@@ -28,7 +29,7 @@ class RuanganController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormRuanganRequest $request)
     {
         $ruangan = Ruangan::Create($request->all());
 
@@ -56,7 +57,7 @@ class RuanganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormRuanganRequest $request, $id)
     {
         $ruangan = Ruangan::findOrFail($id);
         $ruangan->update($request->all());
@@ -81,6 +82,15 @@ class RuanganController extends Controller
         return response()->json([
             'data' => $ruangan,
             'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah dihapus'
+        ]);
+    }
+
+    public function getRuangan()
+    {
+        $ruangan = Ruangan::select('id_ruangan', 'id_gedung', 'kode_ruangan')->where('status', 1)->get();
+
+        return response()->json([
+            'data' => $ruangan
         ]);
     }
 }

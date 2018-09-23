@@ -30,8 +30,10 @@ Route::group(['middleware' => 'auth:api'], function (){
         'skpd' => 'API\SkpdController',
         'jenis' => 'API\JenisSuratController',
         'gedung' => 'API\GedungController',
-        'ruangan' => 'API\RuanganController'
+        'ruangan' => 'API\RuanganController',
+        'rak' => 'API\RakController'
     ]);
 
     Route::get('get-gedung', 'API\GedungController@getGedung');
+    Route::get('get-ruangan', 'API\RuanganController@getRuangan');
 });

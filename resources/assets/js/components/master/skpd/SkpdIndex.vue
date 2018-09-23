@@ -87,48 +87,13 @@
                 Signal.$emit('show_detail_skpd_modal', skpd)
             },
             loadSkpd() {
-                axios.get('api/skpd')
-                .then((response) => {
-                    this.skpds = response.data.data
-                })
-                .catch((error) => {
-                    console.log(error)
+                this.readData('api/skpd')
+                .then((skpd) => {
+                    this.skpds = skpd
                 })
             },
             deleteSkpd(id) {
-                swal({
-                    title: 'Hapus Data SKPD ini?',
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Hapus Data',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.value) {
-                        this.$Progress.start()
-                        axios.delete('api/skpd/'+id)
-                        .then((response) => {
-                            if (response.status == 200) {
-                                Signal.$emit('load_skpd')
-                                toast({
-                                    type: 'success',
-                                    title: response.data.message
-                                })
-                                this.$Progress.finish()
-                            }
-                        })
-                        .catch((error) => {
-                            swal({
-                                title: 'Error!',
-                                text: 'Terjadi kesalahan',
-                                type: 'error'
-                            })
-                            this.$Progress.fail()
-                        })
-                    }
-                })
+                this.deleteData('api/skpd/'+id, 'skpd')
             }
         }
     }

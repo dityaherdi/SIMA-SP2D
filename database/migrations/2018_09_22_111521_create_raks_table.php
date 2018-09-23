@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRuangansTable extends Migration
+class CreateRaksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateRuangansTable extends Migration
      */
     public function up()
     {
-        Schema::create('ruangans', function (Blueprint $table) {
-            $table->increments('id_ruangan');
-            $table->integer('id_gedung')->unsigned();
-            $table->string('kode_ruangan');
+        Schema::create('raks', function (Blueprint $table) {
+            $table->increments('id_rak');
+            $table->integer('id_ruangan')->unsigned();
+            $table->string('kode_rak');
+            $table->string('qr_rak')->default('kode-rak-qr.png');
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default('1');
             $table->timestamps();
 
-            $table->foreign('id_gedung')
-                    ->references('id_gedung')
-                    ->on('gedungs')
+            $table->foreign('id_ruangan')
+                    ->references('id_ruangan')
+                    ->on('ruangans')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
         });
@@ -36,6 +37,6 @@ class CreateRuangansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ruangans');
+        Schema::dropIfExists('raks');
     }
 }

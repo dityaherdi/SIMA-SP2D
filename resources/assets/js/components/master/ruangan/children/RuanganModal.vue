@@ -15,7 +15,8 @@
                 <div class="card-body">
                     <div class="form-group">
                     <label>Gedung Penyimpanan</label>
-                        <select class="form-control" v-model="ruangan.id_gedung">
+                        <select class="form-control" v-model="ruangan.id_gedung"
+                            :class="{ 'is-invalid': ruangan.errors.has('id_gedung') }">
                             <option disabled value=""> --- Pilih Gedung --- </option>
                             <option v-for="ged in gedung"
                                 :key="ged.id_gedung"
@@ -83,10 +84,10 @@
 
         created() {
             Signal.$on('show_creating_ruangan_modal', () => {
+                this.editing = false
                 this.ruangan.reset()
                 this.ruangan.clear()
                 $('#ruanganModal').modal('show')
-                this.getGedung()
             }),
             
             Signal.$on('show_editing_ruangan_modal', (rua) => {
@@ -96,8 +97,9 @@
                 $('#ruanganModal').modal('show')
                 this.ruangan.fill(rua)
                 this.status = rua.status
-                this.getGedung()
-            })
+            }),
+
+            this.gedung = this.getGedung()
         },
 
         methods: {
@@ -105,54 +107,12 @@
                 this.ruangan.clear()
             },
 
-            getGedung() {
-                axios.get('api/get-gedung')
-                .then((response) => {
-                    this.gedung = response.data.data;
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-            },
-
             createRuangan() {
-                this.$Progress.start()
-                this.ruangan.post('api/ruangan')
-                .then((response) => {
-                    if (response.status==200) {
-                        $('#ruanganModal').modal('hide')
-                        Signal.$emit('load_ruangan')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    console.log(error)
-                    this.$Progress.fail()
-                })
+                this.createData(this.ruangan, 'api/ruangan', 'ruangan')
             },
 
             updateRuangan() {
-                this.$Progress.start()
-                this.ruangan.put('api/ruangan/'+this.ruangan.id_ruangan)
-                .then((response) => {
-                    if (response.status==200) {
-                        $('#ruanganModal').modal('hide')
-                        Signal.$emit('load_ruangan')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
+                this.updateData(this.ruangan, 'api/ruangan/'+this.ruangan.id_ruangan, 'ruangan')
             }
         }
     }

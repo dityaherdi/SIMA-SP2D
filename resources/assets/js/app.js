@@ -17,6 +17,8 @@ import store from './store';
 import { initialize } from './helpers/init';
 import './helpers/filter';
 import './helpers/alert';
+import { getGedung, getRuangan } from './helpers/getters'
+import { createData, readData, updateData, deleteData } from './helpers/operation'
 import VueProgressBar from 'vue-progressbar';
 
 window.Form = Form;
@@ -29,11 +31,18 @@ Vue.use(VueProgressBar, {
     failedColor: 'red',
     height: '5px'
 });
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+
+Vue.mixin({
+    methods : {
+        getGedung,
+        getRuangan,
+        createData,
+        readData,
+        updateData,
+        deleteData
+    }
+})
+
 Vue.component('vue-app', require('./components/App.vue'));
 
 initialize(store, router);

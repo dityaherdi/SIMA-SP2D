@@ -93,41 +93,10 @@
         },
         methods: {
             createGedung() {
-                this.$Progress.start()
-                this.gedung.post('api/gedung')
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#gedungModal').modal('hide')
-                        Signal.$emit('load_gedung')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error);
-                })
+                this.createData(this.gedung, 'api/gedung', 'gedung')
             },
             updateGedung() {
-                this.gedung.put('api/gedung/'+this.gedung.id_gedung)
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#gedungModal').modal('hide')
-                        Signal.$emit('load_gedung')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
+                this.updateData(this.gedung, 'api/gedung/'+this.gedung.id_gedung, 'gedung')
             },
             clearError() {
                 this.gedung.clear()

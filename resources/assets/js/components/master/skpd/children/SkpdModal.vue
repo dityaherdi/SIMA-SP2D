@@ -14,7 +14,7 @@
                 <form role="form" @submit.prevent="editing ? updateSkpd() : createSkpd()">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6 ml-auto">
+                        <div class="col-sm-6 ml-auto">
                             <div class="form-group">
                                 <label for="kodeskpd">Kode SKPD</label>
                                 <input type="text" class="form-control" 
@@ -31,7 +31,7 @@
                                 <has-error :form="skpd" field="nama_skpd"></has-error>
                             </div>
                         </div>
-                        <div class="col-md-6 ml-auto">
+                        <div class="col-sm-6 ml-auto">
                             <div class="form-group">
                                 <label for="aliasskpd">Nama Alias SKPD</label>
                                 <input type="text" class="form-control" 
@@ -113,43 +113,11 @@
 
         methods: {
             createSkpd() {
-                this.$Progress.start()
-                this.skpd.post('api/skpd')
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#skpdModal').modal('hide')
-                        Signal.$emit('load_skpd')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
+                this.createData(this.skpd, 'api/skpd', 'skpd')
             },
             
             updateSkpd() {
-                this.$Progress.start();
-                this.skpd.put('/api/skpd/'+this.skpd.id_skpd)
-                .then((response) => {
-                    if (response.status == 200) {
-                        $('#skpdModal').modal('hide')
-                        Signal.$emit('load_skpd')
-                        toast({
-                            type: 'success',
-                            title: response.data.message
-                        })
-                        this.$Progress.finish()
-                    }
-                })
-                .catch((error) => {
-                    this.$Progress.fail()
-                    console.log(error)
-                })
+                this.updateData(this.skpd, 'api/skpd/'+this.skpd.id_skpd, 'skpd')
             },
 
             clearError() {

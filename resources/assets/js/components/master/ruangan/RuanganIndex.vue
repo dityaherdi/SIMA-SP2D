@@ -5,7 +5,6 @@
             <div class="card card-danger card-outline">
               <div class="card-header">
                 <h3 class="card-title">Ruangan Arsip</h3>
-
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal"
                         title="Tambah Ruangan">
@@ -90,45 +89,14 @@
             },
 
             loadRuangan() {
-                axios.get('api/ruangan')
-                .then((response) => {
-                    this.ruangan = response.data.data
-                })
-                .catch((error) => {
-                    console.log(error)
+                this.readData('api/ruangan')
+                .then((ruangan) => {
+                    this.ruangan = ruangan
                 })
             },
 
             deleteRuangan(id) {
-                swal({
-                    title: 'Hapus Data Ruangan ini?',
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Hapus Data',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.value) {
-                        this.$Progress.start()
-                        axios.delete('api/ruangan/'+id)
-                        .then((response) => {
-                            if (response.status == 200) {
-                                Signal.$emit('load_ruangan')
-                                toast({
-                                    type: 'success',
-                                    title: response.data.message
-                                })
-                                this.$Progress.finish()
-                            }
-                        })
-                        .catch((error) => {
-                            this.$Progress.fail()
-                            console.log(error)
-                        })
-                    }
-                })
+                this.deleteData('api/ruangan/'+id, 'ruangan')
             }
         }
     }
