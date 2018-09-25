@@ -10,14 +10,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" @submit.prevent="editing ? updateJenis() : createJenis()">
+                <form role="form" @submit.prevent="editing ? updateJenis() : createJenis()" 
+                    @change="clearError"
+                >
                 <div class="card-body">
                     <div class="form-group">
                         <label for="kodejenis">Kode Jenis</label>
                         <input type="text" class="form-control" 
                             :class="{ 'is-invalid': jenis.errors.has('kode_jenis_sp2d') }" 
                             id="kodejenis" v-model="jenis.kode_jenis_sp2d" placeholder="UP/GU/TU/LS"
-                            @change="clearError">
+                        >
                         <has-error :form="jenis" field="kode_jenis_sp2d"></has-error>
                     </div>
                     <div class="form-group">
@@ -25,14 +27,14 @@
                         <input type="text" class="form-control" 
                             :class="{ 'is-invalid': jenis.errors.has('nama_jenis_sp2d') }" 
                             id="namajenis" v-model="jenis.nama_jenis_sp2d" placeholder="Jenis"
-                            @change="clearError">
+                        >
                         <has-error :form="jenis" field="nama_jenis_sp2d"></has-error>
                     </div>
                     <div class="form-group">
                         <label for="ketjenis">Keterangan</label>
                         <textarea class="form-control" rows="3" placeholder="..." 
                             :class="{ 'is-invalid': jenis.errors.has('keterangan') }"
-                            id="ketjenis" v-model="jenis.keterangan" @change="clearError"></textarea>
+                            id="ketjenis" v-model="jenis.keterangan"></textarea>
                         <has-error :form="jenis" field="keterangan"></has-error>
                     </div>
                     <div class="form-group">
@@ -77,17 +79,10 @@
         
         created() {
             Signal.$on('show_creating_jenis_modal', () => {
-                this.editing = false
-                this.jenis.reset()
-                this.jenis.clear()
-                $('#jenisModal').modal('show')
+                this.showModal(this.jenis, 'jenis', 'create')
             }),
             Signal.$on('show_editing_jenis_modal', (jen) => {
-                this.editing = true
-                this.jenis.reset()
-                this.jenis.clear()
-                $('#jenisModal').modal('show')
-                this.jenis.fill(jen)
+                this.showModal(this.jenis, 'jenis', 'edit', jen)
                 this.jenis.status = jen.status
             })
         },

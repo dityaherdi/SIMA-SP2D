@@ -11,7 +11,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" @submit.prevent="editing ? updateSkpd() : createSkpd()">
+                <form role="form" @submit.prevent="editing ? updateSkpd() : createSkpd()"
+                    @change="clearError"
+                >
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6 ml-auto">
@@ -20,14 +22,14 @@
                                 <input type="text" class="form-control" 
                                     :class="{ 'is-invalid': skpd.errors.has('kode_skpd') }" 
                                     id="kodeskpd" placeholder="0.00.00." v-model="skpd.kode_skpd"
-                                    @change="clearError">
+                                   >
                                 <has-error :form="skpd" field="kode_skpd"></has-error>
                             </div>
                             <div class="form-group">
                                 <label for="namaskpd">Nama SKPD</label>
                                 <textarea class="form-control" rows="3" placeholder="SKPD" 
                                     :class="{ 'is-invalid': skpd.errors.has('nama_skpd') }"
-                                    id="namaskpd" v-model="skpd.nama_skpd" @change="clearError"></textarea>
+                                    id="namaskpd" v-model="skpd.nama_skpd"></textarea>
                                 <has-error :form="skpd" field="nama_skpd"></has-error>
                             </div>
                         </div>
@@ -37,14 +39,14 @@
                                 <input type="text" class="form-control" 
                                     :class="{ 'is-invalid': skpd.errors.has('alias_skpd') }" 
                                     id="aliasskpd" placeholder="cth: Disbud, Dishub, dll..." v-model="skpd.alias_skpd"
-                                    @change="clearError">
+                                   >
                                 <has-error :form="skpd" field="alias_skpd"></has-error>
                             </div>
                             <div class="form-group">
                                 <label for="ketskpd">Keterangan</label>
                                 <textarea class="form-control" rows="3" placeholder="..." 
                                     :class="{ 'is-invalid': skpd.errors.has('keterangan') }"
-                                    id="ketskpd" v-model="skpd.keterangan" @change="clearError"></textarea>
+                                    id="ketskpd" v-model="skpd.keterangan"></textarea>
                                 <has-error :form="skpd" field="keterangan"></has-error>
                             </div>
                         </div>

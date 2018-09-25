@@ -44049,7 +44049,7 @@ function setAuthorization(token) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(143);
-module.exports = __webpack_require__(272);
+module.exports = __webpack_require__(275);
 
 
 /***/ }),
@@ -44066,10 +44066,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_init__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__helpers_filter__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_alert__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_getters__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__helpers_operation__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_vue_progressbar__ = __webpack_require__(251);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_vue_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_vue_progressbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_getters__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__helpers_operations__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__helpers_modal__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_progressbar__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_vue_progressbar__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -44093,12 +44094,13 @@ window.Signal = new Vue();
 
 
 
+
 window.Form = __WEBPACK_IMPORTED_MODULE_0_vform__["Form"];
 Vue.component(__WEBPACK_IMPORTED_MODULE_0_vform__["HasError"].name, __WEBPACK_IMPORTED_MODULE_0_vform__["HasError"]);
 Vue.component(__WEBPACK_IMPORTED_MODULE_0_vform__["AlertError"].name, __WEBPACK_IMPORTED_MODULE_0_vform__["AlertError"]);
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
-Vue.use(__WEBPACK_IMPORTED_MODULE_9_vue_progressbar___default.a, {
+Vue.use(__WEBPACK_IMPORTED_MODULE_10_vue_progressbar___default.a, {
     color: 'rgb(66, 206, 244)',
     failedColor: 'red',
     height: '5px'
@@ -44106,16 +44108,24 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_9_vue_progressbar___default.a, {
 
 Vue.mixin({
     methods: {
-        getGedung: __WEBPACK_IMPORTED_MODULE_7__helpers_getters__["a" /* getGedung */],
-        getRuangan: __WEBPACK_IMPORTED_MODULE_7__helpers_getters__["b" /* getRuangan */],
-        createData: __WEBPACK_IMPORTED_MODULE_8__helpers_operation__["a" /* createData */],
-        readData: __WEBPACK_IMPORTED_MODULE_8__helpers_operation__["c" /* readData */],
-        updateData: __WEBPACK_IMPORTED_MODULE_8__helpers_operation__["d" /* updateData */],
-        deleteData: __WEBPACK_IMPORTED_MODULE_8__helpers_operation__["b" /* deleteData */]
+        // dropdown getters
+        getGedung: __WEBPACK_IMPORTED_MODULE_7__helpers_getters__["b" /* getGedung */],
+        getRuangan: __WEBPACK_IMPORTED_MODULE_7__helpers_getters__["d" /* getRuangan */],
+        getRak: __WEBPACK_IMPORTED_MODULE_7__helpers_getters__["c" /* getRak */],
+        getBox: __WEBPACK_IMPORTED_MODULE_7__helpers_getters__["a" /* getBox */],
+
+        // data operations
+        createData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["a" /* createData */],
+        readData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["c" /* readData */],
+        updateData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["d" /* updateData */],
+        deleteData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["b" /* deleteData */],
+
+        showModal: __WEBPACK_IMPORTED_MODULE_9__helpers_modal__["b" /* showModal */],
+        forceCloseModal: __WEBPACK_IMPORTED_MODULE_9__helpers_modal__["a" /* forceCloseModal */]
     }
 });
 
-Vue.component('vue-app', __webpack_require__(252));
+Vue.component('vue-app', __webpack_require__(255));
 
 Object(__WEBPACK_IMPORTED_MODULE_4__helpers_init__["a" /* initialize */])(__WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__routes_js__["a" /* default */]);
 
@@ -67871,6 +67881,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -67978,7 +67990,8 @@ var render = function() {
                     submit: function($event) {
                       $event.preventDefault()
                       _vm.editing ? _vm.updateSkpd() : _vm.createSkpd()
-                    }
+                    },
+                    change: _vm.clearError
                   }
                 },
                 [
@@ -68013,7 +68026,6 @@ var render = function() {
                               },
                               domProps: { value: _vm.skpd.kode_skpd },
                               on: {
-                                change: _vm.clearError,
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -68062,7 +68074,6 @@ var render = function() {
                               },
                               domProps: { value: _vm.skpd.nama_skpd },
                               on: {
-                                change: _vm.clearError,
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -68113,7 +68124,6 @@ var render = function() {
                               },
                               domProps: { value: _vm.skpd.alias_skpd },
                               on: {
-                                change: _vm.clearError,
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -68162,7 +68172,6 @@ var render = function() {
                               },
                               domProps: { value: _vm.skpd.keterangan },
                               on: {
-                                change: _vm.clearError,
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
@@ -68424,7 +68433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_skpd_modal', function (skpd) {
-            $('#detailSkpdModal').modal('show');
+            _this.showModal(null, 'Skpd', 'detail', null);
             _this.skpd.kode_skpd = skpd.kode_skpd;
             _this.skpd.nama_skpd = skpd.nama_skpd;
             if (skpd.keterangan == null) {
@@ -68813,6 +68822,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -68848,42 +68858,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadRak: function loadRak() {
             var _this2 = this;
 
-            axios.get('api/rak').then(function (response) {
-                _this2.rak = response.data.data;
-            }).catch(function (error) {
-                console.log(error);
+            this.readData('api/rak').then(function (rak) {
+                _this2.rak = rak;
             });
         },
         deleteRak: function deleteRak(id) {
-            var _this3 = this;
-
-            swal({
-                title: 'Hapus Data Rak ini?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus Data',
-                cancelButtonText: 'Batal'
-            }).then(function (result) {
-                if (result.value) {
-                    _this3.$Progress.start();
-                    axios.delete('api/rak/' + id).then(function (response) {
-                        if (response.status == 200) {
-                            Signal.$emit('load_rak');
-                            toast({
-                                type: 'success',
-                                title: response.data.message
-                            });
-                            _this3.$Progress.finish();
-                        }
-                    }).catch(function (error) {
-                        _this3.$Progress.fail();
-                        console.log(error);
-                    });
-                }
-            });
+            this.deleteData('api/rak/' + id, 'rak');
         }
     }
 });
@@ -69027,11 +69007,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             editing: false,
+            lokasi: {
+                gedung: ''
+            },
             gedung: {},
             ruangan: {},
             rak: new Form({
@@ -69039,7 +69023,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_ruangan: '',
                 kode_rak: '',
                 keterangan: '',
-                status: ''
+                status: true
             })
         };
     },
@@ -69047,14 +69031,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_creating_rak_modal', function () {
-            _this.editing = false;
-            $('#rakModal').modal('show');
-        }), Signal.$on('show_editing_rak_modal', function () {
-            _this.editing = true;
-            $('#rakModal').modal('show');
+            _this.lokasi.gedung = '';
+            _this.showModal(_this.rak, 'rak', 'create');
+        }), Signal.$on('show_editing_rak_modal', function (r) {
+            _this.showModal(_this.rak, 'rak', 'edit', r);
+            _this.rak.status = r.status;
+            _this.lokasi.gedung = r.ruangan.gedung.id_gedung;
+            _this.selectRuangan();
         });
 
-        this.getRuangan();
+        this.getGedung().then(function (gedung) {
+            _this.gedung = gedung;
+        });
     },
 
 
@@ -69062,20 +69050,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         clearError: function clearError() {
             this.rak.clear();
         },
-        getRuangan: function getRuangan() {
+        selectRuangan: function selectRuangan() {
             var _this2 = this;
 
-            axios.get('api/get-ruangan').then(function (response) {
-                _this2.ruangan = response.data.data;
-            }).catch(function (error) {
-                console.log(error);
+            this.getRuangan(this.lokasi.gedung).then(function (ruangan) {
+                _this2.ruangan = ruangan;
             });
         },
         createRak: function createRak() {
-            console.log('creating rak');
+            this.createData(this.rak, 'api/rak', 'rak');
         },
         updateRak: function updateRak() {
-            console.log('updating rak');
+            this.updateData(this.rak, 'api/rak/' + this.rak.id_rak, 'rak');
         }
     }
 });
@@ -69140,55 +69126,80 @@ var render = function() {
                     submit: function($event) {
                       $event.preventDefault()
                       _vm.editing ? _vm.updateRak() : _vm.createRak()
-                    }
+                    },
+                    change: _vm.clearError
                   }
                 },
                 [
                   _c("div", { staticClass: "card-body" }, [
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-sm-6 ml-auto" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [_vm._v("Gedung Arsip")]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              { staticClass: "form-control" },
-                              [
-                                _c(
-                                  "option",
-                                  { attrs: { disabled: "", value: "" } },
-                                  [_vm._v(" --- Pilih Gedung --- ")]
-                                ),
-                                _vm._v(" "),
-                                _vm._l(_vm.gedung, function(ged) {
-                                  return _c(
-                                    "option",
-                                    {
-                                      key: ged.id_gedung,
-                                      domProps: { value: ged.id_gedung }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(ged.kode_gedung) +
-                                          "\n                                "
-                                      )
-                                    ]
-                                  )
-                                })
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", [_vm._v("Gedung Arsip")]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.lokasi.gedung,
+                                  expression: "lokasi.gedung"
+                                }
                               ],
-                              2
-                            ),
-                            _vm._v(" "),
-                            _c("has-error", {
-                              attrs: { form: _vm.rak, field: "id_ruangan" }
-                            })
-                          ],
-                          1
-                        )
+                              staticClass: "form-control",
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.lokasi,
+                                      "gedung",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  _vm.selectRuangan
+                                ]
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { disabled: "", value: "" } },
+                                [_vm._v(" --- Pilih Gedung --- ")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.gedung, function(ged) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: ged.id_gedung,
+                                    domProps: { value: ged.id_gedung }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(ged.nama_gedung) +
+                                        "\n                                "
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ])
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-6 ml-auto" }, [
@@ -69213,7 +69224,10 @@ var render = function() {
                                 class: {
                                   "is-invalid": _vm.rak.errors.has("id_ruangan")
                                 },
-                                attrs: { disabled: "" },
+                                attrs: {
+                                  disabled:
+                                    this.lokasi.gedung == "" ? true : false
+                                },
                                 on: {
                                   change: function($event) {
                                     var $$selectedVal = Array.prototype.filter
@@ -69295,7 +69309,6 @@ var render = function() {
                           attrs: { type: "text", id: "koderak" },
                           domProps: { value: _vm.rak.kode_rak },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -69340,7 +69353,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.rak.keterangan },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -69580,13 +69592,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            ruangan: {
+            rak: {
                 nama_gedung: '',
                 kode_ruangan: '',
+                kode_rak: '',
                 keterangan: '',
                 status: ''
             }
@@ -69595,19 +69610,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        Signal.$on('show_detail_ruangan_modal', function (rua) {
-            $('#detailRuanganModal').modal('show');
-            _this.ruangan.nama_gedung = rua.gedung.nama_gedung;
-            _this.ruangan.kode_ruangan = rua.kode_ruangan;
-            if (rua.keterangan == null) {
-                _this.ruangan.keterangan = '-';
+        Signal.$on('show_detail_rak_modal', function (r) {
+            _this.showModal(null, 'Rak', 'detail', null);
+            _this.rak.nama_gedung = r.ruangan.gedung.nama_gedung;
+            _this.rak.kode_ruangan = r.ruangan.kode_ruangan;
+            _this.rak.kode_rak = r.kode_rak;
+            if (r.keterangan == null) {
+                _this.rak.keterangan = '-';
             } else {
-                _this.ruangan.keterangan = rua.keterangan;
+                _this.rak.keterangan = r.keterangan;
             }
-            if (rua.status === 1) {
-                _this.ruangan.status = 'Aktif';
-            } else if (rua.status === 0) {
-                _this.ruangan.status = 'Non-Aktif';
+            if (r.status === 1) {
+                _this.rak.status = 'Aktif';
+            } else if (r.status === 0) {
+                _this.rak.status = 'Non-Aktif';
             }
         });
     }
@@ -69626,7 +69642,7 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "detailRuanganModal",
+        id: "detailRakModal",
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "exampleModalLongTitle",
@@ -69646,26 +69662,28 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("p", { staticClass: "text-justify" }, [
-                _c("strong", [_vm._v("Gedung : ")]),
-                _vm._v(" " + _vm._s(_vm.ruangan.nama_gedung) + " ")
-              ]),
-              _c("br"),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-justify" }, [
-                _c("strong", [_vm._v("Kode Ruangan : ")]),
-                _vm._v(" " + _vm._s(_vm.ruangan.kode_ruangan) + " ")
+                _c("strong", [_vm._v(" Detail Letak Rak : ")]),
+                _vm._v(
+                  " \n            Gedung-" +
+                    _vm._s(_vm.rak.nama_gedung) +
+                    ", Ruangan-" +
+                    _vm._s(_vm.rak.kode_ruangan) +
+                    ", Rak-" +
+                    _vm._s(_vm.rak.kode_rak) +
+                    "\n        "
+                )
               ]),
               _c("br"),
               _vm._v(" "),
               _c("p", { staticClass: "text-justify" }, [
                 _c("strong", [_vm._v("Keterangan : ")]),
-                _vm._v(" " + _vm._s(_vm.ruangan.keterangan) + " ")
+                _vm._v(" " + _vm._s(_vm.rak.keterangan) + " ")
               ]),
               _c("br"),
               _vm._v(" "),
               _c("p", { staticClass: "text-justify" }, [
                 _c("strong", [_vm._v("Status : ")]),
-                _vm._v(" " + _vm._s(_vm.ruangan.status) + " ")
+                _vm._v(" " + _vm._s(_vm.rak.status) + " ")
               ]),
               _c("br")
             ]),
@@ -69686,7 +69704,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
-        [_vm._v("Detail Ruangan")]
+        [_vm._v("Detail Rak")]
       ),
       _vm._v(" "),
       _c(
@@ -69767,7 +69785,7 @@ var render = function() {
                   _vm._v(" "),
                   _vm._l(_vm.rak, function(r) {
                     return _c("tr", { key: r.id_rak }, [
-                      _c("td", [_vm._v(_vm._s(r.ruangan.nama_ruangan))]),
+                      _c("td", [_vm._v(_vm._s(r.ruangan.kode_ruangan))]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(_vm._s(_vm._f("uppercase")(r.kode_rak)))
@@ -70137,6 +70155,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -70155,16 +70175,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_creating_gedung_modal', function () {
-            _this.editing = false;
-            _this.gedung.reset();
-            _this.gedung.clear();
-            $('#gedungModal').modal('show');
+            _this.showModal(_this.gedung, 'gedung', 'create');
         }), Signal.$on('show_editing_gedung_modal', function (ged) {
-            _this.editing = true;
-            _this.gedung.reset();
-            _this.gedung.clear();
-            $('#gedungModal').modal('show');
-            _this.gedung.fill(ged);
+            _this.showModal(_this.gedung, 'gedung', 'edit', ged);
             _this.gedung.status = ged.status;
         });
     },
@@ -70242,7 +70255,8 @@ var render = function() {
                     submit: function($event) {
                       $event.preventDefault()
                       _vm.editing ? _vm.updateGedung() : _vm.createGedung()
-                    }
+                    },
+                    change: _vm.clearError
                   }
                 },
                 [
@@ -70275,7 +70289,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.gedung.kode_gedung },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -70324,7 +70337,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.gedung.nama_gedung },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -70373,7 +70385,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.gedung.keterangan },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -70629,7 +70640,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_gedung_modal', function (ged) {
-            $('#detailGedungModal').modal('show');
+            _this.showModal(null, 'Gedung', 'detail', null);
             _this.gedung.kode_gedung = ged.kode_gedung;
             _this.gedung.nama_gedung = ged.nama_gedung;
             if (ged.keterangan == null) {
@@ -71174,6 +71185,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71193,18 +71206,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_creating_ruangan_modal', function () {
-            _this.editing = false;
-            _this.ruangan.reset();
-            _this.ruangan.clear();
-            $('#ruanganModal').modal('show');
+            _this.showModal(_this.ruangan, 'ruangan', 'create');
         }), Signal.$on('show_editing_ruangan_modal', function (rua) {
-            _this.editing = true;
-            _this.ruangan.reset();
-            _this.ruangan.clear();
-            $('#ruanganModal').modal('show');
-            _this.ruangan.fill(rua);
+            _this.showModal(_this.ruangan, 'ruangan', 'edit', rua);
             _this.status = rua.status;
-        }), this.gedung = this.getGedung();
+        }), this.gedung = this.getGedung().then(function (gedung) {
+            _this.gedung = gedung;
+        });
     },
 
 
@@ -71281,7 +71289,8 @@ var render = function() {
                     submit: function($event) {
                       $event.preventDefault()
                       _vm.editing ? _vm.updateRuangan() : _vm.createRuangan()
-                    }
+                    },
+                    change: _vm.clearError
                   }
                 },
                 [
@@ -71385,7 +71394,6 @@ var render = function() {
                           attrs: { type: "text", id: "koderuangan" },
                           domProps: { value: _vm.ruangan.kode_ruangan },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -71434,7 +71442,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.ruangan.keterangan },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -71690,7 +71697,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_ruangan_modal', function (rua) {
-            $('#detailRuanganModal').modal('show');
+            _this.showModal(null, 'Ruangan', 'detail', null);
             _this.ruangan.nama_gedung = rua.gedung.nama_gedung;
             _this.ruangan.kode_ruangan = rua.kode_ruangan;
             if (rua.keterangan == null) {
@@ -72585,6 +72592,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72603,16 +72612,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_creating_jenis_modal', function () {
-            _this.editing = false;
-            _this.jenis.reset();
-            _this.jenis.clear();
-            $('#jenisModal').modal('show');
+            _this.showModal(_this.jenis, 'jenis', 'create');
         }), Signal.$on('show_editing_jenis_modal', function (jen) {
-            _this.editing = true;
-            _this.jenis.reset();
-            _this.jenis.clear();
-            $('#jenisModal').modal('show');
-            _this.jenis.fill(jen);
+            _this.showModal(_this.jenis, 'jenis', 'edit', jen);
             _this.jenis.status = jen.status;
         });
     },
@@ -72691,7 +72693,8 @@ var render = function() {
                     submit: function($event) {
                       $event.preventDefault()
                       _vm.editing ? _vm.updateJenis() : _vm.createJenis()
-                    }
+                    },
+                    change: _vm.clearError
                   }
                 },
                 [
@@ -72726,7 +72729,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.jenis.kode_jenis_sp2d },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -72777,7 +72779,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.jenis.nama_jenis_sp2d },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -72826,7 +72827,6 @@ var render = function() {
                           },
                           domProps: { value: _vm.jenis.keterangan },
                           on: {
-                            change: _vm.clearError,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
@@ -73082,7 +73082,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_jenis_modal', function (jen) {
-            $('#detailJenisSuratModal').modal('show');
+            _this.showModal(null, 'Jenis', 'detail', null);
             _this.jenis.kode_jenis_sp2d = jen.kode_jenis_sp2d;
             _this.jenis.nama_jenis_sp2d = jen.nama_jenis_sp2d;
             if (jen.keterangan == null) {
@@ -73112,7 +73112,7 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "detailJenisSuratModal",
+        id: "detailJenisModal",
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "exampleModalLongTitle",
@@ -74725,7 +74725,8 @@ var user = Object(__WEBPACK_IMPORTED_MODULE_2__helpers_auth__["a" /* getLocalUse
         isLoggedIn: !!user,
         loading: false,
         auth_error: null,
-        activePage: ''
+        activePage: '',
+        modalOpen: ''
     },
     getters: {
         isLoggedIn: function isLoggedIn(state) {
@@ -74742,6 +74743,9 @@ var user = Object(__WEBPACK_IMPORTED_MODULE_2__helpers_auth__["a" /* getLocalUse
         },
         activePage: function activePage(state) {
             return state.activePage;
+        },
+        modalOpen: function modalOpen(state) {
+            return state.modalOpen;
         }
     },
     mutations: {
@@ -74768,11 +74772,17 @@ var user = Object(__WEBPACK_IMPORTED_MODULE_2__helpers_auth__["a" /* getLocalUse
         },
         changePage: function changePage(state, route) {
             state.activePage = route;
+        },
+        modalOpen: function modalOpen(state, entity) {
+            state.modalOpen = entity;
         }
     },
     actions: {
         login: function login(context) {
             context.commit('login');
+        },
+        modalOpen: function modalOpen(context, entity) {
+            context.commit('modalOpen', entity);
         }
     }
 }));
@@ -79615,25 +79625,185 @@ if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.
 
 /***/ }),
 /* 251 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = getGedung;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getRuangan;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getRak;
+/* harmony export (immutable) */ __webpack_exports__["a"] = getBox;
+function getGedung() {
+    return axios.get('api/get-gedung').then(function (response) {
+        return response.data.data;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function getRuangan(id) {
+    return axios.get('api/get-ruangan/' + id).then(function (response) {
+        return response.data.data;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function getRak(id) {
+    return axios.get('api/get-rak/' + id).then(function (response) {
+        return response.data.data;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function getBox(id) {
+    return axios.get('api/get-box/' + id).then(function (response) {
+        return response.data.data;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+/***/ }),
+/* 252 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = createData;
+/* harmony export (immutable) */ __webpack_exports__["c"] = readData;
+/* harmony export (immutable) */ __webpack_exports__["d"] = updateData;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteData;
+function createData(form, url, entity) {
+    var _this = this;
+
+    this.$Progress.start();
+    form.post(url).then(function (response) {
+        if (response.status == 200) {
+            $('#' + entity + 'Modal').modal('hide');
+            Signal.$emit('load_' + entity + '');
+            toast({
+                type: 'success',
+                title: response.data.message
+            });
+            _this.$Progress.finish();
+        }
+    }).catch(function (error) {
+        console.log(error);
+        _this.$Progress.fail();
+    });
+}
+
+function readData(url) {
+    return axios.get(url).then(function (response) {
+        return response.data.data;
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function updateData(form, url, entity) {
+    var _this2 = this;
+
+    this.$Progress.start();
+    form.put(url).then(function (response) {
+        if (response.status == 200) {
+            $('#' + entity + 'Modal').modal('hide');
+            Signal.$emit('load_' + entity + '');
+            toast({
+                type: 'success',
+                title: response.data.message
+            });
+            _this2.$Progress.finish();
+        }
+    }).catch(function (error) {
+        _this2.$Progress.fail();
+        console.log(error);
+    });
+}
+
+function deleteData(url, entity) {
+    var _this3 = this;
+
+    swal({
+        title: 'Hapus data ' + entity + ' ini?',
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus Data',
+        cancelButtonText: 'Batal'
+    }).then(function (result) {
+        if (result.value) {
+            _this3.$Progress.start();
+            axios.delete(url).then(function (response) {
+                if (response.status == 200) {
+                    Signal.$emit('load_' + entity + '');
+                    toast({
+                        type: 'success',
+                        title: response.data.message
+                    });
+                    _this3.$Progress.finish();
+                }
+            }).catch(function (error) {
+                _this3.$Progress.fail();
+                console.log(error);
+            });
+        }
+    });
+}
+
+/***/ }),
+/* 253 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = showModal;
+/* harmony export (immutable) */ __webpack_exports__["a"] = forceCloseModal;
+function showModal(form, entity, operation, data) {
+    this.$store.dispatch('modalOpen', entity);
+    if (operation == 'create') {
+        this.editing = false;
+        form.reset();
+        form.clear();
+        $('#' + entity + 'Modal').modal('show');
+    } else if (operation == 'edit') {
+        this.editing = true;
+        form.reset();
+        form.clear();
+        $('#' + entity + 'Modal').modal('show');
+        form.fill(data);
+    } else if (operation == 'detail') {
+        $('#detail' + entity + 'Modal').modal('show');
+    }
+}
+
+function forceCloseModal(entity) {
+    $('#' + entity + 'Modal').modal('hide');
+    $('#detail' + entity + 'Modal').modal('hide');
+}
+
+/***/ }),
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(t,o){ true?module.exports=o():"function"==typeof define&&define.amd?define(o):t.VueProgressBar=o()}(this,function(){"use strict";!function(){if("undefined"!=typeof document){var t=document.head||document.getElementsByTagName("head")[0],o=document.createElement("style"),i=" .__cov-progress { opacity: 1; z-index: 999999; } ";o.type="text/css",o.styleSheet?o.styleSheet.cssText=i:o.appendChild(document.createTextNode(i)),t.appendChild(o)}}();var t="undefined"!=typeof window,r={render:function(){var t=this,o=t.$createElement;return(t._self._c||o)("div",{staticClass:"__cov-progress",style:t.style})},staticRenderFns:[],name:"VueProgress",serverCacheKey:function(){return"Progress"},computed:{style:function(){var t=this.progress,o=t.options,i=!!o.show,e=o.location,s={"background-color":o.canSuccess?o.color:o.failedColor,opacity:o.show?1:0,position:o.position};return"top"===e||"bottom"===e?("top"===e?s.top="0px":s.bottom="0px",o.inverse?s.right="0px":s.left="0px",s.width=t.percent+"%",s.height=o.thickness,s.transition=(i?"width "+o.transition.speed+", ":"")+"opacity "+o.transition.opacity):"left"!==e&&"right"!==e||("left"===e?s.left="0px":s.right="0px",o.inverse?s.top="0px":s.bottom="0px",s.height=t.percent+"%",s.width=o.thickness,s.transition=(i?"height "+o.transition.speed+", ":"")+"opacity "+o.transition.opacity),s},progress:function(){return t?window.VueProgressBarEventBus.RADON_LOADING_BAR:{percent:0,options:{canSuccess:!0,show:!1,color:"rgb(19, 91, 55)",failedColor:"red",thickness:"2px",transition:{speed:"0.2s",opacity:"0.6s",termination:300},location:"top",autoRevert:!0,inverse:!1}}}}};return{install:function(o){var t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},i=(o.version.split(".")[0],"undefined"!=typeof window),e={$vm:null,state:{tFailColor:"",tColor:"",timer:null,cut:0},init:function(t){this.$vm=t},start:function(t){var o=this;this.$vm&&(t||(t=3e3),this.$vm.RADON_LOADING_BAR.percent=0,this.$vm.RADON_LOADING_BAR.options.show=!0,this.$vm.RADON_LOADING_BAR.options.canSuccess=!0,this.state.cut=1e4/Math.floor(t),clearInterval(this.state.timer),this.state.timer=setInterval(function(){o.increase(o.state.cut*Math.random()),95<o.$vm.RADON_LOADING_BAR.percent&&o.$vm.RADON_LOADING_BAR.options.autoFinish&&o.finish()},100))},set:function(t){this.$vm.RADON_LOADING_BAR.options.show=!0,this.$vm.RADON_LOADING_BAR.options.canSuccess=!0,this.$vm.RADON_LOADING_BAR.percent=Math.floor(t)},get:function(){return Math.floor(this.$vm.RADON_LOADING_BAR.percent)},increase:function(t){this.$vm.RADON_LOADING_BAR.percent=Math.min(99,this.$vm.RADON_LOADING_BAR.percent+Math.floor(t))},decrease:function(t){this.$vm.RADON_LOADING_BAR.percent=this.$vm.RADON_LOADING_BAR.percent-Math.floor(t)},hide:function(){var t=this;clearInterval(this.state.timer),this.state.timer=null,setTimeout(function(){t.$vm.RADON_LOADING_BAR.options.show=!1,o.nextTick(function(){setTimeout(function(){t.$vm.RADON_LOADING_BAR.percent=0},100),t.$vm.RADON_LOADING_BAR.options.autoRevert&&setTimeout(function(){t.revert()},300)})},this.$vm.RADON_LOADING_BAR.options.transition.termination)},pause:function(){clearInterval(this.state.timer)},finish:function(){this.$vm&&(this.$vm.RADON_LOADING_BAR.percent=100,this.hide())},fail:function(){this.$vm.RADON_LOADING_BAR.options.canSuccess=!1,this.$vm.RADON_LOADING_BAR.percent=100,this.hide()},setFailColor:function(t){this.$vm.RADON_LOADING_BAR.options.failedColor=t},setColor:function(t){this.$vm.RADON_LOADING_BAR.options.color=t},setLocation:function(t){this.$vm.RADON_LOADING_BAR.options.location=t},setTransition:function(t){this.$vm.RADON_LOADING_BAR.options.transition=t},tempFailColor:function(t){this.state.tFailColor=this.$vm.RADON_LOADING_BAR.options.failedColor,this.$vm.RADON_LOADING_BAR.options.failedColor=t},tempColor:function(t){this.state.tColor=this.$vm.RADON_LOADING_BAR.options.color,this.$vm.RADON_LOADING_BAR.options.color=t},tempLocation:function(t){this.state.tLocation=this.$vm.RADON_LOADING_BAR.options.location,this.$vm.RADON_LOADING_BAR.options.location=t},tempTransition:function(t){this.state.tTransition=this.$vm.RADON_LOADING_BAR.options.transition,this.$vm.RADON_LOADING_BAR.options.transition=t},revertColor:function(){this.$vm.RADON_LOADING_BAR.options.color=this.state.tColor,this.state.tColor=""},revertFailColor:function(){this.$vm.RADON_LOADING_BAR.options.failedColor=this.state.tFailColor,this.state.tFailColor=""},revertLocation:function(){this.$vm.RADON_LOADING_BAR.options.location=this.state.tLocation,this.state.tLocation=""},revertTransition:function(){this.$vm.RADON_LOADING_BAR.options.transition=this.state.tTransition,this.state.tTransition={}},revert:function(){this.$vm.RADON_LOADING_BAR.options.autoRevert&&(this.state.tColor&&this.revertColor(),this.state.tFailColor&&this.revertFailColor(),this.state.tLocation&&this.revertLocation(),!this.state.tTransition||void 0===this.state.tTransition.speed&&void 0===this.state.tTransition.opacity||this.revertTransition())},parseMeta:function(t){for(var o in t.func){var i=t.func[o];switch(i.call){case"color":switch(i.modifier){case"set":this.setColor(i.argument);break;case"temp":this.tempColor(i.argument)}break;case"fail":switch(i.modifier){case"set":this.setFailColor(i.argument);break;case"temp":this.tempFailColor(i.argument)}break;case"location":switch(i.modifier){case"set":this.setLocation(i.argument);break;case"temp":this.tempLocation(i.argument)}break;case"transition":switch(i.modifier){case"set":this.setTransition(i.argument);break;case"temp":this.tempTransition(i.argument)}}}}},s=function(t,o){for(var i,e,s=1;s<arguments.length;++s)for(i in e=arguments[s])Object.prototype.hasOwnProperty.call(e,i)&&(t[i]=e[i]);return t}({canSuccess:!0,show:!1,color:"#73ccec",position:"fixed",failedColor:"red",thickness:"2px",transition:{speed:"0.2s",opacity:"0.6s",termination:300},autoRevert:!0,location:"top",inverse:!1,autoFinish:!0},t),n=new o({data:{RADON_LOADING_BAR:{percent:0,options:s}}});i&&(window.VueProgressBarEventBus=n,e.init(n)),o.component("vue-progress-bar",r),o.prototype.$Progress=e}}});
 
 
 /***/ }),
-/* 252 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(253)
+  __webpack_require__(256)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(258)
+var __vue_script__ = __webpack_require__(261)
 /* template */
-var __vue_template__ = __webpack_require__(271)
+var __vue_template__ = __webpack_require__(274)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79672,17 +79842,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 253 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(254);
+var content = __webpack_require__(257);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(256)("3e667c72", content, false, {});
+var update = __webpack_require__(259)("3e667c72", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79698,10 +79868,10 @@ if(false) {
 }
 
 /***/ }),
-/* 254 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(255)(false);
+exports = module.exports = __webpack_require__(258)(false);
 // imports
 
 
@@ -79712,7 +79882,7 @@ exports.push([module.i, "\n.fade-enter-active[data-v-8142f38c],\n.fade-leave-act
 
 
 /***/ }),
-/* 255 */
+/* 258 */
 /***/ (function(module, exports) {
 
 /*
@@ -79794,7 +79964,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 256 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -79813,7 +79983,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(257)
+var listToStyles = __webpack_require__(260)
 
 /*
 type StyleObject = {
@@ -80022,7 +80192,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 257 */
+/* 260 */
 /***/ (function(module, exports) {
 
 /**
@@ -80055,7 +80225,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 258 */
+/* 261 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80078,8 +80248,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+
 	computed: {
 		isActive: function isActive() {
 			if (!this.$route.meta.plainLayouts) {
@@ -80089,23 +80262,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	components: {
-		"navbar-vue": __webpack_require__(259),
-		"menu-vue": __webpack_require__(262),
-		"breadcrumb-vue": __webpack_require__(265),
-		"footer-vue": __webpack_require__(268)
+		"navbar-vue": __webpack_require__(262),
+		"menu-vue": __webpack_require__(265),
+		"breadcrumb-vue": __webpack_require__(268),
+		"footer-vue": __webpack_require__(271)
 	}
 });
 
 /***/ }),
-/* 259 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(260)
+var __vue_script__ = __webpack_require__(263)
 /* template */
-var __vue_template__ = __webpack_require__(261)
+var __vue_template__ = __webpack_require__(264)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80144,7 +80317,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 260 */
+/* 263 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80215,7 +80388,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 261 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80254,7 +80427,7 @@ var render = function() {
                       "a",
                       {
                         staticClass: "dropdown-item dropdown-footer bg-dark",
-                        attrs: { href: "" },
+                        attrs: { href: "javascript:void(0)" },
                         on: { click: _vm.logout }
                       },
                       [
@@ -80323,7 +80496,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass: "nav-link",
-        attrs: { "data-toggle": "dropdown", href: "#" }
+        attrs: { "data-toggle": "dropdown", href: "javascript:void(0)" }
       },
       [
         _c("i", { staticClass: "fas fa-cogs mr-2" }),
@@ -80337,7 +80510,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "a",
-      { staticClass: "dropdown-item bg-dark", attrs: { href: "#" } },
+      {
+        staticClass: "dropdown-item bg-dark",
+        attrs: { href: "javascript:void(0)" }
+      },
       [
         _c("i", { staticClass: "fa fa-user-circle mr-2" }),
         _vm._v(" Profil\n        ")
@@ -80355,15 +80531,15 @@ if (false) {
 }
 
 /***/ }),
-/* 262 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(263)
+var __vue_script__ = __webpack_require__(266)
 /* template */
-var __vue_template__ = __webpack_require__(264)
+var __vue_template__ = __webpack_require__(267)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80402,7 +80578,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 263 */
+/* 266 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80527,12 +80703,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     currentUser: function currentUser() {
       return this.$store.getters.currentUser.nama;
+    },
+    currentModal: function currentModal() {
+      return this.$store.getters.modalOpen;
+    }
+  },
+  methods: {
+    forceCloseModalOpen: function forceCloseModalOpen() {
+      if (this.currentModal == '') {
+        return;
+      } else {
+        this.forceCloseModal(this.currentModal);
+        this.$store.dispatch('modalOpen', '');
+      }
     }
   }
 });
 
 /***/ }),
-/* 264 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80576,7 +80765,10 @@ var render = function() {
               [
                 _c(
                   "li",
-                  { staticClass: "nav-item" },
+                  {
+                    staticClass: "nav-item",
+                    on: { click: _vm.forceCloseModalOpen }
+                  },
                   [
                     _c(
                       "router-link",
@@ -80597,7 +80789,8 @@ var render = function() {
                   "li",
                   {
                     staticClass: "nav-item has-treeview",
-                    class: { "menu-open": _vm.menuOpen }
+                    class: { "menu-open": _vm.menuOpen },
+                    on: { click: _vm.forceCloseModalOpen }
                   },
                   [
                     _c(
@@ -80621,7 +80814,10 @@ var render = function() {
                     _c("ul", { staticClass: "nav nav-treeview" }, [
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80640,7 +80836,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80662,7 +80861,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80684,7 +80886,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80703,7 +80908,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80722,7 +80930,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80742,7 +80953,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80764,7 +80978,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80786,7 +81003,10 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "li",
-                        { staticClass: "nav-item" },
+                        {
+                          staticClass: "nav-item",
+                          on: { click: _vm.forceCloseModalOpen }
+                        },
                         [
                           _c(
                             "router-link",
@@ -80863,15 +81083,15 @@ if (false) {
 }
 
 /***/ }),
-/* 265 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(266)
+var __vue_script__ = __webpack_require__(269)
 /* template */
-var __vue_template__ = __webpack_require__(267)
+var __vue_template__ = __webpack_require__(270)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80910,7 +81130,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 266 */
+/* 269 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80944,7 +81164,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 267 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80996,15 +81216,15 @@ if (false) {
 }
 
 /***/ }),
-/* 268 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(269)
+var __vue_script__ = __webpack_require__(272)
 /* template */
-var __vue_template__ = __webpack_require__(270)
+var __vue_template__ = __webpack_require__(273)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -81043,11 +81263,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 269 */
+/* 272 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -81067,7 +81289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 270 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81094,7 +81316,7 @@ if (false) {
 }
 
 /***/ }),
-/* 271 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81136,9 +81358,16 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      !_vm.$route.meta.plainLayouts
-        ? _c("footer-vue", { staticClass: "mt-auto" })
-        : _vm._e()
+      _c(
+        "div",
+        { attrs: { id: "vueter" } },
+        [
+          !_vm.$route.meta.plainLayouts
+            ? _c("footer-vue", { staticClass: "mt-auto" })
+            : _vm._e()
+        ],
+        1
+      )
     ],
     1
   )
@@ -81154,145 +81383,10 @@ if (false) {
 }
 
 /***/ }),
-/* 272 */
+/* 275 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = getGedung;
-/* harmony export (immutable) */ __webpack_exports__["b"] = getRuangan;
-function getGedung() {
-    var _this = this;
-
-    var gedung = {};
-    axios.get('api/get-gedung').then(function (response) {
-        _this.gedung = response.data.data;
-    }).catch(function (error) {
-        console.log(error);
-    });
-    return gedung;
-}
-
-function getRuangan() {
-    var _this2 = this;
-
-    var ruangan = {};
-    axios.get('api/get-ruangan').then(function (response) {
-        _this2.ruangan = response.data.data;
-    }).catch(function (error) {
-        console.log(error);
-    });
-    return ruangan;
-}
-
-/***/ }),
-/* 289 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = createData;
-/* harmony export (immutable) */ __webpack_exports__["c"] = readData;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updateData;
-/* harmony export (immutable) */ __webpack_exports__["b"] = deleteData;
-function createData(form, url, entity) {
-    var _this = this;
-
-    this.$Progress.start();
-    form.post(url).then(function (response) {
-        if (response.status == 200) {
-            $('#' + entity + 'Modal').modal('hide');
-            Signal.$emit('load_' + entity + '');
-            toast({
-                type: 'success',
-                title: response.data.message
-            });
-            _this.$Progress.finish();
-        }
-    }).catch(function (error) {
-        console.log(error);
-        _this.$Progress.fail();
-    });
-}
-
-function readData(url) {
-    return axios.get(url).then(function (response) {
-        return response.data.data;
-    }).catch(function (error) {
-        console.log(error);
-    });
-}
-
-function updateData(form, url, entity) {
-    var _this2 = this;
-
-    this.$Progress.start();
-    form.put(url).then(function (response) {
-        if (response.status == 200) {
-            $('#' + entity + 'Modal').modal('hide');
-            Signal.$emit('load_' + entity + '');
-            toast({
-                type: 'success',
-                title: response.data.message
-            });
-            _this2.$Progress.finish();
-        }
-    }).catch(function (error) {
-        _this2.$Progress.fail();
-        console.log(error);
-    });
-}
-
-function deleteData(url, entity) {
-    var _this3 = this;
-
-    swal({
-        title: 'Hapus data ' + entity + ' ini?',
-        text: "Data yang dihapus tidak dapat dikembalikan!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Hapus Data',
-        cancelButtonText: 'Batal'
-    }).then(function (result) {
-        if (result.value) {
-            _this3.$Progress.start();
-            axios.delete(url).then(function (response) {
-                if (response.status == 200) {
-                    Signal.$emit('load_' + entity + '');
-                    toast({
-                        type: 'success',
-                        title: response.data.message
-                    });
-                    _this3.$Progress.finish();
-                }
-            }).catch(function (error) {
-                _this3.$Progress.fail();
-                console.log(error);
-            });
-        }
-    });
-}
 
 /***/ })
 /******/ ]);

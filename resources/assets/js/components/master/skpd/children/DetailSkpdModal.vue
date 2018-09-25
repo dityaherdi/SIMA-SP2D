@@ -38,7 +38,7 @@
 
         created() {
             Signal.$on('show_detail_skpd_modal', (skpd) => {
-                $('#detailSkpdModal').modal('show')
+                this.showModal(null, 'Skpd', 'detail', null)
                 this.skpd.kode_skpd = skpd.kode_skpd
                 this.skpd.nama_skpd = skpd.nama_skpd
                 if (skpd.keterangan==null) {

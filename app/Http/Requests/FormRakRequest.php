@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\KodeRuanganRule;
 
-class FormRuanganRequest extends FormRequest
+class FormRakRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,8 +20,8 @@ class FormRuanganRequest extends FormRequest
     }
 
     protected $rules = [
-        'id_gedung' => 'required',
-        'kode_ruangan' => ''
+        'id_ruangan' => 'required',
+        'kode_rak' => ''
     ];
 
     /**
@@ -35,19 +34,20 @@ class FormRuanganRequest extends FormRequest
         $rules = $this->rules;
 
         if ($this->isMethod('POST')) {
-            $rules['kode_ruangan'] = 'required|unique:ruangans,kode_ruangan,NULL,id_ruangan,id_gedung,'.$this->get('id_gedung').'';
+            $rules['kode_rak'] = 'required|unique:raks,kode_rak,NULL,id_rak,id_ruangan,'.$this->get('id_ruangan').'';
         }else if ($this->isMethod('PUT')) {
-            $rules['kode_ruangan'] = 'required|unique:ruangans,kode_ruangan,'.$this->get('id_ruangan').',id_ruangan,id_gedung,'.$this->get('id_gedung').'';
+            $rules['kode_rak'] = 'required|unique:raks,kode_rak,'.$this->get('id_rak').',id_rak,id_ruangan,'.$this->get('id_ruangan').'';
         }
+
         return $rules;
     }
 
     public function messages()
     {
         return [
-            'id_gedung.required' => 'Gedung harus diisi',
-            'kode_ruangan.required' => 'Kode Ruangan harus diisi',
-            'kode_ruangan.unique' => 'Kode Ruangan sudah digunakan pada gedung ini',
+            'id_ruangan.required' => 'Ruangan masih kosong',
+            'kode_rak.required' => 'Kode Rak masih kosong',
+            'kode_rak.unique' => 'Kode Rak sudah digunakan pada gedung ini'
         ];
     }
 }

@@ -24,16 +24,16 @@
         <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+            <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)">
             <i class="fas fa-cogs mr-2"></i> Pengaturan
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right bg-dark">
-            <a href="#" class="dropdown-item bg-dark">
+            <a href="javascript:void(0)" class="dropdown-item bg-dark">
                 <i class="fa fa-user-circle mr-2"></i> Profil
             </a>
             <div class="dropdown-divider"></div>
             <template v-if="currentUser">
-                <a href="" class="dropdown-item dropdown-footer bg-dark" @click="logout">
+                <a href="javascript:void(0)" class="dropdown-item dropdown-footer bg-dark" @click="logout">
                     <i class="fas fa-sign-out-alt mr-2"></i>
                     Logout
                 </a>

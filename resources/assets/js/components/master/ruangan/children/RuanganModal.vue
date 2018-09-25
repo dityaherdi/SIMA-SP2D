@@ -11,7 +11,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" @submit.prevent="editing ? updateRuangan() : createRuangan()">
+                <form role="form" @submit.prevent="editing ? updateRuangan() : createRuangan()"
+                    @change="clearError"
+                >
                 <div class="card-body">
                     <div class="form-group">
                     <label>Gedung Penyimpanan</label>
@@ -31,14 +33,14 @@
                         <input type="text" class="form-control" 
                             :class="{ 'is-invalid': ruangan.errors.has('kode_ruangan') }" 
                             id="koderuangan" v-model="ruangan.kode_ruangan"
-                            @change="clearError">
+                        >
                         <has-error :form="ruangan" field="kode_ruangan"></has-error>
                     </div>
                     <div class="form-group">
                         <label for="ketruangan">Keterangan</label>
                         <textarea class="form-control" rows="3" placeholder="..." 
                             :class="{ 'is-invalid': ruangan.errors.has('keterangan') }"
-                            id="ketruangan" v-model="ruangan.keterangan" @change="clearError"></textarea>
+                            id="ketruangan" v-model="ruangan.keterangan"></textarea>
                         <has-error :form="ruangan" field="keterangan"></has-error>
                     </div>
                     <div class="form-group">
@@ -84,22 +86,18 @@
 
         created() {
             Signal.$on('show_creating_ruangan_modal', () => {
-                this.editing = false
-                this.ruangan.reset()
-                this.ruangan.clear()
-                $('#ruanganModal').modal('show')
+                this.showModal(this.ruangan, 'ruangan', 'create')
             }),
             
             Signal.$on('show_editing_ruangan_modal', (rua) => {
-                this.editing = true
-                this.ruangan.reset()
-                this.ruangan.clear()
-                $('#ruanganModal').modal('show')
-                this.ruangan.fill(rua)
+                this.showModal(this.ruangan, 'ruangan', 'edit', rua)
                 this.status = rua.status
             }),
 
             this.gedung = this.getGedung()
+            .then((gedung) => {
+                this.gedung = gedung
+            })
         },
 
         methods: {

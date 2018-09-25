@@ -80,13 +80,4 @@ class GedungController extends Controller
             'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah dihapus'
         ]);
     }
-
-    public function getGedung()
-    {
-        $gedung = Gedung::select('id_gedung', 'kode_gedung', 'nama_gedung')->where('status', 1)->get();
-
-        return response()->json([
-            'data' => $gedung
-        ]);
-    }
 }

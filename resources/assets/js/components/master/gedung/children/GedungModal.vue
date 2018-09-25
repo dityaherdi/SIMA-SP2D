@@ -11,14 +11,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" @submit.prevent="editing ? updateGedung() : createGedung()">
+                <form role="form" @submit.prevent="editing ? updateGedung() : createGedung()"
+                        @change="clearError"
+                >
                 <div class="card-body">
                     <div class="form-group">
                         <label for="kodegedung">Kode Gedung</label>
                         <input type="text" class="form-control" 
                             :class="{ 'is-invalid': gedung.errors.has('kode_gedung') }" 
                             id="kodegedung" v-model="gedung.kode_gedung" placeholder=""
-                            @change="clearError">
+                        >
                         <has-error :form="gedung" field="kode_gedung"></has-error>
                     </div>
                     <div class="form-group">
@@ -26,14 +28,14 @@
                         <input type="text" class="form-control" 
                             :class="{ 'is-invalid': gedung.errors.has('nama_gedung') }" 
                             id="namagedung" v-model="gedung.nama_gedung" placeholder=""
-                            @change="clearError">
+                        >
                         <has-error :form="gedung" field="nama_gedung"></has-error>
                     </div>
                     <div class="form-group">
                         <label for="ketgedung">Keterangan</label>
                         <textarea class="form-control" rows="3" placeholder="..." 
                             :class="{ 'is-invalid': gedung.errors.has('keterangan') }"
-                            id="ketgedung" v-model="gedung.keterangan" @change="clearError"></textarea>
+                            id="ketgedung" v-model="gedung.keterangan"></textarea>
                         <has-error :form="gedung" field="keterangan"></has-error>
                     </div>
                     <div class="form-group">
@@ -77,17 +79,10 @@
         },
         created() {
             Signal.$on('show_creating_gedung_modal', () => {
-                this.editing = false
-                this.gedung.reset()
-                this.gedung.clear()
-                $('#gedungModal').modal('show')
+                this.showModal(this.gedung, 'gedung', 'create')
             }),
             Signal.$on('show_editing_gedung_modal', (ged) => {
-                this.editing = true
-                this.gedung.reset()
-                this.gedung.clear()
-                $('#gedungModal').modal('show')
-                this.gedung.fill(ged)
+                this.showModal(this.gedung, 'gedung', 'edit', ged)
                 this.gedung.status = ged.status
             })
         },

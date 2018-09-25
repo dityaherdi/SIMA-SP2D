@@ -1,6 +1,6 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" id="detailJenisSuratModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="detailJenisModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -38,7 +38,7 @@
 
         created() {
             Signal.$on('show_detail_jenis_modal', (jen) => {
-                $('#detailJenisSuratModal').modal('show')
+                this.showModal(null, 'Jenis', 'detail', null)
                 this.jenis.kode_jenis_sp2d = jen.kode_jenis_sp2d
                 this.jenis.nama_jenis_sp2d = jen.nama_jenis_sp2d
                 if (jen.keterangan==null) {

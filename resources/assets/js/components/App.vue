@@ -13,11 +13,14 @@
 				</div>
 			</div>
 		</div>
-		<footer-vue v-if="!$route.meta.plainLayouts" class="mt-auto"></footer-vue>
+		<div id="vueter">
+			<footer-vue v-if="!$route.meta.plainLayouts" class="mt-auto"></footer-vue>
+		</div>
 	</div>
 </template>
 <script>
 	export default {
+		
 		computed: {
 			isActive: function () {
 				if(!this.$route.meta.plainLayouts){

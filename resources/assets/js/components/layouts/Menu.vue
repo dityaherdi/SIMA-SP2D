@@ -25,13 +25,13 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-item">
+            <li class="nav-item" @click="forceCloseModalOpen">
               <router-link to="/dashboard" class="nav-link">
                 <i class="fas fa-tachometer-alt nav-icon"></i>
                 <p>Dashboard</p>
               </router-link>
             </li>
-            <li class="nav-item has-treeview" :class="{'menu-open' : menuOpen}">
+            <li class="nav-item has-treeview" :class="{'menu-open' : menuOpen}" @click="forceCloseModalOpen">
               <a href="javascript:void(0)" @click="menuOpen = !menuOpen" class="nav-link">
                 <i class="nav-icon fas fa-database"></i>
                 <p>
@@ -40,55 +40,55 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/skpd" class="nav-link">
                     <i class="fas fa-address-card nav-icon"></i>
                     <p>SKPD</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/gedung" class="nav-link">
                     <i class="fas fa-building nav-icon"></i>
                     <p>Gedung</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/ruangan" class="nav-link">
                     <i class="fas fa-door-open nav-icon"></i>
                     <p>Ruangan</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/rak" class="nav-link">
                     <i class="fas fa-archive nav-icon"></i>
                     <p>Rak</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/box" class="nav-link">
                     <i class="fas fa-box-open nav-icon"></i>
                     <p>Box</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/jenis-surat" class="nav-link">
                     <i class="fas fa-table nav-icon"></i>
                     <p>Jenis Surat</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/surat" class="nav-link">
                     <i class="fas fa-envelope nav-icon"></i>
                     <p>Surat</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/arsip" class="nav-link">
                     <i class="fas fa-file-archive nav-icon"></i>
                     <p>Arsip</p>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" @click="forceCloseModalOpen">
                   <router-link to="/user" class="nav-link">
                     <i class="fas fa-users nav-icon"></i>
                     <p>User</p>
@@ -115,9 +115,22 @@
         }
       },
       computed: {
-          currentUser() {
-              return this.$store.getters.currentUser.nama;
+        currentUser() {
+          return this.$store.getters.currentUser.nama;
+        },
+        currentModal() {
+          return this.$store.getters.modalOpen
+        }
+      },
+      methods: {
+        forceCloseModalOpen() {
+          if (this.currentModal=='') {
+            return
+          }else {
+            this.forceCloseModal(this.currentModal)
+            this.$store.dispatch('modalOpen', '')
           }
+        }
       }
     }
 </script>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormRuanganRequest;
 use App\Ruangan;
+use DB;
 
 class RuanganController extends Controller
 {
@@ -16,10 +17,10 @@ class RuanganController extends Controller
      */
     public function index()
     {
-        $ruangans = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get();
+        $ruangan = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get();
 
         return response()->json([
-            'data' => $ruangans
+            'data' => $ruangan
         ]);
     }
 
@@ -64,7 +65,7 @@ class RuanganController extends Controller
 
         return response()->json([
             'data' => $ruangan,
-            'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.'telah diperbarui'
+            'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah diperbarui'
         ]);
     }
 
@@ -82,15 +83,6 @@ class RuanganController extends Controller
         return response()->json([
             'data' => $ruangan,
             'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah dihapus'
-        ]);
-    }
-
-    public function getRuangan()
-    {
-        $ruangan = Ruangan::select('id_ruangan', 'id_gedung', 'kode_ruangan')->where('status', 1)->get();
-
-        return response()->json([
-            'data' => $ruangan
         ]);
     }
 }

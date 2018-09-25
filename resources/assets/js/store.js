@@ -12,7 +12,8 @@ export default new Vuex.Store({
         isLoggedIn: !!user,
         loading: false,
         auth_error: null,
-        activePage: ''
+        activePage: '',
+        modalOpen: ''
     },
     getters: {
         isLoggedIn(state) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
         },
         activePage(state) {
             return state.activePage;
+        },
+        modalOpen(state) {
+            return state.modalOpen;
         }
     },
     mutations: {
@@ -55,11 +59,17 @@ export default new Vuex.Store({
         },
         changePage(state, route) {
             state.activePage = route;
+        },
+        modalOpen(state, entity) {
+            state.modalOpen = entity
         }
     },
     actions: {
         login(context) {
             context.commit('login');
+        },
+        modalOpen(context, entity) {
+            context.commit('modalOpen', entity)
         }
     }
 })

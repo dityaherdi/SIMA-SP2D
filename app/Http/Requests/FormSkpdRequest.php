@@ -21,7 +21,7 @@ class FormSkpdRequest extends FormRequest
     }
 
     protected $rules = [
-        'kode_skpd' => [''],
+        'kode_skpd' => '',
         'nama_skpd' => 'required|max:191',
         'alias_skpd' => 'required|max:191'
     ];
@@ -34,11 +34,13 @@ class FormSkpdRequest extends FormRequest
     public function rules()
     {
         $rules = $this->rules;
+        
         if ($this->isMethod('POST')) {
             $rules['kode_skpd'] = ['required', 'max:8', 'unique:skpds', new KodeSkpdRule()];
         }else if ($this->isMethod('PUT')) {
             $rules['kode_skpd'] = ['required', 'max:8', 'unique:skpds,kode_skpd,'.$this->get('id_skpd').',id_skpd', new KodeSkpdRule()];
         }
+
         return $rules;
     }
 

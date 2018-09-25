@@ -37,7 +37,7 @@
         },
         created() {
             Signal.$on('show_detail_gedung_modal', (ged) => {
-                $('#detailGedungModal').modal('show')
+                this.showModal(null, 'Gedung', 'detail', null)
                 this.gedung.kode_gedung = ged.kode_gedung
                 this.gedung.nama_gedung = ged.nama_gedung
                 if (ged.keterangan==null) {

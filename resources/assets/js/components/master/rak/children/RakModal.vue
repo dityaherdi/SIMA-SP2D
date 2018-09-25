@@ -11,28 +11,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form role="form" @submit.prevent="editing ? updateRak() : createRak()">
+                <form role="form" @submit.prevent="editing ? updateRak() : createRak()"
+                    @change="clearError">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6 ml-auto">
                             <div class="form-group">
                             <label>Gedung Arsip</label>
-                                <select class="form-control">
+                                <select class="form-control" @change="selectRuangan" v-model="lokasi.gedung">
                                     <option disabled value=""> --- Pilih Gedung --- </option>
                                     <option v-for="ged in gedung"
                                         :key="ged.id_gedung"
                                         :value="ged.id_gedung">
-                                        {{ ged.kode_gedung }}
+                                        {{ ged.nama_gedung }}
                                     </option>
                                 </select>
-                                <has-error :form="rak" field="id_ruangan"></has-error>
                             </div>    
                         </div>
                         <div class="col-sm-6 ml-auto">
                             <div class="form-group">
                             <label>Ruangan Penyimpanan</label>
                                 <select class="form-control" v-model="rak.id_ruangan"
-                                    :class="{ 'is-invalid': rak.errors.has('id_ruangan') }" disabled>
+                                    :class="{ 'is-invalid': rak.errors.has('id_ruangan') }"
+                                    :disabled="this.lokasi.gedung=='' ? true : false">
                                     <option disabled value=""> --- Pilih Ruangan --- </option>
                                     <option v-for="rua in ruangan"
                                         :key="rua.id_ruangan"
@@ -49,14 +50,14 @@
                         <input type="text" class="form-control" 
                             :class="{ 'is-invalid': rak.errors.has('kode_rak') }" 
                             id="koderak" v-model="rak.kode_rak"
-                            @change="clearError">
+                        >
                         <has-error :form="rak" field="kode_rak"></has-error>
                     </div>
                     <div class="form-group">
                         <label for="ketrak">Keterangan</label>
                         <textarea class="form-control" rows="3" placeholder="..." 
                             :class="{ 'is-invalid': rak.errors.has('keterangan') }"
-                            id="ketrak" v-model="rak.keterangan" @change="clearError"></textarea>
+                            id="ketrak" v-model="rak.keterangan"></textarea>
                         <has-error :form="rak" field="keterangan"></has-error>
                     </div>
                     <div class="form-group">
@@ -89,6 +90,9 @@
         data() {
             return {
                 editing: false,
+                lokasi: {
+                    gedung: ''
+                },
                 gedung: {},
                 ruangan: {},
                 rak: new Form({
@@ -96,44 +100,48 @@
                     id_ruangan: '',
                     kode_rak: '',
                     keterangan: '',
-                    status: ''
+                    status: true
                 })
             }
         },
 
         created() {
             Signal.$on('show_creating_rak_modal', () => {
-                this.editing = false;
-                $('#rakModal').modal('show')
+                this.lokasi.gedung = ''
+                this.showModal(this.rak, 'rak', 'create')
             }),
 
-            Signal.$on('show_editing_rak_modal', () => {
-                this.editing = true;
-                $('#rakModal').modal('show')
+            Signal.$on('show_editing_rak_modal', (r) => {
+                this.showModal(this.rak, 'rak', 'edit', r)
+                this.rak.status = r.status
+                this.lokasi.gedung = r.ruangan.gedung.id_gedung
+                this.selectRuangan()
             })
 
-            this.getRuangan()
+            this.getGedung()
+            .then((gedung) => {
+                this.gedung = gedung
+            })
         },
 
         methods: {
             clearError() {
                 this.rak.clear()
             },
-            getRuangan() {
-                axios.get('api/get-ruangan')
-                .then((response) => {
-                    this.ruangan = response.data.data
-                })
-                .catch((error) => {
-                    console.log(error)
+
+            selectRuangan() {
+                this.getRuangan(this.lokasi.gedung)
+                .then((ruangan) => {
+                    this.ruangan = ruangan
                 })
             },
+
             createRak() {
-                console.log('creating rak')
+                this.createData(this.rak, 'api/rak', 'rak')
             },
 
             updateRak() {
-                console.log('updating rak')
+                this.updateData(this.rak, 'api/rak/'+this.rak.id_rak, 'rak')
             }
         }
     }

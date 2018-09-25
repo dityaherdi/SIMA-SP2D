@@ -34,6 +34,11 @@ Route::group(['middleware' => 'auth:api'], function (){
         'rak' => 'API\RakController'
     ]);
 
-    Route::get('get-gedung', 'API\GedungController@getGedung');
-    Route::get('get-ruangan', 'API\RuanganController@getRuangan');
+    Route::get('get-gedung', 'API\LetakController@letakGedung');
+    Route::get('get-ruangan/{id}', 'API\LetakController@letakRuangan');
+    Route::get('get-rak/{id}', 'API\LetakController@letakRak');
+    // Route::get('get-box', 'API\LetakController@letakBox');
+    
+    // Route::get('get-gedung', 'API\GedungController@getGedung');
+    // Route::get('get-ruangan', 'API\RuanganController@getRuangan');
 });

@@ -22,7 +22,8 @@
                     <th>Aksi</th>
                   </tr>
                   <tr v-for="r in rak" :key="r.id_rak">
-                    <td>{{ r.ruangan.nama_ruangan }}</td>
+                    <!-- <td>{{ r.ruangan.gedung.nama_gedung }}</td> -->
+                    <td>{{ r.ruangan.kode_ruangan }}</td>
                     <td>{{ r.kode_rak | uppercase}}</td>
                     <td>
                         <a href="javascript:void(0)" class="btn btn-dark btn-sm" 
@@ -90,45 +91,14 @@
             },
 
             loadRak() {
-                axios.get('api/rak')
-                .then((response) => {
-                    this.rak = response.data.data
-                })
-                .catch((error) => {
-                    console.log(error)
+                this.readData('api/rak')
+                .then((rak) => {
+                    this.rak = rak
                 })
             },
 
             deleteRak(id) {
-                swal({
-                    title: 'Hapus Data Rak ini?',
-                    text: "Data yang dihapus tidak dapat dikembalikan!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Hapus Data',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.value) {
-                        this.$Progress.start()
-                        axios.delete('api/rak/'+id)
-                        .then((response) => {
-                            if (response.status == 200) {
-                                Signal.$emit('load_rak')
-                                toast({
-                                    type: 'success',
-                                    title: response.data.message
-                                })
-                                this.$Progress.finish()
-                            }
-                        })
-                        .catch((error) => {
-                            this.$Progress.fail()
-                            console.log(error)
-                        })
-                    }
-                })
+                this.deleteData('api/rak/'+id, 'rak')
             }
         }
     }

@@ -17,8 +17,9 @@ import store from './store';
 import { initialize } from './helpers/init';
 import './helpers/filter';
 import './helpers/alert';
-import { getGedung, getRuangan } from './helpers/getters'
-import { createData, readData, updateData, deleteData } from './helpers/operation'
+import { getGedung, getRuangan, getRak, getBox } from './helpers/getters'
+import { createData, readData, updateData, deleteData } from './helpers/operations'
+import { showModal, forceCloseModal } from './helpers/modal'
 import VueProgressBar from 'vue-progressbar';
 
 window.Form = Form;
@@ -34,12 +35,20 @@ Vue.use(VueProgressBar, {
 
 Vue.mixin({
     methods : {
+        // dropdown getters
         getGedung,
         getRuangan,
+        getRak,
+        getBox,
+
+        // data operations
         createData,
         readData,
         updateData,
-        deleteData
+        deleteData,
+
+        showModal,
+        forceCloseModal
     }
 })
 

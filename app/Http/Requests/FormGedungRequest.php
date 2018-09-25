@@ -20,7 +20,7 @@ class FormGedungRequest extends FormRequest
     }
 
     protected $rules = [
-        'kode_gedung' => [''],
+        'kode_gedung' => '',
         'nama_gedung' => 'required|max:191'
     ];
 
@@ -32,6 +32,7 @@ class FormGedungRequest extends FormRequest
     public function rules()
     {
         $rules = $this->rules;
+        
         if ($this->isMethod('POST')) {
             $rules['kode_gedung'] = 'required|unique:gedungs';
         }else if ($this->isMethod('PUT')) {
