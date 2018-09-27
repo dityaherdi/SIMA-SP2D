@@ -13,9 +13,9 @@
 				</div>
 			</div>
 		</div>
-		<div id="vueter">
+		<!-- <div id="vueter">
 			<footer-vue v-if="!$route.meta.plainLayouts" class="mt-auto"></footer-vue>
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>

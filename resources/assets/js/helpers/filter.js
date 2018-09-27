@@ -15,3 +15,7 @@ Vue.filter('breadcrumbActive', function(text) {
 Vue.filter('uppercase', function(text) {
     return text.toUpperCase();
 })
+
+Vue.filter('noDash', function(text) {
+    return text.replace(/-/g, ' ');
+})

@@ -98,17 +98,10 @@
         
         created() {
             Signal.$on('show_creating_skpd_modal', () => {
-                this.editing = false
-                this.skpd.reset()
-                this.skpd.clear()
-                $('#skpdModal').modal('show')
+                this.showModal(this.skpd, 'skpd', 'create')
             }),
             Signal.$on('show_editing_skpd_modal', (skpd) => {
-                this.editing = true
-                this.skpd.reset()
-                this.skpd.clear()
-                $('#skpdModal').modal('show')
-                this.skpd.fill(skpd)
+                this.showModal(this.skpd, 'skpd', 'edit', skpd)
                 this.skpd.status = skpd.status
             })
         },

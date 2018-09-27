@@ -4,7 +4,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item" aria-current="page">HOME</li>
-                    <li class="breadcrumb-item" aria-current="page">{{ activePage | breadcrumbActive | uppercase}}</li>
+                    <li class="breadcrumb-item" aria-current="page">{{ activePage | breadcrumbActive | uppercase | noDash}}</li>
                 </ol>
             </nav>
         </div>

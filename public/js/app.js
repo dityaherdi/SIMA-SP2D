@@ -67902,16 +67902,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_creating_skpd_modal', function () {
-            _this.editing = false;
-            _this.skpd.reset();
-            _this.skpd.clear();
-            $('#skpdModal').modal('show');
+            _this.showModal(_this.skpd, 'skpd', 'create');
         }), Signal.$on('show_editing_skpd_modal', function (skpd) {
-            _this.editing = true;
-            _this.skpd.reset();
-            _this.skpd.clear();
-            $('#skpdModal').modal('show');
-            _this.skpd.fill(skpd);
+            _this.showModal(_this.skpd, 'skpd', 'edit', skpd);
             _this.skpd.status = skpd.status;
         });
     },
@@ -75759,6 +75752,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('uppercase', function (text) 
     return text.toUpperCase();
 });
 
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('noDash', function (text) {
+    return text.replace(/-/g, ' ');
+});
+
 /***/ }),
 /* 248 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -81193,8 +81190,10 @@ var render = function() {
             [
               _vm._v(
                 _vm._s(
-                  _vm._f("uppercase")(
-                    _vm._f("breadcrumbActive")(_vm.activePage)
+                  _vm._f("noDash")(
+                    _vm._f("uppercase")(
+                      _vm._f("breadcrumbActive")(_vm.activePage)
+                    )
                   )
                 )
               )
@@ -81354,17 +81353,6 @@ var render = function() {
               1
             )
           ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { attrs: { id: "vueter" } },
-        [
-          !_vm.$route.meta.plainLayouts
-            ? _c("footer-vue", { staticClass: "mt-auto" })
-            : _vm._e()
         ],
         1
       )

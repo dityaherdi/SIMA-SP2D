@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Rak;
 use App\Http\Requests\FormRakRequest;
+use QRCode;
 
 class RakController extends Controller
 {
@@ -41,10 +42,7 @@ class RakController extends Controller
     {
         $rak = Rak::Create($request->all());
 
-        return response()->json([
-            'data' => $rak,
-            'message' => 'Rak dengan kode: '.$rak->kode_rak.' ditambahkan'
-        ]);
+        return $this->generateQr($rak, $request);
     }
 
     /**
@@ -70,10 +68,7 @@ class RakController extends Controller
         $rak = Rak::findOrFail($id);
         $rak->update($request->all());
 
-        return response()->json([
-            'data' => $rak,
-            'message' => 'Rak dengan kode: '.$rak->kode_rak.' telah diperbarui'
-        ]);
+        return $this->generateQr($rak, $request);
     }
 
     /**
@@ -86,10 +81,48 @@ class RakController extends Controller
     {
         $rak = Rak::findOrFail($id);
         $rak->delete();
+        @unlink(public_path('img/qr/rak/'.$rak->qr_rak));
 
         return response()->json([
             'data' => $rak,
             'message' => 'Rak dengan kode: '.$rak->kode_rak.' telah dihapus'
         ]);
+    }
+
+    public function generateQr($rak, $request)
+    {
+        $letak = Rak::join('ruangans', 'ruangans.id_ruangan', '=', 'raks.id_ruangan')
+                        ->join('gedungs', 'gedungs.id_gedung', '=', 'ruangans.id_gedung')
+                        ->select('nama_gedung', 'kode_ruangan', 'kode_rak')
+                        ->where(['raks.id_rak' => $rak->id_rak, 'raks.status' => 1])
+                        ->get()->first();
+
+        $currentQr = $rak->qr_rak;
+        $filename = str_slug($letak['kode_rak']).'.png';
+        $path = public_path('img/qr/rak/'.$filename);
+        QRCode::text(
+            'Gedung : '.$letak['nama_gedung'].' / '.
+            'Ruang : '.$letak['kode_ruangan'].' / '.
+            'Rak : '.$letak['kode_rak'])
+                ->setSize(10)
+                ->setMargin(1)
+                ->setOutFile($path)
+                ->png();
+        $rak->update(['qr_rak' => $filename]);
+
+        if ($request->isMethod('POST')) {
+            return response()->json([
+                'data' => $rak,
+                'message' => 'Rak dengan kode: '.$rak->kode_rak.' ditambahkan'
+            ]);
+        }else if ($request->isMethod('PUT')) {
+
+            @unlink(public_path('img/qr/rak/'.$currentQr));
+
+            return response()->json([
+                'data' => $rak,
+                'message' => 'Rak dengan kode: '.$rak->kode_rak.' telah diperbarui'
+            ]);
+        }
     }
 }
