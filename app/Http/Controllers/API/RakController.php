@@ -42,7 +42,7 @@ class RakController extends Controller
     {
         $rak = Rak::Create($request->all());
 
-        return $this->generateQr($rak, $request);
+        return $this->generateRakQr($rak, $request);
     }
 
     /**
@@ -68,7 +68,7 @@ class RakController extends Controller
         $rak = Rak::findOrFail($id);
         $rak->update($request->all());
 
-        return $this->generateQr($rak, $request);
+        return $this->generateRakQr($rak, $request);
     }
 
     /**
@@ -89,7 +89,7 @@ class RakController extends Controller
         ]);
     }
 
-    public function generateQr($rak, $request)
+    public function generateRakQr($rak, $request)
     {
         $letak = Rak::join('ruangans', 'ruangans.id_ruangan', '=', 'raks.id_ruangan')
                         ->join('gedungs', 'gedungs.id_gedung', '=', 'ruangans.id_gedung')
@@ -97,7 +97,7 @@ class RakController extends Controller
                         ->where(['raks.id_rak' => $rak->id_rak, 'raks.status' => 1])
                         ->get()->first();
 
-        $currentQr = $rak->qr_rak;
+        $currentRakQr = $rak->qr_rak;
         $filename = str_slug($letak['kode_rak']).'.png';
         $path = public_path('img/qr/rak/'.$filename);
         QRCode::text(
@@ -116,8 +116,7 @@ class RakController extends Controller
                 'message' => 'Rak dengan kode: '.$rak->kode_rak.' ditambahkan'
             ]);
         }else if ($request->isMethod('PUT')) {
-
-            @unlink(public_path('img/qr/rak/'.$currentQr));
+            @unlink(public_path('img/qr/rak/'.$currentRakQr));
 
             return response()->json([
                 'data' => $rak,

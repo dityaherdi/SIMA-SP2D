@@ -31,7 +31,8 @@ Route::group(['middleware' => 'auth:api'], function (){
         'jenis' => 'API\JenisSuratController',
         'gedung' => 'API\GedungController',
         'ruangan' => 'API\RuanganController',
-        'rak' => 'API\RakController'
+        'rak' => 'API\RakController',
+        'box' => 'API\BoxController'
     ]);
 
     Route::get('get-gedung', 'API\LetakController@letakGedung');
@@ -39,6 +40,4 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('get-rak/{id}', 'API\LetakController@letakRak');
     // Route::get('get-box', 'API\LetakController@letakBox');
     
-    // Route::get('get-gedung', 'API\GedungController@getGedung');
-    // Route::get('get-ruangan', 'API\RuanganController@getRuangan');
 });

@@ -16,4 +16,9 @@ class Rak extends Model
     {
         return $this->belongsTo('App\Ruangan', 'id_ruangan');
     }
+
+    public function boxes()
+    {
+        return $this->hasMany('App\Box');
+    }
 }
