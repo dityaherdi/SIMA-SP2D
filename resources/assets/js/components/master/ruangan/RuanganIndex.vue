@@ -29,13 +29,13 @@
                             @click="showDetailRuanganModal(rua)">
                             <i class="fas fa-eye "></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                             title="Edit Data Ruangan"
                             @click="showEditingModal(rua)">
                             <i class="fas fa-edit"></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                             title="Hapus Data Ruangan"
                             @click="deleteRuangan(rua.id_ruangan)">
@@ -91,7 +91,7 @@
             loadRuangan() {
                 this.readData('api/ruangan')
                 .then((ruangan) => {
-                    this.ruangan = ruangan
+                    this.ruangan = ruangan.data
                 })
             },
 

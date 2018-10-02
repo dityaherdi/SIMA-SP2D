@@ -27,7 +27,7 @@ class BoxController extends Controller
             'rak.ruangan.gedung' => function($query) {
                 $query->select('id_gedung', 'kode_gedung');
             }
-        ])->get();
+        ])->get()->paginateCollection(3);
 
         return response()->json([
             'data' => $box

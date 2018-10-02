@@ -25,7 +25,7 @@ class RakController extends Controller
             'ruangan.gedung' => function($query) {
                 $query->select('id_gedung', 'nama_gedung');
             }
-        ])->get();
+        ])->get()->paginateCollection(3);
 
         return response()->json([
             'data' => $rak

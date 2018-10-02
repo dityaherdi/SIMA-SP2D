@@ -30,13 +30,13 @@
                             @click="showDetailGedungModal(ged)">
                             <i class="fas fa-eye "></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                             title="Edit Data Gedung"
                             @click="showEditingModal(ged)">
                             <i class="fas fa-edit"></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                             title="Hapus Data Gedung"
                             @click="deleteGedung(ged.id_gedung)">

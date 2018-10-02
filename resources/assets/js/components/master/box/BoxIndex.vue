@@ -30,13 +30,13 @@
                             @click="showDetailBoxModal(b)">
                             <i class="fas fa-eye "></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                             title="Edit Data Box"
                             @click="showEditingModal(b)">
                             <i class="fas fa-edit"></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                             title="Hapus Data Box"
                             @click="deleteBox(b.id_box)">
@@ -92,7 +92,7 @@
             loadBox() {
                 this.readData('api/box')
                 .then((box) => {
-                    this.box = box
+                    this.box = box.data
                 })
             },
 

@@ -30,13 +30,13 @@
                             @click="showDetailJenisModal(jen)">
                             <i class="fas fa-eye "></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                             title="Edit Data Jenis SP2D"
                             @click="showEditingModal(jen)">
                             <i class="fas fa-edit"></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                             title="Hapus Data Jenis SP2D"
                             @click="deleteJenis(jen.id_jenis_sp2d)">

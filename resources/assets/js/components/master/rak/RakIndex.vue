@@ -31,13 +31,13 @@
                             @click="showDetailRakModal(r)">
                             <i class="fas fa-eye "></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                             title="Edit Data Rak"
                             @click="showEditingModal(r)">
                             <i class="fas fa-edit"></i>
                         </a>
-                        |
+                        /
                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                             title="Hapus Data Rak"
                             @click="deleteRak(r.id_rak)">
@@ -93,7 +93,7 @@
             loadRak() {
                 this.readData('api/rak')
                 .then((rak) => {
-                    this.rak = rak
+                    this.rak = rak.data
                 })
             },
 
