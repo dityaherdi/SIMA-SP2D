@@ -10,17 +10,20 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.Signal = new Vue();
 
-import { Form, HasError, AlertError } from 'vform';
-import VueRouter from 'vue-router';
-import router from './routes.js';
-import store from './store';
-import { initialize } from './helpers/init';
-import './helpers/filter';
-import './helpers/alert';
-import { getGedung, getRuangan, getRak, getBox } from './helpers/getters'
+import { Form, HasError, AlertError } from 'vform'
+import VueRouter from 'vue-router'
+import router from './routes.js'
+import store from './store'
+import { initialize } from './helpers/init'
+import './helpers/filter'
+import './helpers/alert'
+import { getGedung, getRuangan, getRak, getBox, getSkpd, getJenis } from './helpers/getters'
 import { createData, readData, updateData, deleteData } from './helpers/operations'
 import { showModal, forceCloseModal } from './helpers/modal'
-import VueProgressBar from 'vue-progressbar';
+import VueProgressBar from 'vue-progressbar'
+import Datepicker from 'vuejs-datepicker'
+
+Vue.component('datepicker', Datepicker)
 
 window.Form = Form;
 Vue.component(HasError.name, HasError)
@@ -40,6 +43,8 @@ Vue.mixin({
         getRuangan,
         getRak,
         getBox,
+        getSkpd,
+        getJenis,
 
         // data operations
         createData,

@@ -16,7 +16,11 @@ class SkpdController extends Controller
      */
     public function index()
     {
-        return Skpd::latest()->paginate(10);
+        $skpd = Skpd::latest()->paginate(10);
+
+        return response()->json([
+            'data' => $skpd
+        ]);
     }
 
     /**

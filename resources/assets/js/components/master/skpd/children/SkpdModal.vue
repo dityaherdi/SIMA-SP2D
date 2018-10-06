@@ -101,8 +101,8 @@
                 this.showModal(this.skpd, 'skpd', 'create')
             }),
             Signal.$on('show_editing_skpd_modal', (skpd) => {
-                this.showModal(this.skpd, 'skpd', 'edit', skpd)
                 this.skpd.status = skpd.status
+                this.showModal(this.skpd, 'skpd', 'edit', skpd)
             })
         },
 

@@ -51,6 +51,7 @@
         methods: {
             logout() {
                 this.$Progress.start()
+                axios.post('api/logout')
                 this.$store.commit('logout');
                 this.$router.push({name: 'Login'})
                 this.$Progress.finish()

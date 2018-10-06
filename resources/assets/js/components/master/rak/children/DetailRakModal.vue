@@ -18,9 +18,9 @@
                      <p class="text-justify">
                         <strong> Detail Letak Rak : </strong> 
                         Gedung-{{ rak.nama_gedung }}, Ruangan-{{rak.kode_ruangan}}, Rak-{{ rak.kode_rak }}
-                    </p><br>
-                    <p class="text-justify"><strong>Keterangan : </strong> {{ rak.keterangan }} </p><br>
-                    <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p><br>
+                    </p>
+                    <p class="text-justify"><strong>Keterangan : </strong> {{ rak.keterangan }} </p>
+                    <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p>
                 </div>
             </div>
            

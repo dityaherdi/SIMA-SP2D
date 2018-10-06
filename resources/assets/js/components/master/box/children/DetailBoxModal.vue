@@ -1,10 +1,10 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" id="detailRakModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="detailBoxModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Detail Rak</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Detail Box</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -12,15 +12,16 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-6">
-                    <img :src="'./img/qr/rak/'+rak.qr_rak" alt="QRCode Rak">
+                    <img :src="'./img/qr/box/'+box.qr_box" alt="QRCode Rak">
                 </div>
                 <div class="col-md-6">
                      <p class="text-justify">
                         <strong> Detail Letak Rak : </strong> 
-                        Gedung-{{ rak.nama_gedung }}, Ruangan-{{rak.kode_ruangan}}, Rak-{{ rak.kode_rak }}
-                    </p><br>
-                    <p class="text-justify"><strong>Keterangan : </strong> {{ rak.keterangan }} </p><br>
-                    <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p><br>
+                        Gedung-{{ box.nama_gedung }}, Ruangan-{{box.kode_ruangan}}, Rak-{{ box.kode_box }}
+                    </p>
+                    <p class="text-justify"><strong>Kapasitas Sisa : </strong> {{ box.kapasitas }} </p>
+                    <p class="text-justify"><strong>Keterangan : </strong> {{ box.keterangan }} </p>
+                    <p class="text-justify"><strong>Status : </strong> {{ box.status }} </p>
                 </div>
             </div>
            
@@ -37,11 +38,13 @@
     export default {
         data() {
             return {
-                rak: {
+                box: {
                     nama_gedung: '',
                     kode_ruangan: '',
                     kode_rak: '',
-                    qr_rak: '',
+                    kode_box: '',
+                    qr_box: '',
+                    kapasitas: '',
                     keterangan: '',
                     status: ''
                 }
@@ -49,22 +52,23 @@
         },
     
         created() {
-            Signal.$on('show_detail_rak_modal', (r) => {
-                this.showModal(null, 'Rak', 'detail', null)
-                this.rak.nama_gedung = r.ruangan.gedung.nama_gedung
-                this.rak.kode_ruangan = r.ruangan.kode_ruangan
-                this.rak.kode_rak = r.kode_rak
-                if (r.keterangan==null) {
-                    this.rak.keterangan = '-'
+            Signal.$on('show_detail_box_modal', (b) => {
+                this.showModal(null, 'Box', 'detail', null)
+                this.box.nama_gedung = b.rak.ruangan.gedung.nama_gedung
+                this.box.kode_ruangan = b.rak.ruangan.kode_ruangan
+                this.box.kode_box = b.kode_box
+                this.box.kapasitas = b.kapasitas
+                if (b.keterangan==null) {
+                    this.box.keterangan = '-'
                 }else{
-                    this.rak.keterangan = r.keterangan
+                    this.box.keterangan = b.keterangan
                 }
-                if (r.status===1) {
-                    this.rak.status = 'Aktif'
-                }else if (r.status===0) {
-                    this.rak.status = 'Non-Aktif'
+                if (b.status===1) {
+                    this.box.status = 'Aktif'
+                }else if (b.status===0) {
+                    this.box.status = 'Non-Aktif'
                 }
-                this.rak.qr_rak = r.qr_rak
+                this.box.qr_box = b.qr_box
             })
         }
     }

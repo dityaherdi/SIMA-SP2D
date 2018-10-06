@@ -15,6 +15,7 @@ export function initialize(store, router) {
     // 401 interceptor
     axios.interceptors.response.use(null, (error) => {
         if (error.response.status == 401){
+            axios.post('api/logout')
             store.commit('logout');
             router.push({name: 'Login'});
         }

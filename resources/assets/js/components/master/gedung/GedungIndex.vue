@@ -92,7 +92,7 @@
             loadGedung() {
                 this.readData('api/gedung')
                 .then((gedung) => {
-                    this.gedung = gedung
+                    this.gedung = gedung.data
                 })
             },
 

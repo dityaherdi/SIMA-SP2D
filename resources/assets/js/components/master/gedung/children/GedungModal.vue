@@ -82,8 +82,8 @@
                 this.showModal(this.gedung, 'gedung', 'create')
             }),
             Signal.$on('show_editing_gedung_modal', (ged) => {
-                this.showModal(this.gedung, 'gedung', 'edit', ged)
                 this.gedung.status = ged.status
+                this.showModal(this.gedung, 'gedung', 'edit', ged)
             })
         },
         methods: {

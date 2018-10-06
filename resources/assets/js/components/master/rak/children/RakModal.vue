@@ -111,10 +111,10 @@
             }),
 
             Signal.$on('show_editing_rak_modal', (r) => {
-                this.showModal(this.rak, 'rak', 'edit', r)
                 this.rak.status = r.status
                 this.lokasi.gedung = r.ruangan.gedung.id_gedung
                 this.selectRuangan()
+                this.showModal(this.rak, 'rak', 'edit', r)
             })
 
             this.getGedung()

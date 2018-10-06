@@ -3,7 +3,8 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Data Box</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle" v-if="!editing">Tambah Data Box</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle" v-else>Edit Data Box</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,13 +129,13 @@
             }),
 
             Signal.$on('show_editing_box_modal', (b) => {
-                this.showModal(this.box, 'box', 'edit', b)
                 this.box.status = b.status
                 this.lokasi.gedung = b.rak.ruangan.gedung.id_gedung
                 this.selectRuangan()
                 this.lokasi.ruangan = b.rak.ruangan.id_ruangan
                 this.selectRak()
                 this.box.id_rak = b.id_rak
+                this.showModal(this.box, 'box', 'edit', b)
             })
 
             this.getGedung()

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Gedung;
 use App\Ruangan;
 use App\Rak;
-// use App\Box;
+use App\Box;
 
 class LetakController extends Controller
 {
@@ -47,15 +47,15 @@ class LetakController extends Controller
         ]);
     }
 
-    // public function letakBox($id)
-    // {
-    //     $data = Box::select('id_box', 'kode_box')
-    //                 ->where(['id_rak' => $id, 'status' => 1])
-    //                 ->orderBy('kode_box', 'ASC')
-    //                 ->get();
+    public function letakBox($id)
+    {
+        $data = Box::select('id_box', 'kode_box')
+                    ->where(['id_rak' => $id, 'status' => 1])
+                    ->orderBy('kode_box', 'ASC')
+                    ->get();
 
-    //     return response()->json([
-    //         'data' => $data
-    //     ]);
-    // }
+        return response()->json([
+            'data' => $data
+        ]);
+    }
 }

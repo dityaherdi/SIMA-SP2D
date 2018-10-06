@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FormGedungRequest;
-use App\Gedung;
+use App\Surat;
+use App\Http\Requests\FormSuratRequest;
+use Carbon\Carbon;
 
-class GedungController extends Controller
+class SuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,13 @@ class GedungController extends Controller
      */
     public function index()
     {
-        $gedung = Gedung::latest()->paginate(3);
+        $surat = Surat::latest()->with([
+            'skpd:id_skpd,kode_skpd,nama_skpd',
+            'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
+        ])->get()->paginateCollection(24);
 
         return response()->json([
-            'data' => $gedung
+            'data' => $surat
         ]);
     }
 
@@ -29,13 +33,16 @@ class GedungController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FormGedungRequest $request)
+    public function store(FormSuratRequest $request)
     {
-        $gedung = Gedung::Create($request->all());
+        $date = Carbon::parse($request->tgl_terbit)->toDateTimeString();
+        $request->merge(['tgl_terbit' => $date]);
+        
+        $surat = Surat::Create($request->all());
 
         return response()->json([
-            'data' => $gedung,
-            'message' => 'Gedung dengan kode: '.$request->kode_gedung.' ditambahkan'
+            'data' => $surat,
+            'message' => 'SP2D dengan nomor surat: '.$request->nomor_surat.' ditambahkan'
         ]);
     }
 
@@ -59,12 +66,14 @@ class GedungController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $gedung = Gedung::findOrFail($id);
-        $gedung->update($request->all());
+        $date = Carbon::parse($request->tgl_terbit)->toDateTimeString();
+        $request->merge(['tgl_terbit' => $date]);
+
+        $surat = Surat::findOrFail($id);
+        $surat->update($request->all());
 
         return response()->json([
-            'data' => $gedung,
-            'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah diperbarui'
+            'message' => 'SP2D dengan nomor surat: '.$request->nomor_surat.' telah diperbarui'
         ]);
     }
 
@@ -76,12 +85,13 @@ class GedungController extends Controller
      */
     public function destroy($id)
     {
-        $gedung = Gedung::findOrFail($id);
-        $gedung->delete();
+        $surat = Surat::findOrFail($id);
+        $surat->delete();
 
         return response()->json([
-            'data' => $gedung,
-            'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah dihapus'
+            'data' => $surat,
+            'message' => 'SP2D dengan nomor surat: '.$surat->nomor_surat.' telah dihapus'
         ]);
     }
+    
 }

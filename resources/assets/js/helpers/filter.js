@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import moment from 'moment';
-
+window.moment = moment
 const currentYear = moment().format('YYYY');
 window.currentYear = currentYear;
 
-Vue.filter('userCreatedDate', function(created) {
-    return moment(created).locale('id').format('LL');
+Vue.filter('tanggalLokal', function(text) {
+    return moment(text).locale('id').format('LL');
 })
 
 Vue.filter('breadcrumbActive', function(text) {
@@ -18,4 +18,8 @@ Vue.filter('uppercase', function(text) {
 
 Vue.filter('noDash', function(text) {
     return text.replace(/-/g, ' ');
+})
+
+Vue.filter('cleanKodeSkpd', function(text) {
+    return text.slice(0,6)
 })

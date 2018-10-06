@@ -10,10 +10,14 @@
             </button>
         </div>
         <div class="modal-body">
-            <p class="text-justify"><strong>Kode SKPD : </strong> {{ skpd.kode_skpd }}</p><br>
-            <p class="text-justify"><strong>Nama SKPD : </strong> {{ skpd.nama_skpd }}</p><br>
-            <p class="text-justify"><strong>Keterangan : </strong> {{ skpd.keterangan }}</p><br>
-            <p class="text-justify"><strong>Status : </strong> {{ skpd.status }}</p><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-justify"><strong>Kode SKPD : </strong> {{ skpd.kode_skpd }}</p>
+                    <p class="text-justify"><strong>Nama SKPD : </strong> {{ skpd.nama_skpd }}</p>
+                    <p class="text-justify"><strong>Keterangan : </strong> {{ skpd.keterangan }}</p>
+                    <p class="text-justify"><strong>Status : </strong> {{ skpd.status }}</p>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>

@@ -92,7 +92,7 @@
             loadJenis() {
                 this.readData('api/jenis')
                 .then((jenis) => {
-                    this.jenis = jenis
+                    this.jenis = jenis.data
                 })
             },
 

@@ -90,8 +90,8 @@
             }),
             
             Signal.$on('show_editing_ruangan_modal', (rua) => {
-                this.showModal(this.ruangan, 'ruangan', 'edit', rua)
                 this.status = rua.status
+                this.showModal(this.ruangan, 'ruangan', 'edit', rua)
             }),
 
             this.gedung = this.getGedung()

@@ -10,10 +10,14 @@
             </button>
         </div>
         <div class="modal-body">
-            <p class="text-justify"><strong>Gedung : </strong> {{ ruangan.nama_gedung }} </p><br>
-            <p class="text-justify"><strong>Kode Ruangan : </strong> {{ ruangan.kode_ruangan }} </p><br>
-            <p class="text-justify"><strong>Keterangan : </strong> {{ ruangan.keterangan }} </p><br>
-            <p class="text-justify"><strong>Status : </strong> {{ ruangan.status }} </p><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-justify"><strong>Gedung : </strong> {{ ruangan.nama_gedung }} </p>
+                    <p class="text-justify"><strong>Kode Ruangan : </strong> {{ ruangan.kode_ruangan }} </p>
+                    <p class="text-justify"><strong>Keterangan : </strong> {{ ruangan.keterangan }} </p>
+                    <p class="text-justify"><strong>Status : </strong> {{ ruangan.status }} </p>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>

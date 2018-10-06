@@ -89,7 +89,7 @@
             loadSkpd() {
                 this.readData('api/skpd')
                 .then((skpd) => {
-                    this.skpds = skpd
+                    this.skpds = skpd.data
                 })
             },
             deleteSkpd(id) {

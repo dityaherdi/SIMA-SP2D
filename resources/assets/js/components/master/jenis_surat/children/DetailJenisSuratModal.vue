@@ -10,10 +10,14 @@
             </button>
         </div>
         <div class="modal-body">
-            <p class="text-justify"><strong>Kode Jenis SP2D : </strong> {{ jenis.kode_jenis_sp2d | uppercase }}</p><br>
-            <p class="text-justify"><strong>Nama Jenis SP2D : </strong> {{ jenis.nama_jenis_sp2d }}</p><br>
-            <p class="text-justify"><strong>Keterangan : </strong> {{ jenis.keterangan }}</p><br>
-            <p class="text-justify"><strong>Status : </strong> {{ jenis.status }}</p><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-justify"><strong>Kode Jenis SP2D : </strong> {{ jenis.kode_jenis_sp2d | uppercase }}</p>
+                    <p class="text-justify"><strong>Nama Jenis SP2D : </strong> {{ jenis.nama_jenis_sp2d }}</p>
+                    <p class="text-justify"><strong>Keterangan : </strong> {{ jenis.keterangan }}</p>
+                    <p class="text-justify"><strong>Status : </strong> {{ jenis.status }}</p>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>

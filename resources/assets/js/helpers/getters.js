@@ -37,3 +37,23 @@ export function getBox(id) {
             console.log(error)
     })
 }
+
+export function getSkpd() {
+    return axios.get('api/get-skpd')
+    .then((response) => {
+        return response.data.data
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+export function getJenis() {
+    return axios.get('api/get-jenis')
+    .then((response) => {
+        return response.data.data
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}

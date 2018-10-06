@@ -82,8 +82,8 @@
                 this.showModal(this.jenis, 'jenis', 'create')
             }),
             Signal.$on('show_editing_jenis_modal', (jen) => {
-                this.showModal(this.jenis, 'jenis', 'edit', jen)
                 this.jenis.status = jen.status
+                this.showModal(this.jenis, 'jenis', 'edit', jen)
             })
         },
 
