@@ -17,6 +17,7 @@ class BoxController extends Controller
      */
     public function index()
     {
+        // $this->authorize('isPimpinan');
         $box = Box::latest()->with([
             'rak' => function($query) {
                 $query->select('id_rak', 'id_ruangan', 'kode_rak');

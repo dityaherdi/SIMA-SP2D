@@ -52,9 +52,16 @@
             logout() {
                 this.$Progress.start()
                 axios.post('api/logout')
-                this.$store.commit('logout');
-                this.$router.push({name: 'Login'})
-                this.$Progress.finish()
+                .then((response) => {
+                    if (response.status==200) {
+                        this.$store.commit('logout');
+                        this.$router.push({name: 'Login'})
+                        this.$Progress.finish()
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
             }
         },
         computed: {

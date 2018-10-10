@@ -20,7 +20,7 @@ class SuratController extends Controller
         $surat = Surat::latest()->with([
             'skpd:id_skpd,kode_skpd,nama_skpd',
             'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
-        ])->get()->paginateCollection(24);
+        ])->get()->paginateCollection(16);
 
         return response()->json([
             'data' => $surat

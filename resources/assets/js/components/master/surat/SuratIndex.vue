@@ -31,7 +31,7 @@
                     <span class="info-box-text" style="font-size:13px;">{{ sur.nomor_surat }}</span>
                     <span class="info-box-text">{{ sur.tgl_terbit | tanggalLokal }}</span>
                     <div class="progress">
-                    <div class="progress-bar" style="width: 100%"></div>
+                        <div class="progress-bar" style="width: 100%"></div>
                     </div>
                     <span class="progress-description">
                         <div class="btn-group float-right">
@@ -66,6 +66,14 @@
         data() {
             return {
                 surat: {},
+                next: null,
+                loadable: true
+            }
+        },
+
+        mounted() {
+            if (this.loadable==true) {
+                this.loadMore()
             }
         },
 
@@ -73,6 +81,8 @@
             this.loadSurat()
             Signal.$on('load_surat', () => {
                 this.loadSurat()
+                this.loadable = true
+                this.loadMore()
             })
 
         },
@@ -109,11 +119,39 @@
                 this.readData('api/surat')
                 .then((surat) => {
                     this.surat = surat.data
+                    this.next = surat.next_page_url
+                   
                 })
             },
 
             deleteSurat(id) {
                 this.deleteData('api/surat/'+id, 'surat')
+            },
+
+            loadMore () {
+                window.onscroll = () => {
+                    let bottom = 
+                        document.documentElement.scrollTop + window.innerHeight 
+                        === 
+                        document.documentElement.offsetHeight
+
+                    if (bottom && this.loadable == true) {
+                        if (this.next==null) {
+                            this.loadable = false
+                            swal({
+                                title: 'Anda sudah di halaman terakhir',
+                                text: 'Tidak ada data lagi untuk ditampilkan',
+                                type: 'info'
+                            })
+                        }else {
+                            axios.get(this.next)
+                            .then((response) => {
+                                this.surat = this.surat.concat(Object.values(response.data.data.data))
+                                this.next = response.data.data.next_page_url
+                            })
+                        }
+                    }
+                }
             }
         }
     }

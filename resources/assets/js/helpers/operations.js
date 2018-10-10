@@ -72,6 +72,13 @@ export function deleteData(url, entity) {
                 }
             })
             .catch((error) => {
+                if(error.response.status==500) {
+                    swal({
+                        title: 'Gagal menghapus '+entity+'!',
+                        text: 'Data '+entity+' masih digunakan pada data lain',
+                        type: 'error'
+                    })
+                }
                 this.$Progress.fail()
                 console.log(error)
             })

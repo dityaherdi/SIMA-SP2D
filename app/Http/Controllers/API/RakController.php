@@ -17,6 +17,7 @@ class RakController extends Controller
      */
     public function index()
     {
+        // $this->authorize('isAdmin');
         // $rak = Rak::latest()->with('ruangan:id_ruangan,kode_ruangan.gedung:id_gedung,nama_gedung')->get();
         $rak = Rak::latest()->with([
             'ruangan' => function($query) {
