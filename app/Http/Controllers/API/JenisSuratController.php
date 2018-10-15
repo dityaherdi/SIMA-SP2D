@@ -16,7 +16,7 @@ class JenisSuratController extends Controller
      */
     public function index()
     {
-        $jenis = JenisSurat::latest()->paginate(10);
+        $jenis = JenisSurat::latest()->paginate(4);
 
         return response()->json([
             'data' => $jenis

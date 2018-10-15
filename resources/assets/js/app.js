@@ -58,6 +58,7 @@ Vue.mixin({
 })
 
 Vue.component('vue-app', require('./components/App.vue'));
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 initialize(store, router);
 

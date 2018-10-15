@@ -21,7 +21,7 @@
                     <th>Kode Rak</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="r in rak" :key="r.id_rak">
+                  <tr v-for="r in rak.data" :key="r.id_rak">
                     <!-- <td>{{ r.ruangan.gedung.nama_gedung }}</td> -->
                     <td>{{ r.ruangan.kode_ruangan }}</td>
                     <td>{{ r.kode_rak | uppercase}}</td>
@@ -48,6 +48,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+               <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <pagination :data="rak" @pagination-change-page="getResults"></pagination>
+                    </div>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -93,12 +98,19 @@
             loadRak() {
                 this.readData('api/rak')
                 .then((rak) => {
-                    this.rak = rak.data
+                    this.rak = rak
                 })
             },
 
             deleteRak(id) {
                 this.deleteData('api/rak/'+id, 'rak')
+            },
+
+            getResults(page = 1) {
+                axios.get('api/rak?page='+page)
+                .then((response) => {
+                    this.rak = response.data.data
+                })
             }
         }
     }

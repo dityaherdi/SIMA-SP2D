@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Arsip;
 use App\Surat;
+use App\Box;
 use Carbon\Carbon;
 use QRCode;
+use App\Http\Requests\FormArsipRequest;
 
 class ArsipController extends Controller
 {
@@ -39,7 +41,7 @@ class ArsipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormArsipRequest $request)
     {
         $date = Carbon::parse($request->tgl_diarsipkan);
         $arsipDate = $date->toDateTimeString();
@@ -52,8 +54,12 @@ class ArsipController extends Controller
 
         $arsip = Arsip::create($request->except(['nomor_surat']));
 
+        // Update jumlah arsip dalam box
+        $box = Box::findOrFail($request->id_box);
+        $box->update(['kapasitas' => $box->kapasitas + 1]);
+        
+        // Update status surat menjadi arsip
         $surat = Surat::findOrFail($request->id_sp2d);
-        // dd($surat);
         $surat->update(['arsip' => 1]);
 
         return $this->generateArsipQr($arsip, $request);
@@ -77,13 +83,12 @@ class ArsipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormArsipRequest $request, $id)
     {
         $arsip = Arsip::findOrFail($id);
 
         $date = Carbon::parse($request->tgl_diarsipkan);
         $arsipDate = $date->toDateTimeString();
-        // $retensiDate = $date->addYears(10)->toDateTimeString();
 
         if ($arsipDate != $arsip->tgl_diarsipkan) {
             $retensiDate = $date->addYears(10)->toDateTimeString();
@@ -152,6 +157,5 @@ class ArsipController extends Controller
                 'message' => 'Arsip '.$request->nomor_surat.' telah diperbarui'
             ]);
         }
-        // dd();
     }
 }

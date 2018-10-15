@@ -123,6 +123,7 @@
         created() {
             Signal.$on('show_creating_box_modal', () => {
                 this.lokasi.gedung = ''
+                this.lokasi.ruangan = ''
                 this.showModal(this.box, 'box', 'create')
             }),
 

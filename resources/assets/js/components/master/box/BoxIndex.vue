@@ -21,7 +21,7 @@
                     <th>Kode Box</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="b in box" :key="b.id_box">
+                  <tr v-for="b in box.data" :key="b.id_box">
                     <td>{{ b.rak.kode_rak }}</td>
                     <td>{{ b.kode_box | uppercase}}</td>
                     <td>
@@ -47,6 +47,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <pagination :data="box" @pagination-change-page="getResults"></pagination>
+                    </div>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -92,12 +97,19 @@
             loadBox() {
                 this.readData('api/box')
                 .then((box) => {
-                    this.box = box.data
+                    this.box = box
                 })
             },
 
             deleteBox(id) {
                 this.deleteData('api/box/'+id, 'box')
+            },
+
+            getResults(page = 1) {
+                axios.get('api/box?page='+page)
+                .then((response) => {
+                    this.box = response.data.data
+                })
             }
         }
     }

@@ -23,7 +23,6 @@ class FormSuratRequest extends FormRequest
     protected $rules = [
         'id_skpd' => 'required',
         'id_jenis_sp2d' => 'required',
-        'tgl_terbit' => 'required',
         'nomor_surat' => ''
     ];
 
@@ -50,7 +49,6 @@ class FormSuratRequest extends FormRequest
         return [
             'id_skpd.required' => 'SKPD harus diisi',
             'id_jenis_sp2d.required' => 'Jenis SP2D harus diisi',
-            'tgl_terbit.required' => 'Tanggal Surat Diterbitkan dan Tahun harus diisi',
             'nomor_surat.required' => 'Nomor Surat harus diisi',
             'nomor_surat.unique' => 'Nomor Surat sudah digunakan'
         ];

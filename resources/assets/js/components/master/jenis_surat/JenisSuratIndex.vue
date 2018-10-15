@@ -21,7 +21,7 @@
                     <th>Nama Jenis SP2D</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="jen in jenis" :key="jen.id_jenis_sp2d">
+                  <tr v-for="jen in jenis.data" :key="jen.id_jenis_sp2d">
                     <td>{{ jen.kode_jenis_sp2d | uppercase}}</td>
                     <td>{{ jen.nama_jenis_sp2d }}</td>
                     <td>
@@ -47,6 +47,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <pagination :data="jenis" @pagination-change-page="getResults"></pagination>
+                    </div>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -92,12 +97,19 @@
             loadJenis() {
                 this.readData('api/jenis')
                 .then((jenis) => {
-                    this.jenis = jenis.data
+                    this.jenis = jenis
                 })
             },
 
             deleteJenis(id) {
                 this.deleteData('api/jenis/'+id, 'jenis')
+            },
+
+            getResults(page = 1) {
+                axios.get('api/jenis?page='+page)
+                .then((response) => {
+                    this.jenis = response.data.data
+                })
             }
         }
     }

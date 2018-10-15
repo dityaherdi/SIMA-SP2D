@@ -54,7 +54,6 @@
                                             :language="id"
                                             :format="customFormatter"
                                             calendar-button calendar-button-icon="fas fa-calendar-alt"
-                                            clear-button clear-button-icon="fas fa-trash"
                                             v-model="surat.tgl_terbit"
                                             id="tglterbit">
                                 </datepicker>
@@ -235,13 +234,29 @@
             },
 
             createSurat() {
-                this.combineNomorSurat()
-                this.createData(this.surat, 'api/surat', 'surat')
+                if(this.datePickerValidation()==true) {
+                    this.combineNomorSurat()
+                    this.createData(this.surat, 'api/surat', 'surat')
+                }
             },
 
             updateSurat() {
-                this.combineNomorSurat()
-                this.updateData(this.surat, 'api/surat/'+this.surat.id_sp2d, 'surat')
+                if(this.datePickerValidation()==true) {
+                    this.combineNomorSurat()
+                    this.updateData(this.surat, 'api/surat/'+this.surat.id_sp2d, 'surat')
+                }
+            },
+
+            datePickerValidation() {
+                if(this.surat.tgl_terbit=='') {
+                    swal({
+                        text: 'Tanggal surat diterbitkan harus diisi',
+                        type: 'warning'
+                    })
+                    return false
+                }else {
+                    return true
+                }
             }
 
         }

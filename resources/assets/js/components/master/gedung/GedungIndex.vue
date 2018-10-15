@@ -21,7 +21,7 @@
                     <th>Nama Gedung</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="ged in gedung" :key="ged.id_gedung">
+                  <tr v-for="ged in gedung.data" :key="ged.id_gedung">
                     <td>{{ ged.kode_gedung | uppercase}}</td>
                     <td>{{ ged.nama_gedung }}</td>
                     <td>
@@ -47,6 +47,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <pagination :data="gedung" @pagination-change-page="getResults"></pagination>
+                    </div>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -92,12 +97,19 @@
             loadGedung() {
                 this.readData('api/gedung')
                 .then((gedung) => {
-                    this.gedung = gedung.data
+                    this.gedung = gedung
                 })
             },
 
             deleteGedung(id) {
                 this.deleteData('api/gedung/'+id, 'gedung')
+            },
+
+            getResults(page = 1) {
+                axios.get('api/gedung?page='+page)
+                .then((response) => {
+                    this.gedung = response.data.data
+                })
             }
         }
     }

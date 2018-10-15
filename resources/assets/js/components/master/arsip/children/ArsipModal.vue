@@ -76,19 +76,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tglterbit">Tanggal Diarsipkan</label>
+                            <label for="tgldiarsipkan">Tanggal Diarsipkan</label>
                             <datepicker :bootstrapStyling="true"
                                         :language="id"
                                         :format="customFormatter"
                                         calendar-button calendar-button-icon="fas fa-calendar-alt"
-                                        clear-button clear-button-icon="fas fa-trash"
                                         v-model="arsip.tgl_diarsipkan"
-                                        id="tglterbit">
+                                        id="tgldiarsipkan">
                             </datepicker>
                         </div>
                         <div class="form-group">
                             <label for="ketarsip">Keterangan</label>
-                            <textarea class="form-control" rows="3"
+                            <textarea class="form-control" rows="2"
                                 v-model="arsip.keterangan" placeholder="..." 
                                 :class="{ 'is-invalid': arsip.errors.has('keterangan') }"
                                 id="ketarsip">
@@ -153,6 +152,8 @@
         created() {
             Signal.$on('show_creating_arsip_modal', (sur) => {
                 this.lokasi.gedung = ''
+                this.lokasi.ruangan = ''
+                this.lokasi.rak = ''
                 this.showModal(this.arsip, 'arsip', 'create')
                 this.surat = sur
                 this.arsip.id_sp2d = sur.id_sp2d
@@ -210,11 +211,27 @@
             },
 
             createArsip() {
-                this.createData(this.arsip, 'api/arsip', 'arsip')
+                if(this.datePickerValidation()==true) {
+                    this.createData(this.arsip, 'api/arsip', 'arsip')
+                }
             },
 
             updateArsip() {
-                this.updateData(this.arsip, 'api/arsip/'+this.arsip.id_arsip, 'arsip')
+                if(this.datePickerValidation()==true) {
+                    this.updateData(this.arsip, 'api/arsip/'+this.arsip.id_arsip, 'arsip')
+                }
+            },
+
+            datePickerValidation() {
+                if(this.arsip.tgl_diarsipkan=='') {
+                    swal({
+                        text: 'Tanggal diarsipkan harus diisi',
+                        type: 'warning'
+                    })
+                    return false
+                }else {
+                    return true
+                }
             }
         }
     }

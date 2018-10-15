@@ -20,7 +20,7 @@
                     <th>Kode Ruangan</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="rua in ruangan" :key="rua.id_ruangan">
+                  <tr v-for="rua in ruangan.data" :key="rua.id_ruangan">
                     <td>{{ rua.gedung.nama_gedung }}</td>
                     <td>{{ rua.kode_ruangan | uppercase}}</td>
                     <td>
@@ -46,6 +46,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <pagination :data="ruangan" @pagination-change-page="getResults"></pagination>
+                    </div>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -91,12 +96,19 @@
             loadRuangan() {
                 this.readData('api/ruangan')
                 .then((ruangan) => {
-                    this.ruangan = ruangan.data
+                    this.ruangan = ruangan
                 })
             },
 
             deleteRuangan(id) {
                 this.deleteData('api/ruangan/'+id, 'ruangan')
+            },
+
+            getResults(page = 1) {
+                axios.get('api/ruangan?page='+page)
+                .then((response) => {
+                    this.ruangan = response.data.data
+                })
             }
         }
     }

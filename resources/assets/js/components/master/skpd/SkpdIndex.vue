@@ -21,7 +21,7 @@
                             <th>SKPD</th>
                             <th>Aksi</th>
                         </tr>
-                        <tr v-for="skpd in skpds" :key="skpd.id_skpd">
+                        <tr v-for="skpd in skpds.data" :key="skpd.id_skpd">
                             <td>{{ skpd.kode_skpd }}</td>
                             <td>{{ skpd.alias_skpd }}</td>
                             <td>
@@ -48,6 +48,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                        <pagination :data="skpds" @pagination-change-page="getResults"></pagination>
+                    </div>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -80,21 +85,33 @@
             showCreatingModal() {
                 Signal.$emit('show_creating_skpd_modal')
             },
+
             showEditingModal(skpd) {
                 Signal.$emit('show_editing_skpd_modal', skpd)
             },
+
             showDetailSkpdModal(skpd) {
                 Signal.$emit('show_detail_skpd_modal', skpd)
             },
+
             loadSkpd() {
                 this.readData('api/skpd')
                 .then((skpd) => {
-                    this.skpds = skpd.data
+                    this.skpds = skpd
                 })
             },
+
             deleteSkpd(id) {
                 this.deleteData('api/skpd/'+id, 'skpd')
+            },
+            
+            getResults(page = 1) {
+                axios.get('api/skpd?page='+page)
+                .then((response) => {
+                    this.skpds = response.data.data
+                })
             }
+            
         }
     }
 </script>
