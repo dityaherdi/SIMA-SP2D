@@ -19,15 +19,9 @@ class BoxController extends Controller
     {
         // $this->authorize('isPimpinan');
         $box = Box::latest()->with([
-            'rak' => function($query) {
-                $query->select('id_rak', 'id_ruangan', 'kode_rak');
-            },
-            'rak.ruangan' => function($query) {
-                $query->select('id_ruangan', 'id_gedung', 'kode_ruangan');
-            },
-            'rak.ruangan.gedung' => function($query) {
-                $query->select('id_gedung', 'nama_gedung');
-            }
+            'rak:id_rak,id_ruangan,kode_rak',
+            'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'rak.ruangan.gedung:id_gedung,nama_gedung'
         ])->get()->paginateCollection(3);
 
         return response()->json([
@@ -112,6 +106,7 @@ class BoxController extends Controller
                 ->setMargin(1)
                 ->setOutFile($path)
                 ->png();
+                
         $box->update(['qr_box' => $filename]);
 
         if ($request->isMethod('POST')) {

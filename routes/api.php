@@ -33,14 +33,15 @@ Route::group(['middleware' => 'auth:api'], function (){
         'ruangan' => 'API\RuanganController',
         'rak' => 'API\RakController',
         'box' => 'API\BoxController',
-        'surat' => 'API\SuratController'
+        'surat' => 'API\SuratController',
+        'arsip' => 'API\ArsipController'
     ]);
     
     // Get Letak
     Route::get('get-gedung', 'API\LetakController@letakGedung');
     Route::get('get-ruangan/{id}', 'API\LetakController@letakRuangan');
     Route::get('get-rak/{id}', 'API\LetakController@letakRak');
-    Route::get('get-box', 'API\LetakController@letakBox');
+    Route::get('get-box/{id}', 'API\LetakController@letakBox');
 
     // Get Requirement Data Surat
     Route::get('get-skpd', 'API\RequirementSuratController@getSkpd');

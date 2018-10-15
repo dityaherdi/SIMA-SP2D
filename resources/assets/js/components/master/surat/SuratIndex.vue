@@ -47,7 +47,11 @@
                                 @click="deleteSurat(sur.id_sp2d)">
                                 <i class="fas fa-trash"></i>
                             </button>
-                            <button class="btn btn-dark btn-sm" title="Arsipkan Surat">
+                            <!-- <button class="btn btn-dark btn-sm" title="Arsipkan Surat">
+                                <i class="fas fa-file-archive"></i>
+                            </button> -->
+                            <button class="btn btn-dark btn-sm" title="Arsipkan Surat"
+                                @click="showArchiveModal(sur)">
                                 <i class="fas fa-file-archive"></i>
                             </button>
                         </div>
@@ -58,6 +62,7 @@
         </div>
         <modal-surat></modal-surat>
         <detail-surat></detail-surat>
+        <arsip-modal></arsip-modal>
     </div>
 </template>
 
@@ -73,7 +78,7 @@
 
         mounted() {
             if (this.loadable==true) {
-                this.loadMore()
+                this.loadMoreSurat()
             }
         },
 
@@ -82,14 +87,20 @@
             Signal.$on('load_surat', () => {
                 this.loadSurat()
                 this.loadable = true
-                this.loadMore()
+                this.loadMoreSurat()
+            }),
+            Signal.$on('load_arsip', () => {
+                this.loadSurat()
+                this.loadable = true
+                this.loadMoreSurat()
             })
 
         },
 
         components: {
           "modal-surat": require('./children/SuratModal.vue'),
-          "detail-surat": require('./children/DetailSuratModal.vue')
+          "detail-surat": require('./children/DetailSuratModal.vue'),
+          "arsip-modal": require('./../arsip/children/ArsipModal.vue')
         },
         
         methods: {
@@ -102,7 +113,10 @@
             showDetailModal(sur) {
                 Signal.$emit('show_detail_surat_modal', sur)
             },
-         
+            showArchiveModal(sur) {
+                // console.log(JSON.stringify(sur,null,8))
+                Signal.$emit('show_creating_arsip_modal', sur)
+            },
             bgColor(jenis) {
                 if (jenis=='UP') {
                     return 'bg-primary'
@@ -119,8 +133,7 @@
                 this.readData('api/surat')
                 .then((surat) => {
                     this.surat = surat.data
-                    this.next = surat.next_page_url
-                   
+                    this.next = surat.next_page_urlss
                 })
             },
 
@@ -128,14 +141,14 @@
                 this.deleteData('api/surat/'+id, 'surat')
             },
 
-            loadMore () {
+            loadMoreSurat () {
                 window.onscroll = () => {
                     let bottom = 
                         document.documentElement.scrollTop + window.innerHeight 
                         === 
                         document.documentElement.offsetHeight
 
-                    if (bottom && this.loadable == true) {
+                    if (bottom && this.loadable == true && this.$route.path == '/surat') {
                         if (this.next==null) {
                             this.loadable = false
                             swal({

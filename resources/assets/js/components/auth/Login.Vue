@@ -66,14 +66,13 @@
                     })
                     .catch((error) => {
                         this.$store.commit('loginFailed', {error});
+                        this.$Progress.fail()
                         swal({
                             title: 'Error!',
                             text: this.$store.getters.authError,
                             type: 'error'
                         })
                 });
-
-                this.$Progress.finish()
             }
         }
     }

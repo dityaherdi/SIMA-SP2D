@@ -107,31 +107,33 @@
 
 <script>
 
-    export default {
-      name: "menu-vue",
-      data() {
+export default {
+    name: "menu-vue",
+    data() {
         return {
-          menuOpen: false
+            menuOpen: false
         }
-      },
-      computed: {
+    },
+
+    computed: {
         currentUser() {
-          return this.$store.getters.currentUser.nama;
+            return this.$store.getters.currentUser.nama;
         },
         currentModal() {
-          return this.$store.getters.modalOpen
+            return this.$store.getters.modalOpen
         }
-      },
-      methods: {
+    },
+    
+    methods: {
         forceCloseModalOpen() {
-          if (this.currentModal=='') {
-            return
-          }else {
-            this.forceCloseModal(this.currentModal)
-            this.$store.dispatch('modalOpen', '')
-          }
+            if (this.currentModal=='') {
+                return
+            }else {
+                this.forceCloseModal(this.currentModal)
+                this.$store.dispatch('modalOpen', '')
+            }
         }
-      }
     }
+}
 </script>
 

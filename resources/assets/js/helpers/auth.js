@@ -1,6 +1,5 @@
 import { setAuthorization } from "./init";
 
-
 export function login(credentials) {
     return new Promise((resolve, reject) => {
         axios.post('/api/login', credentials)

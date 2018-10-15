@@ -9,7 +9,7 @@ class Surat extends Model
     protected $primaryKey = 'id_sp2d';
 
     protected $fillable = [
-        'id_skpd', 'id_jenis_sp2d', 'nomor_surat', 'tgl_terbit', 'uraian', 'keterangan', 'status'
+        'id_skpd', 'id_jenis_sp2d', 'nomor_surat', 'tgl_terbit', 'uraian', 'keterangan', 'status', 'arsip'
     ];
 
     public function skpd()

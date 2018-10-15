@@ -47,6 +47,6 @@ class NomorSuratRule implements Rule
      */
     public function message()
     {
-        return 'Nomor Surat tidak sesuai';
+        return 'Nomor Surat tidak sesuai, atau format tahun salah';
     }
 }

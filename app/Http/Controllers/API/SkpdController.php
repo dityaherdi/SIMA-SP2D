@@ -10,7 +10,7 @@ use App\Skpd;
 class SkpdController extends Controller
 {
     public function __construct() {
-        $this->middleware('can:isAdmin,isPimpinan');
+        // $this->middleware('can:isAdmin,isPimpinan');
     }
     /**
      * Display a listing of the resource.

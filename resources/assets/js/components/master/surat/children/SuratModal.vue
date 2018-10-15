@@ -197,15 +197,16 @@
 
         methods: {
             combineNomorSurat() {
-                var no_srt = $("#nomorsurat, #sp2dsurat, #kodejenissurat, #kodeskpdsurat, #tahunsurat").map(function(){
-                    return this.value
-                }).get().join("/")
+                var no_srt = $("#nomorsurat, #sp2dsurat, #kodejenissurat, #kodeskpdsurat, #tahunsurat")
+                    .map(function(){
+                        return this.value
+                    }).get().join("/")
                 this.surat.nomor_surat = no_srt
             },
 
             splitNomorSurat(nmr) {
                 var no_srt = nmr.split('/')
-                console.log(no_srt);
+                // console.log(no_srt);
                 this.no_srt_composer.sel_nomor = no_srt[0]
                 this.no_srt_composer.sel_kode_skpd = no_srt[3]
                 this.no_srt_composer.sel_kode_jenis = no_srt[2]

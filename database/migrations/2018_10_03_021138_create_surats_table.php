@@ -22,6 +22,7 @@ class CreateSuratsTable extends Migration
             $table->text('uraian')->nullable();
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default(1);
+            $table->boolean('arsip')->default(0);
             $table->timestamps();
 
             $table->foreign('id_skpd')

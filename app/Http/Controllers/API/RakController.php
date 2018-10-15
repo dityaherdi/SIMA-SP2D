@@ -20,12 +20,8 @@ class RakController extends Controller
         // $this->authorize('isAdmin');
         // $rak = Rak::latest()->with('ruangan:id_ruangan,kode_ruangan.gedung:id_gedung,nama_gedung')->get();
         $rak = Rak::latest()->with([
-            'ruangan' => function($query) {
-                $query->select('id_ruangan', 'id_gedung', 'kode_ruangan');
-            },
-            'ruangan.gedung' => function($query) {
-                $query->select('id_gedung', 'nama_gedung');
-            }
+            'ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'ruangan.gedung:id_gedung,nama_gedung'
         ])->get()->paginateCollection(3);
 
         return response()->json([
