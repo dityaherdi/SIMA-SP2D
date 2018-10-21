@@ -46,5 +46,10 @@ Route::group(['middleware' => 'auth:api'], function (){
     // Get Requirement Data Surat
     Route::get('get-skpd', 'API\RequirementSuratController@getSkpd');
     Route::get('get-jenis', 'API\RequirementSuratController@getJenis');
+
+    // Print Label
+    Route::get('print-rak-label/{id}', 'API\PrintLabelController@printRakLabel');
+    Route::get('print-box-label/{id}', 'API\PrintLabelController@printBoxLabel');
+    Route::get('print-arsip-label/{id}', 'API\PrintLabelController@printArsipLabel');
     
 });

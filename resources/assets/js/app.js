@@ -22,6 +22,11 @@ import { createData, readData, updateData, deleteData } from './helpers/operatio
 import { showModal, forceCloseModal } from './helpers/modal'
 import VueProgressBar from 'vue-progressbar'
 import Datepicker from 'vuejs-datepicker'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+
+window.jsPDF = jsPDF
+window.html2canvas = html2canvas
 
 Vue.component('datepicker', Datepicker)
 
@@ -52,6 +57,7 @@ Vue.mixin({
         updateData,
         deleteData,
 
+        // modal
         showModal,
         forceCloseModal
     }
@@ -59,6 +65,7 @@ Vue.mixin({
 
 Vue.component('vue-app', require('./components/App.vue'));
 Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('not-found', require('./components/NotFound.vue'));
 
 initialize(store, router);
 

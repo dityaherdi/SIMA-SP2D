@@ -10,6 +10,7 @@ import SuratIndex from './components/master/surat/SuratIndex.vue';
 import ArsipIndex from './components/master/arsip/ArsipIndex.vue';
 import UserIndex from './components/master/user/UserIndex.vue';
 import Login from './components/auth/Login.vue';
+import NotFound from './components/NotFound.vue';
 
 // register routes
 let routes = [
@@ -78,6 +79,11 @@ let routes = [
 		component: UserIndex,
 		name: 'UserIndex',
 		meta: { requiresAuth: true }
+	},
+	{
+		path: '*',
+		component: NotFound,
+		name: 'NotFound'
 	}
 ]
 

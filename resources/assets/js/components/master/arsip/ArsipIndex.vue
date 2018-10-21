@@ -1,20 +1,24 @@
 <template>
     <div>
-        <button type="button" class="btn btn-primary" @click="newSkpdModal()">
-            Tambah Data SKPD
-        </button>
         <ul class="list-group mt-3">
             <li class="list-group-item list-group-item-action" v-for="ars in arsip" :key="ars.id_arsip">
+                <span :class="bgColor(ars.surat.jenis.kode_jenis_sp2d)" class="mr-2">
+                    <i class="fas fa-file-archive"></i>
+                </span>
                 {{ ars.surat.nomor_surat }}
-                <button class="btn btn-primary btn-sm float-right ml-2">
-                    <i class="fas fa-eye"></i> Detail
+                <button class="btn btn-danger btn-sm float-right ml-2" @click="retensi(ars)">
+                    <i class="fas fa-eraser"></i> Retensi
                 </button>
                 <button class="btn btn-success btn-sm float-right ml-2" @click="showEditingModal(ars)">
                     <i class="fas fa-edit"></i> Edit
                 </button>
+                <button class="btn btn-primary btn-sm float-right ml-2" @click="showDetailModal(ars)">
+                    <i class="fas fa-eye"></i> Detail
+                </button>
             </li>
         </ul>
         <modal-arsip></modal-arsip>
+        <detail-arsip></detail-arsip>
     </div>
 </template>
 
@@ -31,6 +35,9 @@
 
         created() {
             this.loadArsip()
+            Signal.$on('load_arsip', () => {
+                this.loadArsip()
+            })
         },
 
         mounted() {
@@ -40,24 +47,42 @@
         },
 
         components: {
-          "modal-arsip": require('./children/ArsipModal.vue')
+          "modal-arsip": require('./children/ArsipModal.vue'),
+          "detail-arsip": require('./children/DetailArsipModal.vue')
         },
         
         methods: {
-            newSkpdModal() {
-                this.$emit('new_skpd')
-            },
-
             showEditingModal(ars) {
                 Signal.$emit('show_editing_arsip_modal', ars)
+            },
+
+            showDetailModal(ars) {
+                Signal.$emit('show_detail_arsip_modal', ars)
+            },
+
+            retensi(ars) {
+                this.deleteData('api/arsip/'+ars.id_arsip, 'arsip')
             },
 
             loadArsip() {
                 this.readData('api/arsip')
                 .then((arsip) => {
+                    this.loadable = true
                     this.arsip = arsip.data
                     this.next = arsip.next_page_url
                 })
+            },
+
+            bgColor(jenis) {
+                if (jenis=='UP') {
+                    return 'badge badge-primary'
+                }else if(jenis=='GU'){
+                    return 'badge badge-success'
+                }else if(jenis=='TU'){
+                    return 'badge badge-danger'
+                }else if(jenis=='LS'){
+                    return 'badge badge-warning'
+                }
             },
 
             loadMoreArsip() {

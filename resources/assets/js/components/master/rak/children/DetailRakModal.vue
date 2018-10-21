@@ -10,20 +10,68 @@
             </button>
         </div>
         <div class="modal-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <img :src="'./img/qr/rak/'+rak.qr_rak" alt="QRCode Rak">
+            <ul class="nav nav-pills ml-auto p-2">
+                <li class="nav-item"><a class="nav-link active show" href="#tab_detail_rak" data-toggle="tab">Detail</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tab_label_rak" data-toggle="tab">Label</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active show" id="tab_detail_rak">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img :src="'./img/qr/rak/'+rak.qr_rak" alt="QRCode Rak">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-justify">
+                                <strong> Detail Letak Rak : </strong> 
+                                Gedung-{{ rak.nama_gedung }}, Ruangan-{{rak.kode_ruangan}}, Rak-{{ rak.kode_rak }}
+                            </p>
+                            <p class="text-justify"><strong>Keterangan : </strong> {{ rak.keterangan }} </p>
+                            <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                     <p class="text-justify">
-                        <strong> Detail Letak Rak : </strong> 
-                        Gedung-{{ rak.nama_gedung }}, Ruangan-{{rak.kode_ruangan}}, Rak-{{ rak.kode_rak }}
-                    </p>
-                    <p class="text-justify"><strong>Keterangan : </strong> {{ rak.keterangan }} </p>
-                    <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p>
+                <div class="tab-pane" id="tab_label_rak">
+                    <div class="container border border-dark" id="rakLabel">
+                        <div class="widget-user-header bg-info-active">
+                            <div class="text-center mt-2">
+                                <img src="/img/logo.png" alt="Logo BPKAD" style="width:100px" >
+                                <div class="mt-2">
+                                    <h5>PEMERINTAH PROVINSI BALI</h5>
+                                    <strong class="mb-2">BADAN PENGELOLA KEUANGAN DAN ASET DAERAH</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer border border-dark">
+                            <div class="row">
+                            <div class="col-sm-6 border-right border-dark">
+                                <div class="description-block">
+                                    <img :src="'./img/qr/rak/'+rak.qr_rak" alt="QRCode Rak" style="width:150px">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="description-block">
+                                <span class="description-text">Kode Rak</span>
+                                <h5 class="description-header">{{ rak.kode_rak }}</h5>
+                                </div>
+                                <div class="border border-dark text-center">
+                                    <strong>RAK ARSIP</strong>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="container border border-dark mt-2 mb-2">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center mt-3">
+                            <button type="button" class="btn btn-secondary" @click="printRakLabel">
+                                <i class="fas fa-print mr-2"></i>Cetak Label Rak
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-           
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
@@ -66,6 +114,19 @@
                 }
                 this.rak.qr_rak = r.qr_rak
             })
+        },
+
+        methods: {
+            printRakLabel() {
+                html2canvas(document.getElementById('rakLabel'))
+                .then((canvas) => {
+                    console.log('hello')
+                    let ss = canvas.toDataURL('image/png')
+                    let rakLabel = new jsPDF('l', 'pt', 'a5')
+                    rakLabel.addImage(ss, 'PNG', 10, 10)
+                    rakLabel.save('rak_label_'+this.rak.kode_rak+'.pdf')
+                })
+            }
         }
     }
 </script>

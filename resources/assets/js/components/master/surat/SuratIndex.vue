@@ -47,9 +47,6 @@
                                 @click="deleteSurat(sur.id_sp2d)">
                                 <i class="fas fa-trash"></i>
                             </button>
-                            <!-- <button class="btn btn-dark btn-sm" title="Arsipkan Surat">
-                                <i class="fas fa-file-archive"></i>
-                            </button> -->
                             <button class="btn btn-dark btn-sm" title="Arsipkan Surat"
                                 @click="showArchiveModal(sur)">
                                 <i class="fas fa-file-archive"></i>
@@ -62,7 +59,7 @@
         </div>
         <modal-surat></modal-surat>
         <detail-surat></detail-surat>
-        <arsip-modal></arsip-modal>
+        <modal-arsip></modal-arsip>
     </div>
 </template>
 
@@ -100,23 +97,27 @@
         components: {
           "modal-surat": require('./children/SuratModal.vue'),
           "detail-surat": require('./children/DetailSuratModal.vue'),
-          "arsip-modal": require('./../arsip/children/ArsipModal.vue')
+          "modal-arsip": require('./../arsip/children/ArsipModal.vue')
         },
         
         methods: {
             showCreatingModal() {
                 Signal.$emit('show_creating_surat_modal')
             },
+
+
             showEditingModal(sur) {
                 Signal.$emit('show_editing_surat_modal', sur)
             },
+
             showDetailModal(sur) {
                 Signal.$emit('show_detail_surat_modal', sur)
             },
+
             showArchiveModal(sur) {
-                // console.log(JSON.stringify(sur,null,8))
                 Signal.$emit('show_creating_arsip_modal', sur)
             },
+
             bgColor(jenis) {
                 if (jenis=='UP') {
                     return 'bg-primary'
@@ -132,6 +133,7 @@
             loadSurat() {
                 this.readData('api/surat')
                 .then((surat) => {
+                    this.loadable = true
                     this.surat = surat.data
                     this.next = surat.next_page_urlss
                 })

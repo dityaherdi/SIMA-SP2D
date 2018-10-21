@@ -21,7 +21,7 @@ class ArsipController extends Controller
     public function index()
     {
         $arsip = Arsip::latest()->with([
-            'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat',
+            'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
             'surat.skpd:id_skpd,kode_skpd,nama_skpd',
             'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
             'box:id_box,id_rak,kode_box',
@@ -114,7 +114,12 @@ class ArsipController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $arsip = Arsip::findOrFail($id);
+        $arsip->delete();
+
+        return response()->json([
+            'message' => 'Arsip : '.$arsip->surat->nomor_surat.' telah diretensi'
+        ]);
     }
 
     public function generateArsipQr($arsip, $request)
