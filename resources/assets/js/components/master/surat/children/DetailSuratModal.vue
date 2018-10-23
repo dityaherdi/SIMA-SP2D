@@ -24,7 +24,9 @@
            
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                <i class="fas fa-window-close mr-2"></i> Tutup
+            </button>
         </div>
         </div>
     </div>

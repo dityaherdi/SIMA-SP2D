@@ -11,9 +11,17 @@
         </div>
         <div class="modal-body">
             <ul class="nav nav-pills ml-auto p-2">
-                <li class="nav-item"><a class="nav-link active show" href="#tab_detail_rak" data-toggle="tab">Detail</a></li>
-                <li class="nav-item"><a class="nav-link" href="#tab_label_rak" data-toggle="tab">Label</a></li>
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link active show" href="#tab_detail_rak" data-toggle="tab">
+                            <i class="fas fa-info mr-2"></i> Info
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab_label_rak" data-toggle="tab">
+                            <i class="fas fa-tag mr-2"></i> Label
+                        </a>
+                    </li>
+                </ul>
             <div class="tab-content">
                 <div class="tab-pane active show" id="tab_detail_rak">
                     <div class="row">
@@ -74,7 +82,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                <i class="fas fa-window-close mr-2"></i> Tutup
+            </button>
         </div>
         </div>
     </div>

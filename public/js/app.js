@@ -72170,6 +72170,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72304,7 +72306,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -73434,6 +73439,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -73713,7 +73728,10 @@ var staticRenderFns = [
             staticClass: "nav-link active show",
             attrs: { href: "#tab_detail_rak", "data-toggle": "tab" }
           },
-          [_vm._v("Detail")]
+          [
+            _c("i", { staticClass: "fas fa-info mr-2" }),
+            _vm._v(" Info\n                    ")
+          ]
         )
       ]),
       _vm._v(" "),
@@ -73724,7 +73742,10 @@ var staticRenderFns = [
             staticClass: "nav-link",
             attrs: { href: "#tab_label_rak", "data-toggle": "tab" }
           },
-          [_vm._v("Label")]
+          [
+            _c("i", { staticClass: "fas fa-tag mr-2" }),
+            _vm._v(" Label\n                    ")
+          ]
         )
       ])
     ])
@@ -73769,7 +73790,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -74699,6 +74723,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74833,7 +74859,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -75791,6 +75820,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -75925,7 +75956,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -77147,6 +77181,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -77241,7 +77285,7 @@ var render = function() {
                   "div",
                   {
                     staticClass: "tab-pane active show",
-                    attrs: { id: "tab_detail_rak" }
+                    attrs: { id: "tab_detail_box" }
                   },
                   [
                     _c("div", { staticClass: "row" }, [
@@ -77434,7 +77478,10 @@ var staticRenderFns = [
             staticClass: "nav-link active show",
             attrs: { href: "#tab_detail_box", "data-toggle": "tab" }
           },
-          [_vm._v("Detail")]
+          [
+            _c("i", { staticClass: "fas fa-info mr-2" }),
+            _vm._v(" Info\n                    ")
+          ]
         )
       ]),
       _vm._v(" "),
@@ -77445,7 +77492,10 @@ var staticRenderFns = [
             staticClass: "nav-link",
             attrs: { href: "#tab_label_box", "data-toggle": "tab" }
           },
-          [_vm._v("Label")]
+          [
+            _c("i", { staticClass: "fas fa-tag mr-2" }),
+            _vm._v(" Label\n                    ")
+          ]
         )
       ])
     ])
@@ -77490,7 +77540,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -78424,6 +78477,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -78561,7 +78616,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -80016,6 +80074,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80175,7 +80235,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n        ")
+        ]
       )
     ])
   }
@@ -81560,6 +81623,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -81891,7 +81964,10 @@ var staticRenderFns = [
             staticClass: "nav-link active show",
             attrs: { href: "#tab_detail_arsip", "data-toggle": "tab" }
           },
-          [_vm._v("Detail")]
+          [
+            _c("i", { staticClass: "fas fa-info mr-2" }),
+            _vm._v(" Info\n                    ")
+          ]
         )
       ]),
       _vm._v(" "),
@@ -81902,7 +81978,10 @@ var staticRenderFns = [
             staticClass: "nav-link",
             attrs: { href: "#tab_label_arsip", "data-toggle": "tab" }
           },
-          [_vm._v("Label")]
+          [
+            _c("i", { staticClass: "fas fa-tag mr-2" }),
+            _vm._v(" Label\n                    ")
+          ]
         )
       ])
     ])
@@ -81947,7 +82026,10 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Tutup")]
+        [
+          _c("i", { staticClass: "fas fa-window-close mr-2" }),
+          _vm._v(" Tutup\n            ")
+        ]
       )
     ])
   }
