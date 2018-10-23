@@ -1,7 +1,8 @@
 <template>
     <div>
         <ul class="list-group mt-3">
-            <li class="list-group-item list-group-item-action" v-for="ars in arsip" :key="ars.id_arsip">
+            <li class="list-group-item list-group-item-action" v-for="(ars,index) in arsip" :key="ars.id_arsip">
+                <span class="mr-3">{{ ++index }}</span>
                 <span :class="bgColor(ars.surat.jenis.kode_jenis_sp2d)" class="mr-2">
                     <i class="fas fa-file-archive"></i>
                 </span>

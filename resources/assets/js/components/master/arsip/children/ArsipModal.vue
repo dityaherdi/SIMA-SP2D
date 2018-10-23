@@ -82,6 +82,7 @@
                                         :format="customFormatter"
                                         calendar-button calendar-button-icon="fas fa-calendar-alt"
                                         v-model="arsip.tgl_diarsipkan"
+                                        :disabledDates="disabledDates"
                                         id="tgldiarsipkan">
                             </datepicker>
                         </div>
@@ -125,6 +126,9 @@
     export default {
         data() {
             return {
+                disabledDates: {
+                    to: ''
+                },
                 id: id,
                 editing: true,
                 gedung: {},
@@ -137,6 +141,11 @@
                     ruangan: '',
                     rak: ''
                 },
+                dis_date_ars_composer: new Form({
+                    sel_day: '',
+                    sel_month: '',
+                    sel_year: ''
+                }),
                 arsip: new Form({
                     id_arsip: '',
                     id_sp2d: '',
@@ -158,6 +167,7 @@
                 this.surat = sur
                 this.arsip.id_sp2d = sur.id_sp2d
                 this.arsip.nomor_surat = sur.nomor_surat
+                this.splitDisabledDate(sur.tgl_terbit)
             }),
 
             Signal.$on('show_editing_arsip_modal', (ars) => {
@@ -220,6 +230,11 @@
                 if(this.datePickerValidation()==true) {
                     this.updateData(this.arsip, 'api/arsip/'+this.arsip.id_arsip, 'arsip')
                 }
+            },
+
+            splitDisabledDate(tglTerbitSurat) {
+                var disDate = tglTerbitSurat.split('-')
+                this.disabledDates.to = new Date(disDate[0], disDate[1]-1, disDate[2])
             },
 
             datePickerValidation() {

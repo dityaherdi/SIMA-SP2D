@@ -13,15 +13,16 @@
                     </button>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                   <tr>
+                    <th>No</th>
                     <th>Rak</th>
                     <th>Kode Box</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="b in box.data" :key="b.id_box">
+                  <tr v-for="(b,index) in box.data" :key="b.id_box">
+                    <td>{{ ++index }}</td>
                     <td>{{ b.rak.kode_rak }}</td>
                     <td>{{ b.kode_box | uppercase}}</td>
                     <td>
@@ -46,16 +47,14 @@
                   </tr>
                 </table>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <pagination :data="box" @pagination-change-page="getResults"></pagination>
                     </div>
               </div>
             </div>
-            <!-- /.card -->
           </div>
-        </div><!-- /.row -->
+        </div>
         <modal-box></modal-box>
         <detail-box></detail-box>
     </div>

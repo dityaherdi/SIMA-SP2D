@@ -12,15 +12,16 @@
                     </button>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                   <tr>
+                    <th>No</th>
                     <th>Gedung</th>
                     <th>Kode Ruangan</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="rua in ruangan.data" :key="rua.id_ruangan">
+                  <tr v-for="(rua,index) in ruangan.data" :key="rua.id_ruangan">
+                    <td>{{ ++index }}</td>
                     <td>{{ rua.gedung.nama_gedung }}</td>
                     <td>{{ rua.kode_ruangan | uppercase}}</td>
                     <td>
@@ -45,16 +46,14 @@
                   </tr>
                 </table>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <pagination :data="ruangan" @pagination-change-page="getResults"></pagination>
                     </div>
               </div>
             </div>
-            <!-- /.card -->
           </div>
-        </div><!-- /.row -->
+        </div>
         <modal-ruangan></modal-ruangan>
         <detail-ruangan></detail-ruangan>
     </div>

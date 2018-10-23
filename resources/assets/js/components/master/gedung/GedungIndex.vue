@@ -13,15 +13,16 @@
                     </button>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                   <tr>
+                    <th>No</th>
                     <th>Kode Gedung</th>
                     <th>Nama Gedung</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="ged in gedung.data" :key="ged.id_gedung">
+                  <tr v-for="(ged,index) in gedung.data" :key="ged.id_gedung">
+                    <td>{{ index + counter }}</td>
                     <td>{{ ged.kode_gedung | uppercase}}</td>
                     <td>{{ ged.nama_gedung }}</td>
                     <td>
@@ -46,16 +47,14 @@
                   </tr>
                 </table>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <pagination :data="gedung" @pagination-change-page="getResults"></pagination>
                     </div>
               </div>
             </div>
-            <!-- /.card -->
           </div>
-        </div><!-- /.row -->
+        </div>
         <modal-gedung></modal-gedung>
         <detail-gedung></detail-gedung>
     </div>
@@ -65,7 +64,8 @@
     export default {
         data() {
             return {
-                gedung: {}
+                gedung: {},
+                counter: 0
             }
         },
 
@@ -98,6 +98,7 @@
                 this.readData('api/gedung')
                 .then((gedung) => {
                     this.gedung = gedung
+                    this.counter = gedung.from
                 })
             },
 
@@ -109,6 +110,7 @@
                 axios.get('api/gedung?page='+page)
                 .then((response) => {
                     this.gedung = response.data.data
+                    this.counter = response.data.data.from
                 })
             }
         }

@@ -13,15 +13,16 @@
                     </button>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                   <tr>
+                      <th>No</th>
                     <th>Kode Jenis SP2D</th>
                     <th>Nama Jenis SP2D</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="jen in jenis.data" :key="jen.id_jenis_sp2d">
+                  <tr v-for="(jen,index) in jenis.data" :key="jen.id_jenis_sp2d">
+                      <td>{{ index + counter }}</td>
                     <td>{{ jen.kode_jenis_sp2d | uppercase}}</td>
                     <td>{{ jen.nama_jenis_sp2d }}</td>
                     <td>
@@ -46,16 +47,14 @@
                   </tr>
                 </table>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <pagination :data="jenis" @pagination-change-page="getResults"></pagination>
                     </div>
               </div>
             </div>
-            <!-- /.card -->
           </div>
-        </div><!-- /.row -->
+        </div>
         <modal-jenis></modal-jenis>
         <detail-jenis></detail-jenis>
     </div>
@@ -65,7 +64,8 @@
     export default {
         data() {
             return {
-                jenis: {}
+                jenis: {},
+                counter: 0
             }
         },
 
@@ -98,6 +98,7 @@
                 this.readData('api/jenis')
                 .then((jenis) => {
                     this.jenis = jenis
+                    this.counter = jenis.from
                 })
             },
 
@@ -109,6 +110,7 @@
                 axios.get('api/jenis?page='+page)
                 .then((response) => {
                     this.jenis = response.data.data
+                    this.counter = response.data.data.from
                 })
             }
         }

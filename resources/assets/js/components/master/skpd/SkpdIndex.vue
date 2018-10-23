@@ -12,16 +12,17 @@
                     </button>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                     <tbody>
                         <tr>
+                            <th>No</th>
                             <th>Kode SKPD</th>
                             <th>SKPD</th>
                             <th>Aksi</th>
                         </tr>
-                        <tr v-for="skpd in skpds.data" :key="skpd.id_skpd">
+                        <tr v-for="(skpd,index) in skpds.data" :key="skpd.id_skpd">
+                            <td>{{ index + counter }}</td>
                             <td>{{ skpd.kode_skpd }}</td>
                             <td>{{ skpd.alias_skpd }}</td>
                             <td>
@@ -47,14 +48,12 @@
                     </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <pagination :data="skpds" @pagination-change-page="getResults"></pagination>
                     </div>
               </div>
             </div>
-            <!-- /.card -->
           </div>
         </div>
         <modal-skpd></modal-skpd>
@@ -66,9 +65,11 @@
     export default {
         data() {
             return {
-                skpds: {}
+                skpds: {},
+                counter: 0
             }
         },
+
         created() {
             this.loadSkpd(),
             Signal.$on('load_skpd', () => {
@@ -98,6 +99,7 @@
                 this.readData('api/skpd')
                 .then((skpd) => {
                     this.skpds = skpd
+                    this.counter = skpd.from
                 })
             },
 
@@ -109,6 +111,7 @@
                 axios.get('api/skpd?page='+page)
                 .then((response) => {
                     this.skpds = response.data.data
+                    this.counter = response.data.data.from
                 })
             }
             

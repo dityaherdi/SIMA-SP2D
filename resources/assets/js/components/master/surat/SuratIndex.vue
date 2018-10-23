@@ -22,9 +22,10 @@
         </nav>
         
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-12" v-for="sur in surat" :key="sur.id_sp2d">
+            <div class="col-md-3 col-sm-6 col-12" v-for="(sur,index) in surat" :key="sur.id_sp2d">
                 <div class="info-box"
                     :class="bgColor(sur.jenis.kode_jenis_sp2d)">
+                <span>{{ ++index }}</span>
                 <span class="info-box-icon"><i class="fas fa-envelope-open"></i></span>
                 
                 <div class="info-box-content">

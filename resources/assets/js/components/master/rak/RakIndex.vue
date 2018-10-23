@@ -13,16 +13,16 @@
                     </button>
                 </div>
               </div>
-              <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
                   <tr>
+                    <th>No</th>
                     <th>Ruangan</th>
                     <th>Kode Rak</th>
                     <th>Aksi</th>
                   </tr>
-                  <tr v-for="r in rak.data" :key="r.id_rak">
-                    <!-- <td>{{ r.ruangan.gedung.nama_gedung }}</td> -->
+                  <tr v-for="(r,index) in rak.data" :key="r.id_rak">
+                    <td>{{ ++index }}</td>
                     <td>{{ r.ruangan.kode_ruangan }}</td>
                     <td>{{ r.kode_rak | uppercase}}</td>
                     <td>
