@@ -1,5 +1,7 @@
 <template>
     <div>
+        <not-found v-if="!isMaster()"></not-found>
+        <template v-else>
         <div class="row">
           <div class="col-12">
             <div class="card card-warning card-outline">
@@ -57,6 +59,7 @@
         </div>
         <modal-jenis></modal-jenis>
         <detail-jenis></detail-jenis>
+        </template>
     </div>
 </template>
 
@@ -95,23 +98,29 @@
             },
 
             loadJenis() {
-                this.readData('api/jenis')
-                .then((jenis) => {
-                    this.jenis = jenis
-                    this.counter = jenis.from
-                })
+                if (this.isMaster()) {
+                    this.readData('api/jenis')
+                    .then((jenis) => {
+                        this.jenis = jenis
+                        this.counter = jenis.from
+                    })
+                }
             },
 
             deleteJenis(id) {
-                this.deleteData('api/jenis/'+id, 'jenis')
+                if (this.isMaster()) {
+                    this.deleteData('api/jenis/'+id, 'jenis')
+                }
             },
 
             getResults(page = 1) {
-                axios.get('api/jenis?page='+page)
-                .then((response) => {
-                    this.jenis = response.data.data
-                    this.counter = response.data.data.from
-                })
+                if (this.isMaster()) {
+                    axios.get('api/jenis?page='+page)
+                    .then((response) => {
+                        this.jenis = response.data.data
+                        this.counter = response.data.data.from
+                    })
+                }
             }
         }
     }

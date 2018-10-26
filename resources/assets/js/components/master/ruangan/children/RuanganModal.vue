@@ -92,12 +92,14 @@
             Signal.$on('show_editing_ruangan_modal', (rua) => {
                 this.status = rua.status
                 this.showModal(this.ruangan, 'ruangan', 'edit', rua)
-            }),
-
-            this.gedung = this.getGedung()
-            .then((gedung) => {
-                this.gedung = gedung
             })
+
+            if (this.isMasterOrAdmin()) {
+                this.gedung = this.getGedung()
+                .then((gedung) => {
+                    this.gedung = gedung
+                })  
+            }
         },
 
         methods: {
@@ -106,11 +108,15 @@
             },
 
             createRuangan() {
-                this.createData(this.ruangan, 'api/ruangan', 'ruangan')
+                if (this.isMasterOrAdmin()) {
+                    this.createData(this.ruangan, 'api/ruangan', 'ruangan')
+                }
             },
 
             updateRuangan() {
-                this.updateData(this.ruangan, 'api/ruangan/'+this.ruangan.id_ruangan, 'ruangan')
+                if (this.isMasterOrAdmin()) {
+                    this.updateData(this.ruangan, 'api/ruangan/'+this.ruangan.id_ruangan, 'ruangan')
+                }
             }
         }
     }

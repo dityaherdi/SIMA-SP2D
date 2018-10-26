@@ -1,5 +1,7 @@
 <template>
     <div>
+        <not-found v-if="!this.isMaster()"></not-found>
+        <template v-else>
         <div class="row">
           <div class="col-12">
             <div class="card card-info card-outline">
@@ -58,6 +60,7 @@
         </div>
         <modal-skpd></modal-skpd>
         <detail-skpd></detail-skpd>
+        </template>
     </div>
 </template>
 
@@ -96,23 +99,29 @@
             },
 
             loadSkpd() {
-                this.readData('api/skpd')
-                .then((skpd) => {
-                    this.skpds = skpd
-                    this.counter = skpd.from
-                })
+                if (this.isMaster()) {
+                    this.readData('api/skpd')
+                    .then((skpd) => {
+                        this.skpds = skpd
+                        this.counter = skpd.from
+                    })
+                }
             },
 
             deleteSkpd(id) {
-                this.deleteData('api/skpd/'+id, 'skpd')
+                if (this.isMaster()) {
+                    this.deleteData('api/skpd/'+id, 'skpd')
+                }
             },
             
             getResults(page = 1) {
-                axios.get('api/skpd?page='+page)
-                .then((response) => {
-                    this.skpds = response.data.data
-                    this.counter = response.data.data.from
-                })
+                if (this.isMaster()) {
+                    axios.get('api/skpd?page='+page)
+                    .then((response) => {
+                        this.skpds = response.data.data
+                        this.counter = response.data.data.from
+                    })
+                }
             }
             
         }

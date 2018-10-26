@@ -137,10 +137,12 @@
                 this.showModal(this.box, 'box', 'edit', b)
             })
 
-            this.getGedung()
-            .then((gedung) => {
-                this.gedung = gedung
-            })
+            if (this.isMasterOrAdmin()) {
+                this.getGedung()
+                .then((gedung) => {
+                    this.gedung = gedung
+                })  
+            }
         },
 
         methods: {
@@ -149,25 +151,33 @@
             },
 
             selectRuangan() {
-                this.getRuangan(this.lokasi.gedung)
-                .then((ruangan) => {
-                    this.ruangan = ruangan
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.getRuangan(this.lokasi.gedung)
+                    .then((ruangan) => {
+                        this.ruangan = ruangan
+                    })
+                }
             },
 
             selectRak() {
-                this.getRak(this.lokasi.ruangan)
-                .then((rak) => {
-                    this.rak = rak
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.getRak(this.lokasi.ruangan)
+                    .then((rak) => {
+                        this.rak = rak
+                    })
+                }
             },
 
             createBox() {
-                this.createData(this.box, 'api/box', 'box')
+                if (this.isMasterOrAdmin()) {
+                    this.createData(this.box, 'api/box', 'box')
+                }
             },
 
             updateBox() {
-                this.updateData(this.box, 'api/box/'+this.box.id_box, 'box')
+                if (this.isMasterOrAdmin()) {
+                    this.updateData(this.box, 'api/box/'+this.box.id_box, 'box')
+                }
             }
         }
     }

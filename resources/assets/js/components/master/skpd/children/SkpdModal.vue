@@ -108,11 +108,15 @@
 
         methods: {
             createSkpd() {
-                this.createData(this.skpd, 'api/skpd', 'skpd')
+                if (this.isMaster()) {
+                    this.createData(this.skpd, 'api/skpd', 'skpd')
+                }
             },
             
             updateSkpd() {
-                this.updateData(this.skpd, 'api/skpd/'+this.skpd.id_skpd, 'skpd')
+                if (this.isMaster()) {
+                    this.updateData(this.skpd, 'api/skpd/'+this.skpd.id_skpd, 'skpd')
+                }
             },
 
             clearError() {

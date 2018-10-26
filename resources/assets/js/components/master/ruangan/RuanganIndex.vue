@@ -1,5 +1,7 @@
 <template>
     <div>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
+        <template v-else>
         <div class="row">
           <div class="col-12">
             <div class="card card-danger card-outline">
@@ -56,6 +58,7 @@
         </div>
         <modal-ruangan></modal-ruangan>
         <detail-ruangan></detail-ruangan>
+        </template>
     </div>
 </template>
 
@@ -93,21 +96,27 @@
             },
 
             loadRuangan() {
-                this.readData('api/ruangan')
-                .then((ruangan) => {
-                    this.ruangan = ruangan
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.readData('api/ruangan')
+                    .then((ruangan) => {
+                        this.ruangan = ruangan
+                    })
+                }
             },
 
             deleteRuangan(id) {
-                this.deleteData('api/ruangan/'+id, 'ruangan')
+                if (this.isMasterOrAdmin()) {
+                    this.deleteData('api/ruangan/'+id, 'ruangan')
+                }
             },
 
             getResults(page = 1) {
-                axios.get('api/ruangan?page='+page)
-                .then((response) => {
-                    this.ruangan = response.data.data
-                })
+                if (this.isMasterOrAdmin()) {
+                    axios.get('api/ruangan?page='+page)
+                    .then((response) => {
+                        this.ruangan = response.data.data
+                    })
+                }
             }
         }
     }

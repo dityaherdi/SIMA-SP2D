@@ -1,11 +1,12 @@
 <template>
     <div>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
+        <template v-else>
         <div class="row">
           <div class="col-12">
             <div class="card card-danger card-outline">
               <div class="card-header">
                 <h3 class="card-title">Box Arsip</h3>
-
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal"
                         title="Tambah Box">
@@ -57,6 +58,7 @@
         </div>
         <modal-box></modal-box>
         <detail-box></detail-box>
+        </template>
     </div>
 </template>
 
@@ -94,21 +96,27 @@
             },
 
             loadBox() {
-                this.readData('api/box')
-                .then((box) => {
-                    this.box = box
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.readData('api/box')
+                    .then((box) => {
+                        this.box = box
+                    })
+                }
             },
 
             deleteBox(id) {
-                this.deleteData('api/box/'+id, 'box')
+                if (this.isMasterOrAdmin()) {
+                    this.deleteData('api/box/'+id, 'box')
+                }
             },
 
             getResults(page = 1) {
-                axios.get('api/box?page='+page)
-                .then((response) => {
-                    this.box = response.data.data
-                })
+                if (this.isMasterOrAdmin()) {
+                    axios.get('api/box?page='+page)
+                    .then((response) => {
+                        this.box = response.data.data
+                    })
+                }
             }
         }
     }

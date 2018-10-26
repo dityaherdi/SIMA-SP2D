@@ -1,11 +1,12 @@
 <template>
     <div>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
+        <template v-else>
         <div class="row">
           <div class="col-12">
             <div class="card card-danger card-outline">
               <div class="card-header">
                 <h3 class="card-title">Gedung Arsip</h3>
-
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal"
                         title="Tambah Gedung">
@@ -57,6 +58,7 @@
         </div>
         <modal-gedung></modal-gedung>
         <detail-gedung></detail-gedung>
+        </template>
     </div>
 </template>
 
@@ -95,23 +97,29 @@
             },
 
             loadGedung() {
-                this.readData('api/gedung')
-                .then((gedung) => {
-                    this.gedung = gedung
-                    this.counter = gedung.from
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.readData('api/gedung')
+                    .then((gedung) => {
+                        this.gedung = gedung
+                        this.counter = gedung.from
+                    })
+                }
             },
 
             deleteGedung(id) {
-                this.deleteData('api/gedung/'+id, 'gedung')
+                if (this.isMasterOrAdmin()) {
+                    this.deleteData('api/gedung/'+id, 'gedung')
+                }
             },
 
             getResults(page = 1) {
-                axios.get('api/gedung?page='+page)
-                .then((response) => {
-                    this.gedung = response.data.data
-                    this.counter = response.data.data.from
-                })
+                if (this.isMasterOrAdmin()) {
+                    axios.get('api/gedung?page='+page)
+                    .then((response) => {
+                        this.gedung = response.data.data
+                        this.counter = response.data.data.from
+                    })
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 <template>
     <div>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
+        <template v-else>
         <div class="row">
           <div class="col-12">
             <div class="card card-danger card-outline">
@@ -59,6 +61,7 @@
         </div><!-- /.row -->
         <modal-rak></modal-rak>
         <detail-rak></detail-rak>
+        </template>
     </div>
 </template>
 
@@ -96,21 +99,27 @@
             },
 
             loadRak() {
-                this.readData('api/rak')
-                .then((rak) => {
-                    this.rak = rak
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.readData('api/rak')
+                    .then((rak) => {
+                        this.rak = rak
+                    })
+                }
             },
 
             deleteRak(id) {
-                this.deleteData('api/rak/'+id, 'rak')
+                if (this.isMasterOrAdmin()) {
+                    this.deleteData('api/rak/'+id, 'rak')
+                }
             },
 
             getResults(page = 1) {
-                axios.get('api/rak?page='+page)
-                .then((response) => {
-                    this.rak = response.data.data
-                })
+                if (this.isMasterOrAdmin()) {
+                    axios.get('api/rak?page='+page)
+                    .then((response) => {
+                        this.rak = response.data.data
+                    })
+                }
             }
         }
     }

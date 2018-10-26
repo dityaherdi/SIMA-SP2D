@@ -91,11 +91,17 @@
             clearError() {
                 this.jenis.clear()
             },
+
             createJenis() {
-                this.createData(this.jenis, 'api/jenis', 'jenis')
+                if (this.isMaster()) {
+                    this.createData(this.jenis, 'api/jenis', 'jenis')
+                }
             },
+            
             updateJenis() {
-                this.updateData(this.jenis, 'api/jenis/'+this.jenis.id_jenis_sp2d, 'jenis')
+                if (this.isMaster()) {
+                    this.updateData(this.jenis, 'api/jenis/'+this.jenis.id_jenis_sp2d, 'jenis')
+                }
             }
         }
     }

@@ -117,10 +117,12 @@
                 this.showModal(this.rak, 'rak', 'edit', r)
             })
 
-            this.getGedung()
-            .then((gedung) => {
-                this.gedung = gedung
-            })
+            if (this.isMasterOrAdmin()) {
+                this.getGedung()
+                .then((gedung) => {
+                    this.gedung = gedung
+                })  
+            }
         },
 
         methods: {
@@ -129,18 +131,24 @@
             },
 
             selectRuangan() {
-                this.getRuangan(this.lokasi.gedung)
-                .then((ruangan) => {
-                    this.ruangan = ruangan
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.getRuangan(this.lokasi.gedung)
+                    .then((ruangan) => {
+                        this.ruangan = ruangan
+                    })
+                }
             },
 
             createRak() {
-                this.createData(this.rak, 'api/rak', 'rak')
+                if (this.isMasterOrAdmin()) {
+                    this.createData(this.rak, 'api/rak', 'rak')
+                }
             },
 
             updateRak() {
-                this.updateData(this.rak, 'api/rak/'+this.rak.id_rak, 'rak')
+                if (this.isMasterOrAdmin()) {
+                    this.updateData(this.rak, 'api/rak/'+this.rak.id_rak, 'rak')
+                }
             }
         }
     }

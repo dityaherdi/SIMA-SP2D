@@ -9,8 +9,8 @@ export function showModal(form, entity, operation, data) {
         this.editing = true
         form.reset()
         form.clear()
-        $('#'+entity+'Modal').modal('show')
         form.fill(data)
+        $('#'+entity+'Modal').modal('show')
     }else if (operation=='detail') {
         $('#detail'+entity+'Modal').modal('show')
     }

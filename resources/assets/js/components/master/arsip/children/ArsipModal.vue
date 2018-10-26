@@ -184,10 +184,12 @@
                 this.arsip.nomor_surat = ars.surat.nomor_surat
             })
 
-            this.getGedung()
-            .then((gedung) => {
-                this.gedung = gedung
-            })
+            if (this.isMasterOrAdmin()) {
+                this.getGedung()
+                .then((gedung) => {
+                    this.gedung = gedung
+                })  
+            }
         },
 
         methods: {
@@ -200,35 +202,45 @@
             },
 
             selectRuangan() {
-                this.getRuangan(this.lokasi.gedung)
-                .then((ruangan) => {
-                    this.ruangan = ruangan
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.getRuangan(this.lokasi.gedung)
+                    .then((ruangan) => {
+                        this.ruangan = ruangan
+                    })
+                }
             },
 
             selectRak() {
-                this.getRak(this.lokasi.ruangan)
-                .then((rak) => {
-                    this.rak = rak
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.getRak(this.lokasi.ruangan)
+                    .then((rak) => {
+                        this.rak = rak
+                    })
+                }
             },
 
             selectBox() {
-                this.getBox(this.lokasi.rak)
-                .then((box) => {
-                    this.box = box
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.getBox(this.lokasi.rak)
+                    .then((box) => {
+                        this.box = box
+                    })
+                }
             },
 
             createArsip() {
                 if(this.datePickerValidation()==true) {
-                    this.createData(this.arsip, 'api/arsip', 'arsip')
+                    if (this.isMasterOrAdmin()) {
+                        this.createData(this.arsip, 'api/arsip', 'arsip')
+                    }
                 }
             },
 
             updateArsip() {
                 if(this.datePickerValidation()==true) {
-                    this.updateData(this.arsip, 'api/arsip/'+this.arsip.id_arsip, 'arsip')
+                    if (this.isMasterOrAdmin()) {
+                        this.updateData(this.arsip, 'api/arsip/'+this.arsip.id_arsip, 'arsip')
+                    }
                 }
             },
 

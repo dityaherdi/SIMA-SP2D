@@ -88,10 +88,14 @@
         },
         methods: {
             createGedung() {
-                this.createData(this.gedung, 'api/gedung', 'gedung')
+                if (this.isMasterOrAdmin()) {
+                    this.createData(this.gedung, 'api/gedung', 'gedung')
+                }
             },
             updateGedung() {
-                this.updateData(this.gedung, 'api/gedung/'+this.gedung.id_gedung, 'gedung')
+                if (this.isMasterOrAdmin()) {
+                    this.updateData(this.gedung, 'api/gedung/'+this.gedung.id_gedung, 'gedung')
+                }
             },
             clearError() {
                 this.gedung.clear()

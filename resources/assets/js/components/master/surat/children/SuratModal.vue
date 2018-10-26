@@ -125,7 +125,6 @@
                         </button>
                     </div>
                 </div>
-                
               </form>
             </div>
             </div>
@@ -182,15 +181,17 @@
                 this.showModal(this.surat, 'surat', 'edit', sur)
             })
 
-            this.getSkpd()
-            .then((skpd) => {
-                this.skpd = skpd
-            })
+            if (this.isMasterOrAdmin()) {    
+                this.getSkpd()
+                .then((skpd) => {
+                    this.skpd = skpd
+                })
 
-            this.getJenis()
-            .then((jenis) => {
-                this.jenis=jenis
-            })
+                this.getJenis()
+                .then((jenis) => {
+                    this.jenis=jenis
+                })
+            }
 
         },
 
@@ -234,15 +235,19 @@
 
             createSurat() {
                 if(this.datePickerValidation()==true) {
-                    this.combineNomorSurat()
-                    this.createData(this.surat, 'api/surat', 'surat')
+                    if (isMasterOrAdmin()) {
+                        this.combineNomorSurat()
+                        this.createData(this.surat, 'api/surat', 'surat')
+                    }
                 }
             },
 
             updateSurat() {
                 if(this.datePickerValidation()==true) {
-                    this.combineNomorSurat()
-                    this.updateData(this.surat, 'api/surat/'+this.surat.id_sp2d, 'surat')
+                    if (isMasterOrAdmin) {
+                        this.combineNomorSurat()
+                        this.updateData(this.surat, 'api/surat/'+this.surat.id_sp2d, 'surat')
+                    }
                 }
             },
 

@@ -1,5 +1,7 @@
 <template>
     <div>
+        <not-found v-if="!isMasterOrAdmin()"></not-found>
+        <template v-else>
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-3">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -61,6 +63,7 @@
         <modal-surat></modal-surat>
         <detail-surat></detail-surat>
         <modal-arsip></modal-arsip>
+        </template>
     </div>
 </template>
 
@@ -106,7 +109,6 @@
                 Signal.$emit('show_creating_surat_modal')
             },
 
-
             showEditingModal(sur) {
                 Signal.$emit('show_editing_surat_modal', sur)
             },
@@ -132,39 +134,45 @@
             },
 
             loadSurat() {
-                this.readData('api/surat')
-                .then((surat) => {
-                    this.loadable = true
-                    this.surat = surat.data
-                    this.next = surat.next_page_urlss
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.readData('api/surat')
+                    .then((surat) => {
+                        this.loadable = true
+                        this.surat = surat.data
+                        this.next = surat.next_page_url
+                    })
+                }
             },
 
             deleteSurat(id) {
-                this.deleteData('api/surat/'+id, 'surat')
+                if (this.isMasterOrAdmin()) {
+                    this.deleteData('api/surat/'+id, 'surat')
+                }
             },
 
             loadMoreSurat () {
-                window.onscroll = () => {
-                    let bottom = 
-                        document.documentElement.scrollTop + window.innerHeight 
-                        === 
-                        document.documentElement.offsetHeight
-
-                    if (bottom && this.loadable == true && this.$route.path == '/surat') {
-                        if (this.next==null) {
-                            this.loadable = false
-                            swal({
-                                title: 'Anda sudah di halaman terakhir',
-                                text: 'Tidak ada data lagi untuk ditampilkan',
-                                type: 'info'
-                            })
-                        }else {
-                            axios.get(this.next)
-                            .then((response) => {
-                                this.surat = this.surat.concat(Object.values(response.data.data.data))
-                                this.next = response.data.data.next_page_url
-                            })
+                if (this.isMasterOrAdmin()) {
+                    window.onscroll = () => {
+                        let bottom = 
+                            document.documentElement.scrollTop + window.innerHeight 
+                            === 
+                            document.documentElement.offsetHeight
+    
+                        if (bottom && this.loadable == true && this.$route.path == '/surat') {
+                            if (this.next==null) {
+                                this.loadable = false
+                                swal({
+                                    title: 'Anda sudah di halaman terakhir',
+                                    text: 'Tidak ada data lagi untuk ditampilkan',
+                                    type: 'info'
+                                })
+                            }else {
+                                axios.get(this.next)
+                                .then((response) => {
+                                    this.surat = this.surat.concat(Object.values(response.data.data.data))
+                                    this.next = response.data.data.next_page_url
+                                })
+                            }
                         }
                     }
                 }

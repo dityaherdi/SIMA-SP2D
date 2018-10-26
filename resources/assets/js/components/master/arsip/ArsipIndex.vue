@@ -1,5 +1,7 @@
 <template>
     <div>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
+        <template v-else>
         <ul class="list-group mt-3">
             <li class="list-group-item list-group-item-action" v-for="(ars,index) in arsip" :key="ars.id_arsip">
                 <span class="mr-3">{{ ++index }}</span>
@@ -18,6 +20,7 @@
                 </button>
             </li>
         </ul>
+        </template>
         <modal-arsip></modal-arsip>
         <detail-arsip></detail-arsip>
     </div>
@@ -62,16 +65,20 @@
             },
 
             retensi(ars) {
-                this.deleteData('api/arsip/'+ars.id_arsip, 'arsip')
+                if (this.isMasterOrAdmin()) {
+                    this.deleteData('api/arsip/'+ars.id_arsip, 'arsip')
+                }
             },
 
             loadArsip() {
-                this.readData('api/arsip')
-                .then((arsip) => {
-                    this.loadable = true
-                    this.arsip = arsip.data
-                    this.next = arsip.next_page_url
-                })
+                if (this.isMasterOrAdmin()) {
+                    this.readData('api/arsip')
+                    .then((arsip) => {
+                        this.loadable = true
+                        this.arsip = arsip.data
+                        this.next = arsip.next_page_url
+                    })
+                }
             },
 
             bgColor(jenis) {
@@ -87,26 +94,28 @@
             },
 
             loadMoreArsip() {
-                window.onscroll = () => {
-                    let bottom = 
-                        document.documentElement.scrollTop + window.innerHeight 
-                        === 
-                        document.documentElement.offsetHeight
-
-                    if (bottom && this.loadable == true && this.$route.path == '/arsip') {
-                        if (this.next==null) {
-                            this.loadable=false
-                            swal({
-                                title: 'Anda sudah di halaman terakhir',
-                                text: 'Tidak ada data lagi untuk ditampilkan',
-                                type: 'info'
-                            })
-                        }else {
-                            axios.get(this.next)
-                            .then((response) => {
-                                this.arsip = this.arsip.concat(Object.values(response.data.data.data))
-                                this.next = response.data.data.next_page_url
-                            })
+                if (this.isMasterOrAdmin()) {
+                    window.onscroll = () => {
+                        let bottom = 
+                            document.documentElement.scrollTop + window.innerHeight 
+                            === 
+                            document.documentElement.offsetHeight
+    
+                        if (bottom && this.loadable == true && this.$route.path == '/arsip') {
+                            if (this.next==null) {
+                                this.loadable=false
+                                swal({
+                                    title: 'Anda sudah di halaman terakhir',
+                                    text: 'Tidak ada data lagi untuk ditampilkan',
+                                    type: 'info'
+                                })
+                            }else {
+                                axios.get(this.next)
+                                .then((response) => {
+                                    this.arsip = this.arsip.concat(Object.values(response.data.data.data))
+                                    this.next = response.data.data.next_page_url
+                                })
+                            }
                         }
                     }
                 }
