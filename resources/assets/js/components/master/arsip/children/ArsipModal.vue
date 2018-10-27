@@ -163,11 +163,11 @@
                 this.lokasi.gedung = ''
                 this.lokasi.ruangan = ''
                 this.lokasi.rak = ''
-                this.showModal(this.arsip, 'arsip', 'create')
                 this.surat = sur
                 this.arsip.id_sp2d = sur.id_sp2d
                 this.arsip.nomor_surat = sur.nomor_surat
                 this.splitDisabledDate(sur.tgl_terbit)
+                this.showModal(this.arsip, 'arsip', 'create')
             }),
 
             Signal.$on('show_editing_arsip_modal', (ars) => {
@@ -180,8 +180,9 @@
                 this.lokasi.rak = ars.box.rak.id_rak
                 this.selectBox()
                 this.lokasi.box = ars.box.id_box
-                this.showModal(this.arsip, 'arsip', 'edit', ars)
                 this.arsip.nomor_surat = ars.surat.nomor_surat
+                this.splitDisabledDate(ars.surat.tgl_terbit)
+                this.showModal(this.arsip, 'arsip', 'edit', ars)
             })
 
             if (this.isMasterOrAdmin()) {

@@ -72220,7 +72220,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_skpd_modal', function (skpd) {
-            _this.showModal(null, 'Skpd', 'detail', null);
             _this.skpd.kode_skpd = skpd.kode_skpd;
             _this.skpd.nama_skpd = skpd.nama_skpd;
             if (skpd.keterangan == null) {
@@ -72233,6 +72232,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else if (skpd.status === 0) {
                 _this.skpd.status = 'Non-Aktif';
             }
+            _this.showModal(null, 'Skpd', 'detail', null);
         });
     }
 });
@@ -73515,7 +73515,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_rak_modal', function (r) {
-            _this.showModal(null, 'Rak', 'detail', null);
             _this.rak.nama_gedung = r.ruangan.gedung.nama_gedung;
             _this.rak.kode_ruangan = r.ruangan.kode_ruangan;
             _this.rak.kode_rak = r.kode_rak;
@@ -73530,6 +73529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.rak.status = 'Non-Aktif';
             }
             _this.rak.qr_rak = r.qr_rak;
+            _this.showModal(null, 'Rak', 'detail', null);
         });
     },
 
@@ -74806,7 +74806,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_gedung_modal', function (ged) {
-            _this.showModal(null, 'Gedung', 'detail', null);
             _this.gedung.kode_gedung = ged.kode_gedung;
             _this.gedung.nama_gedung = ged.nama_gedung;
             if (ged.keterangan == null) {
@@ -74819,6 +74818,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else if (get.status === 0) {
                 _this.gedung.status = 'Non-Aktif';
             }
+            _this.showModal(null, 'Gedung', 'detail', null);
         });
     }
 });
@@ -75927,7 +75927,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_ruangan_modal', function (rua) {
-            _this.showModal(null, 'Ruangan', 'detail', null);
             _this.ruangan.nama_gedung = rua.gedung.nama_gedung;
             _this.ruangan.kode_ruangan = rua.kode_ruangan;
             if (rua.keterangan == null) {
@@ -75940,6 +75939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else if (rua.status === 0) {
                 _this.ruangan.status = 'Non-Aktif';
             }
+            _this.showModal(null, 'Ruangan', 'detail', null);
         });
     }
 });
@@ -77323,7 +77323,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_box_modal', function (b) {
-            _this.showModal(null, 'Box', 'detail', null);
             _this.box.nama_gedung = b.rak.ruangan.gedung.nama_gedung;
             _this.box.kode_ruangan = b.rak.ruangan.kode_ruangan;
             _this.box.kode_box = b.kode_box;
@@ -77339,6 +77338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.box.status = 'Non-Aktif';
             }
             _this.box.qr_box = b.qr_box;
+            _this.showModal(null, 'Box', 'detail', null);
         });
     },
 
@@ -78625,7 +78625,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_jenis_modal', function (jen) {
-            _this.showModal(null, 'Jenis', 'detail', null);
             _this.jenis.kode_jenis_sp2d = jen.kode_jenis_sp2d;
             _this.jenis.nama_jenis_sp2d = jen.nama_jenis_sp2d;
             if (jen.keterangan == null) {
@@ -78638,6 +78637,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else if (jen.status === 0) {
                 _this.jenis.status = 'Non-Aktif';
             }
+            _this.showModal(null, 'Jenis', 'detail', null);
         });
     }
 });
@@ -79437,7 +79437,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         createSurat: function createSurat() {
             if (this.datePickerValidation() == true) {
-                if (isMasterOrAdmin()) {
+                if (this.isMasterOrAdmin()) {
                     this.combineNomorSurat();
                     this.createData(this.surat, 'api/surat', 'surat');
                 }
@@ -79445,7 +79445,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         updateSurat: function updateSurat() {
             if (this.datePickerValidation() == true) {
-                if (isMasterOrAdmin) {
+                if (this.isMasterOrAdmin()) {
                     this.combineNomorSurat();
                     this.updateData(this.surat, 'api/surat/' + this.surat.id_sp2d, 'surat');
                 }
@@ -80249,7 +80249,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_surat_modal', function (sur) {
-            _this.showModal(null, 'Surat', 'detail', null);
             _this.surat.skpd = sur.skpd.nama_skpd;
             _this.surat.jenis = sur.jenis.nama_jenis_sp2d;
             _this.surat.nomor_surat = sur.nomor_surat;
@@ -80269,6 +80268,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else if (sur.status === 0) {
                 _this.surat.status = 'Non-Aktif';
             }
+            _this.showModal(null, 'Surat', 'detail', null);
         });
     }
 });
@@ -80579,11 +80579,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.lokasi.gedung = '';
             _this.lokasi.ruangan = '';
             _this.lokasi.rak = '';
-            _this.showModal(_this.arsip, 'arsip', 'create');
             _this.surat = sur;
             _this.arsip.id_sp2d = sur.id_sp2d;
             _this.arsip.nomor_surat = sur.nomor_surat;
             _this.splitDisabledDate(sur.tgl_terbit);
+            _this.showModal(_this.arsip, 'arsip', 'create');
         }), Signal.$on('show_editing_arsip_modal', function (ars) {
             _this.arsip.status = ars.status;
             _this.arsip.keterangan = ars.keterangan;
@@ -80594,8 +80594,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.lokasi.rak = ars.box.rak.id_rak;
             _this.selectBox();
             _this.lokasi.box = ars.box.id_box;
-            _this.showModal(_this.arsip, 'arsip', 'edit', ars);
             _this.arsip.nomor_surat = ars.surat.nomor_surat;
+            _this.splitDisabledDate(ars.surat.tgl_terbit);
+            _this.showModal(_this.arsip, 'arsip', 'edit', ars);
         });
 
         if (this.isMasterOrAdmin()) {
@@ -81825,7 +81826,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Signal.$on('show_detail_arsip_modal', function (ars) {
-            _this.showModal(null, 'Arsip', 'detail', null);
             _this.arsip.id_arsip = ars.id_arsip;
             _this.arsip.nomor_surat = ars.surat.nomor_surat;
             _this.arsip.tgl_terbit = ars.surat.tgl_terbit;
@@ -81840,6 +81840,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.arsip.uraian = ars.surat.uraian;
             }
             _this.arsip.kode_box = ars.box.kode_box;
+            _this.showModal(null, 'Arsip', 'detail', null);
         });
     },
 

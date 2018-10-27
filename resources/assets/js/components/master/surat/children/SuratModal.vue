@@ -235,7 +235,7 @@
 
             createSurat() {
                 if(this.datePickerValidation()==true) {
-                    if (isMasterOrAdmin()) {
+                    if (this.isMasterOrAdmin()) {
                         this.combineNomorSurat()
                         this.createData(this.surat, 'api/surat', 'surat')
                     }
@@ -244,7 +244,7 @@
 
             updateSurat() {
                 if(this.datePickerValidation()==true) {
-                    if (isMasterOrAdmin) {
+                    if (this.isMasterOrAdmin()) {
                         this.combineNomorSurat()
                         this.updateData(this.surat, 'api/surat/'+this.surat.id_sp2d, 'surat')
                     }

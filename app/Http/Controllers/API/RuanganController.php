@@ -10,6 +10,9 @@ use DB;
 
 class RuanganController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:isMasterOrAdmin');
+    }
     /**
      * Display a listing of the resource.
      *

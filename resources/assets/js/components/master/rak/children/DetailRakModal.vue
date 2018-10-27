@@ -108,7 +108,6 @@
     
         created() {
             Signal.$on('show_detail_rak_modal', (r) => {
-                this.showModal(null, 'Rak', 'detail', null)
                 this.rak.nama_gedung = r.ruangan.gedung.nama_gedung
                 this.rak.kode_ruangan = r.ruangan.kode_ruangan
                 this.rak.kode_rak = r.kode_rak
@@ -123,6 +122,7 @@
                     this.rak.status = 'Non-Aktif'
                 }
                 this.rak.qr_rak = r.qr_rak
+                this.showModal(null, 'Rak', 'detail', null)
             })
         },
 

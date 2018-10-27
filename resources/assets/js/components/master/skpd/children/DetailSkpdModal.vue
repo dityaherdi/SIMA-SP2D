@@ -44,7 +44,6 @@
 
         created() {
             Signal.$on('show_detail_skpd_modal', (skpd) => {
-                this.showModal(null, 'Skpd', 'detail', null)
                 this.skpd.kode_skpd = skpd.kode_skpd
                 this.skpd.nama_skpd = skpd.nama_skpd
                 if (skpd.keterangan==null) {
@@ -57,6 +56,7 @@
                 }else if (skpd.status===0) {
                     this.skpd.status = 'Non-Aktif'
                 }
+                this.showModal(null, 'Skpd', 'detail', null)
             })
         }
     }

@@ -118,7 +118,6 @@
 
         created() {
             Signal.$on('show_detail_arsip_modal', (ars) => {
-                this.showModal(null, 'Arsip', 'detail', null)
                 this.arsip.id_arsip = ars.id_arsip
                 this.arsip.nomor_surat = ars.surat.nomor_surat
                 this.arsip.tgl_terbit = ars.surat.tgl_terbit
@@ -133,6 +132,7 @@
                     this.arsip.uraian = ars.surat.uraian
                 }
                 this.arsip.kode_box = ars.box.kode_box
+                this.showModal(null, 'Arsip', 'detail', null)
             })
         },
 

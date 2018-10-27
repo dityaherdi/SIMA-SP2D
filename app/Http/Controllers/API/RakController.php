@@ -10,6 +10,9 @@ use QRCode;
 
 class RakController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:isMasterOrAdmin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +20,6 @@ class RakController extends Controller
      */
     public function index()
     {
-        // $this->authorize('isAdmin');
-        // $rak = Rak::latest()->with('ruangan:id_ruangan,kode_ruangan.gedung:id_gedung,nama_gedung')->get();
         $rak = Rak::latest()->with([
             'ruangan:id_ruangan,id_gedung,kode_ruangan',
             'ruangan.gedung:id_gedung,nama_gedung'
@@ -95,7 +96,7 @@ class RakController extends Controller
                         ->get()->first();
 
         $currentRakQr = $rak->qr_rak;
-        $filename = str_slug($letak['kode_rak']).'.png';
+        $filename = str_slug($letak['kode_rak']).'-'.time().'.png';
         $path = public_path('img/qr/rak/'.$filename);
         QRCode::text(
             'Gedung : '.$letak['nama_gedung'].' / '.

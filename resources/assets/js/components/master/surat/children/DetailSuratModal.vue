@@ -51,7 +51,6 @@
     
         created() {
             Signal.$on('show_detail_surat_modal', (sur) => {
-                this.showModal(null, 'Surat', 'detail', null)
                 this.surat.skpd = sur.skpd.nama_skpd
                 this.surat.jenis = sur.jenis.nama_jenis_sp2d
                 this.surat.nomor_surat = sur.nomor_surat
@@ -71,6 +70,7 @@
                 }else if (sur.status===0) {
                     this.surat.status = 'Non-Aktif'
                 }
+                this.showModal(null, 'Surat', 'detail', null)
             })
         }
     }

@@ -9,6 +9,9 @@ use App\JenisSurat;
 
 class JenisSuratController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:isMaster');
+    }
     /**
      * Display a listing of the resource.
      *

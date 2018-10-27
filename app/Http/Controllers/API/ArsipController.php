@@ -13,6 +13,9 @@ use App\Http\Requests\FormArsipRequest;
 
 class ArsipController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:isMasterOrAdmin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -117,6 +120,11 @@ class ArsipController extends Controller
         $arsip = Arsip::findOrFail($id);
         $arsip->delete();
 
+        $box = Box::findOrFail($arsip->id_box);
+        $box->update(['kapasitas' => $box->kapasitas - 1]);
+
+        @unlink(public_path('img/qr/arsip/'.$arsip->qr_arsip));
+
         return response()->json([
             'message' => 'Arsip : '.$arsip->surat->nomor_surat.' telah diretensi'
         ]);
@@ -134,7 +142,7 @@ class ArsipController extends Controller
                         ->get()->first();
         
         $currentArsipQr = $arsip->qr_arsip;
-        $filename = str_replace('/', '-', $letak['nomor_surat']).'.png';
+        $filename = str_replace('/', '-', $letak['nomor_surat']).'-'.time().'.png';
         $path = public_path('img/qr/arsip/'.$filename);
         QRCode::text(
             'Gedung : '.$letak['nama_gedung'].' / '.

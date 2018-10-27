@@ -10,6 +10,9 @@ use QRCode;
 
 class BoxController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:isMasterOrAdmin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +20,6 @@ class BoxController extends Controller
      */
     public function index()
     {
-        // $this->authorize('isPimpinan');
         $box = Box::latest()->with([
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
@@ -95,7 +97,7 @@ class BoxController extends Controller
                     ->get()->first();
 
         $currentBoxQr = $box->qr_box;
-        $filename = str_slug($letak['kode_box']).'.png';
+        $filename = str_slug($letak['kode_box']).'-'.time().'.png';
         $path = public_path('img/qr/box/'.$filename);
         QRCode::text(
             'Gedung : '.$letak['nama_gedung'].' / '.

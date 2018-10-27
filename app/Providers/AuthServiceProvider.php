@@ -37,5 +37,12 @@ class AuthServiceProvider extends ServiceProvider
             return $user->tipe === 'Pimpinan';
         });
 
+        Gate::define('isMasterOrAdmin', function($user) {
+            return $user->tipe == 'Master' || $user->tipe == 'Admin';
+        });
+
+        Gate::define('isMasterOrPimpinan', function($user) {
+            return $user->tipe == 'Master' || $user->tipe == 'Pimpinan';
+        });
     }
 }

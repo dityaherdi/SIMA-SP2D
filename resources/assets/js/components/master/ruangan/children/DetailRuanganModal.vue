@@ -44,7 +44,6 @@
     
         created() {
             Signal.$on('show_detail_ruangan_modal', (rua) => {
-                this.showModal(null, 'Ruangan', 'detail', null)
                 this.ruangan.nama_gedung = rua.gedung.nama_gedung
                 this.ruangan.kode_ruangan = rua.kode_ruangan
                 if (rua.keterangan==null) {
@@ -57,6 +56,7 @@
                 }else if (rua.status===0) {
                     this.ruangan.status = 'Non-Aktif'
                 }
+                this.showModal(null, 'Ruangan', 'detail', null)
             })
         }
     }

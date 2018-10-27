@@ -44,7 +44,6 @@
 
         created() {
             Signal.$on('show_detail_jenis_modal', (jen) => {
-                this.showModal(null, 'Jenis', 'detail', null)
                 this.jenis.kode_jenis_sp2d = jen.kode_jenis_sp2d
                 this.jenis.nama_jenis_sp2d = jen.nama_jenis_sp2d
                 if (jen.keterangan==null) {
@@ -57,6 +56,7 @@
                 }else if (jen.status===0) {
                     this.jenis.status = 'Non-Aktif'
                 }
+                this.showModal(null, 'Jenis', 'detail', null)
             })
         }
     }

@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormSkpdRequest;
 use App\Skpd;
+use Illuminate\Support\Facades\Gate;
 
 class SkpdController extends Controller
 {
     public function __construct() {
-        // $this->middleware('can:isAdmin,isPimpinan');
+        $this->middleware('can:isMaster');
     }
     /**
      * Display a listing of the resource.

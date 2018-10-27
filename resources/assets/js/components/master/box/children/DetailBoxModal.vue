@@ -111,7 +111,6 @@
     
         created() {
             Signal.$on('show_detail_box_modal', (b) => {
-                this.showModal(null, 'Box', 'detail', null)
                 this.box.nama_gedung = b.rak.ruangan.gedung.nama_gedung
                 this.box.kode_ruangan = b.rak.ruangan.kode_ruangan
                 this.box.kode_box = b.kode_box
@@ -127,6 +126,7 @@
                     this.box.status = 'Non-Aktif'
                 }
                 this.box.qr_box = b.qr_box
+                this.showModal(null, 'Box', 'detail', null)
             })
         },
 

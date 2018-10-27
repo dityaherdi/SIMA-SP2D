@@ -9,6 +9,9 @@ use App\Gedung;
 
 class GedungController extends Controller
 {
+    public function __construct() {
+        $this->middleware('can:isMasterOrAdmin');
+    }
     /**
      * Display a listing of the resource.
      *
