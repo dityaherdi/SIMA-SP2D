@@ -73592,8 +73592,9 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("img", {
+                          staticClass: "qr-img-detail",
                           attrs: {
                             src: "./img/qr/rak/" + _vm.rak.qr_rak,
                             alt: "QRCode Rak"
@@ -73601,7 +73602,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("p", { staticClass: "text-justify" }, [
                           _c("strong", [_vm._v(" Detail Letak Rak : ")]),
                           _vm._v(
@@ -73659,7 +73660,7 @@ var render = function() {
                                     { staticClass: "description-block" },
                                     [
                                       _c("img", {
-                                        staticStyle: { width: "150px" },
+                                        staticClass: "qr-img-label",
                                         attrs: {
                                           src: "./img/qr/rak/" + _vm.rak.qr_rak,
                                           alt: "QRCode Rak"
@@ -73805,7 +73806,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "widget-user-header bg-info-active" }, [
       _c("div", { staticClass: "text-center mt-2" }, [
         _c("img", {
-          staticStyle: { width: "100px" },
+          staticClass: "logo-img-label",
           attrs: { src: "/img/logo.png", alt: "Logo BPKAD" }
         }),
         _vm._v(" "),
@@ -77401,8 +77402,9 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("img", {
+                          staticClass: "qr-img-detail",
                           attrs: {
                             src: "./img/qr/box/" + _vm.box.qr_box,
                             alt: "QRCode Box"
@@ -77410,7 +77412,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("p", { staticClass: "text-justify" }, [
                           _c("strong", [_vm._v(" Detail Letak Rak : ")]),
                           _vm._v(
@@ -77473,7 +77475,7 @@ var render = function() {
                                     { staticClass: "description-block" },
                                     [
                                       _c("img", {
-                                        staticStyle: { width: "150px" },
+                                        staticClass: "qr-img-label",
                                         attrs: {
                                           src: "./img/qr/box/" + _vm.box.qr_box,
                                           alt: "QRCode Box"
@@ -77619,7 +77621,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "widget-user-header bg-info-active" }, [
       _c("div", { staticClass: "text-center mt-2" }, [
         _c("img", {
-          staticStyle: { width: "100px" },
+          staticClass: "logo-img-label",
           attrs: { src: "/img/logo.png", alt: "Logo BPKAD" }
         }),
         _vm._v(" "),
@@ -80535,6 +80537,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -80579,11 +80582,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.lokasi.gedung = '';
             _this.lokasi.ruangan = '';
             _this.lokasi.rak = '';
+            _this.showModal(_this.arsip, 'arsip', 'create');
             _this.surat = sur;
             _this.arsip.id_sp2d = sur.id_sp2d;
             _this.arsip.nomor_surat = sur.nomor_surat;
             _this.splitDisabledDate(sur.tgl_terbit);
-            _this.showModal(_this.arsip, 'arsip', 'create');
         }), Signal.$on('show_editing_arsip_modal', function (ars) {
             _this.arsip.status = ars.status;
             _this.arsip.keterangan = ars.keterangan;
@@ -80594,9 +80597,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.lokasi.rak = ars.box.rak.id_rak;
             _this.selectBox();
             _this.lokasi.box = ars.box.id_box;
+            _this.showModal(_this.arsip, 'arsip', 'edit', ars);
             _this.arsip.nomor_surat = ars.surat.nomor_surat;
             _this.splitDisabledDate(ars.surat.tgl_terbit);
-            _this.showModal(_this.arsip, 'arsip', 'edit', ars);
         });
 
         if (this.isMasterOrAdmin()) {
@@ -80610,6 +80613,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         clearError: function clearError() {
             this.arsip.clear();
+        },
+        checkKapasitas: function checkKapasitas(kapasitas) {
+            if (kapasitas > 3) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        isBoxFull: function isBoxFull(kapasitas) {
+            if (kapasitas > 3) {
+                return 'Penuh';
+            } else {
+                return 'Tersedia';
+            }
         },
         customFormatter: function customFormatter(date) {
             return moment(date).locale('id').format('Do MMMM YYYY');
@@ -80809,8 +80826,7 @@ var render = function() {
                               ],
                               staticClass: "form-control",
                               attrs: {
-                                disabled:
-                                  this.lokasi.gedung == "" ? true : false
+                                disabled: _vm.lokasi.gedung == "" ? true : false
                               },
                               on: {
                                 change: [
@@ -80885,7 +80901,7 @@ var render = function() {
                               staticClass: "form-control",
                               attrs: {
                                 disabled:
-                                  this.lokasi.ruangan == "" ? true : false
+                                  _vm.lokasi.ruangan == "" ? true : false
                               },
                               on: {
                                 change: [
@@ -80963,7 +80979,7 @@ var render = function() {
                                   "is-invalid": _vm.arsip.errors.has("id_box")
                                 },
                                 attrs: {
-                                  disabled: this.lokasi.rak == "" ? true : false
+                                  disabled: _vm.lokasi.rak == "" ? true : false
                                 },
                                 on: {
                                   change: function($event) {
@@ -80998,12 +81014,19 @@ var render = function() {
                                     "option",
                                     {
                                       key: b.id_box,
+                                      attrs: {
+                                        disabled: _vm.checkKapasitas(
+                                          b.kapasitas
+                                        )
+                                      },
                                       domProps: { value: b.id_box }
                                     },
                                     [
                                       _vm._v(
                                         "\n                                    " +
                                           _vm._s(b.kode_box) +
+                                          " - " +
+                                          _vm._s(_vm.isBoxFull(b.kapasitas)) +
                                           "\n                                    "
                                       )
                                     ]
@@ -81905,6 +81928,7 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("img", {
+                          staticClass: "qr-img-detail",
                           attrs: {
                             src: "./img/qr/arsip/" + _vm.arsip.qr_arsip,
                             alt: "QRCode Arsip"
@@ -81989,12 +82013,12 @@ var render = function() {
                                     { staticClass: "description-block" },
                                     [
                                       _c("img", {
-                                        staticStyle: { width: "150px" },
+                                        staticClass: "qr-img-label",
                                         attrs: {
                                           src:
                                             "./img/qr/arsip/" +
                                             _vm.arsip.qr_arsip,
-                                          alt: "QRCode Box"
+                                          alt: "QRCode Arsip"
                                         }
                                       })
                                     ]
@@ -82164,7 +82188,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "widget-user-header bg-info-active" }, [
       _c("div", { staticClass: "text-center mt-2" }, [
         _c("img", {
-          staticStyle: { width: "100px" },
+          staticClass: "logo-img-label",
           attrs: { src: "/img/logo.png", alt: "Logo BPKAD" }
         }),
         _vm._v(" "),

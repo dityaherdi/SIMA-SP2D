@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label>Ruangan</label>
                                     <select class="form-control" @change="selectRak" v-model="lokasi.ruangan"
-                                    :disabled="this.lokasi.gedung == '' ? true : false">
+                                    :disabled="lokasi.gedung == '' ? true : false">
                                         <option disabled value=""> --- Pilih Ruangan --- </option>
                                         <option v-for="rua in ruangan"
                                         :key="rua.id_ruangan"
@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label>Rak</label>
                                     <select class="form-control" @change="selectBox" v-model="lokasi.rak"
-                                    :disabled="this.lokasi.ruangan == '' ? true : false">
+                                    :disabled="lokasi.ruangan == '' ? true : false">
                                         <option disabled value=""> --- Pilih Rak --- </option>
                                         <option v-for="r in rak"
                                         :key="r.id_rak"
@@ -63,12 +63,13 @@
                                     <label>Box</label>
                                     <select class="form-control" v-model="arsip.id_box"
                                         :class="{ 'is-invalid': arsip.errors.has('id_box') }"
-                                        :disabled="this.lokasi.rak=='' ? true : false">
+                                        :disabled="lokasi.rak=='' ? true : false">
                                         <option disabled value=""> --- Pilih Box --- </option>
                                         <option v-for="b in box"
                                         :key="b.id_box"
+                                        :disabled="checkKapasitas(b.kapasitas)"
                                         :value="b.id_box">
-                                        {{ b.kode_box }}
+                                        {{ b.kode_box }} - {{ isBoxFull(b.kapasitas) }}
                                         </option>
                                     </select>
                                     <has-error :form="arsip" field="id_box"></has-error>
@@ -163,11 +164,11 @@
                 this.lokasi.gedung = ''
                 this.lokasi.ruangan = ''
                 this.lokasi.rak = ''
+                this.showModal(this.arsip, 'arsip', 'create')
                 this.surat = sur
                 this.arsip.id_sp2d = sur.id_sp2d
                 this.arsip.nomor_surat = sur.nomor_surat
                 this.splitDisabledDate(sur.tgl_terbit)
-                this.showModal(this.arsip, 'arsip', 'create')
             }),
 
             Signal.$on('show_editing_arsip_modal', (ars) => {
@@ -180,9 +181,9 @@
                 this.lokasi.rak = ars.box.rak.id_rak
                 this.selectBox()
                 this.lokasi.box = ars.box.id_box
+                this.showModal(this.arsip, 'arsip', 'edit', ars)
                 this.arsip.nomor_surat = ars.surat.nomor_surat
                 this.splitDisabledDate(ars.surat.tgl_terbit)
-                this.showModal(this.arsip, 'arsip', 'edit', ars)
             })
 
             if (this.isMasterOrAdmin()) {
@@ -196,6 +197,22 @@
         methods: {
             clearError() {
                 this.arsip.clear()
+            },
+
+            checkKapasitas(kapasitas) {
+                if (kapasitas > 3) {
+                    return true
+                }else {
+                    return false
+                }
+            },
+
+            isBoxFull(kapasitas) {
+                if (kapasitas > 3) {
+                    return 'Penuh'
+                }else {
+                    return 'Tersedia'
+                }
             },
 
             customFormatter(date) {

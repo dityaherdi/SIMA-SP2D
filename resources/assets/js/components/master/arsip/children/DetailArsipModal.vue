@@ -26,7 +26,7 @@
                     <div class="tab-pane active show" id="tab_detail_arsip">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <img :src="'./img/qr/arsip/'+arsip.qr_arsip" alt="QRCode Arsip">
+                                <img :src="'./img/qr/arsip/'+arsip.qr_arsip" alt="QRCode Arsip" class="qr-img-detail">
                             </div>
                             <div class="col-md-6">
                                 <p class="test-justify"><strong>Nomor Surat :</strong> {{ arsip.nomor_surat }} </p>
@@ -44,7 +44,7 @@
                         <div class="container border border-dark" id="arsipLabel">
                             <div class="widget-user-header bg-info-active">
                                 <div class="text-center mt-2">
-                                    <img src="/img/logo.png" alt="Logo BPKAD" style="width:100px" >
+                                    <img src="/img/logo.png" alt="Logo BPKAD" class="logo-img-label">
                                     <div class="mt-2">
                                         <h5>PEMERINTAH PROVINSI BALI</h5>
                                         <strong class="mb-2">BADAN PENGELOLA KEUANGAN DAN ASET DAERAH</strong>
@@ -55,7 +55,7 @@
                                 <div class="row">
                                 <div class="col-sm-6 border-right border-dark">
                                     <div class="description-block">
-                                        <img :src="'./img/qr/arsip/'+arsip.qr_arsip" alt="QRCode Box" style="width:150px">
+                                        <img :src="'./img/qr/arsip/'+arsip.qr_arsip" alt="QRCode Arsip" class="qr-img-label">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">

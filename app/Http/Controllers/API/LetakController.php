@@ -49,9 +49,9 @@ class LetakController extends Controller
 
     public function letakBox($id)
     {
-        $data = Box::select('id_box', 'kode_box')
+        $data = Box::select('id_box', 'kode_box', 'kapasitas')
                     ->where(['id_rak' => $id, 'status' => 1])
-                    ->orderBy('kode_box', 'ASC')
+                    ->orderBy('kapasitas', 'ASC')->orderBy('kode_box', 'ASC')
                     ->get();
 
         return response()->json([

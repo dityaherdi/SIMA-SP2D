@@ -23,7 +23,6 @@ class CreateArsipsTable extends Migration
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default('1');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('id_sp2d')
                     ->references('id_sp2d')
@@ -46,9 +45,6 @@ class CreateArsipsTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('arsips');
-        Schema::table('arsips', function ($table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('arsips');
     }
 }

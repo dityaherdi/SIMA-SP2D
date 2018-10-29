@@ -25,10 +25,10 @@
             <div class="tab-content">
                 <div class="tab-pane active show" id="tab_detail_box">
                     <div class="row">
-                        <div class="col-md-6">
-                            <img :src="'./img/qr/box/'+box.qr_box" alt="QRCode Box">
+                        <div class="col-md-6 text-center">
+                            <img :src="'./img/qr/box/'+box.qr_box" alt="QRCode Box" class="qr-img-detail">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center">
                             <p class="text-justify">
                                 <strong> Detail Letak Rak : </strong> 
                                 Gedung-{{ box.nama_gedung }}, Ruangan-{{box.kode_ruangan}}, Rak-{{ box.kode_box }}
@@ -43,7 +43,7 @@
                     <div class="container border border-dark" id="boxLabel">
                         <div class="widget-user-header bg-info-active">
                             <div class="text-center mt-2">
-                                <img src="/img/logo.png" alt="Logo BPKAD" style="width:100px" >
+                                <img src="/img/logo.png" alt="Logo BPKAD" class="logo-img-label" >
                                 <div class="mt-2">
                                     <h5>PEMERINTAH PROVINSI BALI</h5>
                                     <strong class="mb-2">BADAN PENGELOLA KEUANGAN DAN ASET DAERAH</strong>
@@ -54,7 +54,7 @@
                             <div class="row">
                             <div class="col-sm-6 border-right border-dark">
                                 <div class="description-block">
-                                    <img :src="'./img/qr/box/'+box.qr_box" alt="QRCode Box" style="width:150px">
+                                    <img :src="'./img/qr/box/'+box.qr_box" alt="QRCode Box" class="qr-img-label">
                                 </div>
                             </div>
                             <div class="col-sm-6">

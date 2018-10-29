@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Arsip;
 use App\Surat;
 use App\Box;
+use App\Retensi;
 use Carbon\Carbon;
 use QRCode;
 use App\Http\Requests\FormArsipRequest;
@@ -118,11 +119,15 @@ class ArsipController extends Controller
     public function destroy($id)
     {
         $arsip = Arsip::findOrFail($id);
-        $arsip->delete();
-
+        
+        $retensi = new Retensi();
+        $retensi['nomor_surat'] = $arsip->surat->nomor_surat;
+        $retensi->save();
+        
         $box = Box::findOrFail($arsip->id_box);
         $box->update(['kapasitas' => $box->kapasitas - 1]);
-
+        
+        $arsip->delete();
         @unlink(public_path('img/qr/arsip/'.$arsip->qr_arsip));
 
         return response()->json([
