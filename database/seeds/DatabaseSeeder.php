@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             SkpdsTableSeeder::class,
             JenisSuratsTableSeeder::class,
+            GedungsTableSeeder::class,
         ]);
     }
 }
