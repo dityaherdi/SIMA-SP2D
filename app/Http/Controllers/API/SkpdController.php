@@ -86,4 +86,19 @@ class SkpdController extends Controller
             'message' => 'SKPD dengan kode: '.$skpd->kode_skpd.' telah dihapus'
         ]);
     }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $skpd = Skpd::where(function($query) use ($keywords) {
+                $query->where('alias_skpd', 'LIKE', "%$keywords%")
+                        ->orWhere('nama_skpd', 'LIKE', "%$keywords%")
+                        ->orWhere('kode_skpd', 'LIKE', "%$keywords%");
+            })->paginate(10);
+        }
+
+        return response()->json([
+            'data' => $skpd
+        ]);
+    }
 }

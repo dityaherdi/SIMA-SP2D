@@ -33,11 +33,18 @@
             return {
                 arsip: {},
                 next: null,
-                loadable: true
+                loadable: true,
+                searching: false,
+                arsipKeyword: null
             }
         },
 
         created() {
+            Signal.$on('/arsip-search', (keywords) => {
+                this.arsipKeyword = keywords
+                this.searchArsip(keywords)
+            }),
+
             this.loadArsip()
             Signal.$on('load_arsip', () => {
                 this.loadArsip()
@@ -77,6 +84,8 @@
                         this.loadable = true
                         this.arsip = arsip.data
                         this.next = arsip.next_page_url
+                        this.arsipKeyword = null
+                        Signal.$emit('clear_keywords')
                     })
                 }
             },
@@ -118,6 +127,16 @@
                             }
                         }
                     }
+                }
+            },
+
+            searchArsip(keywords) {
+                if (this.isMasterOrAdmin()) {
+                    this.searchData('api/search-arsip?keywords='+keywords)
+                    .then((arsip) => {
+                        this.arsip = arsip.data
+                        this.searching = true
+                    })
                 }
             }
         }

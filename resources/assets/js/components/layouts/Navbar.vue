@@ -9,16 +9,17 @@
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group input-group-sm ml-3" style="width: 350px" v-if="currentPath!='/dashboard'">
+            <input class="form-control form-control-navbar white-text-color"
+                    type="search" placeholder="Pencarian" aria-label="Search"
+                    v-model="keywords"
+                    @keyup.enter="search">
             <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
+            <button class="btn btn-navbar" type="submit" @click="search">
                 <i class="fa fa-search"></i>
             </button>
             </div>
         </div>
-        </form>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -48,6 +49,25 @@
 <script>
     export default {
         name: "navbar-vue",
+
+        data() {
+            return{
+                keywords: ''
+            }
+        },
+
+        watch:{
+            $route (to, from){
+                this.keywords = ''
+            }
+        },
+
+        created() {
+            Signal.$on('clear_keywords', () => {
+                this.keywords = ''
+            })
+        },
+
         methods: {
             logout() {
                 this.$Progress.start()
@@ -62,11 +82,27 @@
                 .catch((error) => {
                     console.log(error)
                 })
+            },
+
+            search() {
+                if (this.keywords=='') {
+                    swal({
+                        text: 'Kata kunci pencarian masih kosong',
+                        type: 'warning'
+                    })
+                }else{
+                    Signal.$emit(this.currentPath+'-search', this.keywords)
+                }
             }
         },
+
         computed: {
             currentUser() {
-                return this.$store.getters.currentUser;
+                return this.$store.getters.currentUser
+            },
+
+            currentPath() {
+                return this.$route.path
             }
         }
     }

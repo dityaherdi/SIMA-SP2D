@@ -19,7 +19,7 @@ class GedungController extends Controller
      */
     public function index()
     {
-        $gedung = Gedung::latest()->paginate(3);
+        $gedung = Gedung::latest()->paginate(5);
 
         return response()->json([
             'data' => $gedung
@@ -85,6 +85,20 @@ class GedungController extends Controller
         return response()->json([
             'data' => $gedung,
             'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah dihapus'
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $gedung = Gedung::where(function($query) use ($keywords) {
+                $query->where('kode_gedung', 'LIKE', "%$keywords%")
+                        ->orWhere('nama_gedung', 'LIKE', "%$keywords%");
+            })->paginate(5);
+        }
+
+        return response()->json([
+            'data' => $gedung
         ]);
     }
 }

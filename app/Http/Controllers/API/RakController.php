@@ -23,7 +23,7 @@ class RakController extends Controller
         $rak = Rak::latest()->with([
             'ruangan:id_ruangan,id_gedung,kode_ruangan',
             'ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(3);
+        ])->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $rak
@@ -84,6 +84,22 @@ class RakController extends Controller
         return response()->json([
             'data' => $rak,
             'message' => 'Rak dengan kode: '.$rak->kode_rak.' telah dihapus'
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $rak = Rak::where(function($query) use ($keywords) {
+                $query->where('kode_rak', 'LIKE', "%$keywords%");
+            })->with([
+                'ruangan:id_ruangan,id_gedung,kode_ruangan',
+                'ruangan.gedung:id_gedung,nama_gedung'
+            ])->get()->paginateCollection(10);
+        }
+
+        return response()->json([
+            'data' => $rak
         ]);
     }
 

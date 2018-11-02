@@ -46,5 +46,15 @@ Route::group(['middleware' => 'auth:api'], function (){
     // Get Requirement Data Surat
     Route::get('get-skpd', 'API\RequirementSuratController@getSkpd');
     Route::get('get-jenis', 'API\RequirementSuratController@getJenis');
+
+    // Search Data
+    Route::get('search-skpd', 'API\SkpdController@search');
+    Route::get('search-jenis', 'API\JenisSuratController@search');
+    Route::get('search-gedung', 'API\GedungController@search');
+    Route::get('search-ruangan', 'API\RuanganController@search');
+    Route::get('search-rak', 'API\RakController@search');
+    Route::get('search-box', 'API\BoxController@search');
+    Route::get('search-surat', 'API\SuratController@search');
+    Route::get('search-arsip', 'API\ArsipController@search');
     
 });

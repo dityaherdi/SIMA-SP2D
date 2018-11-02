@@ -87,4 +87,18 @@ class JenisSuratController extends Controller
             'message' => 'Jenis SP2D '.$jenis->nama_jenis_sp2d.' telah dihapus'
         ]);
     }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $jenis = JenisSurat::where(function($query) use ($keywords) {
+                $query->where('kode_jenis_sp2d', 'LIKE', "%$keywords%")
+                        ->orWhere('nama_jenis_sp2d', 'LIKE', "%$keywords%");
+            })->paginate(4);
+        }
+
+        return response()->json([
+            'data' => $jenis
+        ]);
+    }
 }

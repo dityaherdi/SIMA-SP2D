@@ -16,7 +16,12 @@
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered table-sm">
-                    <tbody>
+                    <tr v-if="isSkpdEmpty">
+                        <td class="text-center" colspan="4">
+                            Data tidak ditemukan
+                        </td>
+                    </tr>
+                    <tbody v-else>
                         <tr>
                             <th>No</th>
                             <th>Kode SKPD</th>
@@ -51,7 +56,12 @@
                 </table>
               </div>
               <div class="card-footer">
-                    <div class="d-flex justify-content-center">
+                    <div class="float-left" v-if="searching">
+                        <button class="btn btn-success btn-sm" @click="loadSkpd()">
+                            <i class="fas fa-list-alt mr-2"></i> Semua SKPD
+                        </button>
+                    </div>
+                    <div class="float-right">
                         <pagination :data="skpds" @pagination-change-page="getResults"></pagination>
                     </div>
               </div>
@@ -69,20 +79,37 @@
         data() {
             return {
                 skpds: {},
-                counter: 0
+                counter: 0,
+                searching: false,
+                skpdKeyword: null
             }
         },
 
         created() {
+            Signal.$on('/skpd-search', (keywords) => {
+                this.skpdKeyword = keywords
+                this.searchSkpd(keywords)
+            }),
+
             this.loadSkpd(),
             Signal.$on('load_skpd', () => {
                 this.loadSkpd()
             })
         },
 
+        computed: {
+            isSkpdEmpty() {
+                if (typeof this.skpds.data == 'undefined' && this.skpds!=null) {
+                    return false
+                }else if (typeof this.skpds.data != 'undefined' && this.skpds.data.length==0) {
+                    return true
+                }
+            }
+        },
+
         components: {
-          "modal-skpd": require('./children/SkpdModal.vue'),
-          "detail-skpd": require('./children/DetailSkpdModal.vue')
+            "modal-skpd": require('./children/SkpdModal.vue'),
+            "detail-skpd": require('./children/DetailSkpdModal.vue')
         },
         
         methods: {
@@ -104,6 +131,9 @@
                     .then((skpd) => {
                         this.skpds = skpd
                         this.counter = skpd.from
+                        this.searching = false
+                        this.skpdKeyword = null
+                        Signal.$emit('clear_keywords')
                     })
                 }
             },
@@ -116,10 +146,28 @@
             
             getResults(page = 1) {
                 if (this.isMaster()) {
-                    axios.get('api/skpd?page='+page)
-                    .then((response) => {
-                        this.skpds = response.data.data
-                        this.counter = response.data.data.from
+                    if (this.searching==true) {
+                        axios.get('api/search-skpd?keywords='+this.skpdKeyword+'&page='+page)
+                        .then((response) => {
+                            this.skpds = response.data.data
+                            this.counter = response.data.data.from
+                        })
+                    } else {
+                        axios.get('api/skpd?page='+page)
+                        .then((response) => {
+                            this.skpds = response.data.data
+                            this.counter = response.data.data.from
+                        })
+                    }
+                }
+            },
+
+            searchSkpd(keywords) {
+                if (this.isMaster()) {
+                    this.searchData('api/search-skpd?keywords='+keywords)
+                    .then((skpd) => {
+                        this.skpds = skpd
+                        this.searching = true
                     })
                 }
             }

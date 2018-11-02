@@ -29811,6 +29811,10 @@ readers do not read off random characters that represent icons */
   color: white !important;
 }
 
+.white-text-color {
+  color: white !important;
+}
+
 .qr-img-detail {
   width: 300px;
 }

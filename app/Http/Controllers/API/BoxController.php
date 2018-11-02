@@ -24,7 +24,7 @@ class BoxController extends Controller
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(3);
+        ])->get()->paginateCollection(5);
 
         return response()->json([
             'data' => $box
@@ -84,6 +84,23 @@ class BoxController extends Controller
 
         return response()->json([
             'message' => 'Box dengan kode: '.$box->kode_box.' telah dihapus'
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $box = Box::where(function($query) use ($keywords) {
+                $query->where('kode_box', 'LIKE', "%$keywords%");
+            })->with([
+                'rak:id_rak,id_ruangan,kode_rak',
+                'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+                'rak.ruangan.gedung:id_gedung,nama_gedung'
+            ])->get()->paginateCollection(5);
+        }
+
+        return response()->json([
+            'data' => $box
         ]);
     }
 

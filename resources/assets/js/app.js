@@ -18,7 +18,7 @@ import { initialize } from './helpers/init'
 import './helpers/filter'
 import './helpers/alert'
 import { getGedung, getRuangan, getRak, getBox, getSkpd, getJenis } from './helpers/getters'
-import { createData, readData, updateData, deleteData } from './helpers/operations'
+import { createData, readData, updateData, deleteData, searchData } from './helpers/operations'
 import { showModal, forceCloseModal } from './helpers/modal'
 import VueProgressBar from 'vue-progressbar'
 import Datepicker from 'vuejs-datepicker'
@@ -57,6 +57,7 @@ Vue.mixin({
         readData,
         updateData,
         deleteData,
+        searchData,
 
         // modal
         showModal,

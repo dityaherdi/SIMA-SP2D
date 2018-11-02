@@ -47846,8 +47846,9 @@ Vue.mixin({
         // data operations
         createData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["a" /* createData */],
         readData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["c" /* readData */],
-        updateData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["d" /* updateData */],
+        updateData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["e" /* updateData */],
         deleteData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["b" /* deleteData */],
+        searchData: __WEBPACK_IMPORTED_MODULE_8__helpers_operations__["d" /* searchData */],
 
         // modal
         showModal: __WEBPACK_IMPORTED_MODULE_9__helpers_modal__["b" /* showModal */],
@@ -71470,22 +71471,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             skpds: {},
-            counter: 0
+            counter: 0,
+            searching: false,
+            skpdKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadSkpd(), Signal.$on('load_skpd', function () {
+        Signal.$on('/skpd-search', function (keywords) {
+            _this.skpdKeyword = keywords;
+            _this.searchSkpd(keywords);
+        }), this.loadSkpd(), Signal.$on('load_skpd', function () {
             _this.loadSkpd();
         });
     },
 
+
+    computed: {
+        isSkpdEmpty: function isSkpdEmpty() {
+            if (typeof this.skpds.data == 'undefined' && this.skpds != null) {
+                return false;
+            } else if (typeof this.skpds.data != 'undefined' && this.skpds.data.length == 0) {
+                return true;
+            }
+        }
+    },
 
     components: {
         "modal-skpd": __webpack_require__(207),
@@ -71509,6 +71535,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.readData('api/skpd').then(function (skpd) {
                     _this2.skpds = skpd;
                     _this2.counter = skpd.from;
+                    _this2.searching = false;
+                    _this2.skpdKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -71523,9 +71552,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             if (this.isMaster()) {
-                axios.get('api/skpd?page=' + page).then(function (response) {
-                    _this3.skpds = response.data.data;
-                    _this3.counter = response.data.data.from;
+                if (this.searching == true) {
+                    axios.get('api/search-skpd?keywords=' + this.skpdKeyword + '&page=' + page).then(function (response) {
+                        _this3.skpds = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                } else {
+                    axios.get('api/skpd?page=' + page).then(function (response) {
+                        _this3.skpds = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                }
+            }
+        },
+        searchSkpd: function searchSkpd(keywords) {
+            var _this4 = this;
+
+            if (this.isMaster()) {
+                this.searchData('api/search-skpd?keywords=' + keywords).then(function (skpd) {
+                    _this4.skpds = skpd;
+                    _this4.searching = true;
                 });
             }
         }
@@ -72397,96 +72443,145 @@ var render = function() {
                         staticClass: "table table-hover table-bordered table-sm"
                       },
                       [
-                        _c(
-                          "tbody",
-                          [
-                            _c("tr", [
-                              _c("th", [_vm._v("No")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("Kode SKPD")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("SKPD")]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("Aksi")])
-                            ]),
-                            _vm._v(" "),
-                            _vm._l(_vm.skpds.data, function(skpd, index) {
-                              return _c("tr", { key: skpd.id_skpd }, [
-                                _c("td", [_vm._v(_vm._s(index + _vm.counter))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(skpd.kode_skpd))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(skpd.alias_skpd))]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-dark btn-sm",
-                                      attrs: {
-                                        href: "javascript:void(0)",
-                                        title: "Lihat Detail SKPD"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showDetailSkpdModal(skpd)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-eye " })]
-                                  ),
+                        _vm.isSkpdEmpty
+                          ? _c("tr", [
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: { colspan: "4" }
+                                },
+                                [
                                   _vm._v(
-                                    "\n                            /\n                            "
-                                  ),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-success btn-sm",
-                                      attrs: {
-                                        href: "javascript:void(0)",
-                                        title: "Edit Data SKPD"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showEditingModal(skpd)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-edit" })]
-                                  ),
-                                  _vm._v(
-                                    "\n                            /\n                            "
-                                  ),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-danger btn-sm",
-                                      attrs: {
-                                        href: "javascript:void(0)",
-                                        title: "Hapus Data SKPD"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.deleteSkpd(skpd.id_skpd)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fas fa-trash" })]
+                                    "\n                        Data tidak ditemukan\n                    "
                                   )
-                                ])
-                              ])
-                            })
-                          ],
-                          2
-                        )
+                                ]
+                              )
+                            ])
+                          : _c(
+                              "tbody",
+                              [
+                                _c("tr", [
+                                  _c("th", [_vm._v("No")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Kode SKPD")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("SKPD")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Aksi")])
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.skpds.data, function(skpd, index) {
+                                  return _c("tr", { key: skpd.id_skpd }, [
+                                    _c("td", [
+                                      _vm._v(_vm._s(index + _vm.counter))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(skpd.kode_skpd))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(skpd.alias_skpd))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Lihat Detail SKPD"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailSkpdModal(skpd)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye "
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                            /\n                            "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-success btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Edit Data SKPD"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(skpd)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                            /\n                            "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Hapus Data SKPD"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteSkpd(skpd.id_skpd)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
                       ]
                     )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
+                    _vm.searching
+                      ? _c("div", { staticClass: "float-left" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.loadSkpd()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                              _vm._v(" Semua SKPD\n                    ")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "d-flex justify-content-center" },
+                      { staticClass: "float-right" },
                       [
                         _c("pagination", {
                           attrs: { data: _vm.skpds },
@@ -72638,22 +72733,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            rak: {}
+            rak: {},
+            searching: false,
+            rakKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadRak();
+        Signal.$on('/rak-search', function (keywords) {
+            _this.rakKeyword = keywords;
+            _this.searchRak(keywords);
+        }), this.loadRak();
         Signal.$on('load_rak', function () {
             _this.loadRak();
         });
     },
 
+
+    computed: {
+        isRakEmpty: function isRakEmpty() {
+            if (typeof this.rak.data == 'undefined' && this.rak != null) {
+                return false;
+            } else if (typeof this.rak.data != 'undefined' && this.rak.data.length == 0) {
+                return true;
+            }
+        }
+    },
 
     components: {
         "modal-rak": __webpack_require__(216),
@@ -72676,6 +72795,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.isMasterOrAdmin()) {
                 this.readData('api/rak').then(function (rak) {
                     _this2.rak = rak;
+                    _this2.searching = false;
+                    _this2.rakKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -72690,8 +72812,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             if (this.isMasterOrAdmin()) {
-                axios.get('api/rak?page=' + page).then(function (response) {
-                    _this3.rak = response.data.data;
+                if (this.searching == true) {
+                    axios.get('api/search-rak?keywords=' + this.rakKeyword + '&page=' + page).then(function (response) {
+                        _this3.rak = response.data.data;
+                    });
+                } else {
+                    axios.get('api/rak?page=' + page).then(function (response) {
+                        _this3.rak = response.data.data;
+                    });
+                }
+            }
+        },
+        searchRak: function searchRak(keywords) {
+            var _this4 = this;
+
+            if (this.isMaster()) {
+                this.searchData('api/search-rak?keywords=' + keywords).then(function (rak) {
+                    _this4.rak = rak;
+                    _this4.searching = true;
                 });
             }
         }
@@ -73898,93 +74036,149 @@ var render = function() {
                         staticClass: "table table-hover table-bordered table-sm"
                       },
                       [
-                        _c("tr", [
-                          _c("th", [_vm._v("No")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Ruangan")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Kode Rak")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Aksi")])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.rak.data, function(r, index) {
-                          return _c("tr", { key: r.id_rak }, [
-                            _c("td", [_vm._v(_vm._s(++index))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(r.ruangan.kode_ruangan))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm._f("uppercase")(r.kode_rak)))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
+                        _vm.isRakEmpty
+                          ? _c("tr", [
                               _c(
-                                "a",
+                                "td",
                                 {
-                                  staticClass: "btn btn-dark btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Lihat Detail Rak"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showDetailRakModal(r)
-                                    }
-                                  }
+                                  staticClass: "text-center",
+                                  attrs: { colspan: "4" }
                                 },
-                                [_c("i", { staticClass: "fas fa-eye " })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Edit Data Rak"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showEditingModal(r)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-edit" })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Hapus Data Rak"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRak(r.id_rak)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash" })]
+                                [
+                                  _vm._v(
+                                    "\n                    Data tidak ditemukan\n                "
+                                  )
+                                ]
                               )
                             ])
-                          ])
-                        })
-                      ],
-                      2
+                          : _c(
+                              "tbody",
+                              [
+                                _c("tr", [
+                                  _c("th", [_vm._v("No")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Ruangan")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Kode Rak")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Aksi")])
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.rak.data, function(r, index) {
+                                  return _c("tr", { key: r.id_rak }, [
+                                    _c("td", [_vm._v(_vm._s(++index))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(r.ruangan.kode_ruangan))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(_vm._f("uppercase")(r.kode_rak))
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Lihat Detail Rak"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailRakModal(r)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye "
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-success btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Edit Data Rak"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(r)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Hapus Data Rak"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteRak(r.id_rak)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
+                    _vm.searching
+                      ? _c("div", { staticClass: "float-left" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.loadRak()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                              _vm._v(" Semua Rak\n                ")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "d-flex justify-content-center" },
+                      { staticClass: "float-right" },
                       [
                         _c("pagination", {
                           attrs: { data: _vm.rak },
@@ -74133,23 +74327,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             gedung: {},
-            counter: 0
+            counter: 0,
+            searching: false,
+            gedKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadGedung();
+        Signal.$on('/gedung-search', function (keywords) {
+            _this.gedKeyword = keywords;
+            _this.searchGedung(keywords);
+        }), this.loadGedung();
         Signal.$on('load_gedung', function () {
             _this.loadGedung();
         });
     },
 
+
+    computed: {
+        isGedungEmpty: function isGedungEmpty() {
+            if (typeof this.gedung.data == 'undefined' && this.gedung != null) {
+                return false;
+            } else if (typeof this.gedung.data != 'undefined' && this.gedung.data.length == 0) {
+                return true;
+            }
+        }
+    },
 
     components: {
         "modal-gedung": __webpack_require__(225),
@@ -74173,6 +74394,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.readData('api/gedung').then(function (gedung) {
                     _this2.gedung = gedung;
                     _this2.counter = gedung.from;
+                    _this2.searching = false;
+                    _this2.gedKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -74187,9 +74411,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             if (this.isMasterOrAdmin()) {
-                axios.get('api/gedung?page=' + page).then(function (response) {
-                    _this3.gedung = response.data.data;
-                    _this3.counter = response.data.data.from;
+                if (this.searching == true) {
+                    axios.get('api/search-gedung?keywords=' + this.gedKeyword + '&page=' + page).then(function (response) {
+                        _this3.gedung = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                } else {
+                    axios.get('api/gedung?page=' + page).then(function (response) {
+                        _this3.gedung = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                }
+            }
+        },
+        searchGedung: function searchGedung(keywords) {
+            var _this4 = this;
+
+            if (this.isMaster()) {
+                this.searchData('api/search-gedung?keywords=' + keywords).then(function (gedung) {
+                    _this4.gedung = gedung;
+                    _this4.searching = true;
                 });
             }
         }
@@ -74984,95 +75225,151 @@ var render = function() {
                         staticClass: "table table-hover table-bordered table-sm"
                       },
                       [
-                        _c("tr", [
-                          _c("th", [_vm._v("No")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Kode Gedung")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Nama Gedung")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Aksi")])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.gedung.data, function(ged, index) {
-                          return _c("tr", { key: ged.id_gedung }, [
-                            _c("td", [_vm._v(_vm._s(index + _vm.counter))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(_vm._f("uppercase")(ged.kode_gedung))
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(ged.nama_gedung))]),
-                            _vm._v(" "),
-                            _c("td", [
+                        _vm.isGedungEmpty
+                          ? _c("tr", [
                               _c(
-                                "a",
+                                "td",
                                 {
-                                  staticClass: "btn btn-dark btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Lihat Detail Gedung"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showDetailGedungModal(ged)
-                                    }
-                                  }
+                                  staticClass: "text-center",
+                                  attrs: { colspan: "4" }
                                 },
-                                [_c("i", { staticClass: "fas fa-eye " })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Edit Data Gedung"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showEditingModal(ged)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-edit" })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Hapus Data Gedung"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteGedung(ged.id_gedung)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash" })]
+                                [
+                                  _vm._v(
+                                    "\n                    Data tidak ditemukan\n                "
+                                  )
+                                ]
                               )
                             ])
-                          ])
-                        })
-                      ],
-                      2
+                          : _c(
+                              "tbody",
+                              [
+                                _c("tr", [
+                                  _c("th", [_vm._v("No")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Kode Gedung")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Nama Gedung")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Aksi")])
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.gedung.data, function(ged, index) {
+                                  return _c("tr", { key: ged.id_gedung }, [
+                                    _c("td", [
+                                      _vm._v(_vm._s(index + _vm.counter))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("uppercase")(ged.kode_gedung)
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(ged.nama_gedung))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Lihat Detail Gedung"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailGedungModal(ged)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye "
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-success btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Edit Data Gedung"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(ged)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Hapus Data Gedung"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteGedung(ged.id_gedung)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
+                    _vm.searching
+                      ? _c("div", { staticClass: "float-left" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.loadGedung()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                              _vm._v(" Semua Gedung\n                ")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "d-flex justify-content-center" },
+                      { staticClass: "float-right" },
                       [
                         _c("pagination", {
                           attrs: { data: _vm.gedung },
@@ -75221,22 +75518,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            ruangan: {}
+            ruangan: {},
+            searching: false,
+            ruaKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadRuangan();
+        Signal.$on('/ruangan-search', function (keywords) {
+            _this.ruaKeyword = keywords;
+            _this.searchRuangan(keywords);
+        }), this.loadRuangan();
         Signal.$on('load_ruangan', function () {
             _this.loadRuangan();
         });
     },
 
+
+    computed: {
+        isRuanganEmpty: function isRuanganEmpty() {
+            if (typeof this.ruangan.data == 'undefined' && this.ruangan != null) {
+                return false;
+            } else if (typeof this.ruangan.data != 'undefined' && this.ruangan.data.length == 0) {
+                return true;
+            }
+        }
+    },
 
     components: {
         "modal-ruangan": __webpack_require__(234),
@@ -75259,6 +75583,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.isMasterOrAdmin()) {
                 this.readData('api/ruangan').then(function (ruangan) {
                     _this2.ruangan = ruangan;
+                    _this2.searching = false;
+                    _this2.ruaKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -75273,8 +75600,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             if (this.isMasterOrAdmin()) {
-                axios.get('api/ruangan?page=' + page).then(function (response) {
-                    _this3.ruangan = response.data.data;
+                if (this.searching == true) {
+                    axios.get('api/search-ruangan?keywords=' + this.ruaKeyword + '&page=' + page).then(function (response) {
+                        _this3.ruangan = response.data.data;
+                    });
+                } else {
+                    axios.get('api/ruangan?page=' + page).then(function (response) {
+                        _this3.ruangan = response.data.data;
+                    });
+                }
+            }
+        },
+        searchRuangan: function searchRuangan(keywords) {
+            var _this4 = this;
+
+            if (this.isMaster()) {
+                this.searchData('api/search-ruangan?keywords=' + keywords).then(function (ruangan) {
+                    _this4.ruangan = ruangan;
+                    _this4.searching = true;
                 });
             }
         }
@@ -76105,95 +76448,151 @@ var render = function() {
                         staticClass: "table table-hover table-bordered table-sm"
                       },
                       [
-                        _c("tr", [
-                          _c("th", [_vm._v("No")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Gedung")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Kode Ruangan")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Aksi")])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.ruangan.data, function(rua, index) {
-                          return _c("tr", { key: rua.id_ruangan }, [
-                            _c("td", [_vm._v(_vm._s(++index))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(rua.gedung.nama_gedung))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(_vm._f("uppercase")(rua.kode_ruangan))
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
+                        _vm.isRuanganEmpty
+                          ? _c("tr", [
                               _c(
-                                "a",
+                                "td",
                                 {
-                                  staticClass: "btn btn-dark btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Lihat Detail Ruangan"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showDetailRuanganModal(rua)
-                                    }
-                                  }
+                                  staticClass: "text-center",
+                                  attrs: { colspan: "4" }
                                 },
-                                [_c("i", { staticClass: "fas fa-eye " })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Edit Data Ruangan"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showEditingModal(rua)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-edit" })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Hapus Data Ruangan"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteRuangan(rua.id_ruangan)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash" })]
+                                [
+                                  _vm._v(
+                                    "\n                    Data tidak ditemukan\n                "
+                                  )
+                                ]
                               )
                             ])
-                          ])
-                        })
-                      ],
-                      2
+                          : _c(
+                              "tbody",
+                              [
+                                _c("tr", [
+                                  _c("th", [_vm._v("No")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Gedung")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Kode Ruangan")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Aksi")])
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.ruangan.data, function(rua, index) {
+                                  return _c("tr", { key: rua.id_ruangan }, [
+                                    _c("td", [_vm._v(_vm._s(++index))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(rua.gedung.nama_gedung))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("uppercase")(rua.kode_ruangan)
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Lihat Detail Ruangan"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailRuanganModal(rua)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye "
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-success btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Edit Data Ruangan"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(rua)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Hapus Data Ruangan"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteRuangan(rua.id_ruangan)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
+                    _vm.searching
+                      ? _c("div", { staticClass: "float-left" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.loadRuangan()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                              _vm._v(" Semua Ruangan\n                ")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "d-flex justify-content-center" },
+                      { staticClass: "float-right" },
                       [
                         _c("pagination", {
                           attrs: { data: _vm.ruangan },
@@ -76342,22 +76741,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            box: {}
+            box: {},
+            searching: false,
+            boxKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadBox();
+        Signal.$on('/box-search', function (keywords) {
+            _this.boxKeyword = keywords;
+            _this.searchBox(keywords);
+        }), this.loadBox();
         Signal.$on('load_box', function () {
             _this.loadBox();
         });
     },
 
+
+    computed: {
+        isBoxEmpty: function isBoxEmpty() {
+            if (typeof this.box.data == 'undefined' && this.box != null) {
+                return false;
+            } else if (typeof this.box.data != 'undefined' && this.box.data.length == 0) {
+                return true;
+            }
+        }
+    },
 
     components: {
         "modal-box": __webpack_require__(243),
@@ -76380,6 +76806,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.isMasterOrAdmin()) {
                 this.readData('api/box').then(function (box) {
                     _this2.box = box;
+                    _this2.searching = false;
+                    _this2.boxKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -76394,8 +76823,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             if (this.isMasterOrAdmin()) {
-                axios.get('api/box?page=' + page).then(function (response) {
-                    _this3.box = response.data.data;
+                if (this.searching == true) {
+                    axios.get('api/search-box?keywords=' + this.boxKeyword + '&page=' + page).then(function (response) {
+                        _this3.box = response.data.data;
+                    });
+                } else {
+                    axios.get('api/box?page=' + page).then(function (response) {
+                        _this3.box = response.data.data;
+                    });
+                }
+            }
+        },
+        searchBox: function searchBox(keywords) {
+            var _this4 = this;
+
+            if (this.isMasterOrAdmin()) {
+                this.searchData('api/search-box?keywords=' + keywords).then(function (box) {
+                    _this4.box = box;
+                    _this4.searching = true;
                 });
             }
         }
@@ -77713,93 +78158,147 @@ var render = function() {
                         staticClass: "table table-hover table-bordered table-sm"
                       },
                       [
-                        _c("tr", [
-                          _c("th", [_vm._v("No")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Rak")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Kode Box")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Aksi")])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.box.data, function(b, index) {
-                          return _c("tr", { key: b.id_box }, [
-                            _c("td", [_vm._v(_vm._s(++index))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(b.rak.kode_rak))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm._f("uppercase")(b.kode_box)))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
+                        _vm.isBoxEmpty
+                          ? _c("tr", [
                               _c(
-                                "a",
+                                "td",
                                 {
-                                  staticClass: "btn btn-dark btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Lihat Detail Box"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showDetailModal(b)
-                                    }
-                                  }
+                                  staticClass: "text-center",
+                                  attrs: { colspan: "4" }
                                 },
-                                [_c("i", { staticClass: "fas fa-eye " })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Edit Data Box"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showEditingModal(b)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-edit" })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Hapus Data Box"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteBox(b.id_box)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash" })]
+                                [
+                                  _vm._v(
+                                    "\n                    Data tidak ditemukan\n                "
+                                  )
+                                ]
                               )
                             ])
-                          ])
-                        })
-                      ],
-                      2
+                          : _c(
+                              "tbody",
+                              [
+                                _c("tr", [
+                                  _c("th", [_vm._v("No")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Rak")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Kode Box")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Aksi")])
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.box.data, function(b, index) {
+                                  return _c("tr", { key: b.id_box }, [
+                                    _c("td", [_vm._v(_vm._s(++index))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(b.rak.kode_rak))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(_vm._f("uppercase")(b.kode_box))
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Lihat Detail Box"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailModal(b)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye "
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-success btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Edit Data Box"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(b)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Hapus Data Box"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteBox(b.id_box)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
+                    _vm.searching
+                      ? _c("div", { staticClass: "float-left" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.loadBox()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                              _vm._v(" Semua Box\n                ")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "d-flex justify-content-center" },
+                      { staticClass: "float-right" },
                       [
                         _c("pagination", {
                           attrs: { data: _vm.box },
@@ -77949,23 +78448,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             jenis: {},
-            counter: 0
+            counter: 0,
+            searching: false,
+            jenKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadJenis();
+        Signal.$on('/jenis-surat-search', function (keywords) {
+            _this.jenKeyword = keywords;
+            _this.searchJenis(keywords);
+        }), this.loadJenis();
         Signal.$on('load_jenis', function () {
             _this.loadJenis();
         });
     },
 
+
+    computed: {
+        isJenisEmpty: function isJenisEmpty() {
+            if (typeof this.jenis.data == 'undefined' && this.jenis != null) {
+                return false;
+            } else if (typeof this.jenis.data != 'undefined' && this.jenis.data.length == 0) {
+                return true;
+            }
+        }
+    },
 
     components: {
         "modal-jenis": __webpack_require__(252),
@@ -77989,6 +78514,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.readData('api/jenis').then(function (jenis) {
                     _this2.jenis = jenis;
                     _this2.counter = jenis.from;
+                    _this2.searching = false;
+                    _this2.jenKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -78003,9 +78531,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             if (this.isMaster()) {
-                axios.get('api/jenis?page=' + page).then(function (response) {
-                    _this3.jenis = response.data.data;
-                    _this3.counter = response.data.data.from;
+                if (this.searching == true) {
+                    axios.get('api/search-jenis?keywords=' + this.jenKeyword + '&page=' + page).then(function (response) {
+                        _this3.jenis = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                } else {
+                    axios.get('api/jenis?page=' + page).then(function (response) {
+                        _this3.jenis = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                }
+            }
+        },
+        searchJenis: function searchJenis(keywords) {
+            var _this4 = this;
+
+            if (this.isMaster()) {
+                this.searchData('api/search-jenis?keywords=' + keywords).then(function (jenis) {
+                    _this4.jenis = jenis;
+                    _this4.searching = true;
                 });
             }
         }
@@ -78810,95 +79355,155 @@ var render = function() {
                         staticClass: "table table-hover table-bordered table-sm"
                       },
                       [
-                        _c("tr", [
-                          _c("th", [_vm._v("No")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Kode Jenis SP2D")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Nama Jenis SP2D")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Aksi")])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.jenis.data, function(jen, index) {
-                          return _c("tr", { key: jen.id_jenis_sp2d }, [
-                            _c("td", [_vm._v(_vm._s(index + _vm.counter))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(_vm._f("uppercase")(jen.kode_jenis_sp2d))
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(jen.nama_jenis_sp2d))]),
-                            _vm._v(" "),
-                            _c("td", [
+                        _vm.isJenisEmpty
+                          ? _c("tr", [
                               _c(
-                                "a",
+                                "td",
                                 {
-                                  staticClass: "btn btn-dark btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Lihat Detail Jenis SP2D"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showDetailJenisModal(jen)
-                                    }
-                                  }
+                                  staticClass: "text-center",
+                                  attrs: { colspan: "4" }
                                 },
-                                [_c("i", { staticClass: "fas fa-eye " })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Edit Data Jenis SP2D"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showEditingModal(jen)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-edit" })]
-                              ),
-                              _vm._v(
-                                "\n                    /\n                    "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "javascript:void(0)",
-                                    title: "Hapus Data Jenis SP2D"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteJenis(jen.id_jenis_sp2d)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash" })]
+                                [
+                                  _vm._v(
+                                    "\n                    Data tidak ditemukan\n                "
+                                  )
+                                ]
                               )
                             ])
-                          ])
-                        })
-                      ],
-                      2
+                          : _c(
+                              "tbody",
+                              [
+                                _c("tr", [
+                                  _c("th", [_vm._v("No")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Kode Jenis SP2D")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Nama Jenis SP2D")]),
+                                  _vm._v(" "),
+                                  _c("th", [_vm._v("Aksi")])
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.jenis.data, function(jen, index) {
+                                  return _c("tr", { key: jen.id_jenis_sp2d }, [
+                                    _c("td", [
+                                      _vm._v(_vm._s(index + _vm.counter))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("uppercase")(
+                                            jen.kode_jenis_sp2d
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(jen.nama_jenis_sp2d))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Lihat Detail Jenis SP2D"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailJenisModal(jen)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye "
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-success btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Edit Data Jenis SP2D"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(jen)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(
+                                        "\n                        /\n                        "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          attrs: {
+                                            href: "javascript:void(0)",
+                                            title: "Hapus Data Jenis SP2D"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteJenis(jen.id_jenis_sp2d)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                      ]
                     )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-footer" }, [
+                    _vm.searching
+                      ? _c("div", { staticClass: "float-left" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.loadJenis()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                              _vm._v(" Semua Jenis SP2D\n                ")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "d-flex justify-content-center" },
+                      { staticClass: "float-right" },
                       [
                         _c("pagination", {
                           attrs: { data: _vm.jenis },
@@ -79052,13 +79657,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             surat: {},
             next: null,
-            loadable: true
+            loadable: true,
+            searching: false,
+            suratKeyword: null
         };
     },
     mounted: function mounted() {
@@ -79069,7 +79725,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        this.loadSurat();
+        Signal.$on('/surat-search', function (keywords) {
+            _this.suratKeyword = keywords;
+            _this.searchSurat(keywords);
+        }), this.loadSurat();
         Signal.$on('load_surat', function () {
             _this.loadSurat();
             _this.loadable = true;
@@ -79081,6 +79740,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
 
+
+    computed: {
+        searchResult: function searchResult() {
+            return this.surat.length != 0 && this.searching == true;
+        }
+    },
 
     components: {
         "modal-surat": __webpack_require__(261),
@@ -79120,6 +79785,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.loadable = true;
                     _this2.surat = surat.data;
                     _this2.next = surat.next_page_url;
+                    _this2.searching = false;
+                    _this2.suratKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -79151,6 +79819,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     }
                 };
+            }
+        },
+        searchSurat: function searchSurat(keywords) {
+            var _this4 = this;
+
+            if (this.isMasterOrAdmin()) {
+                this.searchData('api/search-surat?keywords=' + keywords).then(function (surat) {
+                    _this4.surat = surat.data;
+                    _this4.searching = true;
+                });
             }
         }
     }
@@ -81319,31 +81997,125 @@ var render = function() {
                   [
                     _c("ul", { staticClass: "navbar-nav" }, [
                       _c("li", { staticClass: "nav-item" }, [
-                        _c(
-                          "a",
-                          { staticClass: "nav-link", attrs: { href: "#" } },
-                          [
-                            _vm._v("Centered nav only "),
-                            _c("span", { staticClass: "sr-only" }, [
-                              _vm._v("(current)")
-                            ])
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "nav-item" }, [
-                        _c(
-                          "a",
-                          { staticClass: "nav-link", attrs: { href: "#" } },
-                          [_vm._v("Link")]
-                        )
+                        _c("div", { staticClass: "btn-group mr-3" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary dropdown-toggle",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "dropdown",
+                                "aria-haspopup": "true",
+                                "aria-expanded": "false"
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-info-circle mr-2"
+                              }),
+                              _vm._v(
+                                "\n                        Info Warna\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dropdown-menu" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-primary mr-2" },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-envelope-open"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(
+                                  " UP - Uang Persediaan\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-success mr-2" },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-envelope-open"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(
+                                  " GU - Ganti Uang\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-danger mr-2" },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-envelope-open"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(
+                                  " TU - Tambah Uang\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-warning mr-2" },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-envelope-open"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(
+                                  " LS - Lumpsump\n                        "
+                                )
+                              ]
+                            )
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
                       _c("li", { staticClass: "nav-item" }, [
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-primary mb-3",
+                            staticClass: "btn btn-success mb-3",
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
@@ -81352,6 +82124,7 @@ var render = function() {
                             }
                           },
                           [
+                            _c("i", { staticClass: "fas fa-plus-square mr-2" }),
                             _vm._v(
                               "\n                    Tambah Data SP2D\n                "
                             )
@@ -81364,124 +82137,215 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "row" },
-              _vm._l(_vm.surat, function(sur, index) {
-                return _c(
+            _vm.surat.length == 0
+              ? _c("div", { staticClass: "content" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-danger col-12",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _c("h5", [
+                        _c("i", { staticClass: "icon fa fa-ban" }),
+                        _vm._v(" Data tidak ditemukan!")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Tidak terdapat data surat atau hasil pencarian tidak ditemukan."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-light btn-sm",
+                          on: { click: _vm.loadSurat }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                          _vm._v(" Semua Surat\n            ")
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.searchResult
+              ? _c("div", { staticClass: "content" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-success col-12",
+                      attrs: { role: "alert" }
+                    },
+                    [
+                      _c("h5", [
+                        _c("i", { staticClass: "icon fa fa-check" }),
+                        _vm._v(
+                          " Hasil pencarian : '" +
+                            _vm._s(_vm.suratKeyword) +
+                            "'"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-light btn-sm",
+                          on: { click: _vm.loadSurat }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-list-alt mr-2" }),
+                          _vm._v(" Semua Surat\n            ")
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.surat.length != 0
+              ? _c(
                   "div",
-                  { key: sur.id_sp2d, staticClass: "col-md-3 col-sm-6 col-12" },
-                  [
-                    _c(
+                  { staticClass: "row" },
+                  _vm._l(_vm.surat, function(sur, index) {
+                    return _c(
                       "div",
                       {
-                        staticClass: "info-box",
-                        class: _vm.bgColor(sur.jenis.kode_jenis_sp2d)
+                        key: sur.id_sp2d,
+                        staticClass: "col-md-3 col-sm-6 col-12"
                       },
                       [
-                        _c("span", [_vm._v(_vm._s(++index))]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "info-box-icon" }, [
-                          _c("i", { staticClass: "fas fa-envelope-open" })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "info-box-content" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "info-box-text",
-                              staticStyle: { "font-size": "13px" }
-                            },
-                            [_vm._v(_vm._s(sur.nomor_surat))]
-                          ),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "info-box-text" }, [
-                            _vm._v(
-                              _vm._s(_vm._f("tanggalLokal")(sur.tgl_terbit))
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "progress" }, [
-                            _c("div", {
-                              staticClass: "progress-bar",
-                              staticStyle: { width: "100%" }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "progress-description" }, [
-                            _c(
-                              "div",
-                              { staticClass: "btn-group float-right" },
-                              [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-dark btn-sm",
-                                    attrs: { title: "Lihat Detail Surat" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.showDetailModal(sur)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-eye" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-dark btn-sm",
-                                    attrs: { title: "Edit Surat" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.showEditingModal(sur)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-edit" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-dark btn-sm",
-                                    attrs: { title: "Hapus Surat" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.deleteSurat(sur.id_sp2d)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-trash" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-dark btn-sm",
-                                    attrs: { title: "Arsipkan Surat" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.showArchiveModal(sur)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-file-archive"
-                                    })
-                                  ]
+                        _c(
+                          "div",
+                          {
+                            staticClass: "info-box",
+                            class: _vm.bgColor(sur.jenis.kode_jenis_sp2d)
+                          },
+                          [
+                            _c("span", { staticClass: "info-box-icon" }, [
+                              _c("i", { staticClass: "fas fa-envelope-open" })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "info-box-content" }, [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "info-box-text",
+                                  staticStyle: { "font-size": "13px" }
+                                },
+                                [_vm._v(_vm._s(sur.nomor_surat))]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "info-box-text" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("tanggalLokal")(sur.tgl_terbit))
                                 )
-                              ]
-                            )
-                          ])
-                        ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "progress" }, [
+                                _c("div", {
+                                  staticClass: "progress-bar",
+                                  staticStyle: { width: "100%" }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                { staticClass: "progress-description" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "btn-group float-right" },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: {
+                                            title: "Lihat Detail Surat"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDetailModal(sur)
+                                            }
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fas fa-eye" })]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: { title: "Edit Surat" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditingModal(sur)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-edit"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: { title: "Hapus Surat" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.deleteSurat(sur.id_sp2d)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash"
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-dark btn-sm",
+                                          attrs: { title: "Arsipkan Surat" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showArchiveModal(sur)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-file-archive"
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "float-left" }, [
+                                    _vm._v(_vm._s(++index))
+                                  ])
+                                ]
+                              )
+                            ])
+                          ]
+                        )
                       ]
                     )
-                  ]
+                  })
                 )
-              })
-            ),
+              : _vm._e(),
             _vm._v(" "),
             _c("modal-surat"),
             _vm._v(" "),
@@ -81590,13 +82454,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             arsip: {},
             next: null,
-            loadable: true
+            loadable: true,
+            searching: false,
+            arsipKeyword: null
         };
     },
     created: function created() {
         var _this = this;
 
-        this.loadArsip();
+        Signal.$on('/arsip-search', function (keywords) {
+            _this.arsipKeyword = keywords;
+            _this.searchArsip(keywords);
+        }), this.loadArsip();
         Signal.$on('load_arsip', function () {
             _this.loadArsip();
         });
@@ -81633,6 +82502,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.loadable = true;
                     _this2.arsip = arsip.data;
                     _this2.next = arsip.next_page_url;
+                    _this2.arsipKeyword = null;
+                    Signal.$emit('clear_keywords');
                 });
             }
         },
@@ -81670,6 +82541,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     }
                 };
+            }
+        },
+        searchArsip: function searchArsip(keywords) {
+            var _this4 = this;
+
+            if (this.isMasterOrAdmin()) {
+                this.searchData('api/search-arsip?keywords=' + keywords).then(function (arsip) {
+                    _this4.arsip = arsip.data;
+                    _this4.searching = true;
+                });
             }
         }
     }
@@ -88515,8 +89396,9 @@ function getJenis() {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = createData;
 /* harmony export (immutable) */ __webpack_exports__["c"] = readData;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updateData;
+/* harmony export (immutable) */ __webpack_exports__["e"] = updateData;
 /* harmony export (immutable) */ __webpack_exports__["b"] = deleteData;
+/* harmony export (immutable) */ __webpack_exports__["d"] = searchData;
 function createData(form, url, entity) {
     var _this = this;
 
@@ -88601,6 +89483,14 @@ function deleteData(url, entity) {
                 console.log(error);
             });
         }
+    });
+}
+
+function searchData(url) {
+    return axios.get(url).then(function (response) {
+        return response.data.data;
+    }).catch(function (error) {
+        console.log(error);
     });
 }
 
@@ -94665,28 +95555,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "navbar-vue",
+
+    data: function data() {
+        return {
+            keywords: ''
+        };
+    },
+
+
+    watch: {
+        $route: function $route(to, from) {
+            this.keywords = '';
+        }
+    },
+
+    created: function created() {
+        var _this = this;
+
+        Signal.$on('clear_keywords', function () {
+            _this.keywords = '';
+        });
+    },
+
+
     methods: {
         logout: function logout() {
-            var _this = this;
+            var _this2 = this;
 
             this.$Progress.start();
             axios.post('api/logout').then(function (response) {
                 if (response.status == 200) {
-                    _this.$store.commit('logout');
-                    _this.$router.push({ name: 'Login' });
-                    _this.$Progress.finish();
+                    _this2.$store.commit('logout');
+                    _this2.$router.push({ name: 'Login' });
+                    _this2.$Progress.finish();
                 }
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        search: function search() {
+            if (this.keywords == '') {
+                swal({
+                    text: 'Kata kunci pencarian masih kosong',
+                    type: 'warning'
+                });
+            } else {
+                Signal.$emit(this.currentPath + '-search', this.keywords);
+            }
         }
     },
+
     computed: {
         currentUser: function currentUser() {
             return this.$store.getters.currentUser;
+        },
+        currentPath: function currentPath() {
+            return this.$route.path;
         }
     }
 });
@@ -94708,11 +95636,68 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
+      _vm.currentPath != "/dashboard"
+        ? _c(
+            "div",
+            {
+              staticClass: "input-group input-group-sm ml-3",
+              staticStyle: { width: "350px" }
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keywords,
+                    expression: "keywords"
+                  }
+                ],
+                staticClass:
+                  "form-control form-control-navbar white-text-color",
+                attrs: {
+                  type: "search",
+                  placeholder: "Pencarian",
+                  "aria-label": "Search"
+                },
+                domProps: { value: _vm.keywords },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.search($event)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keywords = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-navbar",
+                    attrs: { type: "submit" },
+                    on: { click: _vm.search }
+                  },
+                  [_c("i", { staticClass: "fa fa-search" })]
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("ul", { staticClass: "navbar-nav ml-auto" }, [
         _c("li", { staticClass: "nav-item dropdown" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "div",
@@ -94721,7 +95706,7 @@ var render = function() {
                 "dropdown-menu dropdown-menu-lg dropdown-menu-right bg-dark"
             },
             [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "dropdown-divider" }),
               _vm._v(" "),
@@ -94764,31 +95749,6 @@ var staticRenderFns = [
           },
           [_c("i", { staticClass: "fa fa-bars" })]
         )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline ml-3" }, [
-      _c("div", { staticClass: "input-group input-group-sm" }, [
-        _c("input", {
-          staticClass: "form-control form-control-navbar",
-          attrs: {
-            type: "search",
-            placeholder: "Search",
-            "aria-label": "Search"
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-append" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-navbar", attrs: { type: "submit" } },
-            [_c("i", { staticClass: "fa fa-search" })]
-          )
-        ])
       ])
     ])
   },

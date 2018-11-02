@@ -96,5 +96,25 @@ class SuratController extends Controller
             'message' => 'SP2D dengan nomor surat: '.$surat->nomor_surat.' telah dihapus'
         ]);
     }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $surat = Surat::whereHas('skpd', function($query) use ($keywords) {
+                $query->where('nomor_surat', 'LIKE', "%$keywords%")
+                        ->orWhere('tgl_terbit', 'LIKE', "%$keywords%")
+                        ->orWhere('nama_skpd', 'LIKE', "%$keywords%")
+                        ->orWhere('alias_skpd', 'LIKE', "%$keywords%")
+                        ->orWhere('kode_skpd', 'LIKE', "%$keywords%");
+            })->with([
+                'skpd:id_skpd,kode_skpd,nama_skpd',
+                'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
+            ])->where(['arsip' => 0])->get()->paginateCollection(16);
+        }
+
+        return response()->json([
+            'data' => $surat
+        ]);
+    }
     
 }

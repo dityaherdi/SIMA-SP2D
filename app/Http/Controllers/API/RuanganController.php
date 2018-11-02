@@ -20,7 +20,7 @@ class RuanganController extends Controller
      */
     public function index()
     {
-        $ruangan = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(3);
+        $ruangan = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(5);
 
         return response()->json([
             'data' => $ruangan
@@ -86,6 +86,19 @@ class RuanganController extends Controller
         return response()->json([
             'data' => $ruangan,
             'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah dihapus'
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        if ($keywords = $request->keywords) {
+            $ruangan = Ruangan::where(function($query) use ($keywords) {
+                $query->where('kode_ruangan', 'LIKE', "%$keywords%");
+            })->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(5);
+        }
+
+        return response()->json([
+            'data' => $ruangan
         ]);
     }
 }

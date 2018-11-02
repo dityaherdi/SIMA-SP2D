@@ -85,3 +85,12 @@ export function deleteData(url, entity) {
         }
     })
 }
+
+export function searchData(url) {
+    return axios.get(url)
+    .then((response) => {
+        return response.data.data
+    }).catch((error) => {
+        console.log(error)
+    })
+}
