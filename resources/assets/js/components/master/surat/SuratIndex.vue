@@ -17,22 +17,22 @@
                             Info Warna
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="javascript:void(0)">
                                 <span class="badge badge-primary mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> UP - Uang Persediaan
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="javascript:void(0)">
                                 <span class="badge badge-success mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> GU - Ganti Uang
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="javascript:void(0)">
                                 <span class="badge badge-danger mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> TU - Tambah Uang
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="javascript:void(0)">
                                 <span class="badge badge-warning mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> LS - Lumpsump

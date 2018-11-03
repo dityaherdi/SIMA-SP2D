@@ -34,7 +34,8 @@ Route::group(['middleware' => 'auth:api'], function (){
         'rak' => 'API\RakController',
         'box' => 'API\BoxController',
         'surat' => 'API\SuratController',
-        'arsip' => 'API\ArsipController'
+        'arsip' => 'API\ArsipController',
+        'user' => 'API\UserController'
     ]);
     
     // Get Letak
@@ -56,5 +57,6 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('search-box', 'API\BoxController@search');
     Route::get('search-surat', 'API\SuratController@search');
     Route::get('search-arsip', 'API\ArsipController@search');
+    Route::get('search-user', 'API\UserController@search');
     
 });

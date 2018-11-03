@@ -65,6 +65,7 @@
                                 <input type="text" class="form-control form-control-sm" style="max-width:20%"
                                     :class="{ 'is-invalid': surat.errors.has('nomor_surat') }" 
                                     id="nomorsurat" placeholder="Nomor" v-model="no_srt_composer.sel_nomor"
+                                    maxlength="5"
                                 >&nbsp;/&nbsp;
                                 <input type="text" class="form-control form-control-sm" style="max-width:16%"
                                    placeholder="SP2D" value="SP2D" disabled id="sp2dsurat"
@@ -79,6 +80,7 @@
                                 <input type="text" class="form-control form-control-sm" style="max-width:18%"
                                     :class="{ 'is-invalid': surat.errors.has('tgl_terbit') }"
                                     placeholder="Tahun" id="tahunsurat" v-model="no_srt_composer.sel_tahun"
+                                    maxlength="4"
                                 >
                                     <input type="hidden" :class="{ 'is-invalid': surat.errors.has('nomor_surat') }">
                                     <has-error :form="surat" field="nomor_surat"></has-error>
@@ -198,7 +200,7 @@
         methods: {
             combineNomorSurat() {
                 var no_srt = $("#nomorsurat, #sp2dsurat, #kodejenissurat, #kodeskpdsurat, #tahunsurat")
-                    .map(function(){
+                    .map(function() {
                         return this.value
                     }).get().join("/")
                 this.surat.nomor_surat = no_srt

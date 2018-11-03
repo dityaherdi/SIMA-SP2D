@@ -1,5 +1,4 @@
 <template>
-    <!-- Modal -->
     <div class="modal fade" id="skpdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -100,6 +99,7 @@
             Signal.$on('show_creating_skpd_modal', () => {
                 this.showModal(this.skpd, 'skpd', 'create')
             }),
+
             Signal.$on('show_editing_skpd_modal', (skpd) => {
                 this.skpd.status = skpd.status
                 this.showModal(this.skpd, 'skpd', 'edit', skpd)

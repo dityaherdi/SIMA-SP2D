@@ -71712,7 +71712,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80022,6 +80021,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -80454,7 +80455,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 id: "nomorsurat",
-                                placeholder: "Nomor"
+                                placeholder: "Nomor",
+                                maxlength: "5"
                               },
                               domProps: {
                                 value: _vm.no_srt_composer.sel_nomor
@@ -80531,7 +80533,8 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 placeholder: "Tahun",
-                                id: "tahunsurat"
+                                id: "tahunsurat",
+                                maxlength: "4"
                               },
                               domProps: {
                                 value: _vm.no_srt_composer.sel_tahun
@@ -82024,7 +82027,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "dropdown-item",
-                                attrs: { href: "#" }
+                                attrs: { href: "javascript:void(0)" }
                               },
                               [
                                 _c(
@@ -82046,7 +82049,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "dropdown-item",
-                                attrs: { href: "#" }
+                                attrs: { href: "javascript:void(0)" }
                               },
                               [
                                 _c(
@@ -82068,7 +82071,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "dropdown-item",
-                                attrs: { href: "#" }
+                                attrs: { href: "javascript:void(0)" }
                               },
                               [
                                 _c(
@@ -82090,7 +82093,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "dropdown-item",
-                                attrs: { href: "#" }
+                                attrs: { href: "javascript:void(0)" }
                               },
                               [
                                 _c(
@@ -83293,20 +83296,168 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    data: function data() {
+        return {
+            users: {},
+            counter: 1,
+            searching: false,
+            userKeyword: null
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        Signal.$on('/user-search', function (keywords) {
+            _this.userKeyword = keywords;
+            _this.searchUser(keywords);
+        }), this.loadUser();
+        Signal.$on('load_user', function () {
+            _this.loadUser();
+        });
     },
 
 
+    computed: {
+        isUserEmpty: function isUserEmpty() {
+            if (typeof this.users.data == 'undefined' && this.users != null) {
+                return false;
+            } else if (typeof this.users.data != 'undefined' && this.users.data.length == 0) {
+                return true;
+            }
+        }
+    },
+
     components: {
-        "modal-skpd": __webpack_require__(278)
+        "modal-user": __webpack_require__(278)
     },
 
     methods: {
-        newSkpdModal: function newSkpdModal() {
-            this.$emit('new_skpd');
+        showCreatingModal: function showCreatingModal() {
+            Signal.$emit('show_creating_user_modal');
+        },
+        showEditingModal: function showEditingModal(user) {
+            Signal.$emit('show_editing_user_modal', user);
+        },
+        showDetailUserModal: function showDetailUserModal(user) {
+            Signal.$emit('show_detail_user_modal', user);
+        },
+        loadUser: function loadUser() {
+            var _this2 = this;
+
+            if (this.isMaster()) {
+                this.readData('api/user').then(function (users) {
+                    _this2.users = users;
+                    _this2.searching = false;
+                    _this2.userKeyword = null;
+                    Signal.$emit('clear_keywords');
+                });
+            }
+        },
+        deleteUser: function deleteUser(id) {
+            if (this.isMaster()) {
+                this.deleteData('api/user/' + id, 'user');
+            }
+        },
+        getResults: function getResults() {
+            var _this3 = this;
+
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            if (this.isMaster()) {
+                if (this.searching == true) {
+                    axios.get('api/search-user?keywords=' + this.userKeyword + '&page=' + page).then(function (response) {
+                        _this3.users = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                } else {
+                    axios.get('api/user?page=' + page).then(function (response) {
+                        _this3.users = response.data.data;
+                        _this3.counter = response.data.data.from;
+                    });
+                }
+            }
+        },
+        searchUser: function searchUser(keywords) {
+            var _this4 = this;
+
+            if (this.isMaster()) {
+                this.searchData('api/search-user?keywords=' + keywords).then(function (user) {
+                    _this4.users = user;
+                    _this4.searching = true;
+                });
+            }
         }
     }
 });
@@ -83337,7 +83488,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/master/user/children/SkpdModal.vue"
+Component.options.__file = "resources/assets/js/components/master/user/children/UserModal.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -83346,9 +83497,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-78a5df7f", Component.options)
+    hotAPI.createRecord("data-v-ed2cce40", Component.options)
   } else {
-    hotAPI.reload("data-v-78a5df7f", Component.options)
+    hotAPI.reload("data-v-ed2cce40", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -83399,13 +83550,181 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-        this.$parent.$on('new_skpd', function () {
-            $('#skpdModal').modal('show');
+    data: function data() {
+        return {
+            editing: true,
+            fotoName: '',
+            user: new Form({
+                id_user: '',
+                nip: '',
+                nama: '',
+                username: '',
+                password: '',
+                tipe: '',
+                foto: '',
+                keterangan: '',
+                status: true
+            }),
+            nip_composer: {
+                nip_ttl: '',
+                nip_cpns: '',
+                nip_jk: '',
+                nip_urut: ''
+            }
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        Signal.$on('show_creating_user_modal', function () {
+            _this.showModal(_this.user, 'user', 'create');
+        }), Signal.$on('show_editing_user_modal', function (user) {
+            _this.fotoName = user.foto;
+            _this.user.status = user.status;
+            _this.splitNip(user.nip);
+            _this.showModal(_this.user, 'user', 'edit', user);
         });
+    },
+
+
+    methods: {
+        clearError: function clearError() {
+            this.user.clear();
+        },
+        combineNip: function combineNip() {
+            var nip = $("#nipttl,#nipcpns,#nipjk,#nipurut").map(function () {
+                return this.value;
+            }).get().join(' ');
+            this.user.nip = nip;
+        },
+        splitNip: function splitNip(nip) {
+            var splittedNip = nip.split(' ');
+            this.nip_composer.nip_ttl = splittedNip[0];
+            this.nip_composer.nip_cpns = splittedNip[1];
+            this.nip_composer.nip_jk = splittedNip[2];
+            this.nip_composer.nip_urut = splittedNip[3];
+        },
+        changeFoto: function changeFoto(event) {
+            var _this2 = this;
+
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            if (file.size < 2097152) {
+                reader.onload = function (event) {
+                    _this2.user.foto = reader.result;
+                    _this2.fotoName = file.name;
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                setTimeout(function () {
+                    swal({
+                        type: 'error',
+                        title: 'Ukuran file terlalu besar',
+                        text: 'Gunakan foto dengan ukuran dibawah 2 MB (Mega Bytes)'
+                    });
+                }, 1000);
+            }
+        },
+        createUser: function createUser() {
+            if (this.isMaster()) {
+                this.combineNip();
+                this.createData(this.user, 'api/user', 'user');
+            }
+        },
+        updateUser: function updateUser() {
+            if (this.isMaster()) {
+                this.combineNip();
+                this.updateData(this.user, 'api/user/' + this.user.id_user, 'user');
+            }
+        }
     }
 });
 
@@ -83417,121 +83736,612 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "userModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLongTitle",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-lg",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  attrs: { role: "form" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editing ? _vm.updateUser() : _vm.createUser()
+                    },
+                    change: _vm.clearError
+                  }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6 ml-auto" }, [
+                        _c("label", { attrs: { for: "nipuser" } }, [
+                          _vm._v("NIP")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-inline form-group" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.nip_composer.nip_ttl,
+                                  expression: "nip_composer.nip_ttl"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.user.errors.has("nip")
+                              },
+                              staticStyle: { "max-width": "32%" },
+                              attrs: {
+                                type: "text",
+                                id: "nipttl",
+                                maxlength: "8"
+                              },
+                              domProps: { value: _vm.nip_composer.nip_ttl },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.nip_composer,
+                                    "nip_ttl",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v("  \n                            "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.nip_composer.nip_cpns,
+                                  expression: "nip_composer.nip_cpns"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              staticStyle: { "max-width": "26%" },
+                              attrs: {
+                                type: "text",
+                                id: "nipcpns",
+                                maxlength: "6"
+                              },
+                              domProps: { value: _vm.nip_composer.nip_cpns },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.nip_composer,
+                                    "nip_cpns",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v("  \n                            "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.nip_composer.nip_jk,
+                                  expression: "nip_composer.nip_jk"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              staticStyle: { "max-width": "15%" },
+                              attrs: {
+                                type: "text",
+                                id: "nipjk",
+                                maxlength: "1"
+                              },
+                              domProps: { value: _vm.nip_composer.nip_jk },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.nip_composer,
+                                    "nip_jk",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v("  \n                            "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.nip_composer.nip_urut,
+                                  expression: "nip_composer.nip_urut"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              staticStyle: { "max-width": "20%" },
+                              attrs: {
+                                type: "text",
+                                id: "nipurut",
+                                maxlength: "3"
+                              },
+                              domProps: { value: _vm.nip_composer.nip_urut },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.nip_composer,
+                                    "nip_urut",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              class: {
+                                "is-invalid": _vm.user.errors.has("nip")
+                              },
+                              attrs: { type: "hidden" }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.user, field: "nip" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "namauser" } }, [
+                              _vm._v("Nama")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.nama,
+                                  expression: "user.nama"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.user.errors.has("nama")
+                              },
+                              attrs: { type: "text", id: "namauser" },
+                              domProps: { value: _vm.user.nama },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "nama",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.user, field: "nama" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "usernameuser" } }, [
+                              _vm._v("Username")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.username,
+                                  expression: "user.username"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.user.errors.has("username")
+                              },
+                              attrs: { type: "text", id: "usernameuser" },
+                              domProps: { value: _vm.user.username },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "username",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.user, field: "username" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "passworduser" } }, [
+                              _vm._v("Password")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.password,
+                                  expression: "user.password"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.user.errors.has("password")
+                              },
+                              attrs: { type: "password", id: "passworduser" },
+                              domProps: { value: _vm.user.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.user, field: "password" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 ml-auto" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "usertipe" } }, [
+                              _vm._v("Tipe User")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.user.tipe,
+                                    expression: "user.tipe"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.user.errors.has("tipe")
+                                },
+                                attrs: { id: "usertipe" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.user,
+                                      "tipe",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { disabled: "", value: "" } },
+                                  [_vm._v(" --- Pilih Tipe --- ")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Master" } }, [
+                                  _vm._v(" Master ")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Admin" } }, [
+                                  _vm._v(" Admin ")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Pimpinan" } }, [
+                                  _vm._v(" Pimpinan ")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.user, field: "tipe" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", [_vm._v("Foto Profil ( Ukuran < 2MB )")]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group" }, [
+                            _c("div", { staticClass: "custom-file" }, [
+                              _c("input", {
+                                staticClass: "custom-file-input",
+                                attrs: { type: "file", id: "fotouser" },
+                                on: { change: _vm.changeFoto }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "custom-file-label",
+                                  attrs: { for: "fotouser" }
+                                },
+                                [_vm._v(_vm._s(_vm.fotoName))]
+                              )
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "ketuser" } }, [
+                              _vm._v("Keterangan")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.keterangan,
+                                  expression: "user.keterangan"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.user.errors.has("keterangan")
+                              },
+                              attrs: {
+                                rows: "4",
+                                placeholder: "...",
+                                id: "ketuser"
+                              },
+                              domProps: { value: _vm.user.keterangan },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "keterangan",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.user, field: "keterangan" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("div", { staticClass: "form-check" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.status,
+                                  expression: "user.status"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "checkbox", id: "statususer" },
+                              domProps: {
+                                checked: Array.isArray(_vm.user.status)
+                                  ? _vm._i(_vm.user.status, null) > -1
+                                  : _vm.user.status
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.user.status,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.user,
+                                          "status",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.user,
+                                          "status",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.user, "status", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "statususer" }
+                              },
+                              [_vm._v("Status Aktif")]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    !_vm.editing
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-save mr-2" }),
+                            _vm._v("Simpan\n                ")
+                          ]
+                        )
+                      : _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fas fa-check-circle mr-2"
+                            }),
+                            _vm._v("Perbarui\n                ")
+                          ]
+                        )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Tambah Data User")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
-      "div",
+      "button",
       {
-        staticClass: "modal fade",
-        attrs: {
-          id: "skpdModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLongTitle",
-          "aria-hidden": "true"
-        }
+        staticClass: "btn btn-danger",
+        attrs: { type: "button", "data-dismiss": "modal" }
       },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLongTitle" }
-                  },
-                  [_vm._v("Tambah Data SKPD")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("form", { attrs: { role: "form" } }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                        _vm._v("Kode SKPD")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "email",
-                          id: "exampleInputEmail1",
-                          placeholder: "0.00.00."
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-                        _vm._v("Nama SKPD")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "password",
-                          id: "exampleInputPassword1",
-                          placeholder: "SKPD"
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "modal-footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: { type: "button", "data-dismiss": "modal" }
-                      },
-                      [_vm._v("Close")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" }
-                      },
-                      [_vm._v("Tambah SKPD")]
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ]
-        )
-      ]
+      [_c("i", { staticClass: "fas fa-ban mr-2" }), _vm._v("Batal")]
     )
   }
 ]
@@ -83540,7 +84350,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-78a5df7f", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-ed2cce40", module.exports)
   }
 }
 
@@ -83552,27 +84362,221 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              _vm.newSkpdModal()
-            }
-          }
-        },
-        [_vm._v("\n        Tambah Data SKPD\n    ")]
-      ),
-      _vm._v(" "),
-      _c("modal-skpd")
-    ],
-    1
-  )
+  return _c("div", [
+    _c(
+      "div",
+      [
+        !this.isMaster()
+          ? _c("not-found")
+          : [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "card card-info card-outline" }, [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("h3", { staticClass: "card-title" }, [
+                        _vm._v("Data User")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-tools" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              type: "button",
+                              title: "Tambah Data User"
+                            },
+                            on: { click: _vm.showCreatingModal }
+                          },
+                          [_c("i", { staticClass: "fas fa-plus-square" })]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "card-body table-responsive p-0" },
+                      [
+                        _c(
+                          "table",
+                          {
+                            staticClass:
+                              "table table-hover table-bordered table-sm"
+                          },
+                          [
+                            _vm.isUserEmpty
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: { colspan: "5" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                        Data tidak ditemukan\n                    "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : _c(
+                                  "tbody",
+                                  [
+                                    _c("tr", [
+                                      _c("th", [_vm._v("No")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("NIP")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Username")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Tipe")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Aksi")])
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.users.data, function(
+                                      user,
+                                      index
+                                    ) {
+                                      return _c("tr", { key: user.id_user }, [
+                                        _c("td", [
+                                          _vm._v(_vm._s(index + _vm.counter))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(user.nip))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(user.username))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(user.tipe))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-dark btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Lihat Detail User"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.showDetailUserModal(user)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-eye "
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(
+                                            "\n                            /\n                            "
+                                          ),
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-success btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Edit Data User"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.showEditingModal(user)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-edit"
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(
+                                            "\n                            /\n                            "
+                                          ),
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-danger btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Hapus Data User"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.deleteUser(user.id_user)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        ])
+                                      ])
+                                    })
+                                  ],
+                                  2
+                                )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-footer" }, [
+                      _vm.searching
+                        ? _c("div", { staticClass: "float-left" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    _vm.loadUser()
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-list-alt mr-2"
+                                }),
+                                _vm._v(" Semua User\n                    ")
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "float-right" },
+                        [
+                          _c("pagination", {
+                            attrs: { data: _vm.users },
+                            on: { "pagination-change-page": _vm.getResults }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("modal-user")
+            ]
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
