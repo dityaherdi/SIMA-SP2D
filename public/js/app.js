@@ -79811,10 +79811,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 type: 'info'
                             });
                         } else {
-                            axios.get(_this3.next).then(function (response) {
-                                _this3.surat = _this3.surat.concat(Object.values(response.data.data.data));
-                                _this3.next = response.data.data.next_page_url;
-                            });
+                            if (_this3.searching == true) {
+                                axios.get(_this3.next + '&keywords=' + _this3.suratKeyword).then(function (response) {
+                                    _this3.surat = _this3.surat.concat(Object.values(response.data.data.data));
+                                    _this3.next = response.data.data.next_page_url;
+                                });
+                            } else {
+                                axios.get(_this3.next).then(function (response) {
+                                    _this3.surat = _this3.surat.concat(Object.values(response.data.data.data));
+                                    _this3.next = response.data.data.next_page_url;
+                                });
+                            }
                         }
                     }
                 };
@@ -79827,6 +79834,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.searchData('api/search-surat?keywords=' + keywords).then(function (surat) {
                     _this4.surat = surat.data;
                     _this4.searching = true;
+                    _this4.next = surat.next_page_url;
                 });
             }
         }
@@ -82537,10 +82545,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 type: 'info'
                             });
                         } else {
-                            axios.get(_this3.next).then(function (response) {
-                                _this3.arsip = _this3.arsip.concat(Object.values(response.data.data.data));
-                                _this3.next = response.data.data.next_page_url;
-                            });
+                            if (_this3.searching == true) {
+                                axios.get(_this3.next + '&keywords=' + _this3.arsipKeyword).then(function (response) {
+                                    _this3.arsip = _this3.arsip.concat(Object.values(response.data.data.data));
+                                    _this3.next = response.data.data.next_page_url;
+                                });
+                            } else {
+                                axios.get(_this3.next).then(function (response) {
+                                    _this3.arsip = _this3.arsip.concat(Object.values(response.data.data.data));
+                                    _this3.next = response.data.data.next_page_url;
+                                });
+                            }
                         }
                     }
                 };
@@ -82553,6 +82568,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.searchData('api/search-arsip?keywords=' + keywords).then(function (arsip) {
                     _this4.arsip = arsip.data;
                     _this4.searching = true;
+                    _this4.next = arsip.next_page_url;
                 });
             }
         }

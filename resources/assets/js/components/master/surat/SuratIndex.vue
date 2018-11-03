@@ -233,11 +233,19 @@
                                     type: 'info'
                                 })
                             }else {
-                                axios.get(this.next)
-                                .then((response) => {
-                                    this.surat = this.surat.concat(Object.values(response.data.data.data))
-                                    this.next = response.data.data.next_page_url
-                                })
+                                if (this.searching==true) {
+                                    axios.get(this.next+'&keywords='+this.suratKeyword)
+                                    .then((response) => {
+                                        this.surat = this.surat.concat(Object.values(response.data.data.data))
+                                        this.next = response.data.data.next_page_url
+                                    })
+                                } else {
+                                    axios.get(this.next)
+                                    .then((response) => {
+                                        this.surat = this.surat.concat(Object.values(response.data.data.data))
+                                        this.next = response.data.data.next_page_url
+                                    })
+                                }
                             }
                         }
                     }
@@ -250,6 +258,7 @@
                     .then((surat) => {
                         this.surat = surat.data
                         this.searching = true
+                        this.next = surat.next_page_url
                     })
                 }
             }
