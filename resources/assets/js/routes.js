@@ -9,6 +9,7 @@ import JenisSuratIndex from './components/master/jenis_surat/JenisSuratIndex.vue
 import SuratIndex from './components/master/surat/SuratIndex.vue';
 import ArsipIndex from './components/master/arsip/ArsipIndex.vue';
 import UserIndex from './components/master/user/UserIndex.vue';
+import ProfileUser from './components/master/user/children/ProfileUser.vue';
 import Login from './components/auth/Login.vue';
 import NotFound from './components/NotFound.vue';
 
@@ -78,6 +79,12 @@ let routes = [
 		path: '/user',
 		component: UserIndex,
 		name: 'UserIndex',
+		meta: { requiresAuth: true }
+	},
+	{
+		path: '/profil',
+		component: ProfileUser,
+		name: 'Profil',
 		meta: { requiresAuth: true }
 	},
 	{

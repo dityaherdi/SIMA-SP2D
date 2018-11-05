@@ -29,9 +29,9 @@
             <i class="fas fa-cogs mr-2"></i> Pengaturan
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right bg-dark">
-            <a href="javascript:void(0)" class="dropdown-item bg-dark">
+            <router-link :to="{ name: 'Profil' }" class="dropdown-item bg-dark">
                 <i class="fa fa-user-circle mr-2"></i> Profil
-            </a>
+            </router-link>
             <div class="dropdown-divider"></div>
             <template v-if="currentUser">
                 <a href="javascript:void(0)" class="dropdown-item dropdown-footer bg-dark" @click="logout">

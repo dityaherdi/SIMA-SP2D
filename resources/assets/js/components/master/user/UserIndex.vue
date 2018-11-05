@@ -72,6 +72,7 @@
         </div>
         </div>
         <modal-user></modal-user>
+        <modal-detail></modal-detail>
         </template>
     </div>
     </div>
@@ -111,7 +112,8 @@
         },
 
         components: {
-            "modal-user": require('./children/UserModal.vue')
+            "modal-user": require('./children/UserModal.vue'),
+            "modal-detail": require('./children/DetailUserModal.vue')
         },
         
         methods: {

@@ -41,9 +41,9 @@ class UserController extends Controller
         if ($request->foto) {
             $fileExploded = explode(';', $request->foto);
             $fileExtension = explode('/', $fileExploded[0]);
-            $filename = $request->nip.'-'.time().'.'.$fileExtension[1];
+            $filename = str_slug($request->nip).'-'.time().'.'.$fileExtension[1];
             
-            Image::make($request->foto)->save(public_path('img/profile/'.$filename));
+            Image::make($request->foto)->resize(500, 500)->save(public_path('img/profile/'.$filename));
         } else {
             $filename = 'profile.png';
         }
@@ -89,9 +89,10 @@ class UserController extends Controller
         if ($request->foto != $currentFoto) {
             $fileExploded = explode(';', $request->foto);
             $fileExtension = explode('/', $fileExploded[0]);
-            $filename = $request->nip.'-'.time().'.'.$fileExtension[1];
+            $filename = str_slug($request->nip).'-'.time().'.'.$fileExtension[1];
             
-            Image::make($request->foto)->save(public_path('img/profile/'.$filename));
+
+            Image::make($request->foto)->resize(500, 500)->save(public_path('img/profile/'.$filename));
             @unlink(public_path('img/profile/').$currentFoto);
 
             $request->merge(['foto' => $filename]);

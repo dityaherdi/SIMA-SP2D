@@ -1,7 +1,27 @@
 <template>
     <div>
         <not-found v-if="!this.isMasterOrAdmin()"></not-found>
-        <template v-else>
+
+        <div class="content" v-if="arsip.length==0">
+            <div class="alert alert-danger col-12" role="alert">
+                <h5><i class="icon fa fa-ban"></i> Data tidak ditemukan!</h5>
+                <p>Tidak terdapat data arsip atau hasil pencarian tidak ditemukan.</p>
+                <button class="btn btn-outline-light btn-sm" @click="loadArsip">
+                    <i class="fas fa-list-alt mr-2"></i> Semua Arsip
+                </button>
+            </div>
+        </div>
+
+        <div class="content" v-if="searchResult">
+            <div class="alert alert-success col-12" role="alert">
+                <h5><i class="icon fa fa-check"></i> Hasil pencarian : '{{ arsipKeyword }}'</h5>
+                <button class="btn btn-outline-light btn-sm" @click="loadArsip">
+                    <i class="fas fa-list-alt mr-2"></i> Semua Arsip
+                </button>
+            </div>
+        </div>
+
+        <template v-if="arsip.length!=0">
         <ul class="list-group mt-3">
             <li class="list-group-item list-group-item-action" v-for="(ars,index) in arsip" :key="ars.id_arsip">
                 <span class="mr-3">{{ ++index }}</span>
@@ -61,6 +81,12 @@
           "modal-arsip": require('./children/ArsipModal.vue'),
           "detail-arsip": require('./children/DetailArsipModal.vue')
         },
+
+        computed: {
+            searchResult() {
+                return this.arsip.length != 0 && this.searching == true
+            }
+        },
         
         methods: {
             showEditingModal(ars) {
@@ -84,6 +110,7 @@
                         this.loadable = true
                         this.arsip = arsip.data
                         this.next = arsip.next_page_url
+                        this.searching = false
                         this.arsipKeyword = null
                         Signal.$emit('clear_keywords')
                     })

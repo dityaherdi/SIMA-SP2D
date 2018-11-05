@@ -10,17 +10,17 @@
 		<div class="sidebar">
 			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
-				<img src="/img/profile.png" class="img-circle elevation-2" alt="User Image">
+				<img :src="'./img/profile/'+currentUser.foto" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="javascript:void(0)" class="d-block"> {{ currentUser }} </a>
+				<a href="javascript:void(0)" class="d-block"> {{ currentUser.nama }} </a>
 			</div>
 			</div>
 
 			<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<li class="nav-item" @click="forceCloseModalOpen">
-					<router-link to="/dashboard" class="nav-link">
+					<router-link :to="{ name: 'Dashboard' }" class="nav-link">
 						<i class="fas fa-tachometer-alt nav-icon"></i>
 						<p>Dashboard</p>
 					</router-link>
@@ -35,25 +35,25 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item" @click="forceCloseModalOpen">
-							<router-link to="/gedung" class="nav-link">
+							<router-link :to="{ name: 'GedungIndex' }" class="nav-link">
 								<i class="fas fa-building nav-icon"></i>
 								<p>Gedung</p>
 							</router-link>
 						</li>
 						<li class="nav-item" @click="forceCloseModalOpen">
-							<router-link to="/ruangan" class="nav-link">
+							<router-link :to="{ name: 'RuanganIndex' }" class="nav-link">
 								<i class="fas fa-door-open nav-icon"></i>
 								<p>Ruangan</p>
 							</router-link>
 						</li>
 						<li class="nav-item" @click="forceCloseModalOpen">
-							<router-link to="/rak" class="nav-link">
+							<router-link :to="{ name: 'RakIndex' }" class="nav-link">
 								<i class="fas fa-archive nav-icon"></i>
 								<p>Rak</p>
 							</router-link>
 						</li>
 						<li class="nav-item" @click="forceCloseModalOpen">
-							<router-link to="/box" class="nav-link">
+							<router-link :to="{ name: 'BoxIndex' }" class="nav-link">
 								<i class="fas fa-box-open nav-icon"></i>
 								<p>Box</p>
 							</router-link>
@@ -62,31 +62,31 @@
 					
 				</li>
 				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMasterOrAdmin()">
-					<router-link to="/surat" class="nav-link">
+					<router-link :to="{ name: 'SuratIndex' }" class="nav-link">
 						<i class="fas fa-envelope nav-icon"></i>
-						<p>Surat</p>
+						<p>SP2D</p>
 					</router-link>
 				</li>
 				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMasterOrAdmin()">
-					<router-link to="/arsip" class="nav-link">
+					<router-link :to="{ name: 'ArsipIndex' }" class="nav-link">
 						<i class="fas fa-file-archive nav-icon"></i>
 						<p>Arsip</p>
 					</router-link>
 				</li>
 				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMaster()">
-					<router-link to="/skpd" class="nav-link">
+					<router-link :to="{ name: 'SkpdIndex' }" class="nav-link">
 						<i class="fas fa-address-card nav-icon"></i>
 						<p>SKPD</p>
 					</router-link>
 				</li>
 				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMaster()">
-					<router-link to="/jenis-surat" class="nav-link">
+					<router-link :to="{ name: 'JenisSuratIndex' }" class="nav-link">
 						<i class="fas fa-table nav-icon"></i>
 						<p>Jenis Surat</p>
 					</router-link>
 				</li>
 				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMaster()">
-					<router-link to="/user" class="nav-link">
+					<router-link :to="{ name: 'UserIndex' }" class="nav-link">
 						<i class="fas fa-users nav-icon"></i>
 						<p>User</p>
 					</router-link>
@@ -110,7 +110,7 @@
 
 		computed: {
 			currentUser() {
-				return this.$store.getters.currentUser.nama;
+				return this.$store.getters.currentUser;
 			},
 			currentModal() {
 				return this.$store.getters.modalOpen

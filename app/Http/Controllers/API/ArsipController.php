@@ -62,7 +62,7 @@ class ArsipController extends Controller
         $box = Box::findOrFail($request->id_box);
         $box->update(['kapasitas' => $box->kapasitas + 1]);
         
-        // Update status surat menjadi arsip
+        // Update surat menjadi arsip
         $surat = Surat::findOrFail($request->id_sp2d);
         $surat->update(['arsip' => 1]);
 
@@ -123,12 +123,18 @@ class ArsipController extends Controller
         $retensi = new Retensi();
         $retensi['nomor_surat'] = $arsip->surat->nomor_surat;
         $retensi->save();
-        
+
+        // update kapasitas
         $box = Box::findOrFail($arsip->id_box);
         $box->update(['kapasitas' => $box->kapasitas - 1]);
         
+        
         $arsip->delete();
         @unlink(public_path('img/qr/arsip/'.$arsip->qr_arsip));
+        
+        // hapus surat
+        $surat = Surat::findOrFail($arsip->id_sp2d);
+        $surat->delete();
 
         return response()->json([
             'message' => 'Arsip : '.$arsip->surat->nomor_surat.' telah diretensi'
@@ -138,9 +144,7 @@ class ArsipController extends Controller
     public function search(Request $request)
     {
         if ($keywords = $request->keywords) {
-            $arsip = Arsip::whereHas('surat', function($query) use ($keywords) {
-                $query->where('nomor_surat', 'LIKE', "%$keywords%");
-            })->with([
+            $arsip = Arsip::with([
                 'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
                 'surat.skpd:id_skpd,kode_skpd,nama_skpd',
                 'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
@@ -148,7 +152,9 @@ class ArsipController extends Controller
                 'box.rak:id_rak,id_ruangan,kode_rak',
                 'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
                 'box.rak.ruangan.gedung:id_gedung,nama_gedung'
-            ])->get()->paginateCollection(10);
+            ])->whereHas('surat', function($query) use ($keywords) {
+                $query->where('nomor_surat', 'LIKE', "%$keywords%");
+            })->get()->paginateCollection(10);
         }
 
         return response()->json([

@@ -23,3 +23,11 @@ Vue.filter('noDash', function(text) {
 Vue.filter('cleanKodeSkpd', function(text) {
     return text.slice(0,6)
 })
+
+Vue.filter('statusUserInProfile', function(text) {
+    if (text==1) {
+        return 'Aktif'
+    } else {
+        return 'Non-Aktif'
+    }
+})

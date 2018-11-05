@@ -180,19 +180,29 @@
                 let file = event.target.files[0]
                 let reader = new FileReader()
 
-                if (file.size < 2097152) {
-                    reader.onload = (event) => {
-                        this.user.foto = reader.result
-                        this.fotoName = file.name
+                if (file.type=='image/png' || file.type=='image/jpeg') {
+                    if (file.size < 2097152) {
+                        reader.onload = (event) => {
+                            this.user.foto = reader.result
+                            this.fotoName = file.name
+                        }
+        
+                        reader.readAsDataURL(file)
+                    }else {
+                        setTimeout(() => {
+                            swal({
+                                type: 'error',
+                                title: 'Ukuran file terlalu besar',
+                                text: 'Gunakan foto dengan ukuran dibawah 2 MB (Mega Bytes)'
+                            })
+                        }, 1000)
                     }
-    
-                    reader.readAsDataURL(file)
                 }else {
                     setTimeout(() => {
                         swal({
                             type: 'error',
-                            title: 'Ukuran file terlalu besar',
-                            text: 'Gunakan foto dengan ukuran dibawah 2 MB (Mega Bytes)'
+                            title: 'Format foto tidak sesuai',
+                            text: 'Gunakan foto dengan format .jpg atau .png'
                         })
                     }, 1000)
                 }

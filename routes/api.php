@@ -58,5 +58,8 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('search-surat', 'API\SuratController@search');
     Route::get('search-arsip', 'API\ArsipController@search');
     Route::get('search-user', 'API\UserController@search');
+
+    // Profile
+    Route::put('update-profile', 'API\ProfileController@updateProfile');
     
 });
