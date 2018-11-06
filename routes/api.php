@@ -61,5 +61,16 @@ Route::group(['middleware' => 'auth:api'], function (){
 
     // Profile
     Route::put('update-profile', 'API\ProfileController@updateProfile');
+
+    // Dashboard
+    Route::get('surat-today', 'API\DashboardController@suratToday');
+    Route::get('arsip-today', 'API\DashboardController@arsipToday');
+    Route::get('total-storage', 'API\DashboardController@totalStorage');
+    Route::get('retensi-this-year', 'API\DashboardController@retensiThisYear');
+    Route::get('latest-surat', 'API\DashboardController@latestSurat');
+    Route::get('latest-arsip', 'API\DashboardController@latestArsip');
+    Route::get('latest-retensi', 'API\DashboardController@latestRetensi');
+    Route::get('detail-penyimpanan', 'API\DashboardController@detailPenyimpanan');
+    Route::get('detail-retensi', 'API\DashboardController@detailRetensi');
     
 });

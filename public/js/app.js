@@ -71145,111 +71145,82 @@ var AlertSuccess_Component = normalizeComponent(
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_master_skpd_SkpdIndex_vue__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_master_skpd_SkpdIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_master_skpd_SkpdIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_master_rak_RakIndex_vue__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_master_rak_RakIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_master_rak_RakIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_master_gedung_GedungIndex_vue__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_master_gedung_GedungIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_master_gedung_GedungIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_master_ruangan_RuanganIndex_vue__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_master_ruangan_RuanganIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_master_ruangan_RuanganIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_master_box_BoxIndex_vue__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_master_box_BoxIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_master_box_BoxIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_master_jenis_surat_JenisSuratIndex_vue__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_master_jenis_surat_JenisSuratIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_master_jenis_surat_JenisSuratIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_master_surat_SuratIndex_vue__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_master_surat_SuratIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_master_surat_SuratIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_master_arsip_ArsipIndex_vue__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_master_arsip_ArsipIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_master_arsip_ArsipIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_master_user_UserIndex_vue__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_master_user_UserIndex_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_master_user_UserIndex_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_master_user_children_ProfileUser_vue__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_master_user_children_ProfileUser_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_master_user_children_ProfileUser_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_auth_Login_vue__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_auth_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__components_auth_Login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_NotFound_vue__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_NotFound_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_NotFound_vue__);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// register routes
+// register routes dan components
 var routes = [{
 	path: '/',
-	component: __WEBPACK_IMPORTED_MODULE_12__components_auth_Login_vue___default.a,
+	component: __webpack_require__(288),
 	name: 'Login',
 	meta: { plainLayouts: true }
 }, {
 	path: '/dashboard',
-	component: __WEBPACK_IMPORTED_MODULE_1__components_Dashboard_vue___default.a,
+	component: __webpack_require__(375),
 	name: 'Dashboard',
 	meta: { requiresAuth: true }
 }, {
+	path: '/detail-penyimpanan',
+	component: __webpack_require__(378),
+	name: 'DetailPenyimpanan',
+	meta: { requiresAuth: true }
+}, {
+	path: '/detail-retensi',
+	component: __webpack_require__(381),
+	name: 'DetailRetensi',
+	meta: { requiresAuth: true }
+}, {
 	path: '/skpd',
-	component: __WEBPACK_IMPORTED_MODULE_2__components_master_skpd_SkpdIndex_vue___default.a,
+	component: __webpack_require__(205),
 	name: 'SkpdIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/gedung',
-	component: __WEBPACK_IMPORTED_MODULE_4__components_master_gedung_GedungIndex_vue___default.a,
+	component: __webpack_require__(223),
 	name: 'GedungIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/ruangan',
-	component: __WEBPACK_IMPORTED_MODULE_5__components_master_ruangan_RuanganIndex_vue___default.a,
+	component: __webpack_require__(232),
 	name: 'RuanganIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/rak',
-	component: __WEBPACK_IMPORTED_MODULE_3__components_master_rak_RakIndex_vue___default.a,
+	component: __webpack_require__(214),
 	name: 'RakIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/box',
-	component: __WEBPACK_IMPORTED_MODULE_6__components_master_box_BoxIndex_vue___default.a,
+	component: __webpack_require__(241),
 	name: 'BoxIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/jenis-surat',
-	component: __WEBPACK_IMPORTED_MODULE_7__components_master_jenis_surat_JenisSuratIndex_vue___default.a,
+	component: __webpack_require__(250),
 	name: 'JenisSuratIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/surat',
-	component: __WEBPACK_IMPORTED_MODULE_8__components_master_surat_SuratIndex_vue___default.a,
+	component: __webpack_require__(259),
 	name: 'SuratIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/arsip',
-	component: __WEBPACK_IMPORTED_MODULE_9__components_master_arsip_ArsipIndex_vue___default.a,
+	component: __webpack_require__(270),
 	name: 'ArsipIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/user',
-	component: __WEBPACK_IMPORTED_MODULE_10__components_master_user_UserIndex_vue___default.a,
+	component: __webpack_require__(276),
 	name: 'UserIndex',
 	meta: { requiresAuth: true }
 }, {
 	path: '/profil',
-	component: __WEBPACK_IMPORTED_MODULE_11__components_master_user_children_ProfileUser_vue___default.a,
+	component: __webpack_require__(285),
 	name: 'Profil',
 	meta: { requiresAuth: true }
 }, {
 	path: '*',
-	component: __WEBPACK_IMPORTED_MODULE_13__components_NotFound_vue___default.a,
+	component: __webpack_require__(36),
 	name: 'NotFound'
 }];
 
@@ -71262,690 +71233,9 @@ var routes = [{
 }));
 
 /***/ }),
-/* 202 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(203)
-/* template */
-var __vue_template__ = __webpack_require__(204)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Dashboard.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1f65406d", Component.options)
-  } else {
-    hotAPI.reload("data-v-1f65406d", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 203 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    computed: {
-        currentUser: function currentUser() {
-            return this.$store.getters.currentUser;
-        }
-    }
-});
-
-/***/ }),
-/* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content" }, [
-    _c("div", { staticClass: "jumbotron" }, [
-      _c("h1", { staticClass: "display-4" }, [
-        _vm._v("Halo, " + _vm._s(_vm.currentUser.nama) + "!")
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "lead" }, [
-        _vm._v(
-          "Ini adalah panel administrator Sistem Manajemen Arsip Surat Perintah Pencairan Dana (SIMA - SP2D)."
-        )
-      ]),
-      _vm._v(" "),
-      _c("hr", { staticClass: "my-4" })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-lg-3 col-6" }, [
-        _c(
-          "div",
-          { staticClass: "small-box bg-info" },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "small-box-footer",
-                attrs: { to: { name: "SuratIndex" } }
-              },
-              [
-                _vm._v("\n            Lihat Semua SP2D "),
-                _c("i", { staticClass: "fa fa-arrow-circle-right" })
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-3 col-6" }, [
-        _c(
-          "div",
-          { staticClass: "small-box bg-success" },
-          [
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "small-box-footer",
-                attrs: { to: { name: "ArsipIndex" }, href: "#" }
-              },
-              [
-                _vm._v("\n            Lihat Semua Arsip "),
-                _c("i", { staticClass: "fa fa-arrow-circle-right" })
-              ]
-            )
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _vm._m(4),
-      _vm._v(" "),
-      _vm._m(5)
-    ]),
-    _vm._v(" "),
-    _c("h3", [_vm._v("SP2D Terbaru")]),
-    _vm._v(" "),
-    _vm._m(6),
-    _vm._v(" "),
-    _c("h3", [_vm._v("Arsip SP2D Terbaru")]),
-    _vm._v(" "),
-    _vm._m(7),
-    _vm._v(" "),
-    _c("h3", [_vm._v("Retensi Arsip SP2D Terbaru")]),
-    _vm._v(" "),
-    _vm._m(8)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "inner" }, [
-      _c("h3", [_vm._v("150")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("SP2D masuk hari ini.")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "icon" }, [
-      _c("i", { staticClass: "fas fa-envelope" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "inner" }, [
-      _c("h3", [
-        _vm._v("53"),
-        _c("sup", { staticStyle: { "font-size": "20px" } }, [_vm._v("%")])
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v("SP2D diarsipkan hari ini.")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "icon" }, [
-      _c("i", { staticClass: "fas fa-file-archive" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-6" }, [
-      _c("div", { staticClass: "small-box bg-warning" }, [
-        _c("div", { staticClass: "inner" }, [
-          _c("h3", [_vm._v("44")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Total media penyimpanan")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "icon" }, [
-          _c("i", { staticClass: "fas fa-piggy-bank" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-          _vm._v("\n            Lihat Detail "),
-          _c("i", { staticClass: "fa fa-arrow-circle-right" })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-3 col-6" }, [
-      _c("div", { staticClass: "small-box bg-danger" }, [
-        _c("div", { staticClass: "inner" }, [
-          _c("h3", [_vm._v("65")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("Arsip SP2D retensi tahun ini.")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "icon" }, [
-          _c("i", { staticClass: "fas fa-eraser" })
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-          _vm._v("\n            Lihat Detail "),
-          _c("i", { staticClass: "fa fa-arrow-circle-right" })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("ul", { staticClass: "list-group list-group-flush" }, [
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-primary d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-primary d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-primary d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-primary d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-primary d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("ul", { staticClass: "list-group list-group-flush" }, [
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-success d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-success badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-success d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-success badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-success d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-success badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-success d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-success badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-success d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-success badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("ul", { staticClass: "list-group list-group-flush" }, [
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-danger d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-danger badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-danger d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-danger badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-danger d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-danger badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-danger d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-danger badge-pill" }, [
-                _vm._v("NEW")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "list-group-item list-group-item-danger d-flex justify-content-between align-items-center"
-            },
-            [
-              _vm._v(
-                "\n                    Cras justo odio\n                    "
-              ),
-              _c("span", { staticClass: "badge badge-danger badge-pill" }, [
-                _vm._v("2018-10-10")
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1f65406d", module.exports)
-  }
-}
-
-/***/ }),
+/* 202 */,
+/* 203 */,
+/* 204 */,
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98285,6 +97575,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         currentPath: function currentPath() {
             return this.$route.path;
+        },
+        showSearch: function showSearch() {
+            if (this.$route.path == '/dashboard' || this.$route.path == '/detail-penyimpanan' || this.$route.path == '/detail-retensi' || this.$route.path == '/profil') {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 });
@@ -98306,7 +97603,7 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _vm.currentPath != "/dashboard"
+      _vm.showSearch
         ? _c(
             "div",
             {
@@ -100625,6 +99922,1006 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(376)
+/* template */
+var __vue_template__ = __webpack_require__(377)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dashboard/Dashboard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-725796f2", Component.options)
+  } else {
+    hotAPI.reload("data-v-725796f2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 376 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            surToday: '',
+            arsToday: '',
+            storage: {},
+            totalStorage: '',
+            retThisYear: '',
+            latestSur: {},
+            latestArs: {},
+            latestRet: {}
+        };
+    },
+    created: function created() {
+        this.suratToday();
+        this.arsipToday();
+        this.countStorage();
+        this.retensiThisYear();
+        this.latestSurat();
+        this.latestArsip();
+        this.latestRetensi();
+    },
+
+
+    computed: {
+        currentUser: function currentUser() {
+            return this.$store.getters.currentUser;
+        }
+    },
+
+    methods: {
+        suratToday: function suratToday() {
+            var _this = this;
+
+            axios.get('api/surat-today').then(function (response) {
+                _this.surToday = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        arsipToday: function arsipToday() {
+            var _this2 = this;
+
+            axios.get('api/arsip-today').then(function (response) {
+                _this2.arsToday = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        countStorage: function countStorage() {
+            var _this3 = this;
+
+            axios.get('api/total-storage').then(function (response) {
+                _this3.storage = response.data.data;
+                _this3.totalStorage = response.data.data.countedGed + response.data.data.countedRua + response.data.data.countedRak + response.data.data.countedBox;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        retensiThisYear: function retensiThisYear() {
+            var _this4 = this;
+
+            axios.get('api/retensi-this-year').then(function (response) {
+                _this4.retThisYear = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        latestSurat: function latestSurat() {
+            var _this5 = this;
+
+            axios.get('api/latest-surat').then(function (response) {
+                _this5.latestSur = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        latestArsip: function latestArsip() {
+            var _this6 = this;
+
+            axios.get('api/latest-arsip').then(function (response) {
+                _this6.latestArs = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        latestRetensi: function latestRetensi() {
+            var _this7 = this;
+
+            axios.get('api/latest-retensi').then(function (response) {
+                _this7.latestRet = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "content" }, [
+    _c("div", { staticClass: "jumbotron" }, [
+      _c("h1", { staticClass: "display-4" }, [
+        _vm._v("Halo, " + _vm._s(_vm.currentUser.nama) + "!")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "lead" }, [
+        _vm._v(
+          "Ini adalah panel administrator Sistem Manajemen Arsip Surat Perintah Pencairan Dana (SIMA - SP2D)."
+        )
+      ]),
+      _vm._v(" "),
+      _c("hr", { staticClass: "my-4" })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-3" }, [
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          { staticClass: "small-box bg-info" },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.surToday))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("SP2D masuk hari ini (Sistem)")])
+            ]),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "small-box-footer",
+                attrs: { to: { name: "SuratIndex" } }
+              },
+              [
+                _vm._v("\n            Lihat Semua SP2D "),
+                _c("i", { staticClass: "fa fa-arrow-circle-right" })
+              ]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          { staticClass: "small-box bg-success" },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.arsToday))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("SP2D diarsipkan hari ini (Sistem)")])
+            ]),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "small-box-footer",
+                attrs: { to: { name: "ArsipIndex" }, href: "#" }
+              },
+              [
+                _vm._v("\n            Lihat Semua Arsip "),
+                _c("i", { staticClass: "fa fa-arrow-circle-right" })
+              ]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          { staticClass: "small-box bg-warning" },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.totalStorage))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Total media penyimpanan aktif")])
+            ]),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "small-box-footer",
+                attrs: { to: { name: "DetailPenyimpanan" } }
+              },
+              [
+                _vm._v("\n            Lihat Detail "),
+                _c("i", { staticClass: "fa fa-arrow-circle-right" })
+              ]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3 col-6" }, [
+        _c(
+          "div",
+          { staticClass: "small-box bg-danger" },
+          [
+            _c("div", { staticClass: "inner" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.retThisYear))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Arsip akan diretensi tahun ini")])
+            ]),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "small-box-footer",
+                attrs: { to: { name: "DetailRetensi" } }
+              },
+              [
+                _vm._v("\n            Lihat Detail "),
+                _c("i", { staticClass: "fa fa-arrow-circle-right" })
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h3", [_vm._v("SP2D Terbaru")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-3" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c(
+          "div",
+          { staticClass: "list-group list-group-flush" },
+          _vm._l(_vm.latestSur, function(s) {
+            return _c(
+              "a",
+              {
+                key: s.id_sp2d,
+                staticClass:
+                  "list-group-item list-group-item-primary d-flex justify-content-between align-items-center",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(s.nomor_surat) +
+                    "  |  Terbit : " +
+                    _vm._s(_vm._f("tanggalLokal")(s.tgl_terbit)) +
+                    "\n                    "
+                ),
+                _c("span", { staticClass: "badge badge-primary badge-pill" }, [
+                  _vm._v("NEW")
+                ])
+              ]
+            )
+          })
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h3", [_vm._v("Arsip SP2D Terbaru")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-3" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c(
+          "div",
+          { staticClass: "list-group list-group-flush" },
+          _vm._l(_vm.latestArs, function(a) {
+            return _c(
+              "a",
+              {
+                key: a.id_arsip,
+                staticClass:
+                  "list-group-item list-group-item-success d-flex justify-content-between align-items-center",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(a.surat.nomor_surat) +
+                    "  |  Diarsipkan : " +
+                    _vm._s(_vm._f("tanggalLokal")(a.tgl_diarsipkan)) +
+                    "\n                    "
+                ),
+                _c("span", { staticClass: "badge badge-success badge-pill" }, [
+                  _vm._v("NEW")
+                ])
+              ]
+            )
+          })
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h3", [_vm._v("Retensi Arsip SP2D Terbaru")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-3" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c(
+          "div",
+          { staticClass: "list-group list-group-flush" },
+          _vm._l(_vm.latestRet, function(r) {
+            return _c(
+              "a",
+              {
+                key: r.id_retensi,
+                staticClass:
+                  "list-group-item list-group-item-danger d-flex justify-content-between align-items-center",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(r.nomor_surat) +
+                    "  |  Dihapus di sistem : " +
+                    _vm._s(_vm._f("tanggalLokal")(r.created_at)) +
+                    "\n                    "
+                ),
+                _c("span", { staticClass: "badge badge-danger badge-pill" }, [
+                  _vm._v("NEW")
+                ])
+              ]
+            )
+          })
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-envelope" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-file-archive" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-piggy-bank" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-eraser" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-725796f2", module.exports)
+  }
+}
+
+/***/ }),
+/* 378 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(379)
+/* template */
+var __vue_template__ = __webpack_require__(380)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dashboard/DetailPenyimpanan.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1b7d7133", Component.options)
+  } else {
+    hotAPI.reload("data-v-1b7d7133", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 379 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            storage: {}
+        };
+    },
+    created: function created() {
+        this.countStorage();
+    },
+
+
+    methods: {
+        countStorage: function countStorage() {
+            var _this = this;
+
+            axios.get('api/total-storage').then(function (response) {
+                _this.storage = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Detail Penyimpanan")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("ul", { staticClass: "list-group" }, [
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Jumlah Gedung : " +
+                      _vm._s(_vm.storage.countedGed) +
+                      "\n                            "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary btn-block col-sm-4",
+                      attrs: { to: { name: "GedungIndex" }, tag: "span" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-building mr-2 float-left"
+                      }),
+                      _vm._v(" Semua Gedung\n                            ")
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Jumlah Ruangan : " +
+                      _vm._s(_vm.storage.countedRua) +
+                      "\n                            "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary btn-block col-sm-4",
+                      attrs: { to: { name: "RuanganIndex" }, tag: "span" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-door-open mr-2 float-left"
+                      }),
+                      _vm._v(" Semua Ruangan\n                            ")
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Jumlah Rak : " +
+                      _vm._s(_vm.storage.countedRak) +
+                      "\n                            "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary btn-block col-sm-4",
+                      attrs: { to: { name: "RakIndex" }, tag: "span" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-archive mr-2 float-left"
+                      }),
+                      _vm._v(" Semua Rak\n                            ")
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item d-flex justify-content-between align-items-center"
+                },
+                [
+                  _vm._v(
+                    "\n                            Jumlah Box : " +
+                      _vm._s(_vm.storage.countedBox) +
+                      "\n                            "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary btn-block col-sm-4",
+                      attrs: { to: { name: "BoxIndex" }, tag: "span" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-box-open mr-2 float-left"
+                      }),
+                      _vm._v(" Semua Box\n                            ")
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1b7d7133", module.exports)
+  }
+}
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(382)
+/* template */
+var __vue_template__ = __webpack_require__(383)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dashboard/DetailRetensi.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ac8969a6", Component.options)
+  } else {
+    hotAPI.reload("data-v-ac8969a6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            retensiArs: {}
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        axios.get('api/detail-retensi').then(function (response) {
+            _this.retensiArs = response.data.data;
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+});
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v(
+              "\n                    Arsip SP2D yang diperkirakan Retensi tahun ini\n                    "
+            ),
+            _c(
+              "div",
+              { staticClass: "card-tools" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-primary btn-sm",
+                    attrs: { to: { name: "ArsipIndex" }, tag: "button" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-file-archive mr-2" }),
+                    _vm._v(" Semua Arsip\n                    ")
+                  ]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.retensiArs, function(r) {
+                return _c(
+                  "li",
+                  { key: r.id_arsip, staticClass: "list-group-item" },
+                  [_vm._v(_vm._s(r.surat.nomor_surat))]
+                )
+              })
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ac8969a6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

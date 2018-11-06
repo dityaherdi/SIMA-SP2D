@@ -1,95 +1,94 @@
 import VueRouter from 'vue-router';
-import Dashboard from './components/Dashboard.vue';
-import SkpdIndex from './components/master/skpd/SkpdIndex.vue';
-import RakIndex from './components/master/rak/RakIndex.vue';
-import GedungIndex from './components/master/gedung/GedungIndex.vue';
-import RuanganIndex from './components/master/ruangan/RuanganIndex.vue';
-import BoxIndex from './components/master/box/BoxIndex.vue';
-import JenisSuratIndex from './components/master/jenis_surat/JenisSuratIndex.vue';
-import SuratIndex from './components/master/surat/SuratIndex.vue';
-import ArsipIndex from './components/master/arsip/ArsipIndex.vue';
-import UserIndex from './components/master/user/UserIndex.vue';
-import ProfileUser from './components/master/user/children/ProfileUser.vue';
-import Login from './components/auth/Login.vue';
-import NotFound from './components/NotFound.vue';
 
-// register routes
+// register routes dan components
 let routes = [
 	{
 		path: '/',
-		component: Login,
+		component: require('./components/auth/Login.vue'),
 		name: 'Login',
 		meta: { plainLayouts: true }
 	},
 	{
 		path: '/dashboard',
-		component: Dashboard,
+		component: require('./components/dashboard/Dashboard.vue'),
 		name: 'Dashboard',
 		meta: { requiresAuth: true }
 	},
 	{
+		path: '/detail-penyimpanan',
+		component: require('./components/dashboard/DetailPenyimpanan.vue'),
+		name: 'DetailPenyimpanan',
+		meta: { requiresAuth: true }
+	},
+	{
+		path: '/detail-retensi',
+		component: require('./components/dashboard/DetailRetensi.vue'),
+		name: 'DetailRetensi',
+		meta: { requiresAuth: true }
+	},
+	{
 		path: '/skpd',
-		component: SkpdIndex,
+		component: require('./components/master/skpd/SkpdIndex.vue'),
 		name: 'SkpdIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/gedung',
-		component: GedungIndex,
+		component: require('./components/master/gedung/GedungIndex.vue'),
 		name: 'GedungIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/ruangan',
-		component: RuanganIndex,
+		component: require('./components/master/ruangan/RuanganIndex.vue'),
 		name: 'RuanganIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/rak',
-		component: RakIndex,
+		component: require('./components/master/rak/RakIndex.vue'),
 		name: 'RakIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/box',
-		component: BoxIndex,
+		component: require('./components/master/box/BoxIndex.vue'),
 		name: 'BoxIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/jenis-surat',
-		component: JenisSuratIndex,
+		component: require('./components/master/jenis_surat/JenisSuratIndex.vue'),
 		name: 'JenisSuratIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/surat',
-		component: SuratIndex,
+		component: require('./components/master/surat/SuratIndex.vue'),
 		name: 'SuratIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/arsip',
-		component: ArsipIndex,
+		component: require('./components/master/arsip/ArsipIndex.vue'),
 		name: 'ArsipIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/user',
-		component: UserIndex,
+		component: require('./components/master/user/UserIndex.vue'),
 		name: 'UserIndex',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '/profil',
-		component: ProfileUser,
+		component: require('./components/master/user/children/ProfileUser.vue'),
 		name: 'Profil',
 		meta: { requiresAuth: true }
 	},
 	{
 		path: '*',
-		component: NotFound,
+		component: require('./components/NotFound.vue'),
 		name: 'NotFound'
 	}
 ]
