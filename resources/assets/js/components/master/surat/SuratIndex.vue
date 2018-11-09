@@ -3,11 +3,17 @@
         <not-found v-if="!isMasterOrAdmin()"></not-found>
         <template v-else>
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-3">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
             <ul class="navbar-nav">
+                <li class="nav-item mr-3 mb-3 mt-3">
+                    <div class="form-group">
+                        <select class="form-control" v-model="selectedSkpd" @change="sort('skpd', selectedSkpd)">
+                            <option :value="''"> --- Semua SKPD --- </option>
+                            <option v-for="s in skpd" :key="s.id_skpd" :value="s.id_skpd"> 
+                                {{ s.nama_skpd }}
+                            </option>
+                        </select>
+                    </div>
+                </li>
                 <li class="nav-item mr-3 mb-3 mt-3">
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary dropdown-toggle"
@@ -17,28 +23,31 @@
                             Info Warna
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="javascript:void(0)" @click="sort('jenis', 'UP')">
                                 <span class="badge badge-primary mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> UP - Uang Persediaan
                             </a>
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="javascript:void(0)" @click="sort('jenis', 'GU')">
                                 <span class="badge badge-success mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> GU - Ganti Uang
                             </a>
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="javascript:void(0)" @click="sort('jenis', 'TU')">
                                 <span class="badge badge-danger mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> TU - Tambah Uang
                             </a>
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            <a class="dropdown-item" href="javascript:void(0)" @click="sort('jenis', 'LS')">
                                 <span class="badge badge-warning mr-2">
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> LS - Lumpsump
                             </a>
+                            <a class="dropdown-item" href="javascript:void(0)" @click="sort('', '')">
+                                Semua Jenis SP2D
+                            </a>
                         </div>
-                        </div>
+                    </div>
                 </li>
                 <li class="nav-item mr-3 mb-3 mt-3">
                     <button type="button" class="btn btn-success" @click="showCreatingModal()">
@@ -47,9 +56,7 @@
                     </button>
                 </li>
             </ul>
-            </div>
         </nav>
-        
         <div class="content" v-if="surat.length==0">
             <div class="alert alert-danger col-12" role="alert">
                 <h5><i class="icon fa fa-ban"></i> Data tidak ditemukan!</h5>
@@ -70,7 +77,7 @@
         </div>
 
         <div class="row" v-if="surat.length!=0">
-            <div class="col-md-3 col-sm-6 col-12" v-for="(sur,index) in surat" :key="sur.id_sp2d">
+            <div class="col-md-3 col-sm-6 col-12" v-for="(sur,index) in sortedSurat(surat)" :key="sur.id_sp2d">
                 <div class="info-box"
                     :class="bgColor(sur.jenis.kode_jenis_sp2d)">
                 
@@ -119,11 +126,17 @@
     export default {
         data() {
             return {
+                skpd:{},
                 surat: {},
                 next: null,
                 loadable: true,
                 searching: false,
-                suratKeyword: null
+                suratKeyword: null,
+                sorting: {
+                    key: '',
+                    val: ''
+                },
+                selectedSkpd: ''
             }
         },
 
@@ -151,6 +164,13 @@
                 this.loadable = true
                 this.loadMoreSurat()
             })
+
+            if (this.isMasterOrAdmin()) {
+                this.getSkpd()
+                .then((skpd) => {
+                    this.skpd = skpd
+                })
+            }
 
         },
 
@@ -259,6 +279,25 @@
                         this.searching = true
                         this.next = surat.next_page_url
                     })
+                }
+            },
+
+            sort(key, val) {
+                this.sorting.key = key
+                this.sorting.val = val
+            },
+
+            sortedSurat(surat) {
+                if (this.sorting.key=='' && this.sorting.val=='') {
+                    return surat
+                }else if (this.sorting.key == 'jenis') {
+                    return _.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } })
+                }else if (this.sorting.key == 'skpd') {
+                    if (this.sorting.val == '') {
+                        return surat
+                    }else {
+                        return _.pickBy(surat, { id_skpd: this.sorting.val })
+                    }
                 }
             }
         }

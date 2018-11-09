@@ -1,7 +1,6 @@
 <template>
     <div>
         <not-found v-if="!this.isMasterOrAdmin()"></not-found>
-
         <div class="content" v-if="arsip.length==0">
             <div class="alert alert-danger col-12" role="alert">
                 <h5><i class="icon fa fa-ban"></i> Data tidak ditemukan!</h5>
@@ -22,8 +21,22 @@
         </div>
 
         <template v-if="arsip.length!=0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light rounded mb-3">
+            <ul class="navbar-nav">
+                <li class="nav-item mr-3 mb-3 mt-3">
+                    <div class="form-group">
+                        <select class="form-control" v-model="selectedSkpd" @change="sort('skpd', selectedSkpd)">
+                            <option :value="''"> --- Semua SKPD --- </option>
+                            <option v-for="s in skpd" :key="s.id_skpd" :value="s.id_skpd"> 
+                                {{ s.nama_skpd }}
+                            </option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </nav>
         <ul class="list-group mt-3">
-            <li class="list-group-item list-group-item-action" v-for="(ars,index) in arsip" :key="ars.id_arsip">
+            <li class="list-group-item list-group-item-action" v-for="(ars,index) in sortedArsip(arsip)" :key="ars.id_arsip">
                 <span class="mr-3">{{ ++index }}</span>
                 <span :class="bgColor(ars.surat.jenis.kode_jenis_sp2d)" class="mr-2">
                     <i class="fas fa-file-archive"></i>
@@ -51,11 +64,17 @@
         
         data() {
             return {
+                skpd:{},
                 arsip: {},
                 next: null,
                 loadable: true,
                 searching: false,
-                arsipKeyword: null
+                arsipKeyword: null,
+                sorting: {
+                    key: '',
+                    val: ''
+                },
+                selectedSkpd: ''
             }
         },
 
@@ -69,6 +88,13 @@
             Signal.$on('load_arsip', () => {
                 this.loadArsip()
             })
+
+            if (this.isMasterOrAdmin()) {
+                this.getSkpd()
+                .then((skpd) => {
+                    this.skpd = skpd
+                })
+            }
         },
 
         mounted() {
@@ -173,6 +199,23 @@
                         this.searching = true
                         this.next = arsip.next_page_url
                     })
+                }
+            },
+
+            sort(key, val) {
+                this.sorting.key = key
+                this.sorting.val = val
+            },
+
+            sortedArsip(arsip) {
+                if (this.sorting.key=='' && this.sorting.val=='') {
+                    return arsip
+                }else if (this.sorting.key == 'skpd') {
+                    if (this.sorting.val == '') {
+                        return arsip
+                    }else {
+                        return _.pickBy(arsip, { surat: { skpd: { id_skpd: this.sorting.val }}})
+                    }
                 }
             }
         }

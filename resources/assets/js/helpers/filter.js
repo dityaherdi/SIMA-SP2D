@@ -4,6 +4,8 @@ window.moment = moment
 const currentYear = moment().format('YYYY');
 window.currentYear = currentYear;
 
+Vue.prototype.$filters = Vue.options.filters
+
 Vue.filter('tanggalLokal', function(text) {
     return moment(text).locale('id').format('LL');
 })

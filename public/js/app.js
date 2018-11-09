@@ -81599,15 +81599,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            skpd: {},
             surat: {},
             next: null,
             loadable: true,
             searching: false,
-            suratKeyword: null
+            suratKeyword: null,
+            sorting: {
+                key: '',
+                val: ''
+            },
+            selectedSkpd: ''
         };
     },
     mounted: function mounted() {
@@ -81631,6 +81644,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.loadable = true;
             _this.loadMoreSurat();
         });
+
+        if (this.isMasterOrAdmin()) {
+            this.getSkpd().then(function (skpd) {
+                _this.skpd = skpd;
+            });
+        }
     },
 
 
@@ -81730,6 +81749,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this4.searching = true;
                     _this4.next = surat.next_page_url;
                 });
+            }
+        },
+        sort: function sort(key, val) {
+            this.sorting.key = key;
+            this.sorting.val = val;
+        },
+        sortedSurat: function sortedSurat(surat) {
+            if (this.sorting.key == '' && this.sorting.val == '') {
+                return surat;
+            } else if (this.sorting.key == 'jenis') {
+                return _.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } });
+            } else if (this.sorting.key == 'skpd') {
+                if (this.sorting.val == '') {
+                    return surat;
+                } else {
+                    return _.pickBy(surat, { id_skpd: this.sorting.val });
+                }
             }
         }
     }
@@ -83912,169 +83948,221 @@ var render = function() {
                   "navbar navbar-expand-lg navbar-light bg-light rounded mb-3"
               },
               [
-                _c(
-                  "button",
-                  {
-                    staticClass: "navbar-toggler",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "collapse",
-                      "data-target": "#navbarsExample10",
-                      "aria-controls": "navbarsExample10",
-                      "aria-expanded": "false",
-                      "aria-label": "Toggle navigation"
-                    }
-                  },
-                  [_c("span", { staticClass: "navbar-toggler-icon" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "collapse navbar-collapse justify-content-md-center",
-                    attrs: { id: "navbarsExample10" }
-                  },
-                  [
-                    _c("ul", { staticClass: "navbar-nav" }, [
-                      _c("li", { staticClass: "nav-item mr-3 mb-3 mt-3" }, [
-                        _c("div", { staticClass: "btn-group" }, [
-                          _c(
-                            "button",
+                _c("ul", { staticClass: "navbar-nav" }, [
+                  _c("li", { staticClass: "nav-item mr-3 mb-3 mt-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
                             {
-                              staticClass: "btn btn-secondary dropdown-toggle",
-                              attrs: {
-                                type: "button",
-                                "data-toggle": "dropdown",
-                                "aria-haspopup": "true",
-                                "aria-expanded": "false"
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedSkpd,
+                              expression: "selectedSkpd"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.selectedSkpd = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              function($event) {
+                                _vm.sort("skpd", _vm.selectedSkpd)
                               }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-info-circle mr-2"
-                              }),
-                              _vm._v(
-                                "\n                        Info Warna\n                    "
-                              )
                             ]
-                          ),
+                          }
+                        },
+                        [
+                          _c("option", { domProps: { value: "" } }, [
+                            _vm._v(" --- Semua SKPD --- ")
+                          ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "dropdown-menu" }, [
-                            _c(
-                              "a",
+                          _vm._l(_vm.skpd, function(s) {
+                            return _c(
+                              "option",
                               {
-                                staticClass: "dropdown-item",
-                                attrs: { href: "javascript:void(0)" }
+                                key: s.id_skpd,
+                                domProps: { value: s.id_skpd }
                               },
                               [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge badge-primary mr-2" },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-envelope-open"
-                                    })
-                                  ]
-                                ),
                                 _vm._v(
-                                  " UP - Uang Persediaan\n                        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "dropdown-item",
-                                attrs: { href: "javascript:void(0)" }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge badge-success mr-2" },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-envelope-open"
-                                    })
-                                  ]
-                                ),
-                                _vm._v(
-                                  " GU - Ganti Uang\n                        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "dropdown-item",
-                                attrs: { href: "javascript:void(0)" }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge badge-danger mr-2" },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-envelope-open"
-                                    })
-                                  ]
-                                ),
-                                _vm._v(
-                                  " TU - Tambah Uang\n                        "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "dropdown-item",
-                                attrs: { href: "javascript:void(0)" }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge badge-warning mr-2" },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-envelope-open"
-                                    })
-                                  ]
-                                ),
-                                _vm._v(
-                                  " LS - Lumpsump\n                        "
+                                  " \n                            " +
+                                    _vm._s(s.nama_skpd) +
+                                    "\n                        "
                                 )
                               ]
                             )
-                          ])
-                        ])
-                      ]),
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "nav-item mr-3 mb-3 mt-3" }, [
+                    _c("div", { staticClass: "btn-group" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary dropdown-toggle",
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-info-circle mr-2" }),
+                          _vm._v(
+                            "\n                        Info Warna\n                    "
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
-                      _c("li", { staticClass: "nav-item mr-3 mb-3 mt-3" }, [
+                      _c("div", { staticClass: "dropdown-menu" }, [
                         _c(
-                          "button",
+                          "a",
                           {
-                            staticClass: "btn btn-success",
-                            attrs: { type: "button" },
+                            staticClass: "dropdown-item",
+                            attrs: { href: "javascript:void(0)" },
                             on: {
                               click: function($event) {
-                                _vm.showCreatingModal()
+                                _vm.sort("jenis", "UP")
                               }
                             }
                           },
                           [
-                            _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-primary mr-2" },
+                              [_c("i", { staticClass: "fas fa-envelope-open" })]
+                            ),
                             _vm._v(
-                              "\n                    Tambah Data SP2D\n                "
+                              " UP - Uang Persediaan\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "javascript:void(0)" },
+                            on: {
+                              click: function($event) {
+                                _vm.sort("jenis", "GU")
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-success mr-2" },
+                              [_c("i", { staticClass: "fas fa-envelope-open" })]
+                            ),
+                            _vm._v(" GU - Ganti Uang\n                        ")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "javascript:void(0)" },
+                            on: {
+                              click: function($event) {
+                                _vm.sort("jenis", "TU")
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-danger mr-2" },
+                              [_c("i", { staticClass: "fas fa-envelope-open" })]
+                            ),
+                            _vm._v(
+                              " TU - Tambah Uang\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "javascript:void(0)" },
+                            on: {
+                              click: function($event) {
+                                _vm.sort("jenis", "LS")
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "badge badge-warning mr-2" },
+                              [_c("i", { staticClass: "fas fa-envelope-open" })]
+                            ),
+                            _vm._v(" LS - Lumpsump\n                        ")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "javascript:void(0)" },
+                            on: {
+                              click: function($event) {
+                                _vm.sort("", "")
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Semua Jenis SP2D\n                        "
                             )
                           ]
                         )
                       ])
                     ])
-                  ]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "nav-item mr-3 mb-3 mt-3" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.showCreatingModal()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                        _vm._v(
+                          "\n                    Tambah Data SP2D\n                "
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ]
             ),
             _vm._v(" "),
@@ -84152,7 +84240,7 @@ var render = function() {
               ? _c(
                   "div",
                   { staticClass: "row" },
-                  _vm._l(_vm.surat, function(sur, index) {
+                  _vm._l(_vm.sortedSurat(_vm.surat), function(sur, index) {
                     return _c(
                       "div",
                       {
@@ -84409,15 +84497,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            skpd: {},
             arsip: {},
             next: null,
             loadable: true,
             searching: false,
-            arsipKeyword: null
+            arsipKeyword: null,
+            sorting: {
+                key: '',
+                val: ''
+            },
+            selectedSkpd: ''
         };
     },
     created: function created() {
@@ -84430,6 +84537,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Signal.$on('load_arsip', function () {
             _this.loadArsip();
         });
+
+        if (this.isMasterOrAdmin()) {
+            this.getSkpd().then(function (skpd) {
+                _this.skpd = skpd;
+            });
+        }
     },
     mounted: function mounted() {
         if (this.loadable == true) {
@@ -84527,6 +84640,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this4.searching = true;
                     _this4.next = arsip.next_page_url;
                 });
+            }
+        },
+        sort: function sort(key, val) {
+            this.sorting.key = key;
+            this.sorting.val = val;
+        },
+        sortedArsip: function sortedArsip(arsip) {
+            if (this.sorting.key == '' && this.sorting.val == '') {
+                return arsip;
+            } else if (this.sorting.key == 'skpd') {
+                if (this.sorting.val == '') {
+                    return arsip;
+                } else {
+                    return _.pickBy(arsip, { surat: { skpd: { id_skpd: this.sorting.val } } });
+                }
             }
         }
     }
@@ -85176,9 +85304,82 @@ var render = function() {
       _vm.arsip.length != 0
         ? [
             _c(
+              "nav",
+              {
+                staticClass:
+                  "navbar navbar-expand-lg navbar-light bg-light rounded mb-3"
+              },
+              [
+                _c("ul", { staticClass: "navbar-nav" }, [
+                  _c("li", { staticClass: "nav-item mr-3 mb-3 mt-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedSkpd,
+                              expression: "selectedSkpd"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.selectedSkpd = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              function($event) {
+                                _vm.sort("skpd", _vm.selectedSkpd)
+                              }
+                            ]
+                          }
+                        },
+                        [
+                          _c("option", { domProps: { value: "" } }, [
+                            _vm._v(" --- Semua SKPD --- ")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.skpd, function(s) {
+                            return _c(
+                              "option",
+                              {
+                                key: s.id_skpd,
+                                domProps: { value: s.id_skpd }
+                              },
+                              [
+                                _vm._v(
+                                  " \n                            " +
+                                    _vm._s(s.nama_skpd) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
               "ul",
               { staticClass: "list-group mt-3" },
-              _vm._l(_vm.arsip, function(ars, index) {
+              _vm._l(_vm.sortedArsip(_vm.arsip), function(ars, index) {
                 return _c(
                   "li",
                   {
@@ -89155,6 +89356,8 @@ var index_esm = {
 window.moment = __WEBPACK_IMPORTED_MODULE_1_moment___default.a;
 var currentYear = __WEBPACK_IMPORTED_MODULE_1_moment___default()().format('YYYY');
 window.currentYear = currentYear;
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$filters = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.options.filters;
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('tanggalLokal', function (text) {
     return __WEBPACK_IMPORTED_MODULE_1_moment___default()(text).locale('id').format('LL');
@@ -99123,7 +99326,7 @@ exports = module.exports = __webpack_require__(37)(false);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n\t-webkit-transition-duration: 0.3s;\n\t        transition-duration: 0.3s;\n\t-webkit-transition-property: opacity;\n\ttransition-property: opacity;\n\t-webkit-transition-timing-function: ease;\n\t        transition-timing-function: ease;\n}\n.fade-enter[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n\topacity: 0\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n\t-webkit-transition-duration: 0.5s;\n\t        transition-duration: 0.5s;\n\t-webkit-transition-property: opacity;\n\ttransition-property: opacity;\n\t-webkit-transition-timing-function: ease;\n\t        transition-timing-function: ease;\n}\n.fade-enter[data-v-8142f38c],\n.fade-leave-active[data-v-8142f38c] {\n\topacity: 0\n}\n", ""]);
 
 // exports
 
