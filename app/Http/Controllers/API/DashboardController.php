@@ -97,9 +97,33 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function detailPenyimpanan()
+    public function detailSurat()
     {
-        //
+        $surat = Surat::latest()->with([
+            'skpd:id_skpd,kode_skpd,nama_skpd',
+            'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
+        ])->where(['arsip' => 0])->get()->paginateCollection(20);
+
+        return response()->json([
+            'data' => $surat
+        ]);
+    }
+
+    public function detailArsip()
+    {
+        $arsip = Arsip::latest()->with([
+            'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
+            'surat.skpd:id_skpd,kode_skpd,nama_skpd',
+            'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
+            'box:id_box,id_rak,kode_box',
+            'box.rak:id_rak,id_ruangan,kode_rak',
+            'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'box.rak.ruangan.gedung:id_gedung,nama_gedung'
+        ])->get()->paginateCollection(10);
+
+        return response()->json([
+            'data' => $arsip
+        ]);
     }
 
     public function detailRetensi()

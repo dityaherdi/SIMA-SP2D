@@ -70,8 +70,9 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('latest-surat', 'API\DashboardController@latestSurat');
     Route::get('latest-arsip', 'API\DashboardController@latestArsip');
     Route::get('latest-retensi', 'API\DashboardController@latestRetensi');
-    Route::get('detail-penyimpanan', 'API\DashboardController@detailPenyimpanan');
     Route::get('detail-retensi', 'API\DashboardController@detailRetensi');
+    Route::get('detail-surat', 'API\DashboardController@detailSurat');
+    Route::get('detail-arsip', 'API\DashboardController@detailArsip');
 
     // Filter
     Route::get('ruangan-in-gedung/{id}', 'API\RuanganController@ruanganInGedung');

@@ -18,8 +18,11 @@
             <div class="icon">
                 <i class="fas fa-envelope"></i>
             </div>
-            <router-link :to="{ name: 'SuratIndex' }" class="small-box-footer">
+            <router-link :to="{ name: 'SuratIndex' }" class="small-box-footer" v-if="this.isMasterOrAdmin()">
                 Lihat Semua SP2D <i class="fa fa-arrow-circle-right"></i>
+            </router-link>
+            <router-link :to="{ name: 'DetailSurat' }" href="#" class="small-box-footer" v-if="this.isPimpinan()">
+                Lihat Semua Arsip <i class="fa fa-arrow-circle-right"></i>
             </router-link>
             </div>
         </div>
@@ -35,7 +38,10 @@
             <div class="icon">
                 <i class="fas fa-file-archive"></i>
             </div>
-            <router-link :to="{ name: 'ArsipIndex' }" href="#" class="small-box-footer">
+            <router-link :to="{ name: 'ArsipIndex' }" href="#" class="small-box-footer" v-if="this.isMasterOrAdmin()">
+                Lihat Semua Arsip <i class="fa fa-arrow-circle-right"></i>
+            </router-link>
+            <router-link :to="{ name: 'DetailArsip' }" href="#" class="small-box-footer" v-if="this.isPimpinan()">
                 Lihat Semua Arsip <i class="fa fa-arrow-circle-right"></i>
             </router-link>
             </div>

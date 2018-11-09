@@ -71159,6 +71159,16 @@ var routes = [{
 	name: 'Dashboard',
 	meta: { requiresAuth: true }
 }, {
+	path: '/detail-surat',
+	component: __webpack_require__(381),
+	name: 'DetailSurat',
+	meta: { requiresAuth: true }
+}, {
+	path: '/detail-arsip',
+	component: __webpack_require__(384),
+	name: 'DetailArsip',
+	meta: { requiresAuth: true }
+}, {
 	path: '/detail-penyimpanan',
 	component: __webpack_require__(208),
 	name: 'DetailPenyimpanan',
@@ -71693,6 +71703,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71829,17 +71845,33 @@ var render = function() {
             _vm._v(" "),
             _vm._m(0),
             _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "small-box-footer",
-                attrs: { to: { name: "SuratIndex" } }
-              },
-              [
-                _vm._v("\n            Lihat Semua SP2D "),
-                _c("i", { staticClass: "fa fa-arrow-circle-right" })
-              ]
-            )
+            this.isMasterOrAdmin()
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "small-box-footer",
+                    attrs: { to: { name: "SuratIndex" } }
+                  },
+                  [
+                    _vm._v("\n            Lihat Semua SP2D "),
+                    _c("i", { staticClass: "fa fa-arrow-circle-right" })
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            this.isPimpinan()
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "small-box-footer",
+                    attrs: { to: { name: "DetailSurat" }, href: "#" }
+                  },
+                  [
+                    _vm._v("\n            Lihat Semua Arsip "),
+                    _c("i", { staticClass: "fa fa-arrow-circle-right" })
+                  ]
+                )
+              : _vm._e()
           ],
           1
         )
@@ -71858,17 +71890,33 @@ var render = function() {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "small-box-footer",
-                attrs: { to: { name: "ArsipIndex" }, href: "#" }
-              },
-              [
-                _vm._v("\n            Lihat Semua Arsip "),
-                _c("i", { staticClass: "fa fa-arrow-circle-right" })
-              ]
-            )
+            this.isMasterOrAdmin()
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "small-box-footer",
+                    attrs: { to: { name: "ArsipIndex" }, href: "#" }
+                  },
+                  [
+                    _vm._v("\n            Lihat Semua Arsip "),
+                    _c("i", { staticClass: "fa fa-arrow-circle-right" })
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            this.isPimpinan()
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "small-box-footer",
+                    attrs: { to: { name: "DetailArsip" }, href: "#" }
+                  },
+                  [
+                    _vm._v("\n            Lihat Semua Arsip "),
+                    _c("i", { staticClass: "fa fa-arrow-circle-right" })
+                  ]
+                )
+              : _vm._e()
           ],
           1
         )
@@ -101883,6 +101931,291 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(382)
+/* template */
+var __vue_template__ = __webpack_require__(383)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dashboard/DetailSurat.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-07988c90", Component.options)
+  } else {
+    hotAPI.reload("data-v-07988c90", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            surat: {}
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        axios.get('api/detail-surat').then(function (response) {
+            _this.surat = response.data.data.data;
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+});
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("\n                    List SP2D terbaru\n                ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.surat, function(sur) {
+                return _c(
+                  "li",
+                  { key: sur.id_surat, staticClass: "list-group-item" },
+                  [_vm._v(_vm._s(sur.nomor_surat))]
+                )
+              })
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-07988c90", module.exports)
+  }
+}
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(385)
+/* template */
+var __vue_template__ = __webpack_require__(386)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/dashboard/DetailArsip.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b50c4bd4", Component.options)
+  } else {
+    hotAPI.reload("data-v-b50c4bd4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 385 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            arsip: {}
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        axios.get('api/detail-arsip').then(function (response) {
+            _this.arsip = response.data.data.data;
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+});
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v(
+              "\n                    List Arsip SP2D terbaru\n                "
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.arsip, function(ars) {
+                return _c(
+                  "li",
+                  { key: ars.id_arsip, staticClass: "list-group-item" },
+                  [_vm._v(_vm._s(ars.surat.nomor_surat))]
+                )
+              })
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b50c4bd4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

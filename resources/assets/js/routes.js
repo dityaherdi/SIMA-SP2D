@@ -12,6 +12,18 @@ let routes = [
 		path: '/dashboard',
 		component: require('./components/dashboard/Dashboard.vue'),
 		name: 'Dashboard',
+		meta: { requiresAuth: true },
+	},
+	{
+		path: '/detail-surat',
+		component: require('./components/dashboard/DetailSurat.vue'),
+		name: 'DetailSurat',
+		meta: { requiresAuth: true }
+	},
+	{
+		path: '/detail-arsip',
+		component: require('./components/dashboard/DetailArsip.vue'),
+		name: 'DetailArsip',
 		meta: { requiresAuth: true }
 	},
 	{
