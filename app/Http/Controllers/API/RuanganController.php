@@ -101,4 +101,15 @@ class RuanganController extends Controller
             'data' => $ruangan
         ]);
     }
+
+    public function ruanganInGedung($id)
+    {
+        $ruangan = Ruangan::where('id_gedung', $id)->with('gedung:id_gedung,nama_gedung')
+                            ->orderBy('kode_ruangan', 'ASC')
+                            ->get()->paginateCollection(2);
+
+        return response()->json([
+            'data' => $ruangan
+        ]);
+    }
 }

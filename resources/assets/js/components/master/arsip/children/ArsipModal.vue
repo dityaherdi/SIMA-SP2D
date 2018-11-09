@@ -31,6 +31,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Ruangan</label>
+                                    <span id="ruaEmptyForArs" class="red"></span>
                                     <select class="form-control" @change="selectRak" v-model="lokasi.ruangan"
                                     :disabled="lokasi.gedung == '' ? true : false">
                                         <option disabled value=""> --- Pilih Ruangan --- </option>
@@ -47,6 +48,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Rak</label>
+                                    <span id="rakEmptyForArs" class="red"></span>
                                     <select class="form-control" @change="selectBox" v-model="lokasi.rak"
                                     :disabled="lokasi.ruangan == '' ? true : false">
                                         <option disabled value=""> --- Pilih Rak --- </option>
@@ -61,6 +63,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Box</label>
+                                    <span id="boxEmptyForArs" class="red"></span>
                                     <select class="form-control" v-model="arsip.id_box"
                                         :class="{ 'is-invalid': arsip.errors.has('id_box') }"
                                         :disabled="lokasi.rak=='' ? true : false">
@@ -223,7 +226,13 @@
                 if (this.isMasterOrAdmin()) {
                     this.getRuangan(this.lokasi.gedung)
                     .then((ruangan) => {
-                        this.ruangan = ruangan
+                        if (ruangan.length==0) {
+                            $('#ruaEmptyForArs').text(' : Tidak ada ruangan')
+                            this.ruangan = {}
+                        } else {
+                            $('#ruaEmptyForArs').text('')
+                            this.ruangan = ruangan
+                        }
                     })
                 }
             },
@@ -232,7 +241,13 @@
                 if (this.isMasterOrAdmin()) {
                     this.getRak(this.lokasi.ruangan)
                     .then((rak) => {
-                        this.rak = rak
+                        if (rak.length==0) {
+                            $('#rakEmptyForArs').text(' : Tidak ada rak')
+                            this.rak = {}
+                        } else {
+                            $('#rakEmptyForArs').text('')
+                            this.rak = rak
+                        }
                     })
                 }
             },
@@ -241,7 +256,13 @@
                 if (this.isMasterOrAdmin()) {
                     this.getBox(this.lokasi.rak)
                     .then((box) => {
-                        this.box = box
+                        if (box.length==0) {
+                            $('#boxEmptyForArs').text(' : Tidak ada box')
+                            this.box = {}
+                        } else {
+                            $('#boxEmptyForArs').text('')
+                            this.box = box
+                        }
                     })
                 }
             },

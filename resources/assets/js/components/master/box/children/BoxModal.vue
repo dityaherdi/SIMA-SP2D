@@ -29,7 +29,8 @@
                         </div>
                         <div class="col-md-4 ml-auto">
                             <div class="form-group">
-                            <label>Ruangan Penyimpanan</label>
+                            <label>Ruangan</label>
+                            <span id="ruaEmptyForBox" class="red"></span>
                                 <select class="form-control" @change="selectRak" v-model="lokasi.ruangan"
                                     :disabled="this.lokasi.gedung=='' ? true : false">
                                     <option disabled value=""> --- Pilih Ruangan --- </option>
@@ -44,6 +45,7 @@
                         <div class="col-md-4 ml-auto">
                             <div class="form-group">
                             <label>Rak Arsip</label>
+                            <span id="rakEmptyForBox" class="red"></span>
                                 <select class="form-control" v-model="box.id_rak"
                                     :class="{ 'is-invalid': box.errors.has('id_rak') }"
                                     :disabled="this.lokasi.ruangan=='' ? true : false">
@@ -154,7 +156,13 @@
                 if (this.isMasterOrAdmin()) {
                     this.getRuangan(this.lokasi.gedung)
                     .then((ruangan) => {
-                        this.ruangan = ruangan
+                        if (ruangan.length==0) {
+                            $('#ruaEmptyForBox').text(' : Tidak ada ruangan')
+                            this.ruangan = {}
+                        } else {
+                            $('#ruaEmptyForBox').text('')
+                            this.ruangan = ruangan
+                        }
                     })
                 }
             },
@@ -163,7 +171,13 @@
                 if (this.isMasterOrAdmin()) {
                     this.getRak(this.lokasi.ruangan)
                     .then((rak) => {
-                        this.rak = rak
+                        if (rak.length==0) {
+                            $('#rakEmptyForBox').text(' : Tidak ada rak')
+                            this.rak = {}
+                        } else {
+                            $('#rakEmptyForBox').text('')
+                            this.rak = rak
+                        }
                     })
                 }
             },

@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="rakModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle" v-if="!editing">Tambah Data Rak</h5>
@@ -29,7 +29,8 @@
                         </div>
                         <div class="col-sm-6 ml-auto">
                             <div class="form-group">
-                            <label>Ruangan Penyimpanan</label>
+                            <label>Ruangan</label>
+                            <span id="ruaEmptyForRak" class="red"></span>
                                 <select class="form-control" v-model="rak.id_ruangan"
                                     :class="{ 'is-invalid': rak.errors.has('id_ruangan') }"
                                     :disabled="this.lokasi.gedung=='' ? true : false">
@@ -134,7 +135,13 @@
                 if (this.isMasterOrAdmin()) {
                     this.getRuangan(this.lokasi.gedung)
                     .then((ruangan) => {
-                        this.ruangan = ruangan
+                        if (ruangan.length==0) {
+                            $('#ruaEmptyForRak').text(' : Tidak ada ruangan')
+                            this.ruangan = {}
+                        } else {
+                            $('#ruaEmptyForRak').text('')
+                            this.ruangan = ruangan
+                        }
                     })
                 }
             },

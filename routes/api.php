@@ -72,5 +72,13 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('latest-retensi', 'API\DashboardController@latestRetensi');
     Route::get('detail-penyimpanan', 'API\DashboardController@detailPenyimpanan');
     Route::get('detail-retensi', 'API\DashboardController@detailRetensi');
+
+    // Filter
+    Route::get('ruangan-in-gedung/{id}', 'API\RuanganController@ruanganInGedung');
+    Route::get('rak-in-ruangan/{id}', 'API\RakController@rakInRuangan');
+    Route::get('rak-in-gedung/{id}', 'API\RakController@rakInGedung');
+    Route::get('box-in-gedung/{id}', 'API\BoxController@boxInGedung');
+    Route::get('box-in-ruangan/{id}', 'API\BoxController@boxInRuangan');
+    Route::get('box-in-rak/{id}', 'API\BoxController@boxInRak');
     
 });

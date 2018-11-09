@@ -3,7 +3,7 @@
         <not-found v-if="!this.isMasterOrAdmin()"></not-found>
         <template v-else>
         <div class="row">
-        <div class="col-12">
+        <div class="col-8">
             <div class="card card-danger card-outline">
             <div class="card-header">
                 <h3 class="card-title">Rak Arsip</h3>
@@ -67,6 +67,35 @@
             </div>
             </div>
         </div>
+        <div class="col-4">
+            <div class="card card-danger card-outline">
+                <div class="card-header">
+                    Seleksi Penyimpanan
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control" @change="selectRuangan" v-model="filters.selectedGed">
+                            <option value=""> --- Semua Gedung --- </option>
+                            <option v-for="ged in gedung" :key="ged.id_gedung" :value="ged.id_gedung">
+                                {{ ged.nama_gedung }}
+                            </option>
+                        </select>
+                    </div> 
+                    <div class="form-group">
+                        <span id="rakEmptyInRua" class="red"></span>
+                        <select class="form-control" v-model="filters.selectedRua" @change="getRakInRuangan"
+                            :disabled="this.filters.selectedGed=='' ? true : false">
+                            <option value=""> --- Semua Ruangan --- </option>
+                            <option v-for="rua in ruangan"
+                                :key="rua.id_ruangan"
+                                :value="rua.id_ruangan">
+                                {{ rua.kode_ruangan }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
         <modal-rak></modal-rak>
         <detail-rak></detail-rak>
@@ -78,6 +107,12 @@
     export default {
         data() {
             return {
+                gedung: {},
+                ruangan: {},
+                filters: {
+                    selectedGed: '',
+                    selectedRua: ''
+                },
                 rak: {},
                 searching: false,
                 rakKeyword: null
@@ -94,6 +129,13 @@
             Signal.$on('load_rak', () => {
                 this.loadRak();
             })
+
+            if (this.isMasterOrAdmin()) {
+                this.getGedung()
+                .then((gedung) => {
+                    this.gedung = gedung
+                })  
+            }
         },
 
         computed: {
@@ -131,6 +173,8 @@
                         this.rak = rak
                         this.searching = false
                         this.rakKeyword = null
+                        this.filters.selectedGed = ''
+                        this.filters.selectedRua = ''
                         Signal.$emit('clear_keywords')
                     })
                 }
@@ -149,7 +193,17 @@
                         .then((response) => {
                             this.rak = response.data.data
                         })
-                    }else {
+                    } if (this.filters.selectedRua!='') {
+                        axios.get('api/rak-in-ruangan/'+this.selectedRua+'?page='+page)
+                        .then((response) => {
+                            this.rak = response.data.data
+                        })
+                    } if (this.filters.selectedGed!='') {
+                        axios.get('api/rak-in-gedung/'+this.selectedGed+'?page='+page)
+                        .then((response) => {
+                            this.rak = response.data.data
+                        })
+                    } else {
                         axios.get('api/rak?page='+page)
                         .then((response) => {
                             this.rak = response.data.data
@@ -159,12 +213,54 @@
             },
 
             searchRak(keywords) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.searchData('api/search-rak?keywords='+keywords)
                     .then((rak) => {
                         this.rak = rak
                         this.searching = true
                     })
+                }
+            },
+
+            selectRuangan() {
+                this.getRakInGedung()
+                $('#rakEmptyInRua').text('')
+                if (this.isMasterOrAdmin()) {
+                    this.getRuangan(this.filters.selectedGed)
+                    .then((ruangan) => {
+                        if (ruangan.length==0) {
+                            $('#rakEmptyInRua').text('Tidak ada ruangan')
+                            this.ruangan = {}
+                        } else {
+                            this.ruangan = ruangan
+                        }
+                    })
+                }
+            },
+
+            getRakInRuangan() {
+                if (this.isMasterOrAdmin()) {
+                    if (this.filters.selectedGed=='' || this.filters.selectedRua=='') {
+                        this.loadRak()
+                    } else {
+                        axios.get('api/rak-in-ruangan/'+this.filters.selectedRua)
+                        .then((rak) => {
+                            this.rak = rak.data.data
+                        })
+                    }
+                }
+            },
+
+            getRakInGedung() {
+                if (this.isMasterOrAdmin()) {
+                    if (this.filters.selectedGed=='') {
+                        this.loadRak()
+                    }else {
+                        axios.get('api/rak-in-gedung/'+this.filters.selectedGed)
+                        .then((rak) => {
+                            this.rak = rak.data.data
+                        })
+                    }
                 }
             }
         }

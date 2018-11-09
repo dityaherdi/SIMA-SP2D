@@ -3,7 +3,7 @@
         <not-found v-if="!this.isMasterOrAdmin()"></not-found>
         <template v-else>
         <div class="row">
-        <div class="col-12">
+        <div class="col-8">
             <div class="card card-danger card-outline">
             <div class="card-header">
                 <h3 class="card-title">Ruangan Arsip</h3>
@@ -67,6 +67,23 @@
             </div>
             </div>
         </div>
+        <div class="col-4">
+            <div class="card card-danger card-outline">
+                <div class="card-header">
+                    Seleksi Penyimpanan
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control" @change="getRuanganInGedung" v-model="selectedGed">
+                            <option value=""> --- Semua Gedung --- </option>
+                            <option v-for="ged in gedung" :key="ged.id_gedung" :value="ged.id_gedung">
+                                {{ ged.nama_gedung }}
+                            </option>
+                        </select>
+                    </div> 
+                </div>
+            </div>
+        </div>
         </div>
         <modal-ruangan></modal-ruangan>
         <detail-ruangan></detail-ruangan>
@@ -78,6 +95,8 @@
     export default {
         data() {
             return {
+                gedung: {},
+                selectedGed: '',
                 ruangan: {},
                 searching: false,
                 ruaKeyword: null
@@ -94,6 +113,13 @@
             Signal.$on('load_ruangan', () => {
                 this.loadRuangan();
             })
+
+            if (this.isMasterOrAdmin()) {
+                this.getGedung()
+                .then((gedung) => {
+                    this.gedung = gedung
+                })  
+            }
         },
 
         computed: {
@@ -131,6 +157,7 @@
                         this.ruangan = ruangan
                         this.searching = false
                         this.ruaKeyword = null
+                        this.selectedGed = ''
                         Signal.$emit('clear_keywords')
                     })
                 }
@@ -149,6 +176,11 @@
                         .then((response) => {
                             this.ruangan = response.data.data
                         })
+                    } if (this.selectedGed!='') {
+                        axios.get('api/ruangan-in-gedung/'+this.selectedGed+'?page='+page)
+                        .then((response) => {
+                            this.ruangan = response.data.data
+                        })
                     } else {
                         axios.get('api/ruangan?page='+page)
                         .then((response) => {
@@ -159,12 +191,25 @@
             },
 
             searchRuangan(keywords) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.searchData('api/search-ruangan?keywords='+keywords)
                     .then((ruangan) => {
                         this.ruangan = ruangan
                         this.searching = true
                     })
+                }
+            },
+
+            getRuanganInGedung() {
+                if (this.isMasterOrAdmin()) {
+                    if (this.selectedGed=='') {
+                        this.loadRuangan()
+                    } else {
+                        axios.get('api/ruangan-in-gedung/'+this.selectedGed)
+                        .then((ruangan) => {
+                            this.ruangan = ruangan.data.data
+                        })
+                    }
                 }
             }
         }

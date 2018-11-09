@@ -8,8 +8,8 @@
             </button>
             <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <div class="btn-group mr-3">
+                <li class="nav-item mr-3 mb-3 mt-3">
+                    <div class="btn-group">
                         <button type="button" class="btn btn-secondary dropdown-toggle"
                             data-toggle="dropdown"
                             aria-haspopup="true"
@@ -37,12 +37,11 @@
                                     <i class="fas fa-envelope-open"></i> 
                                 </span> LS - Lumpsump
                             </a>
-                            
                         </div>
                         </div>
                 </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-success mb-3" @click="showCreatingModal()">
+                <li class="nav-item mr-3 mb-3 mt-3">
+                    <button type="button" class="btn btn-success" @click="showCreatingModal()">
                         <i class="fas fa-plus-square mr-2"></i>
                         Tambah Data SP2D
                     </button>

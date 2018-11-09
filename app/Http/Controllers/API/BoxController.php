@@ -104,6 +104,49 @@ class BoxController extends Controller
         ]);
     }
 
+    public function boxInGedung($id)
+    {
+        $box = Box::whereHas('rak.ruangan.gedung', function($q) use ($id){
+            $q->where('id_gedung', $id);
+        })->with([
+            'rak:id_rak,id_ruangan,kode_rak',
+            'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'rak.ruangan.gedung:id_gedung,nama_gedung'
+        ])->orderBy('kode_box', 'ASC')->get()->paginateCollection(5);
+
+        return response()->json([
+            'data' => $box
+        ]);
+    }
+
+    public function boxInRuangan($id)
+    {
+        $box = Box::whereHas('rak.ruangan', function($q) use ($id){
+            $q->where('id_ruangan', $id);
+        })->with([
+            'rak:id_rak,id_ruangan,kode_rak',
+            'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'rak.ruangan.gedung:id_gedung,nama_gedung'
+        ])->orderBy('kode_box', 'ASC')->get()->paginateCollection(5);
+
+        return response()->json([
+            'data' => $box
+        ]);
+    }
+
+    public function boxInRak($id)
+    {
+        $box = Box::where('id_rak', $id)->with([
+            'rak:id_rak,id_ruangan,kode_rak',
+            'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'rak.ruangan.gedung:id_gedung,nama_gedung'
+        ])->orderBy('kode_box', 'ASC')->get()->paginateCollection(5);
+
+        return response()->json([
+            'data' => $box
+        ]);
+    }
+
     public function generateBoxQr($box, $request)
     {
         $letak = Box::join('raks', 'raks.id_rak', '=', 'boxes.id_rak')

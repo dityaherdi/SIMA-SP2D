@@ -103,6 +103,32 @@ class RakController extends Controller
         ]);
     }
 
+    public function rakInRuangan($id)
+    {
+        $rak = Rak::where('id_ruangan', $id)->with([
+            'ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'ruangan.gedung:id_gedung,nama_gedung'
+        ])->orderBy('kode_rak', 'ASC')->get()->paginateCollection(10);
+
+        return response()->json([
+            'data' => $rak
+        ]);
+    }
+
+    public function rakInGedung($id)
+    {
+        $rak = Rak::whereHas('ruangan.gedung', function ($q) use ($id) {
+            $q->where('id_gedung', $id);
+        })->with([
+            'ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'ruangan.gedung:id_gedung,nama_gedung'
+        ])->orderBy('kode_rak', 'ASC')->get()->paginateCollection(10);
+
+        return response()->json([
+            'data' => $rak
+        ]);
+    }
+
     public function generateRakQr($rak, $request)
     {
         $letak = Rak::join('ruangans', 'ruangans.id_ruangan', '=', 'raks.id_ruangan')
