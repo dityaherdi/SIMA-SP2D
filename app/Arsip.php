@@ -9,7 +9,7 @@ class Arsip extends Model
     protected $primaryKey = 'id_arsip';
 
     protected $fillable = [
-        'id_sp2d', 'id_box', 'tgl_diarsipkan', 'tgl_perkiraan_retensi', 'qr_arsip', 'keterangan', 'status'
+        'id_sp2d', 'id_box', 'tgl_diarsipkan', 'tgl_perkiraan_retensi', 'qr_arsip', 'status_retensi', 'keterangan', 'status'
     ];
 
     public function surat() {

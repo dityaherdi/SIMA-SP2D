@@ -70,9 +70,9 @@
                                         <option disabled value=""> --- Pilih Box --- </option>
                                         <option v-for="b in box"
                                         :key="b.id_box"
-                                        :disabled="checkKapasitas(b.kapasitas)"
+                                        :disabled="b.kapasitas <= b.jml_arsip ? true : false"
                                         :value="b.id_box">
-                                        {{ b.kode_box }} - {{ isBoxFull(b.kapasitas) }}
+                                        {{ b.kode_box }} - {{ isBoxFull(b.kapasitas, b.jml_arsip) }}
                                         </option>
                                     </select>
                                     <has-error :form="arsip" field="id_box"></has-error>
@@ -202,16 +202,8 @@
                 this.arsip.clear()
             },
 
-            checkKapasitas(kapasitas) {
-                if (kapasitas > 3) {
-                    return true
-                }else {
-                    return false
-                }
-            },
-
-            isBoxFull(kapasitas) {
-                if (kapasitas > 3) {
+            isBoxFull(kapasitas, jmlArsip) {
+                if (kapasitas <= jmlArsip) {
                     return 'Penuh'
                 }else {
                     return 'Tersedia'

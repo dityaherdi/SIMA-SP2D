@@ -22,7 +22,7 @@
                 Lihat Semua SP2D <i class="fa fa-arrow-circle-right"></i>
             </router-link>
             <router-link :to="{ name: 'DetailSurat' }" href="#" class="small-box-footer" v-if="this.isPimpinan()">
-                Lihat Semua Arsip <i class="fa fa-arrow-circle-right"></i>
+                Lihat Semua SP2D <i class="fa fa-arrow-circle-right"></i>
             </router-link>
             </div>
         </div>
@@ -114,7 +114,7 @@
                 <div class="list-group list-group-flush">
                     <a href="javascript:void(0)" v-for="r in latestRet" :key="r.id_retensi"
                         class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
-                        {{ r.nomor_surat }} &nbsp;|&nbsp; Dihapus di sistem : {{ r.created_at | tanggalLokal }}
+                        {{ r.surat.nomor_surat }} &nbsp;|&nbsp; Dihapus di sistem : {{ r.updated_at | tanggalLokal }}
                         <span class="badge badge-danger badge-pill">NEW</span>
                     </a>
                 </div>

@@ -33,6 +33,11 @@
                         </select>
                     </div>
                 </li>
+                <li class="nav-item mr-3 mb-3 mt-3">
+                    <router-link :to="{ name: 'Retensi' }" class="btn btn-outline-danger">
+                        <i class="fas fa-calendar-times mr-2"></i> Retensi Tahunan
+                    </router-link>
+                </li>
             </ul>
         </nav>
         <ul class="list-group mt-3">

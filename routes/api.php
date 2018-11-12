@@ -82,4 +82,8 @@ Route::group(['middleware' => 'auth:api'], function (){
     Route::get('box-in-ruangan/{id}', 'API\BoxController@boxInRuangan');
     Route::get('box-in-rak/{id}', 'API\BoxController@boxInRak');
     
+
+    // Retensi
+    Route::get('retensi', 'API\RetensiController@index');
+    Route::post('bulk-retensi', 'API\RetensiController@bulkRetensi');
 });

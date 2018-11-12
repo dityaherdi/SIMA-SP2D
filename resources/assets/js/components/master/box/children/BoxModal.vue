@@ -60,13 +60,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="kodebox">Kode Box</label>
-                        <input type="text" class="form-control" 
-                            :class="{ 'is-invalid': box.errors.has('kode_box') }" 
-                            id="kodebox" v-model="box.kode_box"
-                        >
-                        <has-error :form="box" field="kode_box"></has-error>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto">
+                            <div class="form-group">
+                                <label for="kodebox">Kode Box</label>
+                                <input type="text" class="form-control" 
+                                    :class="{ 'is-invalid': box.errors.has('kode_box') }" 
+                                    id="kodebox" v-model="box.kode_box"
+                                >
+                                <has-error :form="box" field="kode_box"></has-error>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ml-auto">
+                            <div class="form-group">
+                                <label for="kapasitasbox">Kapasitas Box</label>
+                                <input type="number" class="form-control" 
+                                    :class="{ 'is-invalid': box.errors.has('kapasitas') }" 
+                                    id="kapasitasbox" v-model="box.kapasitas"
+                                >
+                                <has-error :form="box" field="kapasitas"></has-error>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="ketbox">Keterangan</label>
@@ -116,6 +130,7 @@
                     id_box: '',
                     id_rak: '',
                     kode_box: '',
+                    kapasitas: '',
                     keterangan: '',
                     status: true,
                 })

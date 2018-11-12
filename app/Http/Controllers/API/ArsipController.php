@@ -24,7 +24,7 @@ class ArsipController extends Controller
      */
     public function index()
     {
-        $arsip = Arsip::latest()->with([
+        $arsip = Arsip::latest()->where('status_retensi', 0)->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
             'surat.skpd:id_skpd,kode_skpd,nama_skpd',
             'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
@@ -60,7 +60,7 @@ class ArsipController extends Controller
 
         // Update jumlah arsip dalam box
         $box = Box::findOrFail($request->id_box);
-        $box->update(['kapasitas' => $box->kapasitas + 1]);
+        $box->increment('jml_arsip', 1);
         
         // Update surat menjadi arsip
         $surat = Surat::findOrFail($request->id_sp2d);
@@ -119,22 +119,13 @@ class ArsipController extends Controller
     public function destroy($id)
     {
         $arsip = Arsip::findOrFail($id);
-        
-        $retensi = new Retensi();
-        $retensi['nomor_surat'] = $arsip->surat->nomor_surat;
-        $retensi->save();
+        $arsip->update(['status_retensi' => 1]);
 
-        // update kapasitas
+        // Update jumlah arsip dalam box
         $box = Box::findOrFail($arsip->id_box);
-        $box->update(['kapasitas' => $box->kapasitas - 1]);
-        
-        
-        $arsip->delete();
+        $box->decrement('jml_arsip', 1);
+
         @unlink(public_path('img/qr/arsip/'.$arsip->qr_arsip));
-        
-        // hapus surat
-        $surat = Surat::findOrFail($arsip->id_sp2d);
-        $surat->delete();
 
         return response()->json([
             'message' => 'Arsip : '.$arsip->surat->nomor_surat.' telah diretensi'
@@ -154,7 +145,7 @@ class ArsipController extends Controller
                 'box.rak.ruangan.gedung:id_gedung,nama_gedung'
             ])->whereHas('surat', function($query) use ($keywords) {
                 $query->where('nomor_surat', 'LIKE', "%$keywords%");
-            })->get()->paginateCollection(10);
+            })->where('status_retensi', 0)->get()->paginateCollection(10);
         }
 
         return response()->json([

@@ -52,7 +52,7 @@ class DashboardController extends Controller
 
     public function retensiThisYear()
     {
-        $arsRetensi = Arsip::whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->count();
+        $arsRetensi = Arsip::whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->where('status_retensi', 0)->count();
         
         return response()->json([
             'data' => $arsRetensi
@@ -90,7 +90,7 @@ class DashboardController extends Controller
 
     public function latestRetensi()
     {
-        $latestRet = Retensi::latest()->limit(5)->get();
+        $latestRet = Arsip::where('status_retensi', 1)->with('surat:id_sp2d,nomor_surat')->orderBy('updated_at', 'DESC')->limit(5)->get();
 
         return response()->json([
             'data' => $latestRet
@@ -102,7 +102,7 @@ class DashboardController extends Controller
         $surat = Surat::latest()->with([
             'skpd:id_skpd,kode_skpd,nama_skpd',
             'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
-        ])->where(['arsip' => 0])->get()->paginateCollection(20);
+        ])->where(['arsip' => 0])->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $surat
@@ -119,7 +119,7 @@ class DashboardController extends Controller
             'box.rak:id_rak,id_ruangan,kode_rak',
             'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'box.rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(10);
+        ])->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $arsip

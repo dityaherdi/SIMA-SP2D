@@ -20,6 +20,7 @@ class CreateArsipsTable extends Migration
             $table->date('tgl_diarsipkan');
             $table->date('tgl_perkiraan_retensi');
             $table->string('qr_arsip')->default('kode-qr-arsip.png');
+            $table->boolean('status_retensi')->default('0');
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default('1');
             $table->timestamps();

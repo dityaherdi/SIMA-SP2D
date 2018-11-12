@@ -21,6 +21,7 @@ class FormBoxRequest extends FormRequest
 
     protected $rules = [
         'id_rak' => 'required',
+        'kapasitas' => 'required|numeric',
         'kode_box' => ''
     ];
 
@@ -46,7 +47,9 @@ class FormBoxRequest extends FormRequest
         return [
             'id_rak.required' => 'Rak harus diisi',
             'kode_box.required' => 'Kode Box harus diisi, Letak pengarsipan belum lengkap',
-            'kode_box.unique' => 'Kode Box sudah digunakan pada rak ini'
+            'kode_box.unique' => 'Kode Box sudah digunakan pada rak ini',
+            'kapasitas.required' => 'Kapasitas box harus diisi',
+            'kapasitas.numeric' => 'Kapasitas harus diisi dengan format angka'
         ];
     }
 }

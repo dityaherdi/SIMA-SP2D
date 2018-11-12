@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Box;
+use App\Arsip;
 use App\Http\Requests\FormBoxRequest;
 use QRCode;
 
@@ -20,7 +21,7 @@ class BoxController extends Controller
      */
     public function index()
     {
-        $box = Box::latest()->with([
+        $box = Box::latest()->where('status_retensi_box', 0)->with([
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'
@@ -79,12 +80,17 @@ class BoxController extends Controller
     public function destroy($id)
     {
         $box = Box::findOrFail($id);
-        $box->delete();
-        @unlink(public_path('img/qr/box/'.$box->qr_box));
 
-        return response()->json([
-            'message' => 'Box dengan kode: '.$box->kode_box.' telah dihapus'
-        ]);
+        if (Arsip::has('box')->where('id_box', $id)->count() != 0) {
+            return false;
+        }else {
+            $box->delete();
+            @unlink(public_path('img/qr/box/'.$box->qr_box));
+    
+            return response()->json([
+                'message' => 'Box dengan kode: '.$box->kode_box.' telah dihapus'
+            ]);
+        }
     }
 
     public function search(Request $request)
@@ -96,7 +102,7 @@ class BoxController extends Controller
                 'rak:id_rak,id_ruangan,kode_rak',
                 'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
                 'rak.ruangan.gedung:id_gedung,nama_gedung'
-            ])->get()->paginateCollection(5);
+            ])->where('status_retensi_box', 0)->get()->paginateCollection(5);
         }
 
         return response()->json([

@@ -8,6 +8,7 @@ use App\Gedung;
 use App\Ruangan;
 use App\Rak;
 use App\Box;
+use App\Arsip;
 
 class LetakController extends Controller
 {
@@ -49,9 +50,10 @@ class LetakController extends Controller
 
     public function letakBox($id)
     {
-        $data = Box::select('id_box', 'kode_box', 'kapasitas')
-                    ->where(['id_rak' => $id, 'status' => 1])
-                    ->orderBy('kapasitas', 'ASC')->orderBy('kode_box', 'ASC')
+        $data = Box::select('id_box', 'kode_box', 'kapasitas', 'jml_arsip')
+                    ->where(['id_rak' => $id, 'status' => 1, 'status_retensi_box' => 0])
+                    ->orderBy('jml_arsip', 'ASC')
+                    ->orderBy('kode_box', 'ASC')
                     ->get();
 
         return response()->json([

@@ -39,6 +39,12 @@ let routes = [
 		meta: { requiresAuth: true }
 	},
 	{
+		path: '/retensi-tahunan',
+		component: require('./components/master/arsip/children/Retensi.vue'),
+		name: 'Retensi',
+		meta: { requiresAuth: true }
+	},
+	{
 		path: '/skpd',
 		component: require('./components/master/skpd/SkpdIndex.vue'),
 		name: 'SkpdIndex',

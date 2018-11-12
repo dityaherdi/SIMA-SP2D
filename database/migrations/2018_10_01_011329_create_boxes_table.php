@@ -17,7 +17,9 @@ class CreateBoxesTable extends Migration
             $table->increments('id_box');
             $table->integer('id_rak')->unsigned();
             $table->string('kode_box');
-            $table->tinyInteger('kapasitas')->default(0);
+            $table->tinyInteger('kapasitas')->unsigned(0);
+            $table->tinyInteger('jml_arsip')->unsigned(0);
+            $table->boolean('status_retensi_box')->default('0');
             $table->string('qr_box')->default('kode-box-qr.png');
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default('1');
@@ -26,7 +28,7 @@ class CreateBoxesTable extends Migration
             $table->foreign('id_rak')
                     ->references('id_rak')
                     ->on('raks')
-                    ->onDelete('restrict')
+                    ->onDelete('cascade')
                     ->onUpdate('cascade');
         });
     }
