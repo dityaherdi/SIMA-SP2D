@@ -10,6 +10,12 @@ export function isPimpinan() {
     return this.$store.state.currentUser.tipe === 'Pimpinan'
 }
 
+export function isAdminOrPimpinan() {
+    if (this.$store.state.currentUser.tipe === 'Pimpinan' || this.$store.state.currentUser.tipe === 'Admin') {
+        return true
+    }
+}
+
 export function isMasterOrAdmin() {
     if (this.$store.state.currentUser.tipe === 'Master' || this.$store.state.currentUser.tipe === 'Admin') {
         return true

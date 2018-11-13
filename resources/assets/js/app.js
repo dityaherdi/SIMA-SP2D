@@ -24,7 +24,7 @@ import VueProgressBar from 'vue-progressbar'
 import Datepicker from 'vuejs-datepicker'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
-import { isMaster, isAdmin, isPimpinan, isMasterOrAdmin, isMasterOrPimpinan } from './helpers/gate'
+import { isMaster, isAdmin, isPimpinan, isMasterOrAdmin, isMasterOrPimpinan, isAdminOrPimpinan } from './helpers/gate'
 
 window.jsPDF = jsPDF
 window.html2canvas = html2canvas
@@ -68,7 +68,8 @@ Vue.mixin({
         isAdmin,
         isPimpinan,
         isMasterOrAdmin,
-        isMasterOrPimpinan
+        isMasterOrPimpinan,
+        isAdminOrPimpinan
     }
 })
 

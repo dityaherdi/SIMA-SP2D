@@ -77,7 +77,7 @@
         </div>
 
         <div class="row" v-if="surat.length!=0">
-            <div class="col-md-3 col-sm-6 col-12" v-for="(sur,index) in sortedSurat(surat)" :key="sur.id_sp2d">
+            <div class="col-md-3 col-sm-6 col-12" v-for="sur in sortedSurat(surat)" :key="sur.id_sp2d">
                 <div class="info-box"
                     :class="bgColor(sur.jenis.kode_jenis_sp2d)">
                 
@@ -100,7 +100,7 @@
                                 @click="showEditingModal(sur)">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-dark btn-sm" title="Hapus Surat"
+                            <button class="btn btn-dark btn-sm" title="Hapus Surat" v-if="this.isMaster"
                                 @click="deleteSurat(sur.id_sp2d)">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -109,7 +109,6 @@
                                 <i class="fas fa-file-archive"></i>
                             </button>
                         </div>
-                        <div class="float-left">{{ ++index }}</div>
                     </span>
                 </div>
                 </div>
@@ -291,7 +290,11 @@
                 if (this.sorting.key=='' && this.sorting.val=='') {
                     return surat
                 }else if (this.sorting.key == 'jenis') {
-                    return _.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } })
+                    if (this.selectedSkpd=='') {
+                        return _.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } })
+                    }else{
+                        return _.pickBy(_.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } }), { id_skpd: this.selectedSkpd })
+                    }
                 }else if (this.sorting.key == 'skpd') {
                     if (this.sorting.val == '') {
                         return surat

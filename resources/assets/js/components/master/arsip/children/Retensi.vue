@@ -22,7 +22,7 @@
                     Mohon periksa kembali sebelum menggunakan fungsi ini!
                 </p>
 
-                <button class="btn btn-outline-light btn-block" @click="bulkRetensi">
+                <button class="btn btn-outline-light btn-block" @click="bulkRetensi" :disabled="retensi = {} ? true : false">
                         <i class="fas fa-trash mr-2"></i> Retensi Semua ({{ total }} Arsip)
                 </button>
                 </div>
@@ -61,7 +61,19 @@
                 if (this.isMasterOrAdmin()) {
                     axios.get('api/retensi')
                     .then((response) => {
-                        // console.log(JSON.stringify(response.data.total,null,8))
+                        if (response.data.data.length==0) {
+                            swal({
+                                title: 'Data tidak ditemukan',
+                                text: "Retensi sudah dilakukan pada tahun ini",
+                                type: 'info',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Kembali'
+                                }).then((result) => {
+                                if (result.value) {
+                                    this.$router.push({ name: 'ArsipIndex' })
+                                }
+                            })
+                        }
                         this.retensi = response.data.data
                         this.total = response.data.total
                     })

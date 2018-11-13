@@ -47855,11 +47855,12 @@ Vue.mixin({
         forceCloseModal: __WEBPACK_IMPORTED_MODULE_9__helpers_modal__["a" /* forceCloseModal */],
 
         // Gate ACL
-        isMaster: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["b" /* isMaster */],
+        isMaster: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["c" /* isMaster */],
         isAdmin: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["a" /* isAdmin */],
-        isPimpinan: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["e" /* isPimpinan */],
-        isMasterOrAdmin: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["c" /* isMasterOrAdmin */],
-        isMasterOrPimpinan: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["d" /* isMasterOrPimpinan */]
+        isPimpinan: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["f" /* isPimpinan */],
+        isMasterOrAdmin: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["d" /* isMasterOrAdmin */],
+        isMasterOrPimpinan: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["e" /* isMasterOrPimpinan */],
+        isAdminOrPimpinan: __WEBPACK_IMPORTED_MODULE_14__helpers_gate__["b" /* isAdminOrPimpinan */]
     }
 });
 
@@ -73028,7 +73029,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.isMasterOrAdmin()) {
                 axios.get('api/retensi').then(function (response) {
-                    // console.log(JSON.stringify(response.data.total,null,8))
+                    if (response.data.data.length == 0) {
+                        swal({
+                            title: 'Data tidak ditemukan',
+                            text: "Retensi sudah dilakukan pada tahun ini",
+                            type: 'info',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Kembali'
+                        }).then(function (result) {
+                            if (result.value) {
+                                _this2.$router.push({ name: 'ArsipIndex' });
+                            }
+                        });
+                    }
                     _this2.retensi = response.data.data;
                     _this2.total = response.data.total;
                 }).catch(function (error) {
@@ -73107,6 +73120,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-outline-light btn-block",
+              attrs: { disabled: (_vm.retensi = {} ? true : false) },
               on: { click: _vm.bulkRetensi }
             },
             [
@@ -75495,9 +75509,7 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "a",
                                         {
@@ -75518,29 +75530,33 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-danger btn-sm",
-                                          attrs: {
-                                            href: "javascript:void(0)",
-                                            title: "Hapus Data Gedung"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteGedung(ged.id_gedung)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
-                                          })
-                                        ]
-                                      )
+                                      _vm._v(" "),
+                                      _vm.$store.state.currentUser.tipe ===
+                                      "Master"
+                                        ? _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-danger btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Hapus Data Gedung"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.deleteGedung(
+                                                    ged.id_gedung
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e()
                                     ])
                                   ])
                                 })
@@ -76761,9 +76777,7 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "a",
                                         {
@@ -76784,29 +76798,33 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-danger btn-sm",
-                                          attrs: {
-                                            href: "javascript:void(0)",
-                                            title: "Hapus Data Ruangan"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteRuangan(rua.id_ruangan)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
-                                          })
-                                        ]
-                                      )
+                                      _vm._v(" "),
+                                      _vm.$store.state.currentUser.tipe ===
+                                      "Master"
+                                        ? _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-danger btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Hapus Data Ruangan"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.deleteRuangan(
+                                                    rua.id_ruangan
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e()
                                     ])
                                   ])
                                 })
@@ -78533,9 +78551,7 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "a",
                                         {
@@ -78556,29 +78572,31 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-danger btn-sm",
-                                          attrs: {
-                                            href: "javascript:void(0)",
-                                            title: "Hapus Data Rak"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteRak(r.id_rak)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
-                                          })
-                                        ]
-                                      )
+                                      _vm._v(" "),
+                                      _vm.$store.state.currentUser.tipe ===
+                                      "Master"
+                                        ? _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-danger btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Hapus Data Rak"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.deleteRak(r.id_rak)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e()
                                     ])
                                   ])
                                 })
@@ -80618,9 +80636,7 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "a",
                                         {
@@ -80641,29 +80657,31 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-danger btn-sm",
-                                          attrs: {
-                                            href: "javascript:void(0)",
-                                            title: "Hapus Data Box"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteBox(b.id_box)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
-                                          })
-                                        ]
-                                      )
+                                      _vm._v(" "),
+                                      _vm.$store.state.currentUser.tipe ===
+                                      "Master"
+                                        ? _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "btn btn-danger btn-sm",
+                                              attrs: {
+                                                href: "javascript:void(0)",
+                                                title: "Hapus Data Box"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.deleteBox(b.id_box)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e()
                                     ])
                                   ])
                                 })
@@ -82323,7 +82341,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -82477,7 +82494,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.sorting.key == '' && this.sorting.val == '') {
                 return surat;
             } else if (this.sorting.key == 'jenis') {
-                return _.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } });
+                if (this.selectedSkpd == '') {
+                    return _.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } });
+                } else {
+                    return _.pickBy(_.pickBy(surat, { jenis: { kode_jenis_sp2d: this.sorting.val } }), { id_skpd: this.selectedSkpd });
+                }
             } else if (this.sorting.key == 'skpd') {
                 if (this.sorting.val == '') {
                     return surat;
@@ -84957,7 +84978,7 @@ var render = function() {
               ? _c(
                   "div",
                   { staticClass: "row" },
-                  _vm._l(_vm.sortedSurat(_vm.surat), function(sur, index) {
+                  _vm._l(_vm.sortedSurat(_vm.surat), function(sur) {
                     return _c(
                       "div",
                       {
@@ -85041,23 +85062,26 @@ var render = function() {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-dark btn-sm",
-                                          attrs: { title: "Hapus Surat" },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteSurat(sur.id_sp2d)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
-                                          })
-                                        ]
-                                      ),
+                                      this.isMaster
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-dark btn-sm",
+                                              attrs: { title: "Hapus Surat" },
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.deleteSurat(sur.id_sp2d)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fas fa-trash"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e(),
                                       _vm._v(" "),
                                       _c(
                                         "button",
@@ -85077,11 +85101,7 @@ var render = function() {
                                         ]
                                       )
                                     ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "float-left" }, [
-                                    _vm._v(_vm._s(++index))
-                                  ])
+                                  )
                                 ]
                               )
                             ])
@@ -99954,11 +99974,12 @@ var formatCounterValue = function formatCounterValue(counter, glue, format) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = isMaster;
+/* harmony export (immutable) */ __webpack_exports__["c"] = isMaster;
 /* harmony export (immutable) */ __webpack_exports__["a"] = isAdmin;
-/* harmony export (immutable) */ __webpack_exports__["e"] = isPimpinan;
-/* harmony export (immutable) */ __webpack_exports__["c"] = isMasterOrAdmin;
-/* harmony export (immutable) */ __webpack_exports__["d"] = isMasterOrPimpinan;
+/* harmony export (immutable) */ __webpack_exports__["f"] = isPimpinan;
+/* harmony export (immutable) */ __webpack_exports__["b"] = isAdminOrPimpinan;
+/* harmony export (immutable) */ __webpack_exports__["d"] = isMasterOrAdmin;
+/* harmony export (immutable) */ __webpack_exports__["e"] = isMasterOrPimpinan;
 function isMaster() {
     return this.$store.state.currentUser.tipe === 'Master';
 }
@@ -99969,6 +99990,12 @@ function isAdmin() {
 
 function isPimpinan() {
     return this.$store.state.currentUser.tipe === 'Pimpinan';
+}
+
+function isAdminOrPimpinan() {
+    if (this.$store.state.currentUser.tipe === 'Pimpinan' || this.$store.state.currentUser.tipe === 'Admin') {
+        return true;
+    }
 }
 
 function isMasterOrAdmin() {

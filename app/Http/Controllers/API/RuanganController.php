@@ -106,7 +106,7 @@ class RuanganController extends Controller
     {
         $ruangan = Ruangan::where('id_gedung', $id)->with('gedung:id_gedung,nama_gedung')
                             ->orderBy('kode_ruangan', 'ASC')
-                            ->get()->paginateCollection(2);
+                            ->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $ruangan

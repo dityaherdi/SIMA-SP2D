@@ -38,14 +38,14 @@
                                 @click="showDetailRuanganModal(rua)">
                                 <i class="fas fa-eye "></i>
                             </a>
-                            /
+                            
                             <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                 title="Edit Data Ruangan"
                                 @click="showEditingModal(rua)">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            /
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
+                            
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" v-if="$store.state.currentUser.tipe === 'Master'"
                                 title="Hapus Data Ruangan"
                                 @click="deleteRuangan(rua.id_ruangan)">
                                 <i class="fas fa-trash"></i>
