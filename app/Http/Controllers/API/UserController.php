@@ -93,7 +93,9 @@ class UserController extends Controller
             
 
             Image::make($request->foto)->resize(500, 500)->save(public_path('img/profile/'.$filename));
-            @unlink(public_path('img/profile/').$currentFoto);
+            if ($currentFoto!='profile.png') {
+                @unlink(public_path('img/profile/').$currentFoto);
+            }
 
             $request->merge(['foto' => $filename]);
         }
@@ -115,7 +117,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        @unlink(public_path('img/profile/').$user->foto);
+        if ($user->foto!='profile.png') {
+            @unlink(public_path('img/profile/').$user->foto);
+        }
 
         $user->delete();
 

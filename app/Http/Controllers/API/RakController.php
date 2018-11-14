@@ -23,7 +23,7 @@ class RakController extends Controller
         $rak = Rak::latest()->with([
             'ruangan:id_ruangan,id_gedung,kode_ruangan',
             'ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(10);
+        ])->get()->paginateCollection(20);
 
         return response()->json([
             'data' => $rak

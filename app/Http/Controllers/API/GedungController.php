@@ -19,7 +19,7 @@ class GedungController extends Controller
      */
     public function index()
     {
-        $gedung = Gedung::latest()->paginate(5);
+        $gedung = Gedung::latest()->paginate(10);
 
         return response()->json([
             'data' => $gedung

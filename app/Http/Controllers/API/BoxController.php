@@ -25,7 +25,7 @@ class BoxController extends Controller
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(5);
+        ])->get()->paginateCollection(20);
 
         return response()->json([
             'data' => $box
@@ -102,7 +102,7 @@ class BoxController extends Controller
                 'rak:id_rak,id_ruangan,kode_rak',
                 'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
                 'rak.ruangan.gedung:id_gedung,nama_gedung'
-            ])->where('status_retensi_box', 0)->get()->paginateCollection(5);
+            ])->where('status_retensi_box', 0)->get()->paginateCollection(10);
         }
 
         return response()->json([
@@ -118,7 +118,7 @@ class BoxController extends Controller
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->where('status_retensi_box', 0)->orderBy('kode_box', 'ASC')->get()->paginateCollection(5);
+        ])->where('status_retensi_box', 0)->orderBy('kode_box', 'ASC')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $box
@@ -133,7 +133,7 @@ class BoxController extends Controller
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->where('status_retensi_box', 0)->orderBy('kode_box', 'ASC')->get()->paginateCollection(5);
+        ])->where('status_retensi_box', 0)->orderBy('kode_box', 'ASC')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $box
@@ -146,7 +146,7 @@ class BoxController extends Controller
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->where('status_retensi_box', 0)->orderBy('kode_box', 'ASC')->get()->paginateCollection(5);
+        ])->where('status_retensi_box', 0)->orderBy('kode_box', 'ASC')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $box

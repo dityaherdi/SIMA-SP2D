@@ -33,7 +33,8 @@
                                 <strong> Detail Letak Rak : </strong> 
                                 Gedung-{{ box.nama_gedung }}, Ruangan-{{box.kode_ruangan}}, Rak-{{ box.kode_box }}
                             </p>
-                            <p class="text-justify"><strong>Jumlah Arsip : </strong> {{ box.kapasitas }} </p>
+                            <p class="text-justify"><strong>Kapasitas : </strong> {{ box.kapasitas }} </p>
+                            <p class="text-justify"><strong>Jumlah Arsip : </strong> {{ box.jml_arsip }} </p>
                             <p class="text-justify"><strong>Keterangan : </strong> {{ box.keterangan }} </p>
                             <p class="text-justify"><strong>Status : </strong> {{ box.status }} </p>
                         </div>

@@ -20,7 +20,7 @@ class RuanganController extends Controller
      */
     public function index()
     {
-        $ruangan = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(5);
+        $ruangan = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $ruangan

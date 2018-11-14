@@ -65,7 +65,7 @@
                         </button>
                     </div>
                     <div class="float-right">
-                        <pagination :data="users" @pagination-change-page="getResults"></pagination>
+                        <pagination :data="users" @pagination-change-page="getResults" :limit="1"></pagination>
                     </div>
             </div>
             </div>

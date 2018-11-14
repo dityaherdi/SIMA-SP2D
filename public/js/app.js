@@ -74400,7 +74400,7 @@ var render = function() {
                       { staticClass: "float-right" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.skpds },
+                          attrs: { data: _vm.skpds, limit: 1 },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -75593,7 +75593,7 @@ var render = function() {
                       { staticClass: "float-right" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.gedung },
+                          attrs: { data: _vm.gedung, limit: 1 },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -76861,7 +76861,7 @@ var render = function() {
                       { staticClass: "float-right" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.ruangan },
+                          attrs: { data: _vm.ruangan, limit: 1 },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -77206,12 +77206,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.get('api/search-rak?keywords=' + this.rakKeyword + '&page=' + page).then(function (response) {
                         _this3.rak = response.data.data;
                     });
-                }if (this.filters.selectedRua != '') {
-                    axios.get('api/rak-in-ruangan/' + this.selectedRua + '?page=' + page).then(function (response) {
+                } else if (this.filters.selectedRua != '') {
+                    axios.get('api/rak-in-ruangan/' + this.filters.selectedRua + '?page=' + page).then(function (response) {
                         _this3.rak = response.data.data;
                     });
-                }if (this.filters.selectedGed != '') {
-                    axios.get('api/rak-in-gedung/' + this.selectedGed + '?page=' + page).then(function (response) {
+                } else if (this.filters.selectedGed != '' && this.filters.selectedRua == '') {
+                    axios.get('api/rak-in-gedung/' + this.filters.selectedGed + '?page=' + page).then(function (response) {
                         _this3.rak = response.data.data;
                     });
                 } else {
@@ -78633,7 +78633,7 @@ var render = function() {
                       { staticClass: "float-right" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.rak },
+                          attrs: { data: _vm.rak, limit: 1 },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -78977,6 +78977,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -79068,17 +79070,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.get('api/search-box?keywords=' + this.boxKeyword + '&page=' + page).then(function (response) {
                         _this3.box = response.data.data;
                     });
-                }if (this.filters.selectedGed != '') {
-                    axios.get('api/box-in-gedung/' + this.selectedGed + '?page=' + page).then(function (response) {
-                        _this3.rak = response.data.data;
+                } else if (this.filters.selectedGed != '') {
+                    axios.get('api/box-in-gedung/' + this.filters.selectedGed + '?page=' + page).then(function (response) {
+                        _this3.box = response.data.data;
                     });
-                }if (this.filters.selectedRua != '') {
-                    axios.get('api/box-in-ruangan/' + this.selectedRua + '?page=' + page).then(function (response) {
-                        _this3.rak = response.data.data;
+                } else if (this.filters.selectedRua != '') {
+                    axios.get('api/box-in-ruangan/' + this.filters.selectedRua + '?page=' + page).then(function (response) {
+                        _this3.box = response.data.data;
                     });
-                }if (this.filters.selectedRak != '') {
-                    axios.get('api/box-in-rak/' + this.selectedRak + '?page=' + page).then(function (response) {
-                        _this3.rak = response.data.data;
+                } else if (this.filters.selectedRak != '') {
+                    axios.get('api/box-in-rak/' + this.filters.selectedRak + '?page=' + page).then(function (response) {
+                        _this3.box = response.data.data;
                     });
                 } else {
                     axios.get('api/box?page=' + page).then(function (response) {
@@ -80166,6 +80168,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80289,8 +80292,13 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "text-justify" }, [
-                          _c("strong", [_vm._v("Jumlah Arsip : ")]),
+                          _c("strong", [_vm._v("Kapasitas : ")]),
                           _vm._v(" " + _vm._s(_vm.box.kapasitas) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-justify" }, [
+                          _c("strong", [_vm._v("Jumlah Arsip : ")]),
+                          _vm._v(" " + _vm._s(_vm.box.jml_arsip) + " ")
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "text-justify" }, [
@@ -80596,6 +80604,8 @@ var render = function() {
                                 _c("tr", [
                                   _c("th", [_vm._v("No")]),
                                   _vm._v(" "),
+                                  _c("th", [_vm._v("Ruangan")]),
+                                  _vm._v(" "),
                                   _c("th", [_vm._v("Rak")]),
                                   _vm._v(" "),
                                   _c("th", [_vm._v("Kode Box")]),
@@ -80606,6 +80616,10 @@ var render = function() {
                                 _vm._l(_vm.box.data, function(b, index) {
                                   return _c("tr", { key: b.id_box }, [
                                     _c("td", [_vm._v(_vm._s(++index))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(b.rak.ruangan.kode_ruangan))
+                                    ]),
                                     _vm._v(" "),
                                     _c("td", [_vm._v(_vm._s(b.rak.kode_rak))]),
                                     _vm._v(" "),
@@ -80718,7 +80732,7 @@ var render = function() {
                       { staticClass: "float-right" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.box },
+                          attrs: { data: _vm.box, limit: 1 },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -82136,7 +82150,7 @@ var render = function() {
                       { staticClass: "float-right" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.jenis },
+                          attrs: { data: _vm.jenis, limit: 1 },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -87852,7 +87866,7 @@ var render = function() {
                         { staticClass: "float-right" },
                         [
                           _c("pagination", {
-                            attrs: { data: _vm.users },
+                            attrs: { data: _vm.users, limit: 1 },
                             on: { "pagination-change-page": _vm.getResults }
                           })
                         ],

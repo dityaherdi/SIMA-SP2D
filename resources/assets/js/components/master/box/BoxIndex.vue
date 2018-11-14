@@ -24,12 +24,14 @@
                 <tbody v-else>
                     <tr>
                         <th>No</th>
+                        <th>Ruangan</th>
                         <th>Rak</th>
                         <th>Kode Box</th>
                         <th>Aksi</th>
                     </tr>
                     <tr v-for="(b,index) in box.data" :key="b.id_box">
                         <td>{{ ++index }}</td>
+                        <td>{{ b.rak.ruangan.kode_ruangan }}</td>
                         <td>{{ b.rak.kode_rak }}</td>
                         <td>{{ b.kode_box | uppercase}}</td>
                         <td>
@@ -62,7 +64,7 @@
                     </button>
                 </div>
                 <div class="float-right">
-                    <pagination :data="box" @pagination-change-page="getResults"></pagination>
+                    <pagination :data="box" @pagination-change-page="getResults" :limit="1"></pagination>
                 </div>
             </div>
             </div>
@@ -208,20 +210,20 @@
                         .then((response) => {
                             this.box = response.data.data
                         })
-                    } if (this.filters.selectedGed!='') {
-                        axios.get('api/box-in-gedung/'+this.selectedGed+'?page='+page)
+                    }else if (this.filters.selectedGed!='') {
+                        axios.get('api/box-in-gedung/'+this.filters.selectedGed+'?page='+page)
                         .then((response) => {
-                            this.rak = response.data.data
+                            this.box = response.data.data
                         })
-                    } if (this.filters.selectedRua!='') {
-                        axios.get('api/box-in-ruangan/'+this.selectedRua+'?page='+page)
+                    }else if (this.filters.selectedRua!='') {
+                        axios.get('api/box-in-ruangan/'+this.filters.selectedRua+'?page='+page)
                         .then((response) => {
-                            this.rak = response.data.data
+                            this.box = response.data.data
                         })
-                    }if (this.filters.selectedRak!='') {
-                        axios.get('api/box-in-rak/'+this.selectedRak+'?page='+page)
+                    }else if (this.filters.selectedRak!='') {
+                        axios.get('api/box-in-rak/'+this.filters.selectedRak+'?page='+page)
                         .then((response) => {
-                            this.rak = response.data.data
+                            this.box = response.data.data
                         })
                     }else{
                         axios.get('api/box?page='+page)

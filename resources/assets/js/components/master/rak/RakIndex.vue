@@ -62,7 +62,7 @@
                     </button>
                 </div>
                 <div class="float-right">
-                    <pagination :data="rak" @pagination-change-page="getResults"></pagination>
+                    <pagination :data="rak" @pagination-change-page="getResults" :limit="1"></pagination>
                 </div>
             </div>
             </div>
@@ -193,13 +193,13 @@
                         .then((response) => {
                             this.rak = response.data.data
                         })
-                    } if (this.filters.selectedRua!='') {
-                        axios.get('api/rak-in-ruangan/'+this.selectedRua+'?page='+page)
+                    }else if (this.filters.selectedRua!='') {
+                        axios.get('api/rak-in-ruangan/'+this.filters.selectedRua+'?page='+page)
                         .then((response) => {
                             this.rak = response.data.data
                         })
-                    } if (this.filters.selectedGed!='') {
-                        axios.get('api/rak-in-gedung/'+this.selectedGed+'?page='+page)
+                    }else if (this.filters.selectedGed!='' && this.filters.selectedRua=='') {
+                        axios.get('api/rak-in-gedung/'+this.filters.selectedGed+'?page='+page)
                         .then((response) => {
                             this.rak = response.data.data
                         })
