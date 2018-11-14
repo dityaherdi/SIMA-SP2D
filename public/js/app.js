@@ -78087,6 +78087,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -78195,12 +78197,20 @@ var render = function() {
                       _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("p", { staticClass: "text-justify" }, [
                           _c("strong", [_vm._v(" Detail Letak Rak : ")]),
+                          _vm._v(" "),
+                          _c("br"),
                           _vm._v(
-                            " \n                            Gedung-" +
-                              _vm._s(_vm.rak.nama_gedung) +
-                              ", Ruangan-" +
-                              _vm._s(_vm.rak.kode_ruangan) +
-                              ", Rak-" +
+                            "\n                            Gedung : " +
+                              _vm._s(_vm.rak.nama_gedung)
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                            Ruangan : " +
+                              _vm._s(_vm.rak.kode_ruangan)
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                            Rak : " +
                               _vm._s(_vm.rak.kode_rak) +
                               "\n                        "
                           )
@@ -80169,6 +80179,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80180,6 +80192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 kode_box: '',
                 qr_box: '',
                 kapasitas: '',
+                jml_arsip: '',
                 keterangan: '',
                 status: ''
             }
@@ -80193,6 +80206,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.box.kode_ruangan = b.rak.ruangan.kode_ruangan;
             _this.box.kode_box = b.kode_box;
             _this.box.kapasitas = b.kapasitas;
+            _this.box.jml_arsip = b.jml_arsip;
             if (b.keterangan == null) {
                 _this.box.keterangan = '-';
             } else {
@@ -80280,12 +80294,20 @@ var render = function() {
                       _c("div", { staticClass: "col-md-6 text-center" }, [
                         _c("p", { staticClass: "text-justify" }, [
                           _c("strong", [_vm._v(" Detail Letak Rak : ")]),
+                          _vm._v(" "),
+                          _c("br"),
                           _vm._v(
-                            " \n                            Gedung-" +
-                              _vm._s(_vm.box.nama_gedung) +
-                              ", Ruangan-" +
-                              _vm._s(_vm.box.kode_ruangan) +
-                              ", Rak-" +
+                            "\n                            Gedung : " +
+                              _vm._s(_vm.box.nama_gedung)
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                            Ruangan : " +
+                              _vm._s(_vm.box.kode_ruangan)
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                            Rak : " +
                               _vm._s(_vm.box.kode_box) +
                               "\n                        "
                           )

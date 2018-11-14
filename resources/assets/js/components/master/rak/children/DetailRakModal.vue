@@ -30,8 +30,10 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <p class="text-justify">
-                                <strong> Detail Letak Rak : </strong> 
-                                Gedung-{{ rak.nama_gedung }}, Ruangan-{{rak.kode_ruangan}}, Rak-{{ rak.kode_rak }}
+                                <strong> Detail Letak Rak : </strong> <br>
+                                Gedung : {{ rak.nama_gedung }}<br>
+                                Ruangan : {{rak.kode_ruangan}}<br>
+                                Rak : {{ rak.kode_rak }}
                             </p>
                             <p class="text-justify"><strong>Keterangan : </strong> {{ rak.keterangan }} </p>
                             <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p>

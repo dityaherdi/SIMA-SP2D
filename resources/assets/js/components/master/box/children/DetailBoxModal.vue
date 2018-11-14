@@ -30,8 +30,10 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <p class="text-justify">
-                                <strong> Detail Letak Rak : </strong> 
-                                Gedung-{{ box.nama_gedung }}, Ruangan-{{box.kode_ruangan}}, Rak-{{ box.kode_box }}
+                                <strong> Detail Letak Rak : </strong> <br>
+                                Gedung : {{ box.nama_gedung }}<br>
+                                Ruangan : {{box.kode_ruangan}}<br>
+                                Rak : {{ box.kode_box }}
                             </p>
                             <p class="text-justify"><strong>Kapasitas : </strong> {{ box.kapasitas }} </p>
                             <p class="text-justify"><strong>Jumlah Arsip : </strong> {{ box.jml_arsip }} </p>
@@ -104,6 +106,7 @@
                     kode_box: '',
                     qr_box: '',
                     kapasitas: '',
+                    jml_arsip: '',
                     keterangan: '',
                     status: ''
                 }
@@ -116,6 +119,7 @@
                 this.box.kode_ruangan = b.rak.ruangan.kode_ruangan
                 this.box.kode_box = b.kode_box
                 this.box.kapasitas = b.kapasitas
+                this.box.jml_arsip = b.jml_arsip
                 if (b.keterangan==null) {
                     this.box.keterangan = '-'
                 }else{
