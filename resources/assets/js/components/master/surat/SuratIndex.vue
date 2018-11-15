@@ -135,7 +135,8 @@
                     key: '',
                     val: ''
                 },
-                selectedSkpd: ''
+                selectedSkpd: '',
+                sortedEmpty: false
             }
         },
 

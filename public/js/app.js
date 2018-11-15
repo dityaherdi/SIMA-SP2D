@@ -71715,6 +71715,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71994,29 +72006,48 @@ var render = function() {
         _c(
           "div",
           { staticClass: "list-group list-group-flush" },
-          _vm._l(_vm.latestSur, function(s) {
-            return _c(
-              "a",
-              {
-                key: s.id_sp2d,
-                staticClass:
-                  "list-group-item list-group-item-primary d-flex justify-content-between align-items-center",
-                attrs: { href: "javascript:void(0)" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(s.nomor_surat) +
-                    "  |  Terbit : " +
-                    _vm._s(_vm._f("tanggalLokal")(s.tgl_terbit)) +
-                    "\n                    "
-                ),
-                _c("span", { staticClass: "badge badge-primary badge-pill" }, [
-                  _vm._v("NEW")
-                ])
-              ]
-            )
-          })
+          [
+            _vm.latestSur.length == 0
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "list-group-item list-group-item-primary d-flex justify-content-between align-items-center",
+                    attrs: { href: "javascript:void(0)" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Tidak ada data untuk ditampilkan.\n                "
+                    )
+                  ]
+                )
+              : _vm._l(_vm.latestSur, function(s) {
+                  return _c(
+                    "a",
+                    {
+                      key: s.id_sp2d,
+                      staticClass:
+                        "list-group-item list-group-item-primary d-flex justify-content-between align-items-center",
+                      attrs: { href: "javascript:void(0)" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(s.nomor_surat) +
+                          "  |  Terbit : " +
+                          _vm._s(_vm._f("tanggalLokal")(s.tgl_terbit)) +
+                          "\n                    "
+                      ),
+                      _c(
+                        "span",
+                        { staticClass: "badge badge-primary badge-pill" },
+                        [_vm._v("NEW")]
+                      )
+                    ]
+                  )
+                })
+          ],
+          2
         )
       ])
     ]),
@@ -72028,29 +72059,48 @@ var render = function() {
         _c(
           "div",
           { staticClass: "list-group list-group-flush" },
-          _vm._l(_vm.latestArs, function(a) {
-            return _c(
-              "a",
-              {
-                key: a.id_arsip,
-                staticClass:
-                  "list-group-item list-group-item-success d-flex justify-content-between align-items-center",
-                attrs: { href: "javascript:void(0)" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(a.surat.nomor_surat) +
-                    "  |  Diarsipkan : " +
-                    _vm._s(_vm._f("tanggalLokal")(a.tgl_diarsipkan)) +
-                    "\n                    "
-                ),
-                _c("span", { staticClass: "badge badge-success badge-pill" }, [
-                  _vm._v("NEW")
-                ])
-              ]
-            )
-          })
+          [
+            _vm.latestArs.length == 0
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "list-group-item list-group-item-success d-flex justify-content-between align-items-center",
+                    attrs: { href: "javascript:void(0)" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Tidak ada data untuk ditampilkan.\n                "
+                    )
+                  ]
+                )
+              : _vm._l(_vm.latestArs, function(a) {
+                  return _c(
+                    "a",
+                    {
+                      key: a.id_arsip,
+                      staticClass:
+                        "list-group-item list-group-item-success d-flex justify-content-between align-items-center",
+                      attrs: { href: "javascript:void(0)" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(a.surat.nomor_surat) +
+                          "  |  Diarsipkan : " +
+                          _vm._s(_vm._f("tanggalLokal")(a.tgl_diarsipkan)) +
+                          "\n                    "
+                      ),
+                      _c(
+                        "span",
+                        { staticClass: "badge badge-success badge-pill" },
+                        [_vm._v("NEW")]
+                      )
+                    ]
+                  )
+                })
+          ],
+          2
         )
       ])
     ]),
@@ -72062,29 +72112,48 @@ var render = function() {
         _c(
           "div",
           { staticClass: "list-group list-group-flush" },
-          _vm._l(_vm.latestRet, function(r) {
-            return _c(
-              "a",
-              {
-                key: r.id_retensi,
-                staticClass:
-                  "list-group-item list-group-item-danger d-flex justify-content-between align-items-center",
-                attrs: { href: "javascript:void(0)" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(r.surat.nomor_surat) +
-                    "  |  Dihapus di sistem : " +
-                    _vm._s(_vm._f("tanggalLokal")(r.updated_at)) +
-                    "\n                    "
-                ),
-                _c("span", { staticClass: "badge badge-danger badge-pill" }, [
-                  _vm._v("NEW")
-                ])
-              ]
-            )
-          })
+          [
+            _vm.latestRet.length == 0
+              ? _c(
+                  "a",
+                  {
+                    staticClass:
+                      "list-group-item list-group-item-danger d-flex justify-content-between align-items-center",
+                    attrs: { href: "javascript:void(0)" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Tidak ada data untuk ditampilkan.\n                "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.latestRet, function(r) {
+              return _c(
+                "a",
+                {
+                  key: r.id_retensi,
+                  staticClass:
+                    "list-group-item list-group-item-danger d-flex justify-content-between align-items-center",
+                  attrs: { href: "javascript:void(0)" }
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(r.surat.nomor_surat) +
+                      "  |  Dihapus di sistem : " +
+                      _vm._s(_vm._f("tanggalLokal")(r.updated_at)) +
+                      "\n                    "
+                  ),
+                  _c("span", { staticClass: "badge badge-danger badge-pill" }, [
+                    _vm._v("NEW")
+                  ])
+                ]
+              )
+            })
+          ],
+          2
         )
       ])
     ])
@@ -79352,6 +79421,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -79817,7 +79887,12 @@ var render = function() {
                               class: {
                                 "is-invalid": _vm.box.errors.has("kapasitas")
                               },
-                              attrs: { type: "number", id: "kapasitasbox" },
+                              attrs: {
+                                type: "number",
+                                id: "kapasitasbox",
+                                min: "0",
+                                oninput: "validity.valid||(value='');"
+                              },
                               domProps: { value: _vm.box.kapasitas },
                               on: {
                                 input: function($event) {
@@ -82391,7 +82466,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 key: '',
                 val: ''
             },
-            selectedSkpd: ''
+            selectedSkpd: '',
+            sortedEmpty: false
         };
     },
     mounted: function mounted() {
@@ -83720,7 +83796,11 @@ var render = function() {
                   _vm._v(" "),
                   _c("p", { staticClass: "text-justify" }, [
                     _c("strong", [_vm._v("Tanggal Terbit : ")]),
-                    _vm._v(" " + _vm._s(_vm.surat.tgl_terbit) + " ")
+                    _vm._v(
+                      " " +
+                        _vm._s(_vm._f("tanggalLokal")(_vm.surat.tgl_terbit)) +
+                        " "
+                    )
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "text-justify" }, [
@@ -87535,7 +87615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.user.keterangan = user.keterangan;
             }
             if (user.status === 1) {
-                _this.user.status = 'Aktof';
+                _this.user.status = 'Aktif';
             } else if (user.status === 0) {
                 _this.user.status = 'Non-Aktif';
             }

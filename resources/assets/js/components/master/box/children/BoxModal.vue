@@ -77,6 +77,7 @@
                                 <input type="number" class="form-control" 
                                     :class="{ 'is-invalid': box.errors.has('kapasitas') }" 
                                     id="kapasitasbox" v-model="box.kapasitas"
+                                    min="0" oninput="validity.valid||(value='');"
                                 >
                                 <has-error :form="box" field="kapasitas"></has-error>
                             </div>

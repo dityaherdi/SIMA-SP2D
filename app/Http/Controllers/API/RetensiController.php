@@ -14,7 +14,7 @@ class RetensiController extends Controller
 {
     public function index()
     {
-        $arsip = Arsip::whereYear('tgl_perkiraan_retensi', '2028')->where('status_retensi', 0)->with([
+        $arsip = Arsip::whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->where('status_retensi', 0)->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian'
         ])->limit(50)->get();
 
@@ -26,7 +26,7 @@ class RetensiController extends Controller
 
     public function bulkRetensi()
     {
-        $arsip = Arsip::whereYear('tgl_perkiraan_retensi', '2028')->where('status_retensi', 0)->with([
+        $arsip = Arsip::whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->where('status_retensi', 0)->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
             'surat.skpd:id_skpd,kode_skpd,nama_skpd',
             'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',

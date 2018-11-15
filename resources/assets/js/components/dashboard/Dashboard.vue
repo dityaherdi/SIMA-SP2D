@@ -86,7 +86,11 @@
         <div class="row mb-3">
             <div class="col-lg-12">
                 <div class="list-group list-group-flush">
-                    <a href="javascript:void(0)" v-for="s in latestSur" :key="s.id_sp2d"
+                    <a href="javascript:void(0)" v-if="latestSur.length==0"
+                        class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+                        Tidak ada data untuk ditampilkan.
+                    </a>
+                    <a href="javascript:void(0)" v-for="s in latestSur" :key="s.id_sp2d" v-else
                         class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
                         {{ s.nomor_surat }} &nbsp;|&nbsp; Terbit : {{ s.tgl_terbit | tanggalLokal }}
                         <span class="badge badge-primary badge-pill">NEW</span>
@@ -99,7 +103,11 @@
         <div class="row mb-3">
             <div class="col-lg-12">
                 <div class="list-group list-group-flush">
-                    <a href="javascript:void(0)" v-for="a in latestArs" :key="a.id_arsip"
+                    <a href="javascript:void(0)" v-if="latestArs.length==0"
+                        class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                        Tidak ada data untuk ditampilkan.
+                    </a>
+                    <a href="javascript:void(0)" v-for="a in latestArs" :key="a.id_arsip" v-else
                         class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
                         {{ a.surat.nomor_surat }} &nbsp;|&nbsp; Diarsipkan : {{ a.tgl_diarsipkan | tanggalLokal }}
                         <span class="badge badge-success badge-pill">NEW</span>
@@ -112,6 +120,10 @@
         <div class="row mb-3">
             <div class="col-lg-12">
                 <div class="list-group list-group-flush">
+                    <a href="javascript:void(0)" v-if="latestRet.length==0"
+                        class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
+                        Tidak ada data untuk ditampilkan.
+                    </a>
                     <a href="javascript:void(0)" v-for="r in latestRet" :key="r.id_retensi"
                         class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center">
                         {{ r.surat.nomor_surat }} &nbsp;|&nbsp; Dihapus di sistem : {{ r.updated_at | tanggalLokal }}

@@ -63,7 +63,7 @@
                     this.user.keterangan = user.keterangan
                 }
                 if (user.status===1) {
-                    this.user.status = 'Aktof'
+                    this.user.status = 'Aktif'
                 } else if(user.status===0) {
                     this.user.status = 'Non-Aktif'
                 }

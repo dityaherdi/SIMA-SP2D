@@ -61,7 +61,7 @@ class DashboardController extends Controller
 
     public function latestSurat()
     {
-        $latestSur = Surat::latest()->with([
+        $latestSur = Surat::orderBy('tgl_terbit', 'DESC')->with([
             'skpd:id_skpd,kode_skpd,nama_skpd',
             'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
         ])->where(['arsip' => 0])->limit(5)->get();
@@ -73,7 +73,7 @@ class DashboardController extends Controller
 
     public function latestArsip()
     {
-        $latestArs = Arsip::latest()->with([
+        $latestArs = Arsip::orderBy('tgl_diarsipkan', 'DESC')->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
             'surat.skpd:id_skpd,kode_skpd,nama_skpd',
             'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',

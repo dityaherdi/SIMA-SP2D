@@ -15,7 +15,7 @@
                     <p class="text-justify"><strong>SKPD : </strong> {{ surat.skpd }} </p>
                     <p class="text-justify"><strong>Jenis SP2D : </strong> {{ surat.jenis }} </p>
                     <p class="text-justify"><strong>Nomor Surat : </strong> {{ surat.nomor_surat }} </p>
-                    <p class="text-justify"><strong>Tanggal Terbit : </strong> {{ surat.tgl_terbit }} </p>
+                    <p class="text-justify"><strong>Tanggal Terbit : </strong> {{ surat.tgl_terbit | tanggalLokal }} </p>
                     <p class="text-justify"><strong>Uraian Penggunaan : </strong> {{ surat.uraian }} </p>
                     <p class="text-justify"><strong>Keterangan : </strong> {{ surat.keterangan }} </p>
                     <p class="text-justify"><strong>Status : </strong> {{ surat.status }} </p>
