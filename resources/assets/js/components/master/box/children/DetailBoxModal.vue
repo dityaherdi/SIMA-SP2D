@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center mt-3">
                             <button type="button" class="btn btn-secondary" @click="printBoxLabel">
-                                <i class="fas fa-print mr-2"></i>Cetak Label Box
+                                <i class="fas fa-print mr-2"></i>Unduh Label Box
                             </button>
                         </div>
                     </div>

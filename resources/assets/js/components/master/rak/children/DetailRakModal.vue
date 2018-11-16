@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center mt-3">
                             <button type="button" class="btn btn-secondary" @click="printRakLabel">
-                                <i class="fas fa-print mr-2"></i>Cetak Label Rak
+                                <i class="fas fa-print mr-2"></i>Unduh Label Rak
                             </button>
                         </div>
                     </div>

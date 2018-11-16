@@ -78391,7 +78391,7 @@ var render = function() {
                           },
                           [
                             _c("i", { staticClass: "fas fa-print mr-2" }),
-                            _vm._v("Cetak Label Rak\n                        ")
+                            _vm._v("Unduh Label Rak\n                        ")
                           ]
                         )
                       ])
@@ -80504,7 +80504,7 @@ var render = function() {
                           },
                           [
                             _c("i", { staticClass: "fas fa-print mr-2" }),
-                            _vm._v("Cetak Label Box\n                        ")
+                            _vm._v("Unduh Label Box\n                        ")
                           ]
                         )
                       ])
@@ -85946,7 +85946,7 @@ var render = function() {
                           [
                             _c("i", { staticClass: "fas fa-print mr-2" }),
                             _vm._v(
-                              "Cetak Label Arsip\n                            "
+                              "Unduh Label Arsip\n                            "
                             )
                           ]
                         )
