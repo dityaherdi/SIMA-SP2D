@@ -116,5 +116,17 @@ class SuratController extends Controller
             'data' => $surat
         ]);
     }
+
+    public function sortBySkpd($id)
+    {
+        $surat = Surat::with([
+            'skpd:id_skpd,kode_skpd,nama_skpd',
+            'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
+        ])->where(['arsip' => 0, 'id_skpd' => $id])->get()->paginateCollection(16);
+
+        return response()->json([
+            'data' => $surat
+        ]);   
+    }
     
 }

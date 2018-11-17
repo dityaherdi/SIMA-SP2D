@@ -79,7 +79,8 @@
                     key: '',
                     val: ''
                 },
-                selectedSkpd: ''
+                selectedSkpd: '',
+                arsipBySkpd: {}
             }
         },
 
@@ -143,6 +144,7 @@
                         this.next = arsip.next_page_url
                         this.searching = false
                         this.arsipKeyword = null
+                        // console.log(JSON.stringify(this.arsip,null,8))
                         Signal.$emit('clear_keywords')
                     })
                 }
@@ -183,6 +185,12 @@
                                         this.arsip = this.arsip.concat(Object.values(response.data.data.data))
                                         this.next = response.data.data.next_page_url
                                     })
+                                } else if (this.sorting.key=='skpd' && this.sorting.val != '') {
+                                    axios.get(this.next)
+                                    .then((response) => {
+                                        this.arsipBySkpd = this.arsip.concat(Object.values(response.data.data.data))
+                                        this.next = response.data.data.next_page_url
+                                    })
                                 } else {
                                     axios.get(this.next)
                                     .then((response) => {
@@ -210,6 +218,17 @@
             sort(key, val) {
                 this.sorting.key = key
                 this.sorting.val = val
+                if (key=='skpd') {
+                    if (val!='') {
+                        axios.get('api/arsip-by-skpd/'+this.selectedSkpd)
+                        .then((response) => {
+                            this.next = response.data.data.next_page_url
+                            this.arsip = response.data.data.data
+                        })
+                    }else {
+                        this.loadArsip()
+                    }
+                }
             },
 
             sortedArsip(arsip) {
@@ -219,7 +238,7 @@
                     if (this.sorting.val == '') {
                         return arsip
                     }else {
-                        return _.pickBy(arsip, { surat: { skpd: { id_skpd: this.sorting.val }}})
+                        return this.arsip
                     }
                 }
             }

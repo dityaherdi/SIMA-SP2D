@@ -136,7 +136,8 @@
                     val: ''
                 },
                 selectedSkpd: '',
-                sortedEmpty: false
+                sortedEmpty: false,
+                suratBySkpd: {}
             }
         },
 
@@ -258,6 +259,12 @@
                                         this.surat = this.surat.concat(Object.values(response.data.data.data))
                                         this.next = response.data.data.next_page_url
                                     })
+                                } else if (this.sorting.key=='skpd' && this.sorting.val != '') {
+                                    axios.get(this.next)
+                                    .then((response) => {
+                                        this.suratBySkpd = this.surat.concat(Object.values(response.data.data.data))
+                                        this.next = response.data.data.next_page_url
+                                    })
                                 } else {
                                     axios.get(this.next)
                                     .then((response) => {
@@ -285,6 +292,17 @@
             sort(key, val) {
                 this.sorting.key = key
                 this.sorting.val = val
+                if (key=='skpd') {
+                    if (val!='') {
+                        axios.get('api/surat-by-skpd/'+this.selectedSkpd)
+                        .then((response) => {
+                            this.next = response.data.data.next_page_url
+                            this.surat = response.data.data.data
+                        })
+                    }else {
+                        this.loadSurat()
+                    }
+                }
             },
 
             sortedSurat(surat) {
@@ -300,7 +318,7 @@
                     if (this.sorting.val == '') {
                         return surat
                     }else {
-                        return _.pickBy(surat, { id_skpd: this.sorting.val })
+                        return this.surat
                     }
                 }
             }

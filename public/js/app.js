@@ -82467,7 +82467,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 val: ''
             },
             selectedSkpd: '',
-            sortedEmpty: false
+            sortedEmpty: false,
+            suratBySkpd: {}
         };
     },
     mounted: function mounted() {
@@ -82576,6 +82577,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     _this3.surat = _this3.surat.concat(Object.values(response.data.data.data));
                                     _this3.next = response.data.data.next_page_url;
                                 });
+                            } else if (_this3.sorting.key == 'skpd' && _this3.sorting.val != '') {
+                                axios.get(_this3.next).then(function (response) {
+                                    _this3.suratBySkpd = _this3.surat.concat(Object.values(response.data.data.data));
+                                    _this3.next = response.data.data.next_page_url;
+                                });
                             } else {
                                 axios.get(_this3.next).then(function (response) {
                                     _this3.surat = _this3.surat.concat(Object.values(response.data.data.data));
@@ -82599,8 +82605,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         sort: function sort(key, val) {
+            var _this5 = this;
+
             this.sorting.key = key;
             this.sorting.val = val;
+            if (key == 'skpd') {
+                if (val != '') {
+                    axios.get('api/surat-by-skpd/' + this.selectedSkpd).then(function (response) {
+                        _this5.next = response.data.data.next_page_url;
+                        _this5.surat = response.data.data.data;
+                    });
+                } else {
+                    this.loadSurat();
+                }
+            }
         },
         sortedSurat: function sortedSurat(surat) {
             if (this.sorting.key == '' && this.sorting.val == '') {
@@ -82615,7 +82633,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (this.sorting.val == '') {
                     return surat;
                 } else {
-                    return _.pickBy(surat, { id_skpd: this.sorting.val });
+                    return this.surat;
                 }
             }
         }
@@ -85382,7 +85400,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 key: '',
                 val: ''
             },
-            selectedSkpd: ''
+            selectedSkpd: '',
+            arsipBySkpd: {}
         };
     },
     created: function created() {
@@ -85442,6 +85461,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.next = arsip.next_page_url;
                     _this2.searching = false;
                     _this2.arsipKeyword = null;
+                    // console.log(JSON.stringify(this.arsip,null,8))
                     Signal.$emit('clear_keywords');
                 });
             }
@@ -85478,6 +85498,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     _this3.arsip = _this3.arsip.concat(Object.values(response.data.data.data));
                                     _this3.next = response.data.data.next_page_url;
                                 });
+                            } else if (_this3.sorting.key == 'skpd' && _this3.sorting.val != '') {
+                                axios.get(_this3.next).then(function (response) {
+                                    _this3.arsipBySkpd = _this3.arsip.concat(Object.values(response.data.data.data));
+                                    _this3.next = response.data.data.next_page_url;
+                                });
                             } else {
                                 axios.get(_this3.next).then(function (response) {
                                     _this3.arsip = _this3.arsip.concat(Object.values(response.data.data.data));
@@ -85501,8 +85526,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         sort: function sort(key, val) {
+            var _this5 = this;
+
             this.sorting.key = key;
             this.sorting.val = val;
+            if (key == 'skpd') {
+                if (val != '') {
+                    axios.get('api/arsip-by-skpd/' + this.selectedSkpd).then(function (response) {
+                        _this5.next = response.data.data.next_page_url;
+                        _this5.arsip = response.data.data.data;
+                    });
+                } else {
+                    this.loadArsip();
+                }
+            }
         },
         sortedArsip: function sortedArsip(arsip) {
             if (this.sorting.key == '' && this.sorting.val == '') {
@@ -85511,7 +85548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (this.sorting.val == '') {
                     return arsip;
                 } else {
-                    return _.pickBy(arsip, { surat: { skpd: { id_skpd: this.sorting.val } } });
+                    return this.arsip;
                 }
             }
         }
