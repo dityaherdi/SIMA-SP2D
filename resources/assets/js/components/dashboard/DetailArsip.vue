@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <pagination :data="arsip" @pagination-change-page="getResults"></pagination>
+                            <pagination :data="arsip" @pagination-change-page="getResults" :limit="1"></pagination>
                         </div>
                     </div>
                 </div>

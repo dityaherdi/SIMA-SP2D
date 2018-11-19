@@ -72281,6 +72281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72331,21 +72332,30 @@ var render = function() {
             _c(
               "ul",
               { staticClass: "list-group" },
-              _vm._l(_vm.surat.data, function(sur) {
-                return _c(
-                  "li",
-                  { key: sur.id_surat, staticClass: "list-group-item" },
-                  [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(sur.nomor_surat) +
-                        " |  Terbit : " +
-                        _vm._s(_vm._f("tanggalLokal")(sur.tgl_terbit)) +
-                        "\n                        "
-                    )
-                  ]
-                )
-              })
+              [
+                _vm.surat.length == 0
+                  ? _c("li", { staticClass: "list-group-item" }, [
+                      _vm._v("Tidak ada data")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.surat.data, function(sur) {
+                  return _c(
+                    "li",
+                    { key: sur.id_surat, staticClass: "list-group-item" },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(sur.nomor_surat) +
+                          " |  Terbit : " +
+                          _vm._s(_vm._f("tanggalLokal")(sur.tgl_terbit)) +
+                          "\n                        "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
             )
           ]),
           _vm._v(" "),
@@ -72355,7 +72365,7 @@ var render = function() {
               { staticClass: "float-right" },
               [
                 _c("pagination", {
-                  attrs: { data: _vm.surat },
+                  attrs: { data: _vm.surat, limit: 1 },
                   on: { "pagination-change-page": _vm.getResults }
                 })
               ],
@@ -72532,7 +72542,7 @@ var render = function() {
               { staticClass: "float-right" },
               [
                 _c("pagination", {
-                  attrs: { data: _vm.arsip },
+                  attrs: { data: _vm.arsip, limit: 1 },
                   on: { "pagination-change-page": _vm.getResults }
                 })
               ],
@@ -72915,6 +72925,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72930,6 +72945,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }).catch(function (error) {
             console.log(error);
         });
+    },
+
+    methods: {
+        getResults: function getResults() {
+            var _this2 = this;
+
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            axios.get('api/detail-retensi?page=' + page).then(function (response) {
+                _this2.retensiArs = response.data.data;
+            });
+        }
     }
 });
 
@@ -72980,6 +73007,20 @@ var render = function() {
                   [_vm._v(_vm._s(r.surat.nomor_surat))]
                 )
               })
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c(
+              "div",
+              { staticClass: "float-right" },
+              [
+                _c("pagination", {
+                  attrs: { data: _vm.retensiArs, limit: 1 },
+                  on: { "pagination-change-page": _vm.getResults }
+                })
+              ],
+              1
             )
           ])
         ])

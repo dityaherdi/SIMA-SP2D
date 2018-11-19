@@ -8,6 +8,7 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
+                            <li v-if="surat.length==0" class="list-group-item">Tidak ada data</li>
                             <li class="list-group-item" v-for="sur in surat.data" :key="sur.id_surat">
                                 {{ sur.nomor_surat }} |  Terbit : {{ sur.tgl_terbit | tanggalLokal }}
                             </li>
@@ -15,7 +16,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <pagination :data="surat" @pagination-change-page="getResults"></pagination>
+                            <pagination :data="surat" @pagination-change-page="getResults" :limit="1"></pagination>
                         </div>
                     </div>
                 </div>

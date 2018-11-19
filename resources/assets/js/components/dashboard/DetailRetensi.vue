@@ -16,6 +16,11 @@
                             <li class="list-group-item" v-for="r in retensiArs" :key="r.id_arsip">{{ r.surat.nomor_surat }}</li>
                         </ul>
                     </div>
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <pagination :data="retensiArs" @pagination-change-page="getResults" :limit="1"></pagination>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,6 +42,14 @@
             .catch((error) => {
                 console.log(error)
             })
+        },
+        methods: {
+            getResults(page = 1) {
+                axios.get('api/detail-retensi?page='+page)
+                .then((response) => {
+                    this.retensiArs = response.data.data
+                })
+            }
         }
     }
 </script>
