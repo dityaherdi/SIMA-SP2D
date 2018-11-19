@@ -72647,6 +72647,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72702,19 +72710,21 @@ var render = function() {
                       _vm._s(_vm.storage.countedGed) +
                       "\n                            "
                   ),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary btn-block col-sm-4",
-                      attrs: { to: { name: "GedungIndex" }, tag: "span" }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fas fa-building mr-2 float-left"
-                      }),
-                      _vm._v(" Semua Gedung\n                            ")
-                    ]
-                  )
+                  !this.isPimpinan()
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-block col-sm-4",
+                          attrs: { to: { name: "GedungIndex" }, tag: "span" }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-building mr-2 float-left"
+                          }),
+                          _vm._v(" Semua Gedung\n                            ")
+                        ]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -72731,19 +72741,21 @@ var render = function() {
                       _vm._s(_vm.storage.countedRua) +
                       "\n                            "
                   ),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary btn-block col-sm-4",
-                      attrs: { to: { name: "RuanganIndex" }, tag: "span" }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fas fa-door-open mr-2 float-left"
-                      }),
-                      _vm._v(" Semua Ruangan\n                            ")
-                    ]
-                  )
+                  !this.isPimpinan()
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-block col-sm-4",
+                          attrs: { to: { name: "RuanganIndex" }, tag: "span" }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-door-open mr-2 float-left"
+                          }),
+                          _vm._v(" Semua Ruangan\n                            ")
+                        ]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -72760,19 +72772,21 @@ var render = function() {
                       _vm._s(_vm.storage.countedRak) +
                       "\n                            "
                   ),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary btn-block col-sm-4",
-                      attrs: { to: { name: "RakIndex" }, tag: "span" }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fas fa-archive mr-2 float-left"
-                      }),
-                      _vm._v(" Semua Rak\n                            ")
-                    ]
-                  )
+                  !this.isPimpinan()
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-block col-sm-4",
+                          attrs: { to: { name: "RakIndex" }, tag: "span" }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-archive mr-2 float-left"
+                          }),
+                          _vm._v(" Semua Rak\n                            ")
+                        ]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -72789,19 +72803,21 @@ var render = function() {
                       _vm._s(_vm.storage.countedBox) +
                       "\n                            "
                   ),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary btn-block col-sm-4",
-                      attrs: { to: { name: "BoxIndex" }, tag: "span" }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fas fa-box-open mr-2 float-left"
-                      }),
-                      _vm._v(" Semua Box\n                            ")
-                    ]
-                  )
+                  !this.isPimpinan()
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-block col-sm-4",
+                          attrs: { to: { name: "BoxIndex" }, tag: "span" }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-box-open mr-2 float-left"
+                          }),
+                          _vm._v(" Semua Box\n                            ")
+                        ]
+                      )
+                    : _vm._e()
                 ],
                 1
               )
