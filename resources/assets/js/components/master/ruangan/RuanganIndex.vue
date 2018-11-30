@@ -45,11 +45,11 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" v-if="$store.state.currentUser.tipe === 'Master'"
+                            <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" v-if="$store.state.currentUser.tipe === 'Master'"
                                 title="Hapus Data Ruangan"
                                 @click="deleteRuangan(rua.id_ruangan)">
                                 <i class="fas fa-trash"></i>
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
                 </tbody>
@@ -163,11 +163,11 @@
                 }
             },
 
-            deleteRuangan(id) {
-                if (this.isMasterOrAdmin()) {
-                    this.deleteData('api/ruangan/'+id, 'ruangan')
-                }
-            },
+            // deleteRuangan(id) {
+            //     if (this.isMasterOrAdmin()) {
+            //         this.deleteData('api/ruangan/'+id, 'ruangan')
+            //     }
+            // },
 
             getResults(page = 1) {
                 if (this.isMasterOrAdmin()) {

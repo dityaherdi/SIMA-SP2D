@@ -45,11 +45,11 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                             
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" v-if="$store.state.currentUser.tipe === 'Master'"
+                            <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" v-if="$store.state.currentUser.tipe === 'Master'"
                                 title="Hapus Data Gedung"
                                 @click="deleteGedung(ged.id_gedung)">
                                 <i class="fas fa-trash"></i>
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
                 </tbody>
@@ -138,11 +138,11 @@
                 }
             },
 
-            deleteGedung(id) {
-                if (this.isMasterOrAdmin()) {
-                    this.deleteData('api/gedung/'+id, 'gedung')
-                }
-            },
+            // deleteGedung(id) {
+            //     if (this.isMasterOrAdmin()) {
+            //         this.deleteData('api/gedung/'+id, 'gedung')
+            //     }
+            // },
 
             getResults(page = 1) {
                 if (this.isMasterOrAdmin()) {

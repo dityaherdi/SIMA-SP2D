@@ -17,6 +17,7 @@ class CreateGedungsTable extends Migration
             $table->increments('id_gedung');
             $table->string('kode_gedung')->unique();
             $table->string('nama_gedung');
+            $table->text('alamat')->nullable();
             $table->text('keterangan')->nullable();
             $table->boolean('status')->default('1');
             $table->timestamps();

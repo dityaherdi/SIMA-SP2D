@@ -21,7 +21,8 @@ class FormGedungRequest extends FormRequest
 
     protected $rules = [
         'kode_gedung' => '',
-        'nama_gedung' => 'required|max:191'
+        'nama_gedung' => 'required|max:191',
+        'alamat' => 'required'
     ];
 
     /**
@@ -48,7 +49,8 @@ class FormGedungRequest extends FormRequest
             'kode_gedung.required' => 'Kode Gedung harus diisi',
             'kode_gedung.unique' => 'Kode Gedung sudah digunakan',
             'nama_gedung.required' => 'Nama Gedung harus diisi',
-            'nama_gedung.max' => 'Nama Gedung melebihi batas karakter'
+            'nama_gedung.max' => 'Nama Gedung melebihi batas karakter',
+            'alamat.required' => 'Alamat harus diisi'
         ];
     }
 }

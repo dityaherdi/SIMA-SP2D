@@ -38,18 +38,18 @@
                                 @click="showDetailJenisModal(jen)">
                                 <i class="fas fa-eye "></i>
                             </a>
-                            /
+                            
                             <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                 title="Edit Data Jenis SP2D"
                                 @click="showEditingModal(jen)">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            /
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
+                            
+                            <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                                 title="Hapus Data Jenis SP2D"
                                 @click="deleteJenis(jen.id_jenis_sp2d)">
                                 <i class="fas fa-trash"></i>
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
                 </tbody>
@@ -138,11 +138,11 @@
                 }
             },
 
-            deleteJenis(id) {
-                if (this.isMaster()) {
-                    this.deleteData('api/jenis/'+id, 'jenis')
-                }
-            },
+            // deleteJenis(id) {
+            //     if (this.isMaster()) {
+            //         this.deleteData('api/jenis/'+id, 'jenis')
+            //     }
+            // },
 
             getResults(page = 1) {
                 if (this.isMaster()) {

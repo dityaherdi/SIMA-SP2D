@@ -73484,11 +73484,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteSkpd: function deleteSkpd(id) {
-            if (this.isMaster()) {
-                this.deleteData('api/skpd/' + id, 'skpd');
-            }
-        },
+
+
+        // deleteSkpd(id) {
+        //     if (this.isMaster()) {
+        //         this.deleteData('api/skpd/'+id, 'skpd')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -74444,9 +74447,7 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                            /\n                            "
-                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "a",
                                         {
@@ -74464,29 +74465,6 @@ var render = function() {
                                         [
                                           _c("i", {
                                             staticClass: "fas fa-edit"
-                                          })
-                                        ]
-                                      ),
-                                      _vm._v(
-                                        "\n                            /\n                            "
-                                      ),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-danger btn-sm",
-                                          attrs: {
-                                            href: "javascript:void(0)",
-                                            title: "Hapus Data SKPD"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteSkpd(skpd.id_skpd)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
                                           })
                                         ]
                                       )
@@ -74745,11 +74723,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteGedung: function deleteGedung(id) {
-            if (this.isMasterOrAdmin()) {
-                this.deleteData('api/gedung/' + id, 'gedung');
-            }
-        },
+
+
+        // deleteGedung(id) {
+        //     if (this.isMasterOrAdmin()) {
+        //         this.deleteData('api/gedung/'+id, 'gedung')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -74900,6 +74881,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74909,6 +74897,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id_gedung: '',
                 kode_gedung: '',
                 nama_gedung: '',
+                alamat: '',
                 keterangan: '',
                 status: true
             })
@@ -75099,6 +75088,50 @@ var render = function() {
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.gedung, field: "nama_gedung" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "ketgedung" } }, [
+                          _vm._v("Alamat")
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.gedung.alamat,
+                              expression: "gedung.alamat"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.gedung.errors.has("alamat")
+                          },
+                          attrs: { rows: "1", id: "ketgedung" },
+                          domProps: { value: _vm.gedung.alamat },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.gedung,
+                                "alamat",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.gedung, field: "alamat" }
                         })
                       ],
                       1
@@ -75377,6 +75410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -75384,6 +75418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             gedung: {
                 kode_gedung: '',
                 nama_gedung: '',
+                alamat: '',
                 keterangan: '',
                 status: ''
             }
@@ -75395,6 +75430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Signal.$on('show_detail_gedung_modal', function (ged) {
             _this.gedung.kode_gedung = ged.kode_gedung;
             _this.gedung.nama_gedung = ged.nama_gedung;
+            _this.gedung.alamat = ged.alamat;
             if (ged.keterangan == null) {
                 _this.gedung.keterangan = '-';
             } else {
@@ -75452,6 +75488,11 @@ var render = function() {
                   _c("p", { staticClass: "text-justify" }, [
                     _c("strong", [_vm._v("Nama Gedung : ")]),
                     _vm._v(" " + _vm._s(_vm.gedung.nama_gedung) + " ")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-justify" }, [
+                    _c("strong", [_vm._v("Alamat : ")]),
+                    _vm._v(" " + _vm._s(_vm.gedung.alamat) + " ")
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "text-justify" }, [
@@ -75655,34 +75696,7 @@ var render = function() {
                                             staticClass: "fas fa-edit"
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm.$store.state.currentUser.tipe ===
-                                      "Master"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: {
-                                                href: "javascript:void(0)",
-                                                title: "Hapus Data Gedung"
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.deleteGedung(
-                                                    ged.id_gedung
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fas fa-trash"
-                                              })
-                                            ]
-                                          )
-                                        : _vm._e()
+                                      )
                                     ])
                                   ])
                                 })
@@ -75962,11 +75976,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteRuangan: function deleteRuangan(id) {
-            if (this.isMasterOrAdmin()) {
-                this.deleteData('api/ruangan/' + id, 'ruangan');
-            }
-        },
+
+
+        // deleteRuangan(id) {
+        //     if (this.isMasterOrAdmin()) {
+        //         this.deleteData('api/ruangan/'+id, 'ruangan')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -76923,34 +76940,7 @@ var render = function() {
                                             staticClass: "fas fa-edit"
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm.$store.state.currentUser.tipe ===
-                                      "Master"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: {
-                                                href: "javascript:void(0)",
-                                                title: "Hapus Data Ruangan"
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.deleteRuangan(
-                                                    rua.id_ruangan
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fas fa-trash"
-                                              })
-                                            ]
-                                          )
-                                        : _vm._e()
+                                      )
                                     ])
                                   ])
                                 })
@@ -77317,11 +77307,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteRak: function deleteRak(id) {
-            if (this.isMasterOrAdmin()) {
-                this.deleteData('api/rak/' + id, 'rak');
-            }
-        },
+
+
+        // deleteRak(id) {
+        //     if (this.isMasterOrAdmin()) {
+        //         this.deleteData('api/rak/'+id, 'rak')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -78707,32 +78700,7 @@ var render = function() {
                                             staticClass: "fas fa-edit"
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm.$store.state.currentUser.tipe ===
-                                      "Master"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: {
-                                                href: "javascript:void(0)",
-                                                title: "Hapus Data Rak"
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.deleteRak(r.id_rak)
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fas fa-trash"
-                                              })
-                                            ]
-                                          )
-                                        : _vm._e()
+                                      )
                                     ])
                                   ])
                                 })
@@ -79191,11 +79159,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteBox: function deleteBox(id) {
-            if (this.isMasterOrAdmin()) {
-                this.deleteData('api/box/' + id, 'box');
-            }
-        },
+
+
+        // deleteBox(id) {
+        //     if (this.isMasterOrAdmin()) {
+        //         this.deleteData('api/box/'+id, 'box')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -80824,32 +80795,7 @@ var render = function() {
                                             staticClass: "fas fa-edit"
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm.$store.state.currentUser.tipe ===
-                                      "Master"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: {
-                                                href: "javascript:void(0)",
-                                                title: "Hapus Data Box"
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.deleteBox(b.id_box)
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fas fa-trash"
-                                              })
-                                            ]
-                                          )
-                                        : _vm._e()
+                                      )
                                     ])
                                   ])
                                 })
@@ -81318,11 +81264,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteJenis: function deleteJenis(id) {
-            if (this.isMaster()) {
-                this.deleteData('api/jenis/' + id, 'jenis');
-            }
-        },
+
+
+        // deleteJenis(id) {
+        //     if (this.isMaster()) {
+        //         this.deleteData('api/jenis/'+id, 'jenis')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -82222,9 +82171,7 @@ var render = function() {
                                           })
                                         ]
                                       ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "a",
                                         {
@@ -82242,29 +82189,6 @@ var render = function() {
                                         [
                                           _c("i", {
                                             staticClass: "fas fa-edit"
-                                          })
-                                        ]
-                                      ),
-                                      _vm._v(
-                                        "\n                        /\n                        "
-                                      ),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-danger btn-sm",
-                                          attrs: {
-                                            href: "javascript:void(0)",
-                                            title: "Hapus Data Jenis SP2D"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.deleteJenis(jen.id_jenis_sp2d)
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fas fa-trash"
                                           })
                                         ]
                                       )
@@ -86651,11 +86575,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         },
-        deleteUser: function deleteUser(id) {
-            if (this.isMaster()) {
-                this.deleteData('api/user/' + id, 'user');
-            }
-        },
+
+
+        // deleteUser(id) {
+        //     if (this.isMaster()) {
+        //         this.deleteData('api/user/'+id, 'user')
+        //     }
+        // },
+
         getResults: function getResults() {
             var _this3 = this;
 
@@ -87975,9 +87902,7 @@ var render = function() {
                                               })
                                             ]
                                           ),
-                                          _vm._v(
-                                            "\n                            /\n                            "
-                                          ),
+                                          _vm._v(" "),
                                           _c(
                                             "a",
                                             {
@@ -87996,30 +87921,6 @@ var render = function() {
                                             [
                                               _c("i", {
                                                 staticClass: "fas fa-edit"
-                                              })
-                                            ]
-                                          ),
-                                          _vm._v(
-                                            "\n                            /\n                            "
-                                          ),
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "btn btn-danger btn-sm",
-                                              attrs: {
-                                                href: "javascript:void(0)",
-                                                title: "Hapus Data User"
-                                              },
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.deleteUser(user.id_user)
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fas fa-trash"
                                               })
                                             ]
                                           )
@@ -100518,7 +100419,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$route.path;
         },
         showSearch: function showSearch() {
-            if (this.$route.path == '/dashboard' || this.$route.path == '/detail-penyimpanan' || this.$route.path == '/detail-retensi' || this.$route.path == '/profil') {
+            if (this.$route.path == '/dashboard' || this.$route.path == '/retensi-tahunan' || this.$route.path == '/detail-penyimpanan' || this.$route.path == '/detail-retensi' || this.$route.path == '/profil') {
                 return false;
             } else {
                 return true;
@@ -100614,20 +100515,6 @@ var render = function() {
                 "dropdown-menu dropdown-menu-lg dropdown-menu-right bg-dark"
             },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "dropdown-item bg-dark",
-                  attrs: { to: { name: "Profil" } }
-                },
-                [
-                  _c("i", { staticClass: "fa fa-user-circle mr-2" }),
-                  _vm._v(" Profil\n        ")
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-divider" }),
-              _vm._v(" "),
               _vm.currentUser
                 ? [
                     _c(

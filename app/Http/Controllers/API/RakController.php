@@ -77,14 +77,14 @@ class RakController extends Controller
      */
     public function destroy($id)
     {
-        $rak = Rak::findOrFail($id);
-        $rak->delete();
-        @unlink(public_path('img/qr/rak/'.$rak->qr_rak));
+        // $rak = Rak::findOrFail($id);
+        // $rak->delete();
+        // @unlink(public_path('img/qr/rak/'.$rak->qr_rak));
 
-        return response()->json([
-            'data' => $rak,
-            'message' => 'Rak dengan kode: '.$rak->kode_rak.' telah dihapus'
-        ]);
+        // return response()->json([
+        //     'data' => $rak,
+        //     'message' => 'Rak dengan kode: '.$rak->kode_rak.' telah dihapus'
+        // ]);
     }
 
     public function search(Request $request)

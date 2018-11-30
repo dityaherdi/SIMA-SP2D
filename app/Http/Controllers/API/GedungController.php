@@ -79,13 +79,13 @@ class GedungController extends Controller
      */
     public function destroy($id)
     {
-        $gedung = Gedung::findOrFail($id);
-        $gedung->delete();
+        // $gedung = Gedung::findOrFail($id);
+        // $gedung->delete();
 
-        return response()->json([
-            'data' => $gedung,
-            'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah dihapus'
-        ]);
+        // return response()->json([
+        //     'data' => $gedung,
+        //     'message' => 'Gedung dengan kode: '.$gedung->kode_gedung.' telah dihapus'
+        // ]);
     }
 
     public function search(Request $request)

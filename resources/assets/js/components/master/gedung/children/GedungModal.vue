@@ -32,6 +32,13 @@
                         <has-error :form="gedung" field="nama_gedung"></has-error>
                     </div>
                     <div class="form-group">
+                        <label for="ketgedung">Alamat</label>
+                        <textarea class="form-control" rows="1"
+                            :class="{ 'is-invalid': gedung.errors.has('alamat') }"
+                            id="ketgedung" v-model="gedung.alamat"></textarea>
+                        <has-error :form="gedung" field="alamat"></has-error>
+                    </div>
+                    <div class="form-group">
                         <label for="ketgedung">Keterangan</label>
                         <textarea class="form-control" rows="3" placeholder="..." 
                             :class="{ 'is-invalid': gedung.errors.has('keterangan') }"
@@ -72,6 +79,7 @@
                     id_gedung: '',
                     kode_gedung: '',
                     nama_gedung: '',
+                    alamat: '',
                     keterangan: '',
                     status: true
                 })

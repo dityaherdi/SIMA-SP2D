@@ -80,13 +80,13 @@ class RuanganController extends Controller
      */
     public function destroy($id)
     {
-        $ruangan = Ruangan::findOrFail($id);
-        $ruangan->delete();
+        // $ruangan = Ruangan::findOrFail($id);
+        // $ruangan->delete();
 
-        return response()->json([
-            'data' => $ruangan,
-            'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah dihapus'
-        ]);
+        // return response()->json([
+        //     'data' => $ruangan,
+        //     'message' => 'Ruangan dengan kode: '.$ruangan->kode_ruangan.' telah dihapus'
+        // ]);
     }
 
     public function search(Request $request)

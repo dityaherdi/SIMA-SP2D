@@ -14,6 +14,7 @@
                 <div class="col-md-12">
                     <p class="text-justify"><strong>Kode Gedung : </strong> {{ gedung.kode_gedung }} </p>
                     <p class="text-justify"><strong>Nama Gedung : </strong> {{ gedung.nama_gedung }} </p>
+                    <p class="text-justify"><strong>Alamat : </strong> {{ gedung.alamat }} </p>
                     <p class="text-justify"><strong>Keterangan : </strong> {{ gedung.keterangan }} </p>
                     <p class="text-justify"><strong>Status : </strong> {{ gedung.status }} </p>
                 </div>
@@ -36,6 +37,7 @@
                 gedung: {
                     kode_gedung: '',
                     nama_gedung: '',
+                    alamat: '',
                     keterangan: '',
                     status: '',
                 }
@@ -45,6 +47,7 @@
             Signal.$on('show_detail_gedung_modal', (ged) => {
                 this.gedung.kode_gedung = ged.kode_gedung
                 this.gedung.nama_gedung = ged.nama_gedung
+                this.gedung.alamat = ged.alamat
                 if (ged.keterangan==null) {
                     this.gedung.keterangan = '-'
                 }else{

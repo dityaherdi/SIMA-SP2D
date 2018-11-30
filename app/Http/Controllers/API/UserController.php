@@ -116,16 +116,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        if ($user->foto!='profile.png') {
-            @unlink(public_path('img/profile/').$user->foto);
-        }
+        // $user = User::findOrFail($id);
+        // if ($user->foto!='profile.png') {
+        //     @unlink(public_path('img/profile/').$user->foto);
+        // }
 
-        $user->delete();
+        // $user->delete();
 
-        return response()->json([
-            'message' => 'User '.$user->username.' telah dihapus'
-        ]);
+        // return response()->json([
+        //     'message' => 'User '.$user->username.' telah dihapus'
+        // ]);
     }
 
     public function search(Request $request)

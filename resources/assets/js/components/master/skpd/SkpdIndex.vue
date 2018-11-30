@@ -38,18 +38,18 @@
                                     @click="showDetailSkpdModal(skpd)">
                                     <i class="fas fa-eye "></i>
                                 </a>
-                                /
+                                
                                 <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                     title="Edit Data SKPD"
                                     @click="showEditingModal(skpd)">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                /
-                                <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
+                                
+                                <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                                     title="Hapus Data SKPD"
                                     @click="deleteSkpd(skpd.id_skpd)">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                </a> -->
                             </td>
                         </tr>
                     </tbody>
@@ -138,11 +138,11 @@
                 }
             },
 
-            deleteSkpd(id) {
-                if (this.isMaster()) {
-                    this.deleteData('api/skpd/'+id, 'skpd')
-                }
-            },
+            // deleteSkpd(id) {
+            //     if (this.isMaster()) {
+            //         this.deleteData('api/skpd/'+id, 'skpd')
+            //     }
+            // },
             
             getResults(page = 1) {
                 if (this.isMaster()) {

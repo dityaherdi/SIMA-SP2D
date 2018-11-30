@@ -9,7 +9,7 @@ class Gedung extends Model
     protected $primaryKey = 'id_gedung';
 
     protected $fillable = [
-        'kode_gedung', 'nama_gedung', 'keterangan', 'status'
+        'kode_gedung', 'nama_gedung', 'alamat', 'keterangan', 'status'
     ];
 
     public function ruangans()

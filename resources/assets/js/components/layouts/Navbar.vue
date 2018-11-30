@@ -29,10 +29,10 @@
             <i class="fas fa-cogs mr-2"></i> Pengaturan
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right bg-dark">
-            <router-link :to="{ name: 'Profil' }" class="dropdown-item bg-dark">
+            <!-- <router-link :to="{ name: 'Profil' }" class="dropdown-item bg-dark">
                 <i class="fa fa-user-circle mr-2"></i> Profil
             </router-link>
-            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div> -->
             <template v-if="currentUser">
                 <a href="javascript:void(0)" class="dropdown-item dropdown-footer bg-dark" @click="logout">
                     <i class="fas fa-sign-out-alt mr-2"></i>
@@ -106,7 +106,7 @@
             },
 
             showSearch() {
-                if (this.$route.path=='/dashboard' || this.$route.path=='/detail-penyimpanan' || this.$route.path=='/detail-retensi' || this.$route.path=='/profil') {
+                if (this.$route.path=='/dashboard' || this.$route.path=='/retensi-tahunan' || this.$route.path=='/detail-penyimpanan' || this.$route.path=='/detail-retensi' || this.$route.path=='/profil') {
                     return false
                 }else {
                     return true

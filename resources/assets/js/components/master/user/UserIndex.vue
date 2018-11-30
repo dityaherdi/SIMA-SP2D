@@ -41,18 +41,18 @@
                                     @click="showDetailUserModal(user)">
                                     <i class="fas fa-eye "></i>
                                 </a>
-                                /
+                                
                                 <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                     title="Edit Data User"
                                     @click="showEditingModal(user)">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                /
-                                <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
+                                
+                                <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" 
                                     title="Hapus Data User"
                                     @click="deleteUser(user.id_user)">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                </a> -->
                             </td>
                         </tr>
                     </tbody>
@@ -141,11 +141,11 @@
                 }
             },
 
-            deleteUser(id) {
-                if (this.isMaster()) {
-                    this.deleteData('api/user/'+id, 'user')
-                }
-            },
+            // deleteUser(id) {
+            //     if (this.isMaster()) {
+            //         this.deleteData('api/user/'+id, 'user')
+            //     }
+            // },
 
             getResults(page = 1) {
                 if (this.isMaster()) {

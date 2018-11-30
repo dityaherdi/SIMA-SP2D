@@ -79,18 +79,18 @@ class BoxController extends Controller
      */
     public function destroy($id)
     {
-        $box = Box::findOrFail($id);
+        // $box = Box::findOrFail($id);
 
-        if (Arsip::has('box')->where('id_box', $id)->count() != 0) {
-            return false;
-        }else {
-            $box->delete();
-            @unlink(public_path('img/qr/box/'.$box->qr_box));
+        // if (Arsip::has('box')->where('id_box', $id)->count() != 0) {
+        //     return false;
+        // }else {
+        //     $box->delete();
+        //     @unlink(public_path('img/qr/box/'.$box->qr_box));
     
-            return response()->json([
-                'message' => 'Box dengan kode: '.$box->kode_box.' telah dihapus'
-            ]);
-        }
+        //     return response()->json([
+        //         'message' => 'Box dengan kode: '.$box->kode_box.' telah dihapus'
+        //     ]);
+        // }
     }
 
     public function search(Request $request)

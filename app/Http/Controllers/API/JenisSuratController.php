@@ -79,13 +79,13 @@ class JenisSuratController extends Controller
      */
     public function destroy($id)
     {
-        $jenis = JenisSurat::findOrFail($id);
-        $jenis->delete();
+        // $jenis = JenisSurat::findOrFail($id);
+        // $jenis->delete();
 
-        return response()->json([
-            'data' => $jenis,
-            'message' => 'Jenis SP2D '.$jenis->nama_jenis_sp2d.' telah dihapus'
-        ]);
+        // return response()->json([
+        //     'data' => $jenis,
+        //     'message' => 'Jenis SP2D '.$jenis->nama_jenis_sp2d.' telah dihapus'
+        // ]);
     }
 
     public function search(Request $request)

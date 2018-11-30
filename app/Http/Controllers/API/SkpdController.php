@@ -79,12 +79,12 @@ class SkpdController extends Controller
      */
     public function destroy($id)
     {
-        $skpd = Skpd::findOrFail($id);
-        $skpd->delete();
+        // $skpd = Skpd::findOrFail($id);
+        // $skpd->delete();
 
-        return response()->json([
-            'message' => 'SKPD dengan kode: '.$skpd->kode_skpd.' telah dihapus'
-        ]);
+        // return response()->json([
+        //     'message' => 'SKPD dengan kode: '.$skpd->kode_skpd.' telah dihapus'
+        // ]);
     }
 
     public function search(Request $request)
