@@ -128,9 +128,9 @@ class DashboardController extends Controller
 
     public function detailRetensi()
     {
-        $retensiArs = Arsip::with([
+        $retensiArs = Arsip::whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
-        ])->whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->get()->paginateCollection(15);
+        ])->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $retensiArs

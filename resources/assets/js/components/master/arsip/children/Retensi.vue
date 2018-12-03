@@ -22,7 +22,7 @@
                     Mohon periksa kembali sebelum menggunakan fungsi ini!
                 </p>
 
-                <button class="btn btn-outline-light btn-block" @click="bulkRetensi" :disabled="retensi = {} ? true : false">
+                <button class="btn btn-outline-light btn-block" @click="bulkRetensi" :disabled="retensi.length==0 ? true : false">
                         <i class="fas fa-trash mr-2"></i> Retensi Semua ({{ total }} Arsip)
                 </button>
                 </div>
@@ -73,9 +73,11 @@
                                     this.$router.push({ name: 'ArsipIndex' })
                                 }
                             })
+                        }else{
+                            this.retensi = response.data.data
+                            this.total = response.data.total
+                            // console.log(JSON.stringify(this.retensi,null,8))
                         }
-                        this.retensi = response.data.data
-                        this.total = response.data.total
                     })
                     .catch((error) => {
                         console.log(error)

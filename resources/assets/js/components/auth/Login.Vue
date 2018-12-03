@@ -53,20 +53,26 @@
         methods: {
             authenticate() {
                 this.$Progress.start()
-                this.$store.dispatch('login');
+                this.$store.dispatch('login')
+                // menjalankan method login
                 login(this.$data.form)
+                    // login sukses
                     .then((response) => {
                         this.$store.commit('loginSuccess', response)
+                        // redirect ke halaman Dashboard
                         this.$router.push({ name: 'Dashboard' })
+                        // menampilkan pesan login sukses
                         toast({
                             type: 'success',
                             title: 'Selamat Datang '+this.$store.state.currentUser.nama
                         })
                         this.$Progress.finish()
                     })
+                    // login gagal
                     .catch((error) => {
-                        this.$store.commit('loginFailed', {error});
+                        this.$store.commit('loginFailed', {error})
                         this.$Progress.fail()
+                        // menampilkan pesan login gagal
                         swal({
                             title: 'Error!',
                             text: this.$store.getters.authError,

@@ -13,7 +13,7 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item" v-for="r in retensiArs" :key="r.id_arsip">{{ r.surat.nomor_surat }}</li>
+                            <li class="list-group-item" v-for="r in retensiArs.data" :key="r.id_arsip">{{ r.surat.nomor_surat }}</li>
                         </ul>
                     </div>
                     <div class="card-footer">

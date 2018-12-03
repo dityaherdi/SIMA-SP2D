@@ -38,7 +38,7 @@
                                 <strong> Detail Letak Rak : </strong> <br>
                                 Gedung : {{ box.nama_gedung }}<br>
                                 Ruangan : {{box.kode_ruangan}}<br>
-                                Rak : {{ box.kode_box }}
+                                Rak : {{ box.kode_rak }}
                             </p>
                             <p class="text-justify"><strong>Kapasitas : </strong> {{ box.kapasitas }} </p>
                             <p class="text-justify"><strong>Jumlah Arsip : </strong> {{ box.jml_arsip }} </p>
@@ -92,6 +92,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                                    BOX : {{ box.kode_box }}
+                                </a>
                                 <a href="#" class="list-group-item list-group-item-action list-group-item-secondary"
                                     v-for="(a,index) in arsInBox" :key="a.surat.id_sp2d">
                                     {{ index+1 }} - {{ a.surat.nomor_surat }}
@@ -135,6 +138,7 @@
             Signal.$on('show_detail_box_modal', (b) => {
                 this.box.nama_gedung = b.rak.ruangan.gedung.nama_gedung
                 this.box.kode_ruangan = b.rak.ruangan.kode_ruangan
+                this.box.kode_rak = b.rak.kode_rak
                 this.box.kode_box = b.kode_box
                 this.box.kapasitas = b.kapasitas
                 this.box.jml_arsip = b.jml_arsip

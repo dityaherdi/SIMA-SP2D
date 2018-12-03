@@ -34430,10 +34430,17 @@ if (inBrowser && window.Vue) {
 
 function login(credentials) {
     return new Promise(function (resolve, reject) {
-        axios.post('/api/login', credentials).then(function (response) {
+        // mengirim post request dengan membawa data (username dan password)
+        axios.post('/api/login', credentials)
+        // login sukses
+        .then(function (response) {
+            // menyimpan akses token
             Object(__WEBPACK_IMPORTED_MODULE_0__init__["b" /* setAuthorization */])(response.data.access_token);
+            // menyimpan info user
             resolve(response.data);
-        }).catch(function (error) {
+        })
+        // login gagal
+        .catch(function (error) {
             reject("Username atau Password Salah");
         });
     });
@@ -71361,17 +71368,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$Progress.start();
             this.$store.dispatch('login');
-            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_auth__["b" /* login */])(this.$data.form).then(function (response) {
+            // menjalankan method login
+            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_auth__["b" /* login */])(this.$data.form)
+            // login sukses
+            .then(function (response) {
                 _this.$store.commit('loginSuccess', response);
+                // redirect ke halaman Dashboard
                 _this.$router.push({ name: 'Dashboard' });
+                // menampilkan pesan login sukses
                 toast({
                     type: 'success',
                     title: 'Selamat Datang ' + _this.$store.state.currentUser.nama
                 });
                 _this.$Progress.finish();
-            }).catch(function (error) {
+            })
+            // login gagal
+            .catch(function (error) {
                 _this.$store.commit('loginFailed', { error: error });
                 _this.$Progress.fail();
+                // menampilkan pesan login gagal
                 swal({
                     title: 'Error!',
                     text: _this.$store.getters.authError,
@@ -73000,7 +73015,7 @@ var render = function() {
             _c(
               "ul",
               { staticClass: "list-group" },
-              _vm._l(_vm.retensiArs, function(r) {
+              _vm._l(_vm.retensiArs.data, function(r) {
                 return _c(
                   "li",
                   { key: r.id_arsip, staticClass: "list-group-item" },
@@ -73167,9 +73182,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                 _this2.$router.push({ name: 'ArsipIndex' });
                             }
                         });
+                    } else {
+                        _this2.retensi = response.data.data;
+                        _this2.total = response.data.total;
+                        // console.log(JSON.stringify(this.retensi,null,8))
                     }
-                    _this2.retensi = response.data.data;
-                    _this2.total = response.data.total;
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -73246,7 +73263,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-outline-light btn-block",
-              attrs: { disabled: (_vm.retensi = {} ? true : false) },
+              attrs: { disabled: _vm.retensi.length == 0 ? true : false },
               on: { click: _vm.bulkRetensi }
             },
             [
@@ -80337,6 +80354,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80361,6 +80381,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Signal.$on('show_detail_box_modal', function (b) {
             _this.box.nama_gedung = b.rak.ruangan.gedung.nama_gedung;
             _this.box.kode_ruangan = b.rak.ruangan.kode_ruangan;
+            _this.box.kode_rak = b.rak.kode_rak;
             _this.box.kode_box = b.kode_box;
             _this.box.kapasitas = b.kapasitas;
             _this.box.jml_arsip = b.jml_arsip;
@@ -80476,7 +80497,7 @@ var render = function() {
                           _c("br"),
                           _vm._v(
                             "\n                            Rak : " +
-                              _vm._s(_vm.box.kode_box) +
+                              _vm._s(_vm.box.kode_rak) +
                               "\n                        "
                           )
                         ]),
@@ -80614,26 +80635,45 @@ var render = function() {
                         _c(
                           "div",
                           { staticClass: "list-group" },
-                          _vm._l(_vm.arsInBox, function(a, index) {
-                            return _c(
+                          [
+                            _c(
                               "a",
                               {
-                                key: a.surat.id_sp2d,
                                 staticClass:
-                                  "list-group-item list-group-item-action list-group-item-secondary",
+                                  "list-group-item list-group-item-action list-group-item-primary",
                                 attrs: { href: "#" }
                               },
                               [
                                 _vm._v(
-                                  "\n                                " +
-                                    _vm._s(index + 1) +
-                                    " - " +
-                                    _vm._s(a.surat.nomor_surat) +
+                                  "\n                                BOX : " +
+                                    _vm._s(_vm.box.kode_box) +
                                     "\n                            "
                                 )
                               ]
-                            )
-                          })
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.arsInBox, function(a, index) {
+                              return _c(
+                                "a",
+                                {
+                                  key: a.surat.id_sp2d,
+                                  staticClass:
+                                    "list-group-item list-group-item-action list-group-item-secondary",
+                                  attrs: { href: "#" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(index + 1) +
+                                      " - " +
+                                      _vm._s(a.surat.nomor_surat) +
+                                      "\n                            "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
                         )
                       ])
                     ])
