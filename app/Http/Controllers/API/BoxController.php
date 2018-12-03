@@ -153,6 +153,17 @@ class BoxController extends Controller
         ]);
     }
 
+    public function getArsipInBox($id)
+    {
+        $ars = Arsip::with([
+            'surat:id_sp2d,nomor_surat'
+        ])->where('id_box', $id)->get();
+
+        return response()->json([
+            'data' => $ars
+        ]);
+    }
+
     public function generateBoxQr($box, $request)
     {
         $letak = Box::join('raks', 'raks.id_rak', '=', 'boxes.id_rak')

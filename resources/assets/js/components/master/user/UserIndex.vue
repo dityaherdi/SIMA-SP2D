@@ -11,7 +11,7 @@
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal" 
                         title="Tambah Data User">
-                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-plus-square mr-2"></i> Tambah User
                     </button>
                 </div>
             </div>
@@ -39,12 +39,12 @@
                                 <a href="javascript:void(0)" class="btn btn-dark btn-sm" 
                                     title="Lihat Detail User"
                                     @click="showDetailUserModal(user)">
-                                    <i class="fas fa-eye "></i>
+                                    <i class="fas fa-eye mr-2"></i> Detail
                                 </a>
                                 
                                 <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                     title="Edit Data User"
-                                    @click="showEditingModal(user)">
+                                    @click="showEditingModal(user)"> Edit
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 

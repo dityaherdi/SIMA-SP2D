@@ -10,7 +10,7 @@
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal"
                         title="Tambah Data Jenis SP2D">
-                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-plus-square mr-2"></i> Tambah Jenis SP2D
                     </button>
                 </div>
             </div>
@@ -36,13 +36,13 @@
                             <a href="javascript:void(0)" class="btn btn-dark btn-sm" 
                                 title="Lihat Detail Jenis SP2D"
                                 @click="showDetailJenisModal(jen)">
-                                <i class="fas fa-eye "></i>
+                                <i class="fas fa-eye mr-2"></i> Detail
                             </a>
                             
                             <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                 title="Edit Data Jenis SP2D"
                                 @click="showEditingModal(jen)">
-                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-edit mr-2"></i> Edit
                             </a>
                             
                             <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" 

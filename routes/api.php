@@ -85,9 +85,11 @@ Route::group(['middleware' => 'auth:api'], function (){
     // Sort By SKPD
     Route::get('surat-by-skpd/{id}', 'API\SuratController@sortBySkpd');
     Route::get('arsip-by-skpd/{id}', 'API\ArsipController@sortBySkpd');
-    
 
     // Retensi
     Route::get('retensi', 'API\RetensiController@index');
     Route::post('bulk-retensi', 'API\RetensiController@bulkRetensi');
+
+    // Get Arsip In Box
+    Route::get('get-arsip-in-box/{id}', 'API\BoxController@getArsipInBox');
 });

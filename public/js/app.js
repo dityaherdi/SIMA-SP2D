@@ -74376,7 +74376,10 @@ var render = function() {
                           attrs: { type: "button", title: "Tambah Data SKPD" },
                           on: { click: _vm.showCreatingModal }
                         },
-                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                        [
+                          _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                          _vm._v("Tambah SKPD\n                ")
+                        ]
                       )
                     ])
                   ]),
@@ -74443,8 +74446,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-eye "
-                                          })
+                                            staticClass: "fas fa-eye mr-2"
+                                          }),
+                                          _vm._v(
+                                            "Detail\n                            "
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -74464,8 +74470,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-edit"
-                                          })
+                                            staticClass: "fas fa-edit mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Edit\n                            "
+                                          )
                                         ]
                                       )
                                     ])
@@ -75599,7 +75608,10 @@ var render = function() {
                           attrs: { type: "button", title: "Tambah Gedung" },
                           on: { click: _vm.showCreatingModal }
                         },
-                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                        [
+                          _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                          _vm._v(" Tambah Gedung\n                ")
+                        ]
                       )
                     ])
                   ]),
@@ -75672,8 +75684,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-eye "
-                                          })
+                                            staticClass: "fas fa-eye mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Detail\n                        "
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -75693,8 +75708,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-edit"
-                                          })
+                                            staticClass: "fas fa-edit mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Edit\n                        "
+                                          )
                                         ]
                                       )
                                     ])
@@ -76843,7 +76861,10 @@ var render = function() {
                           attrs: { type: "button", title: "Tambah Ruangan" },
                           on: { click: _vm.showCreatingModal }
                         },
-                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                        [
+                          _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                          _vm._v(" Tambah Ruangan\n                ")
+                        ]
                       )
                     ])
                   ]),
@@ -76916,8 +76937,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-eye "
-                                          })
+                                            staticClass: "fas fa-eye mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Detail\n                        "
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -76937,8 +76961,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-edit"
-                                          })
+                                            staticClass: "fas fa-edit mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Edit\n                        "
+                                          )
                                         ]
                                       )
                                     ])
@@ -78605,7 +78632,10 @@ var render = function() {
                           attrs: { type: "button", title: "Tambah Rak" },
                           on: { click: _vm.showCreatingModal }
                         },
-                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                        [
+                          _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                          _vm._v(" Tambah Rak\n                ")
+                        ]
                       )
                     ])
                   ]),
@@ -78676,8 +78706,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-eye "
-                                          })
+                                            staticClass: "fas fa-eye mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Detail\n                        "
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -78697,8 +78730,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-edit"
-                                          })
+                                            staticClass: "fas fa-edit mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Edit\n                        "
+                                          )
                                         ]
                                       )
                                     ])
@@ -80284,6 +80320,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -80298,7 +80351,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 jml_arsip: '',
                 keterangan: '',
                 status: ''
-            }
+            },
+            arsInBox: {}
         };
     },
     created: function created() {
@@ -80321,6 +80375,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.box.status = 'Non-Aktif';
             }
             _this.box.qr_box = b.qr_box;
+            _this.getArsipInBox(b.id_box);
             _this.showModal(null, 'Box', 'detail', null);
         });
     },
@@ -80331,12 +80386,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             html2canvas(document.getElementById('boxLabel')).then(function (canvas) {
-                console.log('hello');
                 var ss = canvas.toDataURL('image/png');
                 var boxLabel = new jsPDF('l', 'pt', 'a5');
                 boxLabel.addImage(ss, 'PNG', 10, 10);
                 boxLabel.save('box_label_' + _this2.box.kode_box + '.pdf');
             });
+        },
+        getArsipInBox: function getArsipInBox(id) {
+            var _this3 = this;
+
+            if (this.isMasterOrAdmin()) {
+                axios.get('api/get-arsip-in-box/' + id).then(function (response) {
+                    _this3.arsInBox = response.data.data;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
         }
     }
 });
@@ -80538,6 +80603,41 @@ var render = function() {
                       ])
                     ])
                   ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "tab-pane", attrs: { id: "tab_lists_arsip" } },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c(
+                          "div",
+                          { staticClass: "list-group" },
+                          _vm._l(_vm.arsInBox, function(a, index) {
+                            return _c(
+                              "a",
+                              {
+                                key: a.surat.id_sp2d,
+                                staticClass:
+                                  "list-group-item list-group-item-action list-group-item-secondary",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(index + 1) +
+                                    " - " +
+                                    _vm._s(a.surat.nomor_surat) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          })
+                        )
+                      ])
+                    ])
+                  ]
                 )
               ])
             ]),
@@ -80604,6 +80704,20 @@ var staticRenderFns = [
           [
             _c("i", { staticClass: "fas fa-tag mr-2" }),
             _vm._v(" Label\n                    ")
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { href: "#tab_lists_arsip", "data-toggle": "tab" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-clipboard-list mr-2" }),
+            _vm._v(" List Arsip\n                    ")
           ]
         )
       ])
@@ -80696,7 +80810,10 @@ var render = function() {
                           attrs: { type: "button", title: "Tambah Box" },
                           on: { click: _vm.showCreatingModal }
                         },
-                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                        [
+                          _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                          _vm._v(" Tambah Box\n                ")
+                        ]
                       )
                     ])
                   ]),
@@ -80771,8 +80888,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-eye "
-                                          })
+                                            staticClass: "fas fa-eye mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Detail\n                        "
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -80792,8 +80912,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-edit"
-                                          })
+                                            staticClass: "fas fa-edit mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Edit\n                        "
+                                          )
                                         ]
                                       )
                                     ])
@@ -82090,7 +82213,10 @@ var render = function() {
                           },
                           on: { click: _vm.showCreatingModal }
                         },
-                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                        [
+                          _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                          _vm._v(" Tambah Jenis SP2D\n                ")
+                        ]
                       )
                     ])
                   ]),
@@ -82167,8 +82293,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-eye "
-                                          })
+                                            staticClass: "fas fa-eye mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Detail\n                        "
+                                          )
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -82188,8 +82317,11 @@ var render = function() {
                                         },
                                         [
                                           _c("i", {
-                                            staticClass: "fas fa-edit"
-                                          })
+                                            staticClass: "fas fa-edit mr-2"
+                                          }),
+                                          _vm._v(
+                                            " Edit\n                        "
+                                          )
                                         ]
                                       )
                                     ])
@@ -87817,7 +87949,10 @@ var render = function() {
                             },
                             on: { click: _vm.showCreatingModal }
                           },
-                          [_c("i", { staticClass: "fas fa-plus-square" })]
+                          [
+                            _c("i", { staticClass: "fas fa-plus-square mr-2" }),
+                            _vm._v(" Tambah User\n                ")
+                          ]
                         )
                       ])
                     ]),
@@ -87898,8 +88033,11 @@ var render = function() {
                                             },
                                             [
                                               _c("i", {
-                                                staticClass: "fas fa-eye "
-                                              })
+                                                staticClass: "fas fa-eye mr-2"
+                                              }),
+                                              _vm._v(
+                                                " Detail\n                            "
+                                              )
                                             ]
                                           ),
                                           _vm._v(" "),
@@ -87919,6 +88057,9 @@ var render = function() {
                                               }
                                             },
                                             [
+                                              _vm._v(
+                                                " Edit\n                                "
+                                              ),
                                               _c("i", {
                                                 staticClass: "fas fa-edit"
                                               })

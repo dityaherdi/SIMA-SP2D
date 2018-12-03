@@ -21,6 +21,11 @@
                             <i class="fas fa-tag mr-2"></i> Label
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab_lists_arsip" data-toggle="tab">
+                            <i class="fas fa-clipboard-list mr-2"></i> List Arsip
+                        </a>
+                    </li>
                 </ul>
             <div class="tab-content">
                 <div class="tab-pane active show" id="tab_detail_box">
@@ -83,6 +88,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane" id="tab_lists_arsip">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-secondary"
+                                    v-for="(a,index) in arsInBox" :key="a.surat.id_sp2d">
+                                    {{ index+1 }} - {{ a.surat.nomor_surat }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -109,7 +126,8 @@
                     jml_arsip: '',
                     keterangan: '',
                     status: ''
-                }
+                },
+                arsInBox: {}
             }
         },
     
@@ -131,6 +149,7 @@
                     this.box.status = 'Non-Aktif'
                 }
                 this.box.qr_box = b.qr_box
+                this.getArsipInBox(b.id_box)
                 this.showModal(null, 'Box', 'detail', null)
             })
         },
@@ -139,12 +158,23 @@
             printBoxLabel() {
                 html2canvas(document.getElementById('boxLabel'))
                 .then((canvas) => {
-                    console.log('hello')
                     let ss = canvas.toDataURL('image/png')
                     let boxLabel = new jsPDF('l', 'pt', 'a5')
                     boxLabel.addImage(ss, 'PNG', 10, 10)
                     boxLabel.save('box_label_'+this.box.kode_box+'.pdf')
                 })
+            },
+
+            getArsipInBox(id) {
+                if (this.isMasterOrAdmin()) {
+                    axios.get('api/get-arsip-in-box/'+id)
+                    .then((response) => {
+                        this.arsInBox = response.data.data
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                }
             }
         }
     }

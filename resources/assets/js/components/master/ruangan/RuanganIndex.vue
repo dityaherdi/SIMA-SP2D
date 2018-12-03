@@ -10,7 +10,7 @@
                 <div class="card-tools">
                     <button type="button" class="btn btn-primary" @click="showCreatingModal"
                         title="Tambah Ruangan">
-                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-plus-square mr-2"></i> Tambah Ruangan
                     </button>
                 </div>
             </div>
@@ -36,13 +36,13 @@
                             <a href="javascript:void(0)" class="btn btn-dark btn-sm" 
                                 title="Lihat Detail Ruangan"
                                 @click="showDetailRuanganModal(rua)">
-                                <i class="fas fa-eye "></i>
+                                <i class="fas fa-eye mr-2"></i> Detail
                             </a>
                             
                             <a href="javascript:void(0)" class="btn btn-success btn-sm" 
                                 title="Edit Data Ruangan"
                                 @click="showEditingModal(rua)">
-                                <i class="fas fa-edit"></i>
+                                <i class="fas fa-edit mr-2"></i> Edit
                             </a>
                             
                             <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm" v-if="$store.state.currentUser.tipe === 'Master'"
