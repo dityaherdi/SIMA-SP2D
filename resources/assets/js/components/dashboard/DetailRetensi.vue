@@ -6,7 +6,8 @@
                     <div class="card-header">
                         Arsip SP2D yang diperkirakan Retensi tahun ini
                         <div class="card-tools">
-                        <router-link :to="{ name: 'ArsipIndex' }" tag="button" class="btn btn-primary btn-sm">
+                        <router-link :to="{ name: 'ArsipIndex' }" tag="button" class="btn btn-primary btn-sm"
+                            v-if="this.$store.state.currentUser.tipe=='Admin'">
                             <i class="fas fa-file-archive mr-2"></i> Semua Arsip
                         </router-link>
                     </div>

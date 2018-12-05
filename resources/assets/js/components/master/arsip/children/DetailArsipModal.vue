@@ -16,7 +16,7 @@
                             <i class="fas fa-info mr-2"></i> Info
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.$store.state.currentUser.tipe=='Admin'">
                         <a class="nav-link" href="#tab_label_arsip" data-toggle="tab">
                             <i class="fas fa-tag mr-2"></i> Label
                         </a>

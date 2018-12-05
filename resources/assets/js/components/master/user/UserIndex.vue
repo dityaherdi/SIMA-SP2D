@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-        <not-found v-if="!this.isMaster()"></not-found>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
         <template v-else>
         <div class="row">
         <div class="col-12">
@@ -130,7 +130,7 @@
             },
 
             loadUser() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.readData('api/user')
                     .then((users) => {
                         this.users = users
@@ -148,7 +148,7 @@
             // },
 
             getResults(page = 1) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     if (this.searching==true) {
                         axios.get('api/search-user?keywords='+this.userKeyword+'&page='+page)
                         .then((response) => {
@@ -166,7 +166,7 @@
             },
 
             searchUser(keywords) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.searchData('api/search-user?keywords='+keywords)
                     .then((user) => {
                         this.users = user

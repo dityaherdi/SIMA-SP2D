@@ -73,19 +73,19 @@
 						<p>Arsip</p>
 					</router-link>
 				</li>
-				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMaster()">
+				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMasterOrAdmin()">
 					<router-link :to="{ name: 'SkpdIndex' }" class="nav-link">
 						<i class="fas fa-address-card nav-icon"></i>
 						<p>SKPD</p>
 					</router-link>
 				</li>
-				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMaster()">
+				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMasterOrAdmin()">
 					<router-link :to="{ name: 'JenisSuratIndex' }" class="nav-link">
 						<i class="fas fa-table nav-icon"></i>
 						<p>Jenis Surat</p>
 					</router-link>
 				</li>
-				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMaster()">
+				<li class="nav-item" @click="forceCloseModalOpen" v-if="this.isMasterOrAdmin()">
 					<router-link :to="{ name: 'UserIndex' }" class="nav-link">
 						<i class="fas fa-users nav-icon"></i>
 						<p>User</p>

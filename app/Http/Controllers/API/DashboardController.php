@@ -17,7 +17,7 @@ class DashboardController extends Controller
 {
     public function suratToday()
     {
-        $suratToday = Surat::whereDate('created_at', Carbon::today())->count();
+        $suratToday = Surat::whereDate('created_at', Carbon::today())->where(['arsip' => 0, 'status' => 1 ])->count();
 
         return response()->json([
             'data' => $suratToday
@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     public function arsipToday()
     {
-        $arsipToday = Arsip::whereDate('created_at', Carbon::today())->count();
+        $arsipToday = Arsip::whereDate('created_at', Carbon::today())->where(['status_retensi' => 0, 'status' => 1 ])->count();
         
         return response()->json([
             'data' => $arsipToday
@@ -102,7 +102,7 @@ class DashboardController extends Controller
         $surat = Surat::latest()->with([
             'skpd:id_skpd,kode_skpd,nama_skpd',
             'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
-        ])->where(['arsip' => 0])->get()->paginateCollection(15);
+        ])->where(['arsip' => 0, 'status' => 1])->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $surat
@@ -119,7 +119,7 @@ class DashboardController extends Controller
             'box.rak:id_rak,id_ruangan,kode_rak',
             'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'box.rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(15);
+        ])->where('status', 1)->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $arsip
@@ -130,7 +130,7 @@ class DashboardController extends Controller
     {
         $retensiArs = Arsip::whereYear('tgl_perkiraan_retensi', Carbon::now()->year)->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
-        ])->get()->paginateCollection(15);
+        ])->where('status_retensi', 0)->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $retensiArs

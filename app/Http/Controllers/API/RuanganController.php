@@ -20,7 +20,7 @@ class RuanganController extends Controller
      */
     public function index()
     {
-        $ruangan = Ruangan::latest()->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(10);
+        $ruangan = Ruangan::latest()->where('status', 1)->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $ruangan
@@ -94,7 +94,7 @@ class RuanganController extends Controller
         if ($keywords = $request->keywords) {
             $ruangan = Ruangan::where(function($query) use ($keywords) {
                 $query->where('kode_ruangan', 'LIKE', "%$keywords%");
-            })->with('gedung:id_gedung,nama_gedung')->get()->paginateCollection(5);
+            })->with('gedung:id_gedung,nama_gedung')->where('status', 1)->get()->paginateCollection(5);
         }
 
         return response()->json([
@@ -105,6 +105,7 @@ class RuanganController extends Controller
     public function ruanganInGedung($id)
     {
         $ruangan = Ruangan::where('id_gedung', $id)->with('gedung:id_gedung,nama_gedung')
+                            ->where('status', 1)
                             ->orderBy('kode_ruangan', 'ASC')
                             ->get()->paginateCollection(10);
 

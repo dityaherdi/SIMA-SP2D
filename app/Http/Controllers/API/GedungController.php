@@ -19,7 +19,7 @@ class GedungController extends Controller
      */
     public function index()
     {
-        $gedung = Gedung::latest()->paginate(10);
+        $gedung = Gedung::latest()->where('status', 1)->paginate(10);
 
         return response()->json([
             'data' => $gedung
@@ -94,7 +94,7 @@ class GedungController extends Controller
             $gedung = Gedung::where(function($query) use ($keywords) {
                 $query->where('kode_gedung', 'LIKE', "%$keywords%")
                         ->orWhere('nama_gedung', 'LIKE', "%$keywords%");
-            })->paginate(5);
+            })->where('status', 1)->paginate(5);
         }
 
         return response()->json([

@@ -23,7 +23,7 @@ class RakController extends Controller
         $rak = Rak::latest()->with([
             'ruangan:id_ruangan,id_gedung,kode_ruangan',
             'ruangan.gedung:id_gedung,nama_gedung'
-        ])->get()->paginateCollection(20);
+        ])->where('status', 1)->get()->paginateCollection(20);
 
         return response()->json([
             'data' => $rak
@@ -95,7 +95,7 @@ class RakController extends Controller
             })->with([
                 'ruangan:id_ruangan,id_gedung,kode_ruangan',
                 'ruangan.gedung:id_gedung,nama_gedung'
-            ])->get()->paginateCollection(10);
+            ])->where('status', 1)->get()->paginateCollection(10);
         }
 
         return response()->json([
@@ -108,7 +108,7 @@ class RakController extends Controller
         $rak = Rak::where('id_ruangan', $id)->with([
             'ruangan:id_ruangan,id_gedung,kode_ruangan',
             'ruangan.gedung:id_gedung,nama_gedung'
-        ])->orderBy('kode_rak', 'ASC')->get()->paginateCollection(10);
+        ])->where('status', 1)->orderBy('kode_rak', 'ASC')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $rak
@@ -122,7 +122,7 @@ class RakController extends Controller
         })->with([
             'ruangan:id_ruangan,id_gedung,kode_ruangan',
             'ruangan.gedung:id_gedung,nama_gedung'
-        ])->orderBy('kode_rak', 'ASC')->get()->paginateCollection(10);
+        ])->where('status', 1)->orderBy('kode_rak', 'ASC')->get()->paginateCollection(10);
 
         return response()->json([
             'data' => $rak

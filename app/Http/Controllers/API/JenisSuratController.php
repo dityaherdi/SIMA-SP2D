@@ -10,7 +10,7 @@ use App\JenisSurat;
 class JenisSuratController extends Controller
 {
     public function __construct() {
-        $this->middleware('can:isMaster');
+        $this->middleware('can:isMasterOrAdmin');
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class JenisSuratController extends Controller
      */
     public function index()
     {
-        $jenis = JenisSurat::latest()->paginate(4);
+        $jenis = JenisSurat::latest()->paginate(10);
 
         return response()->json([
             'data' => $jenis

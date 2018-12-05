@@ -12,37 +12,37 @@ let routes = [
 		path: '/dashboard',
 		component: require('./components/dashboard/Dashboard.vue'),
 		name: 'Dashboard',
-		meta: { requiresAuth: true },
+		meta: { requiresAuth: true, hidSearch:true },
 	},
 	{
 		path: '/detail-surat',
 		component: require('./components/dashboard/DetailSurat.vue'),
 		name: 'DetailSurat',
-		meta: { requiresAuth: true }
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '/detail-arsip',
 		component: require('./components/dashboard/DetailArsip.vue'),
 		name: 'DetailArsip',
-		meta: { requiresAuth: true }
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '/detail-penyimpanan',
 		component: require('./components/dashboard/DetailPenyimpanan.vue'),
 		name: 'DetailPenyimpanan',
-		meta: { requiresAuth: true }
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '/detail-retensi',
 		component: require('./components/dashboard/DetailRetensi.vue'),
 		name: 'DetailRetensi',
-		meta: { requiresAuth: true }
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '/retensi-tahunan',
 		component: require('./components/master/arsip/children/Retensi.vue'),
 		name: 'Retensi',
-		meta: { requiresAuth: true }
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '/skpd',
@@ -102,7 +102,7 @@ let routes = [
 		path: '/profil',
 		component: require('./components/master/user/children/ProfileUser.vue'),
 		name: 'Profil',
-		meta: { requiresAuth: true }
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '*',

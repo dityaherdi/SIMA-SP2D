@@ -71165,32 +71165,32 @@ var routes = [{
 	path: '/dashboard',
 	component: __webpack_require__(205),
 	name: 'Dashboard',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/detail-surat',
 	component: __webpack_require__(208),
 	name: 'DetailSurat',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/detail-arsip',
 	component: __webpack_require__(211),
 	name: 'DetailArsip',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/detail-penyimpanan',
 	component: __webpack_require__(214),
 	name: 'DetailPenyimpanan',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/detail-retensi',
 	component: __webpack_require__(217),
 	name: 'DetailRetensi',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/retensi-tahunan',
 	component: __webpack_require__(220),
 	name: 'Retensi',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/skpd',
 	component: __webpack_require__(223),
@@ -71240,7 +71240,7 @@ var routes = [{
 	path: '/profil',
 	component: __webpack_require__(303),
 	name: 'Profil',
-	meta: { requiresAuth: true }
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '*',
 	component: __webpack_require__(36),
@@ -72297,12 +72297,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             surat: {}
         };
+    },
+
+    components: {
+        "detail-surat": __webpack_require__(282)
     },
     created: function created() {
         var _this = this;
@@ -72323,6 +72331,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('api/detail-surat?page=' + page).then(function (response) {
                 _this2.surat = response.data.data;
             });
+        },
+        showDetailModal: function showDetailModal(sur) {
+            Signal.$emit('show_detail_surat_modal', sur);
         }
     }
 });
@@ -72335,62 +72346,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card card-default" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("\n                    List SP2D terbaru\n                ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "ul",
-              { staticClass: "list-group" },
-              [
-                _vm.surat.length == 0
-                  ? _c("li", { staticClass: "list-group-item" }, [
-                      _vm._v("Tidak ada data")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm._l(_vm.surat.data, function(sur) {
-                  return _c(
-                    "li",
-                    { key: sur.id_surat, staticClass: "list-group-item" },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(sur.nomor_surat) +
-                          " |  Terbit : " +
-                          _vm._s(_vm._f("tanggalLokal")(sur.tgl_terbit)) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c(
-              "div",
-              { staticClass: "float-right" },
-              [
-                _c("pagination", {
-                  attrs: { data: _vm.surat, limit: 1 },
-                  on: { "pagination-change-page": _vm.getResults }
-                })
-              ],
-              1
-            )
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card card-default" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v(
+                "\n                    List SP2D terbaru\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "ul",
+                { staticClass: "list-group" },
+                [
+                  _vm.surat.length == 0
+                    ? _c("li", { staticClass: "list-group-item" }, [
+                        _vm._v("Tidak ada data")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.surat.data, function(sur) {
+                    return _c(
+                      "li",
+                      { key: sur.id_surat, staticClass: "list-group-item" },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(sur.nomor_surat) +
+                            "\n                            "
+                        ),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-primary btn-sm float-right ml-2",
+                            on: {
+                              click: function($event) {
+                                _vm.showDetailModal(sur)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-eye" }),
+                            _vm._v(" Detail\n                            ")
+                          ]
+                        )
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _c(
+                "div",
+                { staticClass: "float-right" },
+                [
+                  _c("pagination", {
+                    attrs: { data: _vm.surat, limit: 1 },
+                    on: { "pagination-change-page": _vm.getResults }
+                  })
+                ],
+                1
+              )
+            ])
           ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c("detail-surat")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -72481,12 +72515,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             arsip: {}
         };
+    },
+
+    components: {
+        "detail-arsip": __webpack_require__(290)
     },
     created: function created() {
         var _this = this;
@@ -72507,6 +72549,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('api/detail-arsip?page=' + page).then(function (response) {
                 _this2.arsip = response.data.data;
             });
+        },
+        showDetailModal: function showDetailModal(ars) {
+            Signal.$emit('show_detail_arsip_modal', ars);
         }
     }
 });
@@ -72519,55 +72564,78 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card card-default" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v(
-              "\n                    List Arsip SP2D terbaru\n                "
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "ul",
-              { staticClass: "list-group" },
-              _vm._l(_vm.arsip.data, function(ars) {
-                return _c(
-                  "li",
-                  { key: ars.id_arsip, staticClass: "list-group-item" },
-                  [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(ars.surat.nomor_surat) +
-                        " - " +
-                        _vm._s(_vm._f("tanggalLokal")(ars.tgl_diarsipkan)) +
-                        "\n                        "
-                    )
-                  ]
-                )
-              })
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-footer" }, [
-            _c(
-              "div",
-              { staticClass: "float-right" },
-              [
-                _c("pagination", {
-                  attrs: { data: _vm.arsip, limit: 1 },
-                  on: { "pagination-change-page": _vm.getResults }
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card card-default" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v(
+                "\n                    List Arsip SP2D terbaru\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "ul",
+                { staticClass: "list-group" },
+                _vm._l(_vm.arsip.data, function(ars) {
+                  return _c(
+                    "li",
+                    { key: ars.id_arsip, staticClass: "list-group-item" },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(ars.surat.nomor_surat) +
+                          " - " +
+                          _vm._s(_vm._f("tanggalLokal")(ars.tgl_diarsipkan)) +
+                          "\n                            "
+                      ),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary btn-sm float-right ml-2",
+                          on: {
+                            click: function($event) {
+                              _vm.showDetailModal(ars)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-eye" }),
+                          _vm._v(" Detail\n                            ")
+                        ]
+                      )
+                    ]
+                  )
                 })
-              ],
-              1
-            )
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-footer" }, [
+              _c(
+                "div",
+                { staticClass: "float-right" },
+                [
+                  _c("pagination", {
+                    attrs: { data: _vm.arsip, limit: 1 },
+                    on: { "pagination-change-page": _vm.getResults }
+                  })
+                ],
+                1
+              )
+            ])
           ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c("detail-arsip")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -72945,6 +73013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72995,17 +73064,19 @@ var render = function() {
               "div",
               { staticClass: "card-tools" },
               [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { to: { name: "ArsipIndex" }, tag: "button" }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-file-archive mr-2" }),
-                    _vm._v(" Semua Arsip\n                    ")
-                  ]
-                )
+                this.$store.state.currentUser.tipe == "Admin"
+                  ? _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { to: { name: "ArsipIndex" }, tag: "button" }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-file-archive mr-2" }),
+                        _vm._v(" Semua Arsip\n                    ")
+                      ]
+                    )
+                  : _vm._e()
               ],
               1
             )
@@ -73491,7 +73562,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadSkpd: function loadSkpd() {
             var _this2 = this;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.readData('api/skpd').then(function (skpd) {
                     _this2.skpds = skpd;
                     _this2.counter = skpd.from;
@@ -73514,7 +73585,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 if (this.searching == true) {
                     axios.get('api/search-skpd?keywords=' + this.skpdKeyword + '&page=' + page).then(function (response) {
                         _this3.skpds = response.data.data;
@@ -73531,7 +73602,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchSkpd: function searchSkpd(keywords) {
             var _this4 = this;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.searchData('api/search-skpd?keywords=' + keywords).then(function (skpd) {
                     _this4.skpds = skpd;
                     _this4.searching = true;
@@ -73704,12 +73775,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         createSkpd: function createSkpd() {
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.createData(this.skpd, 'api/skpd', 'skpd');
             }
         },
         updateSkpd: function updateSkpd() {
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.updateData(this.skpd, 'api/skpd/' + this.skpd.id_skpd, 'skpd');
             }
         },
@@ -74374,7 +74445,7 @@ var render = function() {
   return _c(
     "div",
     [
-      !this.isMaster()
+      !this.isMasterOrAdmin()
         ? _c("not-found")
         : [
             _c("div", { staticClass: "row" }, [
@@ -81417,7 +81488,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadJenis: function loadJenis() {
             var _this2 = this;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.readData('api/jenis').then(function (jenis) {
                     _this2.jenis = jenis;
                     _this2.counter = jenis.from;
@@ -81440,7 +81511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 if (this.searching == true) {
                     axios.get('api/search-jenis?keywords=' + this.jenKeyword + '&page=' + page).then(function (response) {
                         _this3.jenis = response.data.data;
@@ -81457,7 +81528,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchJenis: function searchJenis(keywords) {
             var _this4 = this;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.searchData('api/search-jenis?keywords=' + keywords).then(function (jenis) {
                     _this4.jenis = jenis;
                     _this4.searching = true;
@@ -81615,12 +81686,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.jenis.clear();
         },
         createJenis: function createJenis() {
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.createData(this.jenis, 'api/jenis', 'jenis');
             }
         },
         updateJenis: function updateJenis() {
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.updateData(this.jenis, 'api/jenis/' + this.jenis.id_jenis_sp2d, 'jenis');
             }
         }
@@ -82231,7 +82302,7 @@ var render = function() {
   return _c(
     "div",
     [
-      !_vm.isMaster()
+      !_vm.isMasterOrAdmin()
         ? _c("not-found")
         : [
             _c("div", { staticClass: "row" }, [
@@ -85614,7 +85685,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.next = arsip.next_page_url;
                     _this2.searching = false;
                     _this2.arsipKeyword = null;
-                    // console.log(JSON.stringify(this.arsip,null,8))
                     Signal.$emit('clear_keywords');
                 });
             }
@@ -85948,7 +86018,13 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
-              _vm._m(1),
+              _c("ul", { staticClass: "nav nav-pills ml-auto p-2" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                this.$store.state.currentUser.tipe == "Admin"
+                  ? _c("li", { staticClass: "nav-item" }, [_vm._m(2)])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "tab-content" }, [
                 _c(
@@ -86027,7 +86103,7 @@ var render = function() {
                         attrs: { id: "arsipLabel" }
                       },
                       [
-                        _vm._m(2),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -86078,7 +86154,7 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._m(3)
+                                _vm._m(4)
                               ])
                             ])
                           ]
@@ -86147,7 +86223,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(5)
           ])
         ]
       )
@@ -86184,35 +86260,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "nav nav-pills ml-auto p-2" }, [
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link active show",
-            attrs: { href: "#tab_detail_arsip", "data-toggle": "tab" }
-          },
-          [
-            _c("i", { staticClass: "fas fa-info mr-2" }),
-            _vm._v(" Info\n                    ")
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            attrs: { href: "#tab_label_arsip", "data-toggle": "tab" }
-          },
-          [
-            _c("i", { staticClass: "fas fa-tag mr-2" }),
-            _vm._v(" Label\n                    ")
-          ]
-        )
-      ])
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link active show",
+          attrs: { href: "#tab_detail_arsip", "data-toggle": "tab" }
+        },
+        [
+          _c("i", { staticClass: "fas fa-info mr-2" }),
+          _vm._v(" Info\n                    ")
+        ]
+      )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: { href: "#tab_label_arsip", "data-toggle": "tab" }
+      },
+      [
+        _c("i", { staticClass: "fas fa-tag mr-2" }),
+        _vm._v(" Label\n                    ")
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -86738,7 +86814,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadUser: function loadUser() {
             var _this2 = this;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.readData('api/user').then(function (users) {
                     _this2.users = users;
                     _this2.searching = false;
@@ -86760,7 +86836,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 if (this.searching == true) {
                     axios.get('api/search-user?keywords=' + this.userKeyword + '&page=' + page).then(function (response) {
                         _this3.users = response.data.data;
@@ -86777,7 +86853,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchUser: function searchUser(keywords) {
             var _this4 = this;
 
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.searchData('api/search-user?keywords=' + keywords).then(function (user) {
                     _this4.users = user;
                     _this4.searching = true;
@@ -87049,13 +87125,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         createUser: function createUser() {
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.combineNip();
                 this.createData(this.user, 'api/user', 'user');
             }
         },
         updateUser: function updateUser() {
-            if (this.isMaster()) {
+            if (this.isMasterOrAdmin()) {
                 this.combineNip();
                 this.updateData(this.user, 'api/user/' + this.user.id_user, 'user');
             }
@@ -87967,7 +88043,7 @@ var render = function() {
     _c(
       "div",
       [
-        !this.isMaster()
+        !this.isMasterOrAdmin()
           ? _c("not-found")
           : [
               _c("div", { staticClass: "row" }, [
@@ -100598,13 +100674,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         currentPath: function currentPath() {
             return this.$route.path;
-        },
-        showSearch: function showSearch() {
-            if (this.$route.path == '/dashboard' || this.$route.path == '/retensi-tahunan' || this.$route.path == '/detail-penyimpanan' || this.$route.path == '/detail-retensi' || this.$route.path == '/profil') {
-                return false;
-            } else {
-                return true;
-            }
         }
     }
 });
@@ -100626,7 +100695,7 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _vm.showSearch
+      !_vm.$route.meta.hidSearch
         ? _c(
             "div",
             {
@@ -101213,7 +101282,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                this.isMaster()
+                this.isMasterOrAdmin()
                   ? _c(
                       "li",
                       {
@@ -101240,7 +101309,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                this.isMaster()
+                this.isMasterOrAdmin()
                   ? _c(
                       "li",
                       {
@@ -101265,7 +101334,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                this.isMaster()
+                this.isMasterOrAdmin()
                   ? _c(
                       "li",
                       {

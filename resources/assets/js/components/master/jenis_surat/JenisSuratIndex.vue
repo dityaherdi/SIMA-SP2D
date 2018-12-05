@@ -1,6 +1,6 @@
 <template>
     <div>
-        <not-found v-if="!isMaster()"></not-found>
+        <not-found v-if="!isMasterOrAdmin()"></not-found>
         <template v-else>
         <div class="row">
         <div class="col-12">
@@ -126,7 +126,7 @@
             },
 
             loadJenis() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.readData('api/jenis')
                     .then((jenis) => {
                         this.jenis = jenis
@@ -145,7 +145,7 @@
             // },
 
             getResults(page = 1) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     if (this.searching==true) {
                         axios.get('api/search-jenis?keywords='+this.jenKeyword+'&page='+page)
                         .then((response) => {
@@ -163,7 +163,7 @@
             },
 
             searchJenis(keywords) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.searchData('api/search-jenis?keywords='+keywords)
                     .then((jenis) => {
                         this.jenis = jenis

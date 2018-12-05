@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 class SkpdController extends Controller
 {
     public function __construct() {
-        $this->middleware('can:isMaster');
+        $this->middleware('can:isMasterOrAdmin');
     }
     /**
      * Display a listing of the resource.

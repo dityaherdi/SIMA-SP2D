@@ -144,7 +144,6 @@
                         this.next = arsip.next_page_url
                         this.searching = false
                         this.arsipKeyword = null
-                        // console.log(JSON.stringify(this.arsip,null,8))
                         Signal.$emit('clear_keywords')
                     })
                 }

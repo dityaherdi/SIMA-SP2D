@@ -210,14 +210,14 @@
             },
 
             createUser() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.combineNip()
                     this.createData(this.user, 'api/user', 'user')
                 }
             },
 
             updateUser() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.combineNip()
                     this.updateData(this.user, 'api/user/'+this.user.id_user, 'user')
                 }

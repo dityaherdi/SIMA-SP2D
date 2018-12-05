@@ -10,6 +10,9 @@
                         <ul class="list-group">
                             <li class="list-group-item" v-for="ars in arsip.data" :key="ars.id_arsip">
                                 {{ ars.surat.nomor_surat }} - {{ ars.tgl_diarsipkan | tanggalLokal }}
+                                <button class="btn btn-primary btn-sm float-right ml-2" @click="showDetailModal(ars)">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -21,6 +24,7 @@
                 </div>
             </div>
         </div>
+        <detail-arsip></detail-arsip>
     </div>
 </template>
 
@@ -30,6 +34,9 @@
             return {
                 arsip: {}
             }
+        },
+        components: {
+            "detail-arsip" : require('./../master/arsip/children/DetailArsipModal.vue')
         },
         created() {
             axios.get('api/detail-arsip')
@@ -46,6 +53,9 @@
                 .then((response) => {
                     this.arsip = response.data.data
                 })
+            },
+            showDetailModal(ars) {
+                Signal.$emit('show_detail_arsip_modal', ars)
             }
         }
     }

@@ -108,13 +108,13 @@
 
         methods: {
             createSkpd() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.createData(this.skpd, 'api/skpd', 'skpd')
                 }
             },
             
             updateSkpd() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.updateData(this.skpd, 'api/skpd/'+this.skpd.id_skpd, 'skpd')
                 }
             },

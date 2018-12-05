@@ -11,7 +11,7 @@ use App\Http\Requests\FormUserRequest;
 class UserController extends Controller
 {
     public function __construct() {
-        $this->middleware('can:isMaster');
+        $this->middleware('can:isMasterOrAdmin');
     }
     /**
      * Display a listing of the resource.

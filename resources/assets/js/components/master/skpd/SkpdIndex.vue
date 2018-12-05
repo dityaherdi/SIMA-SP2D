@@ -1,6 +1,6 @@
 <template>
     <div>
-        <not-found v-if="!this.isMaster()"></not-found>
+        <not-found v-if="!this.isMasterOrAdmin()"></not-found>
         <template v-else>
         <div class="row">
           <div class="col-12">
@@ -126,7 +126,7 @@
             },
 
             loadSkpd() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.readData('api/skpd')
                     .then((skpd) => {
                         this.skpds = skpd
@@ -145,7 +145,7 @@
             // },
             
             getResults(page = 1) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     if (this.searching==true) {
                         axios.get('api/search-skpd?keywords='+this.skpdKeyword+'&page='+page)
                         .then((response) => {
@@ -163,7 +163,7 @@
             },
 
             searchSkpd(keywords) {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.searchData('api/search-skpd?keywords='+keywords)
                     .then((skpd) => {
                         this.skpds = skpd

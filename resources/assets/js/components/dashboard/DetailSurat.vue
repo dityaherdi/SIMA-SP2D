@@ -10,7 +10,10 @@
                         <ul class="list-group">
                             <li v-if="surat.length==0" class="list-group-item">Tidak ada data</li>
                             <li class="list-group-item" v-for="sur in surat.data" :key="sur.id_surat">
-                                {{ sur.nomor_surat }} |  Terbit : {{ sur.tgl_terbit | tanggalLokal }}
+                                {{ sur.nomor_surat }}
+                                <button class="btn btn-primary btn-sm float-right ml-2" @click="showDetailModal(sur)">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -22,6 +25,7 @@
                 </div>
             </div>
         </div>
+        <detail-surat></detail-surat>
     </div>
 </template>
 
@@ -31,6 +35,9 @@
             return {
                 surat: {}
             }
+        },
+        components : {
+            "detail-surat" : require('./../master/surat/children/DetailSuratModal.vue')
         },
         created() {
             axios.get('api/detail-surat')
@@ -48,6 +55,9 @@
                     this.surat = response.data.data
                 })
                 
+            },
+            showDetailModal(sur) {
+                Signal.$emit('show_detail_surat_modal', sur)
             }
         }
     }

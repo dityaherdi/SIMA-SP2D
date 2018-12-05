@@ -9,7 +9,7 @@
         </ul>
 
         <!-- SEARCH FORM -->
-        <div class="input-group input-group-sm ml-3" style="width: 350px" v-if="showSearch">
+        <div class="input-group input-group-sm ml-3" style="width: 350px" v-if="!$route.meta.hidSearch">
             <input class="form-control form-control-navbar white-text-color"
                     type="search" placeholder="Pencarian" aria-label="Search"
                     v-model="keywords"
@@ -103,14 +103,6 @@
 
             currentPath() {
                 return this.$route.path
-            },
-
-            showSearch() {
-                if (this.$route.path=='/dashboard' || this.$route.path=='/retensi-tahunan' || this.$route.path=='/detail-penyimpanan' || this.$route.path=='/detail-retensi' || this.$route.path=='/profil') {
-                    return false
-                }else {
-                    return true
-                }
             }
         }
     }

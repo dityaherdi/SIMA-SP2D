@@ -24,7 +24,7 @@ class ArsipController extends Controller
      */
     public function index()
     {
-        $arsip = Arsip::latest()->where('status_retensi', 0)->with([
+        $arsip = Arsip::latest()->where(['status_retensi' => 0, 'status' => 1])->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
             'surat.skpd:id_skpd,kode_skpd,nama_skpd',
             'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
@@ -145,7 +145,7 @@ class ArsipController extends Controller
                 'box.rak.ruangan.gedung:id_gedung,nama_gedung'
             ])->whereHas('surat', function($query) use ($keywords) {
                 $query->where('nomor_surat', 'LIKE', "%$keywords%");
-            })->where('status_retensi', 0)->get()->paginateCollection(10);
+            })->where(['status_retensi' => 0, 'status' => 1])->get()->paginateCollection(10);
         }
 
         return response()->json([

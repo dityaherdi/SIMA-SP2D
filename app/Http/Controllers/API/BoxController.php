@@ -21,7 +21,7 @@ class BoxController extends Controller
      */
     public function index()
     {
-        $box = Box::latest()->where('status_retensi_box', 0)->with([
+        $box = Box::latest()->where(['status_retensi_box' => 0, 'status' => 1])->with([
             'rak:id_rak,id_ruangan,kode_rak',
             'rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'rak.ruangan.gedung:id_gedung,nama_gedung'

@@ -93,13 +93,13 @@
             },
 
             createJenis() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.createData(this.jenis, 'api/jenis', 'jenis')
                 }
             },
             
             updateJenis() {
-                if (this.isMaster()) {
+                if (this.isMasterOrAdmin()) {
                     this.updateData(this.jenis, 'api/jenis/'+this.jenis.id_jenis_sp2d, 'jenis')
                 }
             }
