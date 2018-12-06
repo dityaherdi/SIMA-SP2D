@@ -4,12 +4,12 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">
-                        List Arsip SP2D terbaru
+                        Daftar 100 unit Arsip SP2D terbaru
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
                             <li class="list-group-item" v-for="ars in arsip.data" :key="ars.id_arsip">
-                                {{ ars.surat.nomor_surat }} - {{ ars.tgl_diarsipkan | tanggalLokal }}
+                                {{ ars.surat.nomor_surat }}
                                 <button class="btn btn-primary btn-sm float-right ml-2" @click="showDetailModal(ars)">
                                     <i class="fas fa-eye"></i> Detail
                                 </button>

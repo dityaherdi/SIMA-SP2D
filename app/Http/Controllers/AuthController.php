@@ -24,12 +24,14 @@ class AuthController extends Controller
      */
     public function login()
     {
+        // menyimpan data yang dikirim dari front-end
         $credentials = request(['username', 'password']);
-
+        // periksa autentifikasi melalui API
+        // autentifikasi gagal -> kirim pesan error
         if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
+        // autentifikasi sukses -> kirim access_token ke front-end
         return $this->respondWithToken($token);
     }
 
