@@ -22,7 +22,7 @@
                     Mohon periksa kembali sebelum menggunakan fungsi ini!
                 </p>
 
-                <button class="btn btn-outline-light btn-block" @click="bulkRetensi" :disabled="retensi.length==0 ? true : false">
+                <button class="btn btn-outline-light btn-block" @click="bulkRetensi" :disabled="total==0 ? true : false">
                         <i class="fas fa-trash mr-2"></i> Retensi Semua ({{ total }} Arsip)
                 </button>
                 </div>
@@ -46,14 +46,29 @@
 
         methods: {
             bulkRetensi() {
-                axios.post('api/bulk-retensi')
-                .then((response) => {
-                    swal({
-                        title: 'Retensi Selesai!',
-                        text: response.data.messages,
-                        type: 'success'
-                    })
-                    this.loadRetensi()
+                swal({
+                    title: 'Retensi Semua Arsip Tahun ini?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus Data',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.post('api/bulk-retensi')
+                        .then((response) => {
+                            swal({
+                                title: 'Retensi Selesai!',
+                                text: response.data.messages,
+                                type: 'success'
+                            })
+                            this.loadRetensi()
+                        })
+                    }
+                }).catch((error) => {
+                    console.log(error)
                 })
             },
 
@@ -76,7 +91,6 @@
                         }else{
                             this.retensi = response.data.data
                             this.total = response.data.total
-                            // console.log(JSON.stringify(this.retensi,null,8))
                         }
                     })
                     .catch((error) => {

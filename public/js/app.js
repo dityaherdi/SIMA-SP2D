@@ -74065,13 +74065,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         bulkRetensi: function bulkRetensi() {
             var _this = this;
 
-            axios.post('api/bulk-retensi').then(function (response) {
-                swal({
-                    title: 'Retensi Selesai!',
-                    text: response.data.messages,
-                    type: 'success'
-                });
-                _this.loadRetensi();
+            swal({
+                title: 'Retensi Semua Arsip Tahun ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Data',
+                cancelButtonText: 'Batal'
+            }).then(function (result) {
+                if (result.value) {
+                    axios.post('api/bulk-retensi').then(function (response) {
+                        swal({
+                            title: 'Retensi Selesai!',
+                            text: response.data.messages,
+                            type: 'success'
+                        });
+                        _this.loadRetensi();
+                    });
+                }
+            }).catch(function (error) {
+                console.log(error);
             });
         },
         loadRetensi: function loadRetensi() {
@@ -74094,7 +74109,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     } else {
                         _this2.retensi = response.data.data;
                         _this2.total = response.data.total;
-                        // console.log(JSON.stringify(this.retensi,null,8))
                     }
                 }).catch(function (error) {
                     console.log(error);
@@ -74172,7 +74186,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-outline-light btn-block",
-              attrs: { disabled: _vm.retensi.length == 0 ? true : false },
+              attrs: { disabled: _vm.total == 0 ? true : false },
               on: { click: _vm.bulkRetensi }
             },
             [
