@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::latest()->paginate(5);
+        $user = User::latest()->where('status', 1)->paginate(5);
 
         return response()->json([
             'data' => $user

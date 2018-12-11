@@ -36,9 +36,14 @@
                                 <p class="test-justify"><strong>SKPD : </strong> {{ arsip.nama_skpd }} </p>
                                 <p class="test-justify"><strong>Jenis SP2D : </strong> {{ arsip.nama_jenis_sp2d }} </p>
                                 <p class="test-justify"><strong>Uraian : </strong> {{ arsip.uraian }} </p>
-                                <p class="test-justify"><strong>Box : </strong> {{ arsip.kode_box }} </p>
+                                <p class="test-justify"><strong>Letak : </strong> {{ arsip.gedung }} / {{ arsip.ruangan }} / {{ arsip.rak }} / {{ arsip.kode_box }} </p>
                             </div>
                         </div>
+                        <div class="row">
+                    <div class="col-12 text-center">
+                        <i>*apabila terdapat perbedaan data letak Arsip pada QR-Code, harap ikuti keterangan Letak Box atau Perbarui Data pada Form Edit Arsip untuk memperbarui QR-Code</i>
+                    </div>
+                </div>
                     </div>
                     <div class="tab-pane" id="tab_label_arsip">
                         <div class="container border border-dark" id="arsipLabel">
@@ -111,7 +116,10 @@
                     nama_skpd: '',
                     nama_jenis_sp2d: '',
                     uraian: '',
-                    kode_box: ''
+                    kode_box: '',
+                    rak: '',
+                    ruangan: '',
+                    gedung: ''
                 }
             }
         },
@@ -132,6 +140,9 @@
                     this.arsip.uraian = ars.surat.uraian
                 }
                 this.arsip.kode_box = ars.box.kode_box
+                this.arsip.rak = ars.box.rak.kode_rak
+                this.arsip.ruangan = ars.box.rak.ruangan.kode_ruangan
+                this.arsip.gedung = ars.box.rak.ruangan.gedung.nama_gedung
                 this.showModal(null, 'Arsip', 'detail', null)
             })
         },

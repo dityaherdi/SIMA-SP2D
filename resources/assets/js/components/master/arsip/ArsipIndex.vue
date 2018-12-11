@@ -38,6 +38,11 @@
                         <i class="fas fa-calendar-times mr-2"></i> Retensi Tahunan
                     </router-link>
                 </li>
+                <li class="nav-item mr-3 mb-3 mt-3">
+                    <router-link :to="{ name: 'Bukti' }" class="btn btn-outline-success">
+                        <i class="fas fa-gavel mr-2"></i> Penggunaan Bukti Autentik
+                    </router-link>
+                </li>
             </ul>
         </nav>
         <ul class="list-group mt-3">

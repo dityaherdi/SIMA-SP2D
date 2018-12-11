@@ -39,6 +39,11 @@
                             <p class="text-justify"><strong>Status : </strong> {{ rak.status }} </p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <i>*apabila terdapat perbedaan data letak Rak pada QR-Code, harap ikuti keterangan Detail Letak Rak atau Perbarui Data pada Form Edit Rak untuk memperbarui QR-Code</i>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane" id="tab_label_rak">
                     <div class="container border border-dark" id="rakLabel">

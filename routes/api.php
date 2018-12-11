@@ -92,4 +92,8 @@ Route::group(['middleware' => 'auth:api'], function (){
 
     // Get Arsip In Box
     Route::get('get-arsip-in-box/{id}', 'API\BoxController@getArsipInBox');
+
+    // Bukti Autentik
+    Route::get('get-bukti-autentik', 'API\ArsipController@bukti');
+    Route::post('bukti-done/{id}', 'API\ArsipController@buktiDone');
 });

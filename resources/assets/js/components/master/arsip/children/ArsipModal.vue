@@ -103,7 +103,7 @@
                             <div class="form-check">
                             <input class="form-check-input" type="checkbox" 
                                     id="statusarsip" v-model="arsip.status">
-                            <label class="form-check-label" for="statusarsip">Status Aktif</label>
+                            <label class="form-check-label" for="statusarsip">Status <strong>TIDAK</strong> digunakan sebagai bukti Autentik</label>
                             </div>
                         </div>
                     </div>

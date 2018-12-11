@@ -172,6 +172,35 @@ class ArsipController extends Controller
         ]);  
     }
 
+    public function bukti()
+    {
+        $arsip = Arsip::where(['status_retensi' => 0, 'status' => 0])->with([
+            'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
+            'surat.skpd:id_skpd,kode_skpd,nama_skpd',
+            'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
+            'box:id_box,id_rak,kode_box',
+            'box.rak:id_rak,id_ruangan,kode_rak',
+            'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
+            'box.rak.ruangan.gedung:id_gedung,nama_gedung'
+        ])->orderBy('updated_at', 'DESC')->get();
+
+        return response()->json([
+            'data' => $arsip
+        ]);
+    }
+
+    public function buktiDone($id)
+    {
+        $arsip = Arsip::findOrFail($id);
+
+        $arsip->update(['status' => 1, 'keterangan' => null]);
+
+        return response()->json([
+            'message' => 'Arsip selesai digunakan'
+        ]);
+
+    }
+
     public function generateArsipQr($arsip, $request)
     {
         $letak = Arsip::join('surats', 'surats.id_sp2d', '=', 'arsips.id_sp2d')

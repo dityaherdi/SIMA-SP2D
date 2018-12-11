@@ -39,12 +39,6 @@ let routes = [
 		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
-		path: '/retensi-tahunan',
-		component: require('./components/master/arsip/children/Retensi.vue'),
-		name: 'Retensi',
-		meta: { requiresAuth: true, hidSearch:true }
-	},
-	{
 		path: '/skpd',
 		component: require('./components/master/skpd/SkpdIndex.vue'),
 		name: 'SkpdIndex',
@@ -91,6 +85,18 @@ let routes = [
 		component: require('./components/master/arsip/ArsipIndex.vue'),
 		name: 'ArsipIndex',
 		meta: { requiresAuth: true }
+	},
+	{
+		path: '/retensi-tahunan',
+		component: require('./components/master/arsip/children/Retensi.vue'),
+		name: 'Retensi',
+		meta: { requiresAuth: true, hidSearch:true }
+	},
+	{
+		path: '/bukti-autentik',
+		component: require('./components/master/arsip/children/BuktiAutentik.vue'),
+		name: 'Bukti',
+		meta: { requiresAuth: true, hidSearch:true }
 	},
 	{
 		path: '/user',

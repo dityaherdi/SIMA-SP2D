@@ -71281,11 +71281,6 @@ var routes = [{
 	name: 'DetailRetensi',
 	meta: { requiresAuth: true, hidSearch: true }
 }, {
-	path: '/retensi-tahunan',
-	component: __webpack_require__(226),
-	name: 'Retensi',
-	meta: { requiresAuth: true, hidSearch: true }
-}, {
 	path: '/skpd',
 	component: __webpack_require__(229),
 	name: 'SkpdIndex',
@@ -71325,6 +71320,16 @@ var routes = [{
 	component: __webpack_require__(291),
 	name: 'ArsipIndex',
 	meta: { requiresAuth: true }
+}, {
+	path: '/retensi-tahunan',
+	component: __webpack_require__(226),
+	name: 'Retensi',
+	meta: { requiresAuth: true, hidSearch: true }
+}, {
+	path: '/bukti-autentik',
+	component: __webpack_require__(390),
+	name: 'Bukti',
+	meta: { requiresAuth: true, hidSearch: true }
 }, {
 	path: '/user',
 	component: __webpack_require__(294),
@@ -72979,6 +72984,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72993,7 +73003,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 nama_skpd: '',
                 nama_jenis_sp2d: '',
                 uraian: '',
-                kode_box: ''
+                kode_box: '',
+                rak: '',
+                ruangan: '',
+                gedung: ''
             }
         };
     },
@@ -73015,6 +73028,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.arsip.uraian = ars.surat.uraian;
             }
             _this.arsip.kode_box = ars.box.kode_box;
+            _this.arsip.rak = ars.box.rak.kode_rak;
+            _this.arsip.ruangan = ars.box.rak.ruangan.kode_ruangan;
+            _this.arsip.gedung = ars.box.rak.ruangan.gedung.nama_gedung;
             _this.showModal(null, 'Arsip', 'detail', null);
         });
     },
@@ -73133,11 +73149,23 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "test-justify" }, [
-                          _c("strong", [_vm._v("Box : ")]),
-                          _vm._v(" " + _vm._s(_vm.arsip.kode_box) + " ")
+                          _c("strong", [_vm._v("Letak : ")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.arsip.gedung) +
+                              " / " +
+                              _vm._s(_vm.arsip.ruangan) +
+                              " / " +
+                              _vm._s(_vm.arsip.rak) +
+                              " / " +
+                              _vm._s(_vm.arsip.kode_box) +
+                              " "
+                          )
                         ])
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3)
                   ]
                 ),
                 _vm._v(" "),
@@ -73152,7 +73180,7 @@ var render = function() {
                         attrs: { id: "arsipLabel" }
                       },
                       [
-                        _vm._m(3),
+                        _vm._m(4),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -73203,7 +73231,7 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._m(4)
+                                _vm._m(5)
                               ])
                             ])
                           ]
@@ -73272,7 +73300,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(5)
+            _vm._m(6)
           ])
         ]
       )
@@ -73338,6 +73366,20 @@ var staticRenderFns = [
         _vm._v(" Label\n                    ")
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 text-center" }, [
+        _c("i", [
+          _vm._v(
+            "*apabila terdapat perbedaan data letak Arsip pada QR-Code, harap ikuti keterangan Letak Box atau Perbarui Data pada Form Edit Arsip untuk memperbarui QR-Code"
+          )
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -79175,6 +79217,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -79312,7 +79359,9 @@ var render = function() {
                           _vm._v(" " + _vm._s(_vm.rak.status) + " ")
                         ])
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2)
                   ]
                 ),
                 _vm._v(" "),
@@ -79327,7 +79376,7 @@ var render = function() {
                         attrs: { id: "rakLabel" }
                       },
                       [
-                        _vm._m(2),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -79376,7 +79425,7 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._m(3)
+                                _vm._m(4)
                               ])
                             ])
                           ]
@@ -79418,7 +79467,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(5)
           ])
         ]
       )
@@ -79482,6 +79531,20 @@ var staticRenderFns = [
             _vm._v(" Label\n                    ")
           ]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 text-center" }, [
+        _c("i", [
+          _vm._v(
+            "*apabila terdapat perbedaan data letak Rak pada QR-Code, harap ikuti keterangan Detail Letak Rak atau Perbarui Data pada Form Edit Rak untuk memperbarui QR-Code"
+          )
+        ])
       ])
     ])
   },
@@ -81280,6 +81343,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -81445,7 +81513,9 @@ var render = function() {
                           _vm._v(" " + _vm._s(_vm.box.status) + " ")
                         ])
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2)
                   ]
                 ),
                 _vm._v(" "),
@@ -81460,7 +81530,7 @@ var render = function() {
                         attrs: { id: "boxLabel" }
                       },
                       [
-                        _vm._m(2),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -81509,7 +81579,7 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._m(3)
+                                _vm._m(4)
                               ])
                             ])
                           ]
@@ -81605,7 +81675,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(5)
           ])
         ]
       )
@@ -81683,6 +81753,20 @@ var staticRenderFns = [
             _vm._v(" List Arsip\n                    ")
           ]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 text-center" }, [
+        _c("i", [
+          _vm._v(
+            "*apabila terdapat perbedaan data letak Box pada QR-Code, harap ikuti keterangan Detail Letak Box atau Perbarui Data pada Form Edit Box untuk memperbarui QR-Code"
+          )
+        ])
       ])
     ])
   },
@@ -85508,20 +85592,13 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "form-check-label",
-                            attrs: { for: "statusarsip" }
-                          },
-                          [_vm._v("Status Aktif")]
-                        )
+                        _vm._m(1)
                       ])
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
-                    _vm._m(1),
+                    _vm._m(2),
                     _vm._v(" "),
                     !_vm.editing
                       ? _c(
@@ -85583,6 +85660,20 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "statusarsip" } },
+      [
+        _vm._v("Status "),
+        _c("strong", [_vm._v("TIDAK")]),
+        _vm._v(" digunakan sebagai bukti Autentik")
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -86194,6 +86285,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -86527,6 +86623,25 @@ var render = function() {
                             staticClass: "fas fa-calendar-times mr-2"
                           }),
                           _vm._v(" Retensi Tahunan\n                ")
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "nav-item mr-3 mb-3 mt-3" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-outline-success",
+                          attrs: { to: { name: "Bukti" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-gavel mr-2" }),
+                          _vm._v(" Penggunaan Bukti Autentik\n                ")
                         ]
                       )
                     ],
@@ -103015,6 +103130,269 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(391)
+/* template */
+var __vue_template__ = __webpack_require__(392)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/master/arsip/children/BuktiAutentik.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3f8a72f6", Component.options)
+  } else {
+    hotAPI.reload("data-v-3f8a72f6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 391 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            bukti: {}
+        };
+    },
+    created: function created() {
+        this.loadBukti();
+    },
+
+
+    methods: {
+        loadBukti: function loadBukti() {
+            var _this = this;
+
+            if (this.isMasterOrAdmin()) {
+                axios.get('api/get-bukti-autentik').then(function (response) {
+                    _this.bukti = response.data.data;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        },
+        buktiDone: function buktiDone(id) {
+            var _this2 = this;
+
+            swal({
+                title: 'Kembalikan arsip ini?',
+                text: "Pastikan arsip ini sudah selesai digunakan!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Penggunaan Selesai',
+                cancelButtonText: 'Batal'
+            }).then(function (result) {
+                if (result.value) {
+                    _this2.$Progress.start();
+                    if (_this2.isMasterOrAdmin()) {
+                        axios.post('api/bukti-done/' + id).then(function (response) {
+                            toast({
+                                type: 'success',
+                                title: response.data.message
+                            });
+                            _this2.loadBukti();
+                            _this2.$Progress.finish();
+                        }).catch(function (error) {
+                            console.log(error);
+                            _this2.$Progress.fail();
+                        });
+                    }
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "div",
+        { attrs: { id: "accordion" } },
+        _vm._l(_vm.bukti, function(buk) {
+          return _c(
+            "div",
+            { key: buk.id_arsip, staticClass: "card card-info" },
+            [
+              _c("div", { staticClass: "card-header" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "collapsed",
+                    attrs: {
+                      "data-toggle": "collapse",
+                      "data-parent": "#accordion",
+                      href: "#" + "ket" + buk.id_arsip,
+                      "aria-expanded": "false"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(buk.surat.nomor_surat) +
+                        "\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "float-right" }, [
+                  _vm._v(
+                    "Tanggal Penggunaan Sejak : " +
+                      _vm._s(_vm._f("tanggalLokal")(buk.updated_at))
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "panel-collapse in collapse",
+                  attrs: { id: "ket" + buk.id_arsip }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("p", [
+                      _vm._v("Keterangan : " + _vm._s(buk.keterangan) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-sm",
+                        on: {
+                          click: function($event) {
+                            _vm.buktiDone(buk.id_arsip)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-check-circle mr-2" }),
+                        _vm._v(" Penggunaan Selesai\n                        ")
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ]
+          )
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [
+        _vm._v("Penggunaan Arsip Sebagai Bukti Autentik")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3f8a72f6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

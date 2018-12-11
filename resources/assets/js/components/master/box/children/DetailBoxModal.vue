@@ -46,6 +46,11 @@
                             <p class="text-justify"><strong>Status : </strong> {{ box.status }} </p>
                         </div>
                     </div>
+                    <div class="row">
+                    <div class="col-12 text-center">
+                        <i>*apabila terdapat perbedaan data letak Box pada QR-Code, harap ikuti keterangan Detail Letak Box atau Perbarui Data pada Form Edit Box untuk memperbarui QR-Code</i>
+                    </div>
+                </div>
                 </div>
                 <div class="tab-pane" id="tab_label_box">
                     <div class="container border border-dark" id="boxLabel">
