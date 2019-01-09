@@ -108,7 +108,7 @@ class DashboardController extends Controller
 
     public function detailSurat()
     {
-        $surat = Surat::latest()->with([
+        $surat = Surat::whereDate('created_at', Carbon::today())->with([
             'skpd:id_skpd,kode_skpd,nama_skpd',
             'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
         ])->where(['arsip' => 0, 'status' => 1])->limit(100)->get()->paginateCollection(15);
@@ -120,7 +120,7 @@ class DashboardController extends Controller
 
     public function detailArsip()
     {
-        $arsip = Arsip::latest()->with([
+        $arsip = Arsip::whereDate('created_at', Carbon::today())->with([
             'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
             'surat.skpd:id_skpd,kode_skpd,nama_skpd',
             'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
