@@ -111,7 +111,7 @@ class DashboardController extends Controller
         $surat = Surat::whereDate('created_at', Carbon::today())->with([
             'skpd:id_skpd,kode_skpd,nama_skpd',
             'jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d'
-        ])->where(['arsip' => 0, 'status' => 1])->limit(100)->get()->paginateCollection(15);
+        ])->where(['arsip' => 0, 'status' => 1])->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $surat
@@ -128,7 +128,7 @@ class DashboardController extends Controller
             'box.rak:id_rak,id_ruangan,kode_rak',
             'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
             'box.rak.ruangan.gedung:id_gedung,nama_gedung'
-        ])->where('status', 1)->limit(100)->get()->paginateCollection(15);
+        ])->where('status', 1)->get()->paginateCollection(15);
 
         return response()->json([
             'data' => $arsip

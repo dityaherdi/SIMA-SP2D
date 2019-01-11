@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">
-                        Daftar 100 unit SP2D terbaru {{ jmlSurat }}
+                        Daftar SP2D hari ini
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
@@ -31,7 +31,7 @@
 
 <script>
     export default {
-        props: ['jmlSurat'],
+        // props: ['jmlSurat'],
         data() {
             return {
                 surat: {}

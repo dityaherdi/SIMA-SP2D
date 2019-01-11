@@ -72402,7 +72402,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['jmlSurat'],
+    // props: ['jmlSurat'],
     data: function data() {
         return {
             surat: {}
@@ -72676,9 +72676,7 @@ var render = function() {
           _c("div", { staticClass: "card card-default" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v(
-                "\n                    Daftar 100 unit SP2D terbaru " +
-                  _vm._s(_vm.jmlSurat) +
-                  "\n                "
+                "\n                    Daftar SP2D hari ini\n                "
               )
             ]),
             _vm._v(" "),
@@ -73455,7 +73453,7 @@ var render = function() {
           _c("div", { staticClass: "card card-default" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v(
-                "\n                    Daftar 100 unit Arsip SP2D terbaru\n                "
+                "\n                    Daftar Arsip SP2D hari ini\n                "
               )
             ]),
             _vm._v(" "),

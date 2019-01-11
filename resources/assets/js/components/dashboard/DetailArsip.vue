@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">
-                        Daftar 100 unit Arsip SP2D terbaru
+                        Daftar Arsip SP2D hari ini
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
