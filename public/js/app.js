@@ -86015,6 +86015,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -86404,53 +86410,75 @@ var render = function() {
                         _vm._s(ars.surat.nomor_surat) +
                         "\n            "
                     ),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm float-right ml-2",
-                        on: {
-                          click: function($event) {
-                            _vm.retensi(ars)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-eraser" }),
-                        _vm._v(" Retensi\n            ")
-                      ]
-                    ),
+                    _vm.searchResult && ars.status == 0
+                      ? _c("p", [
+                          _c("b", { staticClass: "red" }, [
+                            _vm._v("Arsip digunakan sebagai Bukti Autentik.")
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(
+                            "\n                Keterangan : " +
+                              _vm._s(ars.keterangan) +
+                              "\n            "
+                          )
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-success btn-sm float-right ml-2",
-                        on: {
-                          click: function($event) {
-                            _vm.showEditingModal(ars)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-edit" }),
-                        _vm._v(" Edit\n            ")
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-sm float-right ml-2",
-                        on: {
-                          click: function($event) {
-                            _vm.showDetailModal(ars)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-eye" }),
-                        _vm._v(" Detail\n            ")
-                      ]
-                    )
+                    ars.status == 1
+                      ? _c("span", [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-danger btn-sm float-right ml-2",
+                              on: {
+                                click: function($event) {
+                                  _vm.retensi(ars)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-eraser" }),
+                              _vm._v(" Retensi\n                ")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-success btn-sm float-right ml-2",
+                              on: {
+                                click: function($event) {
+                                  _vm.showEditingModal(ars)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-edit" }),
+                              _vm._v(" Edit\n                ")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-primary btn-sm float-right ml-2",
+                              on: {
+                                click: function($event) {
+                                  _vm.showDetailModal(ars)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-eye" }),
+                              _vm._v(" Detail\n                ")
+                            ]
+                          )
+                        ])
+                      : _vm._e()
                   ]
                 )
               })

@@ -52,15 +52,21 @@
                     <i class="fas fa-file-archive"></i>
                 </span>
                 {{ ars.surat.nomor_surat }}
-                <button class="btn btn-danger btn-sm float-right ml-2" @click="retensi(ars)">
-                    <i class="fas fa-eraser"></i> Retensi
-                </button>
-                <button class="btn btn-success btn-sm float-right ml-2" @click="showEditingModal(ars)">
-                    <i class="fas fa-edit"></i> Edit
-                </button>
-                <button class="btn btn-primary btn-sm float-right ml-2" @click="showDetailModal(ars)">
-                    <i class="fas fa-eye"></i> Detail
-                </button>
+                <p v-if="searchResult && ars.status==0">
+                    <b class="red">Arsip digunakan sebagai Bukti Autentik.</b> <br>
+                    Keterangan : {{ ars.keterangan }}
+                </p>
+                <span v-if="ars.status==1">
+                    <button class="btn btn-danger btn-sm float-right ml-2" @click="retensi(ars)">
+                        <i class="fas fa-eraser"></i> Retensi
+                    </button>
+                    <button class="btn btn-success btn-sm float-right ml-2" @click="showEditingModal(ars)">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-primary btn-sm float-right ml-2" @click="showDetailModal(ars)">
+                        <i class="fas fa-eye"></i> Detail
+                    </button>
+                </span>
             </li>
         </ul>
         </template>
