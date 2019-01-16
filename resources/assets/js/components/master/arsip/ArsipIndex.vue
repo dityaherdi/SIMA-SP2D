@@ -46,16 +46,24 @@
             </ul>
         </nav>
         <ul class="list-group mt-3">
-            <li class="list-group-item list-group-item-action" v-for="(ars,index) in sortedArsip(arsip)" :key="ars.id_arsip">
+            <li class="list-group-item list-group-item-action" v-for="(ars,index) in sortedArsip(arsip)" 
+                :key="ars.id_arsip"> <!-- Looping data --> 
                 <span class="mr-3">{{ ++index }}</span>
+                <!-- Icon arsip dengan warna untuk membedakan berdasarkan jenis surat -->
                 <span :class="bgColor(ars.surat.jenis.kode_jenis_sp2d)" class="mr-2">
                     <i class="fas fa-file-archive"></i>
                 </span>
+
+                <!-- Menampilkan nomor surat -->
                 {{ ars.surat.nomor_surat }}
+
+                <!-- Keterangan muncul apabila arsip digunakan sebagai bukti autentik -->
                 <p v-if="searchResult && ars.status==0">
                     <b class="red">Arsip digunakan sebagai Bukti Autentik.</b> <br>
                     Keterangan : {{ ars.keterangan }}
                 </p>
+
+                <!-- Tombol aksi -->
                 <span v-if="ars.status==1">
                     <button class="btn btn-danger btn-sm float-right ml-2" @click="retensi(ars)">
                         <i class="fas fa-eraser"></i> Retensi
@@ -216,7 +224,9 @@
 
             searchArsip(keywords) {
                 if (this.isMasterOrAdmin()) {
+                    // Mengirim request ke back-end
                     this.searchData('api/search-arsip?keywords='+keywords)
+                    // Menampilkan hasil pencarian
                     .then((arsip) => {
                         this.arsip = arsip.data
                         this.searching = true

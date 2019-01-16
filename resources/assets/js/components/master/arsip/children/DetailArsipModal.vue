@@ -148,16 +148,23 @@
         },
 
         methods: {
+
             printArsipLabel() {
                 html2canvas(document.getElementById('arsipLabel'))
                 .then((canvas) => {
+                    // Pemberian nama file
                     let filename = this.arsip.nomor_surat.replace(/\//g, '_')
+                    // Konversi gambar ke bentuk teks
                     let ss = canvas.toDataURL('image/png')
+                    // Menentukan ukuran dokumen
                     let arsLabel = new jsPDF('l', 'pt', 'a5')
+                    // Mencetak gambar ke dalam dokumen
                     arsLabel.addImage(ss, 'PNG', 10, 10)
+                    // Menyimpan dokumen
                     arsLabel.save('arsip_sp2d_label_'+filename+'.pdf')
                 })
             }
+
         }
     }
 </script>

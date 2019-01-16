@@ -140,6 +140,17 @@
     export default {
         data() {
             return {
+                surat: new Form({
+                    id_sp2d: '',
+                    id_skpd: '',
+                    id_jenis_sp2d: '',
+                    nomor_surat: '',
+                    tgl_terbit: '',
+                    uraian: '',
+                    keterangan: '',
+                    status: true
+                }),
+                
                 id: id,
                 editing: false,
                 skpd: {},
@@ -153,16 +164,6 @@
                     sel_kode_skpd: '',
                     sel_kode_jenis: '',
                     sel_tahun: ''
-                }),
-                surat: new Form({
-                    id_sp2d: '',
-                    id_skpd: '',
-                    id_jenis_sp2d: '',
-                    nomor_surat: '',
-                    tgl_terbit: '',
-                    uraian: '',
-                    keterangan: '',
-                    status: true
                 })
             }
         },

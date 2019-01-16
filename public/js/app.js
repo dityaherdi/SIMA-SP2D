@@ -34436,7 +34436,7 @@ function login(credentials) {
         .then(function (response) {
             // menyimpan akses token
             Object(__WEBPACK_IMPORTED_MODULE_0__init__["b" /* setAuthorization */])(response.data.access_token);
-            // menyimpan info user
+            // menyimpan info login user
             resolve(response.data);
         })
         // login gagal
@@ -73039,10 +73039,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             html2canvas(document.getElementById('arsipLabel')).then(function (canvas) {
+                // Pemberian nama file
                 var filename = _this2.arsip.nomor_surat.replace(/\//g, '_');
+                // Konversi gambar ke bentuk teks
                 var ss = canvas.toDataURL('image/png');
+                // Menentukan ukuran dokumen
                 var arsLabel = new jsPDF('l', 'pt', 'a5');
+                // Mencetak gambar ke dalam dokumen
                 arsLabel.addImage(ss, 'PNG', 10, 10);
+                // Menyimpan dokumen
                 arsLabel.save('arsip_sp2d_label_' + filename + '.pdf');
             });
         }
@@ -83721,6 +83726,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            surat: new Form({
+                id_sp2d: '',
+                id_skpd: '',
+                id_jenis_sp2d: '',
+                nomor_surat: '',
+                tgl_terbit: '',
+                uraian: '',
+                keterangan: '',
+                status: true
+            }),
+
             id: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker_dist_locale__["a" /* id */],
             editing: false,
             skpd: {},
@@ -83734,16 +83750,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 sel_kode_skpd: '',
                 sel_kode_jenis: '',
                 sel_tahun: ''
-            }),
-            surat: new Form({
-                id_sp2d: '',
-                id_skpd: '',
-                id_jenis_sp2d: '',
-                nomor_surat: '',
-                tgl_terbit: '',
-                uraian: '',
-                keterangan: '',
-                status: true
             })
         };
     },
@@ -84656,6 +84662,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            arsip: new Form({
+                id_arsip: '',
+                id_sp2d: '',
+                nomor_surat: '',
+                id_box: '',
+                tgl_diarsipkan: '',
+                keterangan: '',
+                status: true
+            }),
+
             disabledDates: {
                 to: ''
             },
@@ -84675,15 +84691,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 sel_day: '',
                 sel_month: '',
                 sel_year: ''
-            }),
-            arsip: new Form({
-                id_arsip: '',
-                id_sp2d: '',
-                nomor_surat: '',
-                id_box: '',
-                tgl_diarsipkan: '',
-                keterangan: '',
-                status: true
             })
         };
     },
@@ -84784,6 +84791,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createArsip: function createArsip() {
             if (this.datePickerValidation() == true) {
                 if (this.isMasterOrAdmin()) {
+                    // Mengirim data ke back-end
                     this.createData(this.arsip, 'api/arsip', 'arsip');
                 }
             }
@@ -86021,6 +86029,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -86152,7 +86168,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             if (this.isMasterOrAdmin()) {
-                this.searchData('api/search-arsip?keywords=' + keywords).then(function (arsip) {
+                // Mengirim request ke back-end
+                this.searchData('api/search-arsip?keywords=' + keywords)
+                // Menampilkan hasil pencarian
+                .then(function (arsip) {
                     _this4.arsip = arsip.data;
                     _this4.searching = true;
                     _this4.next = arsip.next_page_url;
@@ -86405,11 +86424,13 @@ var render = function() {
                       },
                       [_c("i", { staticClass: "fas fa-file-archive" })]
                     ),
+                    _vm._v(" "),
                     _vm._v(
                       "\n            " +
                         _vm._s(ars.surat.nomor_surat) +
-                        "\n            "
+                        "\n\n            "
                     ),
+                    _vm._v(" "),
                     _vm.searchResult && ars.status == 0
                       ? _c("p", [
                           _c("b", { staticClass: "red" }, [

@@ -130,6 +130,16 @@
     export default {
         data() {
             return {
+                arsip: new Form({
+                    id_arsip: '',
+                    id_sp2d: '',
+                    nomor_surat: '',
+                    id_box: '',
+                    tgl_diarsipkan: '',
+                    keterangan: '',
+                    status: true
+                }),
+                
                 disabledDates: {
                     to: ''
                 },
@@ -149,15 +159,6 @@
                     sel_day: '',
                     sel_month: '',
                     sel_year: ''
-                }),
-                arsip: new Form({
-                    id_arsip: '',
-                    id_sp2d: '',
-                    nomor_surat: '',
-                    id_box: '',
-                    tgl_diarsipkan: '',
-                    keterangan: '',
-                    status: true
                 })
             }
         },
@@ -262,6 +263,7 @@
             createArsip() {
                 if(this.datePickerValidation()==true) {
                     if (this.isMasterOrAdmin()) {
+                        // Mengirim data ke back-end
                         this.createData(this.arsip, 'api/arsip', 'arsip')
                     }
                 }

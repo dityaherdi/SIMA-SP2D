@@ -47,6 +47,7 @@ class ArsipController extends Controller
      */
     public function store(FormArsipRequest $request)
     {
+        // Mengubah Format Tanggal
         $date = Carbon::parse($request->tgl_diarsipkan);
         $arsipDate = $date->toDateTimeString();
         $retensiDate = $date->addYears(10)->toDateTimeString();
@@ -56,6 +57,7 @@ class ArsipController extends Controller
             'tgl_perkiraan_retensi' => $retensiDate
         ]);
 
+        // Menyimpan Data Arsip
         $arsip = Arsip::create($request->except(['nomor_surat']));
 
         // Update jumlah arsip dalam box
@@ -134,19 +136,7 @@ class ArsipController extends Controller
 
     public function search(Request $request)
     {
-        // if ($keywords = $request->keywords) {
-        //     $arsip = Arsip::with([
-        //         'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
-        //         'surat.skpd:id_skpd,kode_skpd,nama_skpd',
-        //         'surat.jenis:id_jenis_sp2d,kode_jenis_sp2d,nama_jenis_sp2d',
-        //         'box:id_box,id_rak,kode_box',
-        //         'box.rak:id_rak,id_ruangan,kode_rak',
-        //         'box.rak.ruangan:id_ruangan,id_gedung,kode_ruangan',
-        //         'box.rak.ruangan.gedung:id_gedung,nama_gedung'
-        //     ])->whereHas('surat', function($query) use ($keywords) {
-        //         $query->where('nomor_surat', 'LIKE', "%$keywords%");
-        //     })->where(['status_retensi' => 0, 'status' => 1])->get()->paginateCollection(10);
-        // }
+        // Script pencarian arsip
         if ($keywords = $request->keywords) {
             $arsip = Arsip::with([
                 'surat:id_sp2d,id_skpd,id_jenis_sp2d,nomor_surat,tgl_terbit,uraian',
@@ -216,6 +206,7 @@ class ArsipController extends Controller
 
     public function generateArsipQr($arsip, $request)
     {
+        // Mencari Letak Arsip
         $letak = Arsip::join('surats', 'surats.id_sp2d', '=', 'arsips.id_sp2d')
                         ->join('boxes', 'boxes.id_box', '=', 'arsips.id_box')
                         ->join('raks', 'raks.id_rak', '=', 'boxes.id_rak')
@@ -224,21 +215,26 @@ class ArsipController extends Controller
                         ->select('nama_gedung', 'kode_ruangan', 'kode_rak', 'kode_box', 'nomor_surat')
                         ->where(['arsips.id_arsip' => $arsip->id_arsip, 'arsips.status' => 1])
                         ->get()->first();
-        
+                        
+        // Memberi nama File QR-Code
         $currentArsipQr = $arsip->qr_arsip;
         $filename = str_replace('/', '-', $letak['nomor_surat']).'-'.time().'.png';
         $path = public_path('img/qr/arsip/'.$filename);
+
+        // Script Generate QR-Code Arsip
         QRCode::text(
+            // Letak Arsip
             'Gedung : '.$letak['nama_gedung'].' / '.
             'Ruangan : '.$letak['kode_ruangan'].' / '.
             'Rak : '.$letak['kode_rak'].' / '.
             'Box : '.$letak['kode_box'].' / '.
             'Nomor Surat : '.$letak['nomor_surat'])
-                ->setSize(10)
-                ->setMargin(1)
-                ->setOutFile($path)
-                ->png();
+                ->setSize(10) // Atur Dimensi QR-Code
+                ->setMargin(1) // Atur Margin QR-Code
+                ->setOutFile($path) // Atur Direktori QR-Code
+                ->png(); // Tipe file
 
+        // Menyimpan nama QR-Code pada Basis Data
         $arsip->update(['qr_arsip' => $filename]);
 
         if ($request->isMethod('POST')) {

@@ -8,7 +8,7 @@ export function login(credentials) {
             .then((response) => {
                 // menyimpan akses token
                 setAuthorization(response.data.access_token);
-                // menyimpan info user
+                // menyimpan info login user
                 resolve(response.data);
             })
             // login gagal
